@@ -1,0 +1,568 @@
+# Conceptos básicos: Estadística
+
+Antes de hacer análisis multivariado necesitamos tener claro lo básico de **una variable** (univariado) y de **dos variables juntas** (bivariado). 
+
+
+## Los datos: consumo de combustible de automóviles
+
+Vamos a trabajar con la base **Auto MPG**, un clásico del repositorio de aprendizaje automático de la UCI. Tiene **398 modelos de automóviles** (años 1970 a 1982) con sus características de motor, peso y consumo de combustible. 
+
+### Traer la base desde internet
+
+Con `read.csv()` se puede leer un archivo directamente desde un enlace:
+
+```{r}
+# Leer la base desde GitHub
+direccion <- "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv"
+autos <- read.csv(direccion)
+```
+
+Ya está guardada en el objeto `autos`. Los nombres de las columnas vienen en inglés; los cambiamos al español con `names()`:
+
+```{r}
+names(autos)     # nombres originales
+
+names(autos) <- c("consumo", "cilindros", "cilindrada", "potencia",
+                  "peso", "aceleracion", "anio", "origen", "nombre")
+names(autos)     # nombres nuevos
+```
+
+| Variable | ¿Qué mide? | Unidad |
+|:--|:--|:--|
+| `consumo` | Rendimiento de combustible | millas por galón (mpg) |
+| `cilindros` | Número de cilindros del motor | 3, 4, 5, 6 u 8 |
+| `cilindrada` | Volumen del motor | pulgadas cúbicas |
+| `potencia` | Potencia del motor | caballos de fuerza (hp) |
+| `peso` | Peso del vehículo | libras |
+| `aceleracion` | Tiempo de 0 a 60 mph | segundos |
+| `anio` | Año del modelo | 70 = 1970 |
+| `origen` | Región de fabricación | usa, europe, japan |
+| `nombre` | Marca y modelo | texto |
+
+(Un consumo **mayor** es mejor: el carro recorre más millas con el mismo galón).
+
+## Estructura de la base de datos
+
+En una base de datos, **cada fila es un individuo** (aquí, un modelo de carro) y **cada columna es una variable**.
+
+```{r}
+head(autos)       # las primeras 6 filas
+```
+
+```{r}
+dim(autos)        # filas y columnas
+nrow(autos)       # número de individuos (n)
+ncol(autos)       # número de variables (p)
+```
+
+La función `str()` nos muestra cómo R guardó cada variable:
+
+```{r}
+str(autos)
+```
+
+Para sacar una variable (una columna) usamos `$`:
+
+```{r}
+autos$consumo[1:10]     # consumo de los primeros 10 carros
+```
+
+Y para un dato específico, `[fila, columna]`:
+
+```{r}
+autos[3, 5]                       # fila 3, columna 5 (peso)
+autos[autos$origen == "japan", ][1:3, ]   # los primeros 3 carros japoneses
+```
+
+## Tipos de variables
+
+| Tipo | ¿Qué es? | Ejemplo en la base |
+|:--|:--|:--|
+| Cualitativa nominal | Categorías sin orden | `origen`, `nombre` |
+| Cualitativa ordinal | Categorías con orden | (talla: pequeña < mediana < grande) |
+| Cuantitativa discreta | Se cuenta | `cilindros`, `anio` |
+| Cuantitativa continua | Se mide | `consumo`, `potencia`, `peso`, `aceleracion` |
+
+### Variables cualitativas
+
+Se resumen con **tablas de frecuencias**:
+
+```{r}
+table(autos$origen)                          # frecuencias
+prop.table(table(autos$origen))              # proporciones
+round(100 * prop.table(table(autos$origen)), 1)   # porcentajes
+```
+
+```{r}
+barplot(table(autos$origen), col = c("steelblue", "orange", "darkgreen"),
+        ylab = "Número de modelos", main = "Modelos por región de origen")
+```
+
+Dos variables juntas, una **tabla cruzada**:
+
+```{r}
+table(autos$cilindros, autos$origen)
+```
+
+La mayoría de los carros de Estados Unidos tienen 8 cilindros; los japoneses y europeos, casi todos 4.
+
+Para que R trate una variable como categoría, la convertimos en **factor**:
+
+```{r}
+autos$origen <- as.factor(autos$origen)
+
+levels(autos$origen)       # las categorías
+summary(autos$origen)
+```
+
+### Variables cuantitativas
+
+Se resumen con medidas numéricas. `summary()` da lo esencial de toda la base:
+
+```{r}
+summary(autos)
+```
+
+## Datos faltantes
+
+En R, un dato faltante se escribe **`NA`**. Primero, ¿cuántos hay en cada variable?
+
+```{r}
+colSums(is.na(autos))
+```
+
+Solo la `potencia` tiene faltantes: 6 carros. ¿Cuáles son?
+
+```{r}
+autos[is.na(autos$potencia), ]
+```
+
+### Qué pasa si ignoramos los `NA`
+
+Casi todas las funciones de R devuelven `NA` si hay faltantes:
+
+```{r}
+mean(autos$potencia)
+```
+
+Hay que decirle que los **ignore** con `na.rm = TRUE`:
+
+```{r}
+mean(autos$potencia, na.rm = TRUE)
+```
+
+### Eliminar los individuos con faltantes
+
+Para análisis multivariado, lo más sencillo es trabajar con los **casos completos**:
+
+```{r}
+autos2 <- na.omit(autos)
+
+nrow(autos)      # antes
+nrow(autos2)     # después
+```
+
+Perdimos 6 carros (1.5% de la base). Eliminar es simple, pero siempre se debe **mirar cuántos se pierden y por qué**. Si se perdiera, por ejemplo, el 30% de la base, habría que pensar en otra estrategia.
+
+## Valores atípicos (outliers)
+
+Un **outlier** es un dato muy distinto de los demás. El **diagrama de caja** los marca con puntos:
+
+```{r}
+boxplot(autos2$potencia, ylab = "Potencia (hp)", col = "lightblue")
+```
+
+La regla más usada: un dato es atípico si queda por fuera de
+
+$$[Q_1 - 1.5 \cdot RIC, \;\; Q_3 + 1.5 \cdot RIC]$$
+
+donde $RIC = Q_3 - Q_1$ es el rango intercuartílico. Lo calculamos:
+
+```{r}
+q1 <- quantile(autos2$potencia, 0.25)
+q3 <- quantile(autos2$potencia, 0.75)
+ric <- q3 - q1
+
+limite_inf <- q1 - 1.5 * ric
+limite_sup <- q3 + 1.5 * ric
+
+limite_inf
+limite_sup
+```
+
+¿Qué carros quedan por fuera?
+
+```{r}
+atipicos <- autos2[autos2$potencia < limite_inf | autos2$potencia > limite_sup, ]
+atipicos[, c("nombre", "potencia", "cilindrada", "consumo")]
+```
+
+Son autos americanos grandes, de motor enorme y bajo consumo. **No son errores: son datos reales** y legítimos.
+
+> **Qué hacer con un outlier:** primero revisar si es un error (digitación, unidad). Si es error, se corrige o se quita. Si es un dato real, **no se borra sin pensarlo**: puede ser justo lo más interesante. Lo importante es saber que existe y cuánto afecta.
+
+### Cuánto afectan al resumen
+
+```{r}
+sin_atipicos <- autos2$potencia[autos2$potencia >= limite_inf &
+                                autos2$potencia <= limite_sup]
+
+# Con los atípicos
+mean(autos2$potencia)
+median(autos2$potencia)
+sd(autos2$potencia)
+
+# Sin los atípicos
+mean(sin_atipicos)
+median(sin_atipicos)
+sd(sin_atipicos)
+```
+
+La media y la desviación cambian más que la mediana, que es **robusta**.
+
+
+## Análisis univariado: una variable
+
+Trabajamos con el consumo de combustible (millas por galón), sin faltantes:
+
+```{r}
+consumo <- autos2$consumo
+```
+
+### Media
+
+El promedio: suma de los datos dividida entre cuántos son.
+
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
+
+```{r}
+sum(consumo) / length(consumo)     # a mano
+mean(consumo)                      # con la función
+```
+
+### Mediana
+
+El dato del centro cuando se ordenan. La mitad queda por debajo y la mitad por encima.
+
+```{r}
+median(consumo)
+```
+
+### Varianza
+
+Mide **qué tan dispersos** están los datos alrededor de la media: es el promedio de las desviaciones al cuadrado (dividiendo entre $n-1$).
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2$$
+
+```{r}
+# Paso a paso, a mano
+desviaciones <- consumo - mean(consumo)
+sum(desviaciones^2) / (length(consumo) - 1)
+
+# Con la función
+var(consumo)
+```
+
+### Desviación estándar
+
+Es la raíz de la varianza. Tiene **las mismas unidades** que los datos (mpg), por eso se interpreta mejor.
+
+```{r}
+sqrt(var(consumo))
+sd(consumo)
+```
+
+### Coeficiente de variación
+
+La desviación estándar como **porcentaje de la media**. Sirve para **comparar la dispersión** de variables con unidades distintas.
+
+$$CV = \frac{s}{\bar{x}} \times 100$$
+
+```{r}
+sd(consumo) / mean(consumo) * 100
+```
+
+### Todas las variables numéricas a la vez
+
+Con `sapply()` aplicamos una función a varias columnas. Primero separamos las numéricas continuas:
+
+```{r}
+numericas <- autos2[, c("consumo", "cilindrada", "potencia", "peso", "aceleracion")]
+head(numericas)
+```
+
+```{r}
+medias <- sapply(numericas, mean)
+varianzas <- sapply(numericas, var)
+desviaciones <- sapply(numericas, sd)
+cv <- desviaciones / medias * 100
+
+resumen <- data.frame(media = medias, varianza = varianzas,
+                      desviacion = desviaciones, cv = cv)
+round(resumen, 1)
+```
+
+Fíjate: la **varianza** del peso es enorme (más de 700000) solo porque está en libras. No se puede comparar con la de la aceleración (unos 7 segundos cuadrados). Pero el **coeficiente de variación** sí es comparable: la cilindrada es la que más varía (cerca del 54%) y la aceleración la que menos (cerca del 18%).
+
+### Gráficos de una variable
+
+```{r}
+hist(consumo, col = "lightblue", main = "Consumo de combustible", xlab = "Millas por galón")
+abline(v = mean(consumo), col = "red", lwd = 3)
+abline(v = median(consumo), col = "darkgreen", lwd = 3)
+```
+
+La línea roja es la media y la verde la mediana. Como la media queda a la derecha de la mediana, la distribución tiene una **cola hacia la derecha** (pocos carros de consumo muy alto).
+
+### Comparar por grupos
+
+`tapply()` calcula una medida **para cada categoría**:
+
+```{r}
+tapply(autos2$consumo, autos2$origen, mean)
+tapply(autos2$consumo, autos2$origen, sd)
+```
+
+```{r}
+boxplot(consumo ~ origen, data = autos2,
+        col = c("steelblue", "orange", "darkgreen"),
+        xlab = "Región de origen", ylab = "Consumo (mpg)")
+```
+
+Los carros americanos rinden menos por galón que los japoneses y europeos.
+
+## Análisis bivariado: dos variables juntas
+
+Ahora preguntamos: ¿cuando una variable sube, la otra qué hace? Usamos el peso del carro y su consumo.
+
+```{r}
+peso <- autos2$peso
+consumo <- autos2$consumo
+```
+
+### Diagrama de dispersión
+
+Cada punto es **un carro**: su posición dice cuánto pesa y cuánto rinde.
+
+```{r}
+plot(peso, consumo, pch = 19, col = "blue",
+     xlab = "Peso (libras)", ylab = "Consumo (mpg)")
+```
+
+Los carros más pesados **tienden a rendir menos**. Es una relación lineal decreciente.
+
+### Covarianza
+
+Mide si las dos variables **se mueven juntas**.
+
+$$s_{xy} = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})$$
+
+- Covarianza **positiva**: cuando una sube, la otra tiende a subir.
+- Covarianza **negativa**: cuando una sube, la otra tiende a bajar.
+- Covarianza **cercana a cero**: no hay relación lineal.
+
+```{r}
+# A mano: se centran los datos y se multiplican
+peso_c <- peso - mean(peso)
+consumo_c <- consumo - mean(consumo)
+sum(peso_c * consumo_c) / (length(peso) - 1)
+
+# Con la función
+cov(peso, consumo)
+```
+
+Es negativa: se mueven en sentido contrario. Pero **-5517 ¿es mucho o poco?** No lo sabemos, porque depende de las unidades. Veamos qué pasa si pasamos el peso de libras a kilogramos:
+
+```{r}
+peso_kg <- peso * 0.4536
+cov(peso_kg, consumo)
+```
+
+Es otro número, y la relación es **exactamente la misma**. La covarianza **depende de las unidades**, así que no sirve para decir qué tan fuerte es la relación.
+
+### Correlación
+
+La correlación corrige eso: divide la covarianza entre las dos desviaciones estándar.
+
+$$r = \frac{s_{xy}}{s_x \, s_y}$$
+
+```{r}
+# A mano
+cov(peso, consumo) / (sd(peso) * sd(consumo))
+
+# Con la función
+cor(peso, consumo)
+
+# Y con el peso en kilogramos: no cambia
+cor(peso_kg, consumo)
+```
+
+La correlación **no depende de las unidades** y siempre está entre **-1 y 1**:
+
+| Valor de r | Interpretación |
+|:--|:--|
+| Cerca de 1 | relación lineal positiva fuerte |
+| Cerca de -1 | relación lineal negativa fuerte |
+| Cerca de 0 | no hay relación **lineal** |
+
+Aquí $r = -0.83$: una relación lineal negativa **fuerte**.
+
+### Ejemplos para revisar la correlación
+
+```{r, fig.width=9, fig.height=3.5}
+par(mfrow = c(1, 3))
+
+plot(peso, consumo, pch = 19, col = "blue",
+     main = paste("r =", round(cor(peso, consumo), 2)),
+     xlab = "Peso", ylab = "Consumo")
+
+plot(autos2$peso, autos2$potencia, pch = 19, col = "red",
+     main = paste("r =", round(cor(autos2$peso, autos2$potencia), 2)),
+     xlab = "Peso", ylab = "Potencia")
+
+plot(autos2$aceleracion, autos2$consumo, pch = 19, col = "darkgreen",
+     main = paste("r =", round(cor(autos2$aceleracion, autos2$consumo), 2)),
+     xlab = "Aceleración (s)", ylab = "Consumo")
+
+par(mfrow = c(1, 1))
+```
+
+Izquierda, relación negativa fuerte; en el centro, positiva fuerte (más peso, más potencia); a la derecha, positiva débil.
+
+### Cuidado: correlación no es causalidad
+
+Que dos variables estén correlacionadas **no significa** que una cause la otra. Y la correlación solo mide relaciones **lineales**: puede ser cercana a 0 aunque haya una relación curva fuerte.
+
+## Matriz de correlación
+
+Con muchas variables, calculamos la correlación de **todos los pares** y la organizamos en una **matriz**:
+
+```{r}
+R <- cor(numericas)
+round(R, 2)
+```
+
+Cómo se lee:
+
+- La **diagonal** es siempre 1 (cada variable con ella misma).
+- La matriz es **simétrica**: la correlación de A con B es igual a la de B con A.
+- Cada casilla es la correlación de la variable de la **fila** con la de la **columna**.
+
+```{r}
+R["peso", "consumo"]    # sacar una casilla
+```
+
+### Mapa de calor de la matriz de correlación
+
+Una matriz con muchos números cansa la vista. Un **mapa de calor** pinta cada casilla según su correlación: **azul** para positiva, **rojo** para negativa y **blanco** para cercana a cero.
+
+```{r, fig.width=6, fig.height=5}
+colores <- colorRampPalette(c("red", "white", "blue"))(21)
+
+par(mar = c(8, 8, 2, 2))    # más margen para los nombres
+
+# La matriz se voltea para que se vea igual que al imprimirla
+image(1:5, 1:5, t(R[5:1, ]), col = colores, zlim = c(-1, 1),
+      axes = FALSE, xlab = "", ylab = "")
+axis(1, at = 1:5, labels = colnames(R), las = 2)
+axis(2, at = 1:5, labels = rev(colnames(R)), las = 1)
+
+# Escribir el valor de cada casilla
+for (i in 1:5) {
+  for (j in 1:5) {
+    text(j, 6 - i, round(R[i, j], 2), cex = 0.9)
+  }
+}
+
+par(mar = c(5, 4, 4, 2) + 0.1)    # volver al margen normal
+```
+
+Se ve enseguida el bloque azul de `cilindrada`, `potencia` y `peso` (muy correlacionadas entre sí) y el rojo de `consumo` contra ellas.
+
+También existe el paquete **corrplot**, que lo hace en una sola línea (instálalo una vez con `install.packages("corrplot")`):
+
+```{r, eval=FALSE}
+library(corrplot)
+corrplot(R, method = "color", addCoef.col = "black")
+```
+
+Mira la matriz con atención: `cilindrada`, `potencia` y `peso` están correlacionadas **entre sí con valores de 0.86 a 0.93**. Son variables **muy redundantes**: un motor grande es un motor potente y va en un carro pesado. Más adelante veremos cómo el análisis de componentes principales aprovecha justo esa redundancia.
+
+### Ver todas las relaciones a la vez
+
+`pairs()` hace todos los diagramas de dispersión de una vez:
+
+```{r, fig.width=7, fig.height=7}
+pairs(numericas, pch = 19, col = "blue", cex = 0.5)
+```
+
+### La matriz de covarianzas
+
+Igual que la de correlaciones, pero con covarianzas. En la **diagonal están las varianzas**:
+
+```{r}
+S <- cov(numericas)
+round(S, 1)
+
+diag(S)                     # varianzas
+varianzas                   # las que calculamos antes
+```
+
+Esta matriz (`S`) es la protagonista del análisis multivariado. Fíjate que el peso domina por estar en libras (varianza enorme). Se relaciona con la de correlaciones: la matriz de correlaciones es la matriz de covarianzas de las variables **estandarizadas** (media 0 y desviación 1):
+
+```{r}
+estandarizadas <- scale(numericas)
+round(cov(estandarizadas), 2)
+```
+
+### Cuidado con los grupos mezclados
+
+La relación entre peso y consumo puede ser distinta según el grupo. Coloreemos por región de origen:
+
+```{r}
+colores <- c("steelblue", "orange", "darkgreen")[as.numeric(autos2$origen)]
+
+plot(autos2$peso, autos2$consumo, pch = 19, col = colores,
+     xlab = "Peso (libras)", ylab = "Consumo (mpg)")
+legend("topright", legend = levels(autos2$origen),
+       col = c("steelblue", "orange", "darkgreen"), pch = 19)
+```
+
+Calculemos la correlación entre peso y consumo **dentro de cada región**:
+
+```{r}
+cor(autos2$peso, autos2$consumo)    # todos juntos
+
+usa <- autos2[autos2$origen == "usa", ]
+japon <- autos2[autos2$origen == "japan", ]
+europa <- autos2[autos2$origen == "europe", ]
+
+cor(usa$peso, usa$consumo)
+cor(japon$peso, japon$consumo)
+cor(europa$peso, europa$consumo)
+```
+
+La relación negativa existe en los tres grupos, pero es **más débil** en japoneses y europeos que en el total. Al mezclar grupos con pesos y consumos muy distintos, la correlación puede **cambiar**. Moraleja: antes de interpretar una correlación, **mira el gráfico** y piensa si hay grupos escondidos.
+
+## Resumen de funciones
+
+| Qué quiero | En R |
+|:--|:--|
+| Leer datos de internet | `read.csv("enlace")` |
+| Cambiar nombres | `names(datos) <- c(...)` |
+| Dimensión, estructura | `dim()`, `str()`, `head()` |
+| Frecuencias | `table()`, `prop.table()` |
+| Faltantes | `is.na()`, `colSums(is.na())`, `na.omit()` |
+| Outliers | `boxplot()`, `quantile()` |
+| Media, mediana | `mean()`, `median()` |
+| Varianza, desviación | `var()`, `sd()` |
+| Coeficiente de variación | `sd(x) / mean(x) * 100` |
+| Medida por grupos | `tapply(x, grupo, mean)` |
+| Dispersión | `plot(x, y)` |
+| Covarianza, correlación | `cov(x, y)`, `cor(x, y)` |
+| Matrices | `cov(datos)`, `cor(datos)` |
+| Todos los gráficos de dispersión | `pairs(datos)` |
+| Mapa de calor de correlaciones | `image()` o `corrplot(R)` |
+| Estandarizar | `scale(datos)` |
+
+

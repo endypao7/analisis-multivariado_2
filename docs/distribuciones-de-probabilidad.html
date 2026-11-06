@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Lección 5 Distribuciones de probabilidad | Distribuciones de probabilidad en RStudio</title>
+  <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Lección 5 Distribuciones de probabilidad | Distribuciones de probabilidad en RStudio" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lección 5 Distribuciones de probabilidad | Distribuciones de probabilidad en RStudio" />
+  
+  <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  
+
+<meta name="author" content="Endy Paola Salon" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="conceptos-básicos-estadística.html"/>
+<link rel="next" href="análisis-de-componentes-principales.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Multivariado</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Conoce Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instalación-y-configuración-de-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalación y Configuración de R-STUDIO</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#rstudio-en-tu-equipo-escritorio"><i class="fa fa-check"></i><b>1.1.1</b> Rstudio en tu equipo (escritorio)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#primeros-pasos"><i class="fa fa-check"></i><b>1.2</b> Primeros pasos</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#creación-de-reportes-en-r-con-r-markdown"><i class="fa fa-check"></i><b>1.2.1</b> Creación de reportes en R con R Markdown:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#conceptos-básicos-de-programación-en-r"><i class="fa fa-check"></i><b>1.3</b> Conceptos básicos de programación en R:</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#tipos-de-variables-en-r"><i class="fa fa-check"></i><b>1.3.1</b> Tipos de variables en R:</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#estructuras-de-datos-en-r"><i class="fa fa-check"></i><b>1.3.2</b> Estructuras de Datos en R:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html"><i class="fa fa-check"></i><b>2</b> Bases de datos en R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#dataframes-bases-de-datos"><i class="fa fa-check"></i><b>2.1</b> Dataframes (bases de datos)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#creación-de-dataframes"><i class="fa fa-check"></i><b>2.1.1</b> Creación de Dataframes</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#importar-un-dataframe-desde-un-archivo-csv"><i class="fa fa-check"></i><b>2.1.2</b> Importar un Dataframe desde un archivo CSV</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#pre-procesamiento-de-una-base-de-datos-preinstalada-en-r"><i class="fa fa-check"></i><b>2.2</b> Pre procesamiento de una Base de Datos Preinstalada en R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html"><i class="fa fa-check"></i><b>3</b> Álgebra: Repaso</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#vectores"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-vectores"><i class="fa fa-check"></i><b>3.1.1</b> Crear vectores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-y-resta"><i class="fa fa-check"></i><b>3.1.2</b> Suma y resta</a></li>
+<li class="chapter" data-level="3.1.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-por-un-escalar"><i class="fa fa-check"></i><b>3.1.3</b> Multiplicar por un escalar</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#combinaciones-lineales"><i class="fa fa-check"></i><b>3.2</b> Combinaciones lineales</a></li>
+<li class="chapter" data-level="3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices"><i class="fa fa-check"></i><b>3.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-una-matriz"><i class="fa fa-check"></i><b>3.3.1</b> Crear una matriz</a></li>
+<li class="chapter" data-level="3.3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-resta-y-escalar"><i class="fa fa-check"></i><b>3.3.2</b> Suma, resta y escalar</a></li>
+<li class="chapter" data-level="3.3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#transpuesta"><i class="fa fa-check"></i><b>3.3.3</b> Transpuesta</a></li>
+<li class="chapter" data-level="3.3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Multiplicar matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matriz-por-vector"><i class="fa fa-check"></i><b>3.3.5</b> Matriz por vector</a></li>
+<li class="chapter" data-level="3.3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#la-matriz-identidad"><i class="fa fa-check"></i><b>3.3.6</b> La matriz identidad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#determinante"><i class="fa fa-check"></i><b>3.4</b> Determinante</a></li>
+<li class="chapter" data-level="3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#inversa"><i class="fa fa-check"></i><b>3.5</b> Inversa</a></li>
+<li class="chapter" data-level="3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto-y-norma"><i class="fa fa-check"></i><b>3.6</b> Producto punto y norma</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto"><i class="fa fa-check"></i><b>3.6.1</b> Producto punto</a></li>
+<li class="chapter" data-level="3.6.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#norma-largo-de-un-vector"><i class="fa fa-check"></i><b>3.6.2</b> Norma (largo de un vector)</a></li>
+<li class="chapter" data-level="3.6.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#distancia-entre-dos-puntos"><i class="fa fa-check"></i><b>3.6.3</b> Distancia entre dos puntos</a></li>
+<li class="chapter" data-level="3.6.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ángulo-entre-dos-vectores"><i class="fa fa-check"></i><b>3.6.4</b> Ángulo entre dos vectores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ortogonalidad"><i class="fa fa-check"></i><b>3.7</b> Ortogonalidad</a></li>
+<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.8.1</b> Comprobar la definición</a></li>
+<li class="chapter" data-level="3.8.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.8.2</b> Dos atajos útiles</a></li>
+<li class="chapter" data-level="3.8.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.8.3</b> Matrices simétricas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.9</b> Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html"><i class="fa fa-check"></i><b>4</b> Conceptos básicos: Estadística</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#los-datos-consumo-de-combustible-de-automóviles"><i class="fa fa-check"></i><b>4.1</b> Los datos: consumo de combustible de automóviles</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#traer-la-base-desde-internet"><i class="fa fa-check"></i><b>4.1.1</b> Traer la base desde internet</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#estructura-de-la-base-de-datos"><i class="fa fa-check"></i><b>4.2</b> Estructura de la base de datos</a></li>
+<li class="chapter" data-level="4.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#tipos-de-variables"><i class="fa fa-check"></i><b>4.3</b> Tipos de variables</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cualitativas"><i class="fa fa-check"></i><b>4.3.1</b> Variables cualitativas</a></li>
+<li class="chapter" data-level="4.3.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cuantitativas"><i class="fa fa-check"></i><b>4.3.2</b> Variables cuantitativas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#datos-faltantes"><i class="fa fa-check"></i><b>4.4</b> Datos faltantes</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#qué-pasa-si-ignoramos-los-na"><i class="fa fa-check"></i><b>4.4.1</b> Qué pasa si ignoramos los <code>NA</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#eliminar-los-individuos-con-faltantes"><i class="fa fa-check"></i><b>4.4.2</b> Eliminar los individuos con faltantes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#valores-atípicos-outliers"><i class="fa fa-check"></i><b>4.5</b> Valores atípicos (outliers)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuánto-afectan-al-resumen"><i class="fa fa-check"></i><b>4.5.1</b> Cuánto afectan al resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-univariado-una-variable"><i class="fa fa-check"></i><b>4.6</b> Análisis univariado: una variable</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#media"><i class="fa fa-check"></i><b>4.6.1</b> Media</a></li>
+<li class="chapter" data-level="4.6.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mediana"><i class="fa fa-check"></i><b>4.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="4.6.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#varianza"><i class="fa fa-check"></i><b>4.6.3</b> Varianza</a></li>
+<li class="chapter" data-level="4.6.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#desviación-estándar"><i class="fa fa-check"></i><b>4.6.4</b> Desviación estándar</a></li>
+<li class="chapter" data-level="4.6.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#coeficiente-de-variación"><i class="fa fa-check"></i><b>4.6.5</b> Coeficiente de variación</a></li>
+<li class="chapter" data-level="4.6.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#todas-las-variables-numéricas-a-la-vez"><i class="fa fa-check"></i><b>4.6.6</b> Todas las variables numéricas a la vez</a></li>
+<li class="chapter" data-level="4.6.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#gráficos-de-una-variable"><i class="fa fa-check"></i><b>4.6.7</b> Gráficos de una variable</a></li>
+<li class="chapter" data-level="4.6.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#comparar-por-grupos"><i class="fa fa-check"></i><b>4.6.8</b> Comparar por grupos</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-bivariado-dos-variables-juntas"><i class="fa fa-check"></i><b>4.7</b> Análisis bivariado: dos variables juntas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#diagrama-de-dispersión"><i class="fa fa-check"></i><b>4.7.1</b> Diagrama de dispersión</a></li>
+<li class="chapter" data-level="4.7.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#covarianza"><i class="fa fa-check"></i><b>4.7.2</b> Covarianza</a></li>
+<li class="chapter" data-level="4.7.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#correlación"><i class="fa fa-check"></i><b>4.7.3</b> Correlación</a></li>
+<li class="chapter" data-level="4.7.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ejemplos-para-revisar-la-correlación"><i class="fa fa-check"></i><b>4.7.4</b> Ejemplos para revisar la correlación</a></li>
+<li class="chapter" data-level="4.7.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-correlación-no-es-causalidad"><i class="fa fa-check"></i><b>4.7.5</b> Cuidado: correlación no es causalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#matriz-de-correlación"><i class="fa fa-check"></i><b>4.8</b> Matriz de correlación</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mapa-de-calor-de-la-matriz-de-correlación"><i class="fa fa-check"></i><b>4.8.1</b> Mapa de calor de la matriz de correlación</a></li>
+<li class="chapter" data-level="4.8.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ver-todas-las-relaciones-a-la-vez"><i class="fa fa-check"></i><b>4.8.2</b> Ver todas las relaciones a la vez</a></li>
+<li class="chapter" data-level="4.8.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#la-matriz-de-covarianzas"><i class="fa fa-check"></i><b>4.8.3</b> La matriz de covarianzas</a></li>
+<li class="chapter" data-level="4.8.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-con-los-grupos-mezclados"><i class="fa fa-check"></i><b>4.8.4</b> Cuidado con los grupos mezclados</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#resumen-de-funciones"><i class="fa fa-check"></i><b>4.9</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html"><i class="fa fa-check"></i><b>5</b> Distribuciones de probabilidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#variable-aleatoria-y-distribución-binomial"><i class="fa fa-check"></i><b>5.1</b> Variable aleatoria y distribución binomial</a></li>
+<li class="chapter" data-level="5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal"><i class="fa fa-check"></i><b>5.2</b> Distribución normal</a></li>
+<li class="chapter" data-level="5.3" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#dos-variables-conjunta-marginales-y-covarianza"><i class="fa fa-check"></i><b>5.3</b> Dos variables: conjunta, marginales y covarianza</a></li>
+<li class="chapter" data-level="5.4" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#vector-aleatorio-y-matriz-de-covarianzas"><i class="fa fa-check"></i><b>5.4</b> Vector aleatorio y matriz de covarianzas</a></li>
+<li class="chapter" data-level="5.5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal-multivariada"><i class="fa fa-check"></i><b>5.5</b> Distribución normal multivariada</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#la-densidad-y-el-efecto-de-la-correlación"><i class="fa fa-check"></i><b>5.5.1</b> La densidad y el efecto de la correlación</a></li>
+<li class="chapter" data-level="5.5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#propiedades"><i class="fa fa-check"></i><b>5.5.2</b> Propiedades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distancia-de-mahalanobis-y-normalidad-multivariada"><i class="fa fa-check"></i><b>5.6</b> Distancia de Mahalanobis y normalidad multivariada</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#con-datos-reales"><i class="fa fa-check"></i><b>5.6.1</b> Con datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#resumen-de-funciones-1"><i class="fa fa-check"></i><b>5.7</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>6</b> Análisis de componentes principales</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#notación"><i class="fa fa-check"></i><b>6.0.1</b> Notación</a></li>
+<li class="chapter" data-level="6.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-a.-ejemplo-manual"><i class="fa fa-check"></i><b>6.1</b> Parte A. Ejemplo manual</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos"><i class="fa fa-check"></i><b>6.1.1</b> Datos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-1.-centrado-y-estandarización"><i class="fa fa-check"></i><b>6.1.2</b> Paso 1. Centrado y estandarización</a></li>
+<li class="chapter" data-level="6.1.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-2.-matrices-de-covarianzas-y-de-correlaciones"><i class="fa fa-check"></i><b>6.1.3</b> Paso 2. Matrices de covarianzas y de correlaciones</a></li>
+<li class="chapter" data-level="6.1.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-3.-eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>6.1.4</b> Paso 3. Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="6.1.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-4.-varianza-explicada"><i class="fa fa-check"></i><b>6.1.5</b> Paso 4. Varianza explicada</a></li>
+<li class="chapter" data-level="6.1.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-5.-scores"><i class="fa fa-check"></i><b>6.1.6</b> Paso 5. Scores</a></li>
+<li class="chapter" data-level="6.1.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#loadings-y-correlación-con-las-variables"><i class="fa fa-check"></i><b>6.1.7</b> Loadings y correlación con las variables</a></li>
+<li class="chapter" data-level="6.1.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#comprobación-con-prcomp"><i class="fa fa-check"></i><b>6.1.8</b> Comprobación con <code>prcomp()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-b.-aplicación-con-datos-reales"><i class="fa fa-check"></i><b>6.2</b> Parte B. Aplicación con datos reales</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos-1"><i class="fa fa-check"></i><b>6.2.1</b> Datos</a></li>
+<li class="chapter" data-level="6.2.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-univariada"><i class="fa fa-check"></i><b>6.2.2</b> Exploración univariada</a></li>
+<li class="chapter" data-level="6.2.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-bivariada"><i class="fa fa-check"></i><b>6.2.3</b> Exploración bivariada</a></li>
+<li class="chapter" data-level="6.2.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#verificación-de-supuestos"><i class="fa fa-check"></i><b>6.2.4</b> Verificación de supuestos</a></li>
+<li class="chapter" data-level="6.2.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#cálculo-de-componentes"><i class="fa fa-check"></i><b>6.2.5</b> Cálculo de componentes</a></li>
+<li class="chapter" data-level="6.2.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#selección-del-número-de-componentes"><i class="fa fa-check"></i><b>6.2.6</b> Selección del número de componentes</a></li>
+<li class="chapter" data-level="6.2.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#interpretación-de-loadings"><i class="fa fa-check"></i><b>6.2.7</b> Interpretación de loadings</a></li>
+<li class="chapter" data-level="6.2.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#scores-y-gráficos-de-observaciones"><i class="fa fa-check"></i><b>6.2.8</b> Scores y gráficos de observaciones</a></li>
+<li class="chapter" data-level="6.2.9" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#atípicos-en-el-espacio-de-componentes"><i class="fa fa-check"></i><b>6.2.9</b> Atípicos en el espacio de componentes</a></li>
+<li class="chapter" data-level="6.2.10" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#uso-posterior-de-los-componentes"><i class="fa fa-check"></i><b>6.2.10</b> Uso posterior de los componentes</a></li>
+<li class="chapter" data-level="6.2.11" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#resumen-del-análisis"><i class="fa fa-check"></i><b>6.2.11</b> Resumen del análisis</a></li>
+<li class="chapter" data-level="6.2.12" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#lista-de-verificación"><i class="fa fa-check"></i><b>6.2.12</b> Lista de verificación</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">
+  Published with bookdown
+</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Distribuciones de probabilidad en RStudio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distribuciones-de-probabilidad" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Lección 5</span> Distribuciones de probabilidad<a href="distribuciones-de-probabilidad.html#distribuciones-de-probabilidad" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Esta lección resume las distribuciones necesarias para el curso: la binomial y la normal como modelos de una variable, y la <strong>normal multivariada</strong> como base de las técnicas multivariadas. Los ejemplos provienen de la manufactura.</p>
+<p>Las funciones de R para distribuciones siguen siempre el mismo patrón. Para la distribución <code>norm</code> existen cuatro:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Letra</th>
+<th align="left">Qué hace</th>
+<th align="left">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>d</code></td>
+<td align="left">densidad (o probabilidad puntual)</td>
+<td align="left"><code>dnorm()</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>p</code></td>
+<td align="left">probabilidad acumulada, <span class="math inline">\(P(X \le x)\)</span></td>
+<td align="left"><code>pnorm()</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>q</code></td>
+<td align="left">cuantil (inverso de <code>p</code>)</td>
+<td align="left"><code>qnorm()</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>r</code></td>
+<td align="left">números al azar</td>
+<td align="left"><code>rnorm()</code></td>
+</tr>
+</tbody>
+</table>
+<div id="variable-aleatoria-y-distribución-binomial" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Variable aleatoria y distribución binomial<a href="distribuciones-de-probabilidad.html#variable-aleatoria-y-distribución-binomial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una <strong>variable aleatoria</strong> <span class="math inline">\(X\)</span> asigna un número a cada resultado de un experimento aleatorio. Es <strong>discreta</strong> si toma valores contables y <strong>continua</strong> si toma cualquier valor de un intervalo. Su <strong>esperanza</strong> <span class="math inline">\(E(X)\)</span> es el valor promedio a largo plazo y su <strong>varianza</strong> <span class="math inline">\(Var(X)\)</span> mide la dispersión.</p>
+<p>La <strong>binomial</strong> cuenta los éxitos en <span class="math inline">\(n\)</span> intentos independientes con probabilidad de éxito <span class="math inline">\(p\)</span>. Sea una máquina que produce 10 % de piezas defectuosas y 10 piezas inspeccionadas: <span class="math inline">\(X \sim Binomial(10, 0.1)\)</span>, con <span class="math inline">\(E(X)=np\)</span> y <span class="math inline">\(Var(X)=np(1-p)\)</span>.</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="distribuciones-de-probabilidad.html#cb387-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)       <span class="co"># P(exactamente 2 defectuosas)</span></span></code></pre></div>
+<pre><code>## [1] 0.1937102</code></pre>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="distribuciones-de-probabilidad.html#cb389-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">2</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)   <span class="co"># P(más de 2)</span></span></code></pre></div>
+<pre><code>## [1] 0.07019083</code></pre>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="distribuciones-de-probabilidad.html#cb391-1" tabindex="-1"></a>muestra <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span>
+<span id="cb391-2"><a href="distribuciones-de-probabilidad.html#cb391-2" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(muestra), <span class="fu">var</span>(muestra))         <span class="co"># cercanos a 1 y 0.9</span></span></code></pre></div>
+<pre><code>## [1] 0.9933000 0.9019453</code></pre>
+</div>
+<div id="distribución-normal" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Distribución normal<a href="distribuciones-de-probabilidad.html#distribución-normal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La normal tiene forma de campana y queda definida por su media <span class="math inline">\(\mu\)</span> y su desviación estándar <span class="math inline">\(\sigma\)</span>: <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>. Sea el diámetro de una pieza con <span class="math inline">\(\mu = 50\)</span> mm y <span class="math inline">\(\sigma = 0.2\)</span> mm.</p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="distribuciones-de-probabilidad.html#cb393-1" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb393-2"><a href="distribuciones-de-probabilidad.html#cb393-2" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb393-3"><a href="distribuciones-de-probabilidad.html#cb393-3" tabindex="-1"></a></span>
+<span id="cb393-4"><a href="distribuciones-de-probabilidad.html#cb393-4" tabindex="-1"></a><span class="co"># Piezas dentro de la tolerancia: P(49.7 &lt;= X &lt;= 50.3)</span></span>
+<span id="cb393-5"><a href="distribuciones-de-probabilidad.html#cb393-5" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">50.3</span>, mu, sigma) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">49.7</span>, mu, sigma)</span></code></pre></div>
+<pre><code>## [1] 0.8663856</code></pre>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="distribuciones-de-probabilidad.html#cb395-1" tabindex="-1"></a><span class="co"># Diámetro que deja el 95 % de las piezas por debajo</span></span>
+<span id="cb395-2"><a href="distribuciones-de-probabilidad.html#cb395-2" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>, mu, sigma)</span></code></pre></div>
+<pre><code>## [1] 50.32897</code></pre>
+<p>La <strong>estandarización</strong> <span class="math inline">\(Z = (X-\mu)/\sigma\)</span> convierte cualquier normal en la normal estándar, de modo que <code>pnorm(z)</code> coincide con la probabilidad original:</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="distribuciones-de-probabilidad.html#cb397-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">50.3</span> <span class="sc">-</span> mu) <span class="sc">/</span> sigma</span>
+<span id="cb397-2"><a href="distribuciones-de-probabilidad.html#cb397-2" tabindex="-1"></a><span class="fu">c</span>(z, <span class="fu">pnorm</span>(z), <span class="fu">pnorm</span>(<span class="fl">50.3</span>, mu, sigma))</span></code></pre></div>
+<pre><code>## [1] 1.5000000 0.9331928 0.9331928</code></pre>
+<p>Para verificar si unos datos son normales se usa el <strong>gráfico Q-Q</strong>: si los puntos siguen la recta, los datos son compatibles con una normal.</p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="distribuciones-de-probabilidad.html#cb399-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb399-2"><a href="distribuciones-de-probabilidad.html#cb399-2" tabindex="-1"></a>normales <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, mu, sigma)</span>
+<span id="cb399-3"><a href="distribuciones-de-probabilidad.html#cb399-3" tabindex="-1"></a>sesgados <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">1000</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">100</span>)    <span class="co"># una distribución no normal</span></span>
+<span id="cb399-4"><a href="distribuciones-de-probabilidad.html#cb399-4" tabindex="-1"></a></span>
+<span id="cb399-5"><a href="distribuciones-de-probabilidad.html#cb399-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb399-6"><a href="distribuciones-de-probabilidad.html#cb399-6" tabindex="-1"></a><span class="fu">qqnorm</span>(normales, <span class="at">main =</span> <span class="st">&quot;Datos normales&quot;</span>);  <span class="fu">qqline</span>(normales, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb399-7"><a href="distribuciones-de-probabilidad.html#cb399-7" tabindex="-1"></a><span class="fu">qqnorm</span>(sesgados, <span class="at">main =</span> <span class="st">&quot;Datos sesgados&quot;</span>);  <span class="fu">qqline</span>(sesgados, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-130-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="distribuciones-de-probabilidad.html#cb400-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+</div>
+<div id="dos-variables-conjunta-marginales-y-covarianza" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Dos variables: conjunta, marginales y covarianza<a href="distribuciones-de-probabilidad.html#dos-variables-conjunta-marginales-y-covarianza" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Con varias variables se estudia su distribución <strong>conjunta</strong>. Sea <span class="math inline">\(X\)</span> el turno (mañana o tarde) y <span class="math inline">\(Y\)</span> el estado de la pieza:</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="distribuciones-de-probabilidad.html#cb401-1" tabindex="-1"></a>conjunta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.45</span>, <span class="fl">0.05</span>,</span>
+<span id="cb401-2"><a href="distribuciones-de-probabilidad.html#cb401-2" tabindex="-1"></a>                     <span class="fl">0.40</span>, <span class="fl">0.10</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb401-3"><a href="distribuciones-de-probabilidad.html#cb401-3" tabindex="-1"></a>                   <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;manana&quot;</span>, <span class="st">&quot;tarde&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;buena&quot;</span>, <span class="st">&quot;defectuosa&quot;</span>)))</span>
+<span id="cb401-4"><a href="distribuciones-de-probabilidad.html#cb401-4" tabindex="-1"></a></span>
+<span id="cb401-5"><a href="distribuciones-de-probabilidad.html#cb401-5" tabindex="-1"></a>m_turno  <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(conjunta)      <span class="co"># marginales: suma por filas o columnas</span></span>
+<span id="cb401-6"><a href="distribuciones-de-probabilidad.html#cb401-6" tabindex="-1"></a>m_estado <span class="ot">&lt;-</span> <span class="fu">colSums</span>(conjunta)</span>
+<span id="cb401-7"><a href="distribuciones-de-probabilidad.html#cb401-7" tabindex="-1"></a></span>
+<span id="cb401-8"><a href="distribuciones-de-probabilidad.html#cb401-8" tabindex="-1"></a><span class="fu">outer</span>(m_turno, m_estado)           <span class="co"># conjunta si fueran independientes</span></span></code></pre></div>
+<pre><code>##        buena defectuosa
+## manana 0.425      0.075
+## tarde  0.425      0.075</code></pre>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="distribuciones-de-probabilidad.html#cb403-1" tabindex="-1"></a>conjunta                           <span class="co"># conjunta real</span></span></code></pre></div>
+<pre><code>##        buena defectuosa
+## manana  0.45       0.05
+## tarde   0.40       0.10</code></pre>
+<p>Las variables son <strong>independientes</strong> si la conjunta es el producto de las marginales; aquí no lo es. La <strong>covarianza</strong> y la <strong>correlación</strong> miden la relación lineal entre dos variables aleatorias:</p>
+<p><span class="math display">\[Cov(X, Y) = E[(X - \mu_X)(Y - \mu_Y)] \qquad \rho = \frac{Cov(X, Y)}{\sigma_X \sigma_Y}\]</span></p>
+<p>Independencia implica covarianza cero; el recíproco solo es válido, en general, bajo normalidad multivariada.</p>
+</div>
+<div id="vector-aleatorio-y-matriz-de-covarianzas" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Vector aleatorio y matriz de covarianzas<a href="distribuciones-de-probabilidad.html#vector-aleatorio-y-matriz-de-covarianzas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Un <strong>vector aleatorio</strong> <span class="math inline">\(\mathbf{X} = (X_1, \ldots, X_p)^\top\)</span> queda resumido por su <strong>vector de medias</strong> <span class="math inline">\(\boldsymbol{\mu}\)</span> y su <strong>matriz de covarianzas</strong> <span class="math inline">\(\boldsymbol{\Sigma}\)</span> (varianzas en la diagonal, covarianzas fuera de ella). Sea una máquina con temperatura (°C), vibración (mm/s) y presión (bar):</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="distribuciones-de-probabilidad.html#cb405-1" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">temperatura =</span> <span class="dv">80</span>, <span class="at">vibracion =</span> <span class="dv">5</span>, <span class="at">presion =</span> <span class="fl">4.5</span>)</span>
+<span id="cb405-2"><a href="distribuciones-de-probabilidad.html#cb405-2" tabindex="-1"></a>desv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="fl">0.6</span>)</span>
+<span id="cb405-3"><a href="distribuciones-de-probabilidad.html#cb405-3" tabindex="-1"></a></span>
+<span id="cb405-4"><a href="distribuciones-de-probabilidad.html#cb405-4" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">0.7</span>, <span class="fl">0.5</span>,</span>
+<span id="cb405-5"><a href="distribuciones-de-probabilidad.html#cb405-5" tabindex="-1"></a>              <span class="fl">0.7</span>, <span class="fl">1.0</span>, <span class="fl">0.3</span>,</span>
+<span id="cb405-6"><a href="distribuciones-de-probabilidad.html#cb405-6" tabindex="-1"></a>              <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">1.0</span>), <span class="at">nrow =</span> <span class="dv">3</span>)</span>
+<span id="cb405-7"><a href="distribuciones-de-probabilidad.html#cb405-7" tabindex="-1"></a></span>
+<span id="cb405-8"><a href="distribuciones-de-probabilidad.html#cb405-8" tabindex="-1"></a><span class="co"># Covarianza = correlación * sd_i * sd_j</span></span>
+<span id="cb405-9"><a href="distribuciones-de-probabilidad.html#cb405-9" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">diag</span>(desv) <span class="sc">%*%</span> R <span class="sc">%*%</span> <span class="fu">diag</span>(desv)</span>
+<span id="cb405-10"><a href="distribuciones-de-probabilidad.html#cb405-10" tabindex="-1"></a><span class="fu">dimnames</span>(Sigma) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">names</span>(mu), <span class="fu">names</span>(mu))</span>
+<span id="cb405-11"><a href="distribuciones-de-probabilidad.html#cb405-11" tabindex="-1"></a><span class="fu">round</span>(Sigma, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##             temperatura vibracion presion
+## temperatura        16.0      2.80    1.20
+## vibracion           2.8      1.00    0.18
+## presion             1.2      0.18    0.36</code></pre>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="distribuciones-de-probabilidad.html#cb407-1" tabindex="-1"></a><span class="fu">eigen</span>(Sigma)<span class="sc">$</span>values     <span class="co"># todos positivos: Sigma es válida</span></span></code></pre></div>
+<pre><code>## [1] 16.5962292  0.5000000  0.2637708</code></pre>
+</div>
+<div id="distribución-normal-multivariada" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Distribución normal multivariada<a href="distribuciones-de-probabilidad.html#distribución-normal-multivariada" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math inline">\(\mathbf{X}\)</span> sigue una <strong>normal multivariada</strong>, <span class="math inline">\(\mathbf{X} \sim N_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>, si su densidad es</p>
+<p><span class="math display">\[f(\mathbf{x}) = \frac{1}{(2\pi)^{p/2}\,|\boldsymbol{\Sigma}|^{1/2}} \exp\left\{-\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu})^\top \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})\right\}\]</span></p>
+<p>El vector <span class="math inline">\(\boldsymbol{\mu}\)</span> da el <strong>centro</strong> y <span class="math inline">\(\boldsymbol{\Sigma}\)</span> da la <strong>forma</strong>: las curvas de nivel son elipses (elipsoides si <span class="math inline">\(p&gt;2\)</span>), con ejes dados por los eigenvectores de <span class="math inline">\(\boldsymbol{\Sigma}\)</span> y largos proporcionales a <span class="math inline">\(\sqrt{\lambda_k}\)</span>.</p>
+<div id="la-densidad-y-el-efecto-de-la-correlación" class="section level3 hasAnchor" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> La densidad y el efecto de la correlación<a href="distribuciones-de-probabilidad.html#la-densidad-y-el-efecto-de-la-correlación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="distribuciones-de-probabilidad.html#cb409-1" tabindex="-1"></a>densidad_mv <span class="ot">&lt;-</span> <span class="cf">function</span>(x, mu, Sigma){</span>
+<span id="cb409-2"><a href="distribuciones-de-probabilidad.html#cb409-2" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">length</span>(mu)</span>
+<span id="cb409-3"><a href="distribuciones-de-probabilidad.html#cb409-3" tabindex="-1"></a>  resta <span class="ot">&lt;-</span> x <span class="sc">-</span> mu</span>
+<span id="cb409-4"><a href="distribuciones-de-probabilidad.html#cb409-4" tabindex="-1"></a>  expo <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">t</span>(resta) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> resta</span>
+<span id="cb409-5"><a href="distribuciones-de-probabilidad.html#cb409-5" tabindex="-1"></a>  (<span class="dv">2</span> <span class="sc">*</span> pi)<span class="sc">^</span>(<span class="sc">-</span>p <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">det</span>(Sigma)<span class="sc">^</span>(<span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">*</span> <span class="fu">exp</span>(expo)</span>
+<span id="cb409-6"><a href="distribuciones-de-probabilidad.html#cb409-6" tabindex="-1"></a>}</span>
+<span id="cb409-7"><a href="distribuciones-de-probabilidad.html#cb409-7" tabindex="-1"></a></span>
+<span id="cb409-8"><a href="distribuciones-de-probabilidad.html#cb409-8" tabindex="-1"></a><span class="fu">densidad_mv</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, .<span class="dv">8</span>, .<span class="dv">8</span>, <span class="dv">1</span>), <span class="dv">2</span>))   <span class="co"># densidad en el centro</span></span></code></pre></div>
+<pre><code>##           [,1]
+## [1,] 0.2652582</code></pre>
+<p>Con <code>MASS::mvrnorm()</code> se simulan nubes con las mismas medias y varianzas y tres correlaciones distintas:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="distribuciones-de-probabilidad.html#cb411-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb411-2"><a href="distribuciones-de-probabilidad.html#cb411-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb411-3"><a href="distribuciones-de-probabilidad.html#cb411-3" tabindex="-1"></a></span>
+<span id="cb411-4"><a href="distribuciones-de-probabilidad.html#cb411-4" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb411-5"><a href="distribuciones-de-probabilidad.html#cb411-5" tabindex="-1"></a><span class="cf">for</span> (rho <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.8</span>, <span class="sc">-</span><span class="fl">0.8</span>)) {</span>
+<span id="cb411-6"><a href="distribuciones-de-probabilidad.html#cb411-6" tabindex="-1"></a>  datos <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">500</span>, <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">Sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, rho, rho, <span class="dv">1</span>), <span class="dv">2</span>))</span>
+<span id="cb411-7"><a href="distribuciones-de-probabilidad.html#cb411-7" tabindex="-1"></a>  <span class="fu">plot</span>(datos, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb411-8"><a href="distribuciones-de-probabilidad.html#cb411-8" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;X1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;X2&quot;</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;correlación =&quot;</span>, rho))</span>
+<span id="cb411-9"><a href="distribuciones-de-probabilidad.html#cb411-9" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-134-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="distribuciones-de-probabilidad.html#cb412-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>Con correlación 0 la nube es circular; con correlación fuerte es una elipse inclinada.</p>
+<p>Para dibujar la campana en 3D basta evaluar la densidad en una cuadrícula:</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="distribuciones-de-probabilidad.html#cb413-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="at">length.out =</span> <span class="dv">40</span>)</span>
+<span id="cb413-2"><a href="distribuciones-de-probabilidad.html#cb413-2" tabindex="-1"></a>dens <span class="ot">&lt;-</span> <span class="fu">outer</span>(g, g, <span class="fu">Vectorize</span>(<span class="cf">function</span>(a, b)</span>
+<span id="cb413-3"><a href="distribuciones-de-probabilidad.html#cb413-3" tabindex="-1"></a>  <span class="fu">densidad_mv</span>(<span class="fu">c</span>(a, b), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, .<span class="dv">8</span>, .<span class="dv">8</span>, <span class="dv">1</span>), <span class="dv">2</span>))))</span>
+<span id="cb413-4"><a href="distribuciones-de-probabilidad.html#cb413-4" tabindex="-1"></a></span>
+<span id="cb413-5"><a href="distribuciones-de-probabilidad.html#cb413-5" tabindex="-1"></a><span class="fu">persp</span>(g, g, dens, <span class="at">theta =</span> <span class="dv">30</span>, <span class="at">phi =</span> <span class="dv">25</span>, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>,</span>
+<span id="cb413-6"><a href="distribuciones-de-probabilidad.html#cb413-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;X1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;X2&quot;</span>, <span class="at">zlab =</span> <span class="st">&quot;Densidad&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-135-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="propiedades" class="section level3 hasAnchor" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Propiedades<a href="distribuciones-de-probabilidad.html#propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Si <span class="math inline">\(\mathbf{X} \sim N_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Cada variable por separado es normal: <span class="math inline">\(X_i \sim N(\mu_i, \sigma_i^2)\)</span>.</li>
+<li>Toda combinación lineal <span class="math inline">\(\mathbf{a}^\top\mathbf{X}\)</span> es normal, con media <span class="math inline">\(\mathbf{a}^\top\boldsymbol{\mu}\)</span> y varianza <span class="math inline">\(\mathbf{a}^\top \boldsymbol{\Sigma}\, \mathbf{a}\)</span>.</li>
+<li>Covarianza cero implica independencia (solo en la normal).</li>
+</ol>
+<p>La propiedad 2 se verifica con la máquina de tres variables y <span class="math inline">\(\mathbf{a} = (1,1,1)\)</span>:</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="distribuciones-de-probabilidad.html#cb414-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2024</span>)</span>
+<span id="cb414-2"><a href="distribuciones-de-probabilidad.html#cb414-2" tabindex="-1"></a>maquina <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">5000</span>, <span class="at">mu =</span> mu, <span class="at">Sigma =</span> Sigma)</span>
+<span id="cb414-3"><a href="distribuciones-de-probabilidad.html#cb414-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb414-4"><a href="distribuciones-de-probabilidad.html#cb414-4" tabindex="-1"></a></span>
+<span id="cb414-5"><a href="distribuciones-de-probabilidad.html#cb414-5" tabindex="-1"></a><span class="fu">c</span>(<span class="at">teoria =</span> <span class="fu">drop</span>(<span class="fu">t</span>(a) <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> a), <span class="at">simulacion =</span> <span class="fu">var</span>(maquina <span class="sc">%*%</span> a))</span></code></pre></div>
+<pre><code>##     teoria simulacion 
+##   25.72000   25.26009</code></pre>
+</div>
+</div>
+<div id="distancia-de-mahalanobis-y-normalidad-multivariada" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Distancia de Mahalanobis y normalidad multivariada<a href="distribuciones-de-probabilidad.html#distancia-de-mahalanobis-y-normalidad-multivariada" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La <strong>distancia de Mahalanobis</strong> al cuadrado mide qué tan lejos está un punto del centro teniendo en cuenta varianzas y correlaciones. Es el exponente de la densidad normal:</p>
+<p><span class="math display">\[d^2 = (\mathbf{x} - \boldsymbol{\mu})^\top \boldsymbol{\Sigma}^{-1} (\mathbf{x} - \boldsymbol{\mu})\]</span></p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="distribuciones-de-probabilidad.html#cb416-1" tabindex="-1"></a>punto <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb416-2"><a href="distribuciones-de-probabilidad.html#cb416-2" tabindex="-1"></a><span class="fu">mahalanobis</span>(punto, <span class="at">center =</span> mu, <span class="at">cov =</span> Sigma)</span></code></pre></div>
+<pre><code>## [1] 15.51096</code></pre>
+<p>Si los datos son normales multivariados con <span class="math inline">\(p\)</span> variables, <span class="math inline">\(d^2\)</span> sigue una distribución <strong>chi-cuadrado</strong> con <span class="math inline">\(p\)</span> grados de libertad. Esto sirve para detectar atípicos y para un gráfico equivalente al Q-Q:</p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="distribuciones-de-probabilidad.html#cb418-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(maquina, <span class="at">center =</span> mu, <span class="at">cov =</span> Sigma)</span>
+<span id="cb418-2"><a href="distribuciones-de-probabilidad.html#cb418-2" tabindex="-1"></a></span>
+<span id="cb418-3"><a href="distribuciones-de-probabilidad.html#cb418-3" tabindex="-1"></a><span class="fu">mean</span>(d2 <span class="sc">&gt;</span> <span class="fu">qchisq</span>(<span class="fl">0.99</span>, <span class="at">df =</span> <span class="dv">3</span>))     <span class="co"># cerca de 1 %</span></span></code></pre></div>
+<pre><code>## [1] 0.008</code></pre>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="distribuciones-de-probabilidad.html#cb420-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">qchisq</span>(<span class="fu">ppoints</span>(<span class="fu">length</span>(d2)), <span class="at">df =</span> <span class="dv">3</span>), <span class="fu">sort</span>(d2), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb420-2"><a href="distribuciones-de-probabilidad.html#cb420-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Cuantiles chi-cuadrado (3 gl)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;d² de Mahalanobis&quot;</span>)</span>
+<span id="cb420-3"><a href="distribuciones-de-probabilidad.html#cb420-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-138-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Los puntos siguen la recta porque los datos fueron simulados con una normal multivariada.</p>
+<div id="con-datos-reales" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Con datos reales<a href="distribuciones-de-probabilidad.html#con-datos-reales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El mismo diagnóstico se aplica a datos reales (base de autos; requiere conexión a internet):</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="distribuciones-de-probabilidad.html#cb421-1" tabindex="-1"></a>autos <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv&quot;</span>))</span>
+<span id="cb421-2"><a href="distribuciones-de-probabilidad.html#cb421-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> autos[, <span class="fu">c</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;horsepower&quot;</span>, <span class="st">&quot;weight&quot;</span>)]</span>
+<span id="cb421-3"><a href="distribuciones-de-probabilidad.html#cb421-3" tabindex="-1"></a></span>
+<span id="cb421-4"><a href="distribuciones-de-probabilidad.html#cb421-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(datos, <span class="fu">colMeans</span>(datos), <span class="fu">cov</span>(datos))</span>
+<span id="cb421-5"><a href="distribuciones-de-probabilidad.html#cb421-5" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">qchisq</span>(<span class="fu">ppoints</span>(<span class="fu">nrow</span>(datos)), <span class="at">df =</span> <span class="dv">3</span>), <span class="fu">sort</span>(d2), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb421-6"><a href="distribuciones-de-probabilidad.html#cb421-6" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Cuantiles chi-cuadrado (3 gl)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;d² de Mahalanobis&quot;</span>)</span>
+<span id="cb421-7"><a href="distribuciones-de-probabilidad.html#cb421-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-139-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Los puntos se separan de la recta en la parte alta: hay autos más extremos de lo que permitiría una normal. La normalidad multivariada es un supuesto que debe revisarse, y los datos reales rara vez la cumplen exactamente.</p>
+</div>
+</div>
+<div id="resumen-de-funciones-1" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Resumen de funciones<a href="distribuciones-de-probabilidad.html#resumen-de-funciones-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Qué se necesita</th>
+<th align="left">En R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Binomial</td>
+<td align="left"><code>dbinom()</code>, <code>pbinom()</code>, <code>rbinom()</code></td>
+</tr>
+<tr class="even">
+<td align="left">Normal</td>
+<td align="left"><code>dnorm()</code>, <code>pnorm()</code>, <code>qnorm()</code>, <code>rnorm()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Marginales de una tabla</td>
+<td align="left"><code>rowSums()</code>, <code>colSums()</code></td>
+</tr>
+<tr class="even">
+<td align="left">Simular normal multivariada</td>
+<td align="left"><code>MASS::mvrnorm(n, mu, Sigma)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Distancia de Mahalanobis</td>
+<td align="left"><code>mahalanobis(x, center, cov)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Cuantil chi-cuadrado</td>
+<td align="left"><code>qchisq()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Gráfico Q-Q</td>
+<td align="left"><code>qqnorm()</code>, <code>qqline()</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="conceptos-básicos-estadística.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-de-componentes-principales.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Análisis Multivariado en Rstudio.pdf", "Análisis Multivariado en Rstudio.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

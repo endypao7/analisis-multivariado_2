@@ -1,0 +1,6 @@
+book_filename: "Análisis Multivariado en Rstudio"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Lección "
+output_dir: "docs"

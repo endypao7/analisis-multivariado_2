@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Lección 3 Álgebra: Repaso | Distribuciones de probabilidad en RStudio</title>
+  <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Lección 3 Álgebra: Repaso | Distribuciones de probabilidad en RStudio" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lección 3 Álgebra: Repaso | Distribuciones de probabilidad en RStudio" />
+  
+  <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  
+
+<meta name="author" content="Endy Paola Salon" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bases-de-datos-en-r.html"/>
+<link rel="next" href="conceptos-básicos-estadística.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Multivariado</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Conoce Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instalación-y-configuración-de-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalación y Configuración de R-STUDIO</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#rstudio-en-tu-equipo-escritorio"><i class="fa fa-check"></i><b>1.1.1</b> Rstudio en tu equipo (escritorio)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#primeros-pasos"><i class="fa fa-check"></i><b>1.2</b> Primeros pasos</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#creación-de-reportes-en-r-con-r-markdown"><i class="fa fa-check"></i><b>1.2.1</b> Creación de reportes en R con R Markdown:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#conceptos-básicos-de-programación-en-r"><i class="fa fa-check"></i><b>1.3</b> Conceptos básicos de programación en R:</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#tipos-de-variables-en-r"><i class="fa fa-check"></i><b>1.3.1</b> Tipos de variables en R:</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#estructuras-de-datos-en-r"><i class="fa fa-check"></i><b>1.3.2</b> Estructuras de Datos en R:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html"><i class="fa fa-check"></i><b>2</b> Bases de datos en R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#dataframes-bases-de-datos"><i class="fa fa-check"></i><b>2.1</b> Dataframes (bases de datos)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#creación-de-dataframes"><i class="fa fa-check"></i><b>2.1.1</b> Creación de Dataframes</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#importar-un-dataframe-desde-un-archivo-csv"><i class="fa fa-check"></i><b>2.1.2</b> Importar un Dataframe desde un archivo CSV</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#pre-procesamiento-de-una-base-de-datos-preinstalada-en-r"><i class="fa fa-check"></i><b>2.2</b> Pre procesamiento de una Base de Datos Preinstalada en R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html"><i class="fa fa-check"></i><b>3</b> Álgebra: Repaso</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#vectores"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-vectores"><i class="fa fa-check"></i><b>3.1.1</b> Crear vectores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-y-resta"><i class="fa fa-check"></i><b>3.1.2</b> Suma y resta</a></li>
+<li class="chapter" data-level="3.1.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-por-un-escalar"><i class="fa fa-check"></i><b>3.1.3</b> Multiplicar por un escalar</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#combinaciones-lineales"><i class="fa fa-check"></i><b>3.2</b> Combinaciones lineales</a></li>
+<li class="chapter" data-level="3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices"><i class="fa fa-check"></i><b>3.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-una-matriz"><i class="fa fa-check"></i><b>3.3.1</b> Crear una matriz</a></li>
+<li class="chapter" data-level="3.3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-resta-y-escalar"><i class="fa fa-check"></i><b>3.3.2</b> Suma, resta y escalar</a></li>
+<li class="chapter" data-level="3.3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#transpuesta"><i class="fa fa-check"></i><b>3.3.3</b> Transpuesta</a></li>
+<li class="chapter" data-level="3.3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Multiplicar matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matriz-por-vector"><i class="fa fa-check"></i><b>3.3.5</b> Matriz por vector</a></li>
+<li class="chapter" data-level="3.3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#la-matriz-identidad"><i class="fa fa-check"></i><b>3.3.6</b> La matriz identidad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#determinante"><i class="fa fa-check"></i><b>3.4</b> Determinante</a></li>
+<li class="chapter" data-level="3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#inversa"><i class="fa fa-check"></i><b>3.5</b> Inversa</a></li>
+<li class="chapter" data-level="3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto-y-norma"><i class="fa fa-check"></i><b>3.6</b> Producto punto y norma</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto"><i class="fa fa-check"></i><b>3.6.1</b> Producto punto</a></li>
+<li class="chapter" data-level="3.6.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#norma-largo-de-un-vector"><i class="fa fa-check"></i><b>3.6.2</b> Norma (largo de un vector)</a></li>
+<li class="chapter" data-level="3.6.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#distancia-entre-dos-puntos"><i class="fa fa-check"></i><b>3.6.3</b> Distancia entre dos puntos</a></li>
+<li class="chapter" data-level="3.6.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ángulo-entre-dos-vectores"><i class="fa fa-check"></i><b>3.6.4</b> Ángulo entre dos vectores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ortogonalidad"><i class="fa fa-check"></i><b>3.7</b> Ortogonalidad</a></li>
+<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.8.1</b> Comprobar la definición</a></li>
+<li class="chapter" data-level="3.8.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.8.2</b> Dos atajos útiles</a></li>
+<li class="chapter" data-level="3.8.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.8.3</b> Matrices simétricas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.9</b> Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html"><i class="fa fa-check"></i><b>4</b> Conceptos básicos: Estadística</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#los-datos-consumo-de-combustible-de-automóviles"><i class="fa fa-check"></i><b>4.1</b> Los datos: consumo de combustible de automóviles</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#traer-la-base-desde-internet"><i class="fa fa-check"></i><b>4.1.1</b> Traer la base desde internet</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#estructura-de-la-base-de-datos"><i class="fa fa-check"></i><b>4.2</b> Estructura de la base de datos</a></li>
+<li class="chapter" data-level="4.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#tipos-de-variables"><i class="fa fa-check"></i><b>4.3</b> Tipos de variables</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cualitativas"><i class="fa fa-check"></i><b>4.3.1</b> Variables cualitativas</a></li>
+<li class="chapter" data-level="4.3.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cuantitativas"><i class="fa fa-check"></i><b>4.3.2</b> Variables cuantitativas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#datos-faltantes"><i class="fa fa-check"></i><b>4.4</b> Datos faltantes</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#qué-pasa-si-ignoramos-los-na"><i class="fa fa-check"></i><b>4.4.1</b> Qué pasa si ignoramos los <code>NA</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#eliminar-los-individuos-con-faltantes"><i class="fa fa-check"></i><b>4.4.2</b> Eliminar los individuos con faltantes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#valores-atípicos-outliers"><i class="fa fa-check"></i><b>4.5</b> Valores atípicos (outliers)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuánto-afectan-al-resumen"><i class="fa fa-check"></i><b>4.5.1</b> Cuánto afectan al resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-univariado-una-variable"><i class="fa fa-check"></i><b>4.6</b> Análisis univariado: una variable</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#media"><i class="fa fa-check"></i><b>4.6.1</b> Media</a></li>
+<li class="chapter" data-level="4.6.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mediana"><i class="fa fa-check"></i><b>4.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="4.6.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#varianza"><i class="fa fa-check"></i><b>4.6.3</b> Varianza</a></li>
+<li class="chapter" data-level="4.6.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#desviación-estándar"><i class="fa fa-check"></i><b>4.6.4</b> Desviación estándar</a></li>
+<li class="chapter" data-level="4.6.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#coeficiente-de-variación"><i class="fa fa-check"></i><b>4.6.5</b> Coeficiente de variación</a></li>
+<li class="chapter" data-level="4.6.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#todas-las-variables-numéricas-a-la-vez"><i class="fa fa-check"></i><b>4.6.6</b> Todas las variables numéricas a la vez</a></li>
+<li class="chapter" data-level="4.6.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#gráficos-de-una-variable"><i class="fa fa-check"></i><b>4.6.7</b> Gráficos de una variable</a></li>
+<li class="chapter" data-level="4.6.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#comparar-por-grupos"><i class="fa fa-check"></i><b>4.6.8</b> Comparar por grupos</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-bivariado-dos-variables-juntas"><i class="fa fa-check"></i><b>4.7</b> Análisis bivariado: dos variables juntas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#diagrama-de-dispersión"><i class="fa fa-check"></i><b>4.7.1</b> Diagrama de dispersión</a></li>
+<li class="chapter" data-level="4.7.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#covarianza"><i class="fa fa-check"></i><b>4.7.2</b> Covarianza</a></li>
+<li class="chapter" data-level="4.7.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#correlación"><i class="fa fa-check"></i><b>4.7.3</b> Correlación</a></li>
+<li class="chapter" data-level="4.7.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ejemplos-para-revisar-la-correlación"><i class="fa fa-check"></i><b>4.7.4</b> Ejemplos para revisar la correlación</a></li>
+<li class="chapter" data-level="4.7.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-correlación-no-es-causalidad"><i class="fa fa-check"></i><b>4.7.5</b> Cuidado: correlación no es causalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#matriz-de-correlación"><i class="fa fa-check"></i><b>4.8</b> Matriz de correlación</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mapa-de-calor-de-la-matriz-de-correlación"><i class="fa fa-check"></i><b>4.8.1</b> Mapa de calor de la matriz de correlación</a></li>
+<li class="chapter" data-level="4.8.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ver-todas-las-relaciones-a-la-vez"><i class="fa fa-check"></i><b>4.8.2</b> Ver todas las relaciones a la vez</a></li>
+<li class="chapter" data-level="4.8.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#la-matriz-de-covarianzas"><i class="fa fa-check"></i><b>4.8.3</b> La matriz de covarianzas</a></li>
+<li class="chapter" data-level="4.8.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-con-los-grupos-mezclados"><i class="fa fa-check"></i><b>4.8.4</b> Cuidado con los grupos mezclados</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#resumen-de-funciones"><i class="fa fa-check"></i><b>4.9</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html"><i class="fa fa-check"></i><b>5</b> Distribuciones de probabilidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#variable-aleatoria-y-distribución-binomial"><i class="fa fa-check"></i><b>5.1</b> Variable aleatoria y distribución binomial</a></li>
+<li class="chapter" data-level="5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal"><i class="fa fa-check"></i><b>5.2</b> Distribución normal</a></li>
+<li class="chapter" data-level="5.3" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#dos-variables-conjunta-marginales-y-covarianza"><i class="fa fa-check"></i><b>5.3</b> Dos variables: conjunta, marginales y covarianza</a></li>
+<li class="chapter" data-level="5.4" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#vector-aleatorio-y-matriz-de-covarianzas"><i class="fa fa-check"></i><b>5.4</b> Vector aleatorio y matriz de covarianzas</a></li>
+<li class="chapter" data-level="5.5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal-multivariada"><i class="fa fa-check"></i><b>5.5</b> Distribución normal multivariada</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#la-densidad-y-el-efecto-de-la-correlación"><i class="fa fa-check"></i><b>5.5.1</b> La densidad y el efecto de la correlación</a></li>
+<li class="chapter" data-level="5.5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#propiedades"><i class="fa fa-check"></i><b>5.5.2</b> Propiedades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distancia-de-mahalanobis-y-normalidad-multivariada"><i class="fa fa-check"></i><b>5.6</b> Distancia de Mahalanobis y normalidad multivariada</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#con-datos-reales"><i class="fa fa-check"></i><b>5.6.1</b> Con datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#resumen-de-funciones-1"><i class="fa fa-check"></i><b>5.7</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>6</b> Análisis de componentes principales</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#notación"><i class="fa fa-check"></i><b>6.0.1</b> Notación</a></li>
+<li class="chapter" data-level="6.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-a.-ejemplo-manual"><i class="fa fa-check"></i><b>6.1</b> Parte A. Ejemplo manual</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos"><i class="fa fa-check"></i><b>6.1.1</b> Datos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-1.-centrado-y-estandarización"><i class="fa fa-check"></i><b>6.1.2</b> Paso 1. Centrado y estandarización</a></li>
+<li class="chapter" data-level="6.1.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-2.-matrices-de-covarianzas-y-de-correlaciones"><i class="fa fa-check"></i><b>6.1.3</b> Paso 2. Matrices de covarianzas y de correlaciones</a></li>
+<li class="chapter" data-level="6.1.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-3.-eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>6.1.4</b> Paso 3. Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="6.1.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-4.-varianza-explicada"><i class="fa fa-check"></i><b>6.1.5</b> Paso 4. Varianza explicada</a></li>
+<li class="chapter" data-level="6.1.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-5.-scores"><i class="fa fa-check"></i><b>6.1.6</b> Paso 5. Scores</a></li>
+<li class="chapter" data-level="6.1.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#loadings-y-correlación-con-las-variables"><i class="fa fa-check"></i><b>6.1.7</b> Loadings y correlación con las variables</a></li>
+<li class="chapter" data-level="6.1.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#comprobación-con-prcomp"><i class="fa fa-check"></i><b>6.1.8</b> Comprobación con <code>prcomp()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-b.-aplicación-con-datos-reales"><i class="fa fa-check"></i><b>6.2</b> Parte B. Aplicación con datos reales</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos-1"><i class="fa fa-check"></i><b>6.2.1</b> Datos</a></li>
+<li class="chapter" data-level="6.2.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-univariada"><i class="fa fa-check"></i><b>6.2.2</b> Exploración univariada</a></li>
+<li class="chapter" data-level="6.2.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-bivariada"><i class="fa fa-check"></i><b>6.2.3</b> Exploración bivariada</a></li>
+<li class="chapter" data-level="6.2.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#verificación-de-supuestos"><i class="fa fa-check"></i><b>6.2.4</b> Verificación de supuestos</a></li>
+<li class="chapter" data-level="6.2.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#cálculo-de-componentes"><i class="fa fa-check"></i><b>6.2.5</b> Cálculo de componentes</a></li>
+<li class="chapter" data-level="6.2.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#selección-del-número-de-componentes"><i class="fa fa-check"></i><b>6.2.6</b> Selección del número de componentes</a></li>
+<li class="chapter" data-level="6.2.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#interpretación-de-loadings"><i class="fa fa-check"></i><b>6.2.7</b> Interpretación de loadings</a></li>
+<li class="chapter" data-level="6.2.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#scores-y-gráficos-de-observaciones"><i class="fa fa-check"></i><b>6.2.8</b> Scores y gráficos de observaciones</a></li>
+<li class="chapter" data-level="6.2.9" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#atípicos-en-el-espacio-de-componentes"><i class="fa fa-check"></i><b>6.2.9</b> Atípicos en el espacio de componentes</a></li>
+<li class="chapter" data-level="6.2.10" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#uso-posterior-de-los-componentes"><i class="fa fa-check"></i><b>6.2.10</b> Uso posterior de los componentes</a></li>
+<li class="chapter" data-level="6.2.11" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#resumen-del-análisis"><i class="fa fa-check"></i><b>6.2.11</b> Resumen del análisis</a></li>
+<li class="chapter" data-level="6.2.12" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#lista-de-verificación"><i class="fa fa-check"></i><b>6.2.12</b> Lista de verificación</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">
+  Published with bookdown
+</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Distribuciones de probabilidad en RStudio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="álgebra-repaso" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Lección 3</span> Álgebra: Repaso<a href="álgebra-repaso.html#álgebra-repaso" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En esta lección aprendes a hacer <strong>en R</strong> las operaciones de álgebra que vimos en clase.</p>
+<p>Dos recordatorios de R que vamos a usar todo el tiempo:</p>
+<ul>
+<li><code>c( )</code> crea un vector.</li>
+<li><code>matrix( )</code> crea una matriz. <strong>R llena la matriz por columnas.</strong></li>
+</ul>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="álgebra-repaso.html#cb121-1" tabindex="-1"></a><span class="co"># Un vector con tres números</span></span>
+<span id="cb121-2"><a href="álgebra-repaso.html#cb121-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## [1] 5 2 7</code></pre>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="álgebra-repaso.html#cb123-1" tabindex="-1"></a><span class="co"># Una matriz 2x2: fíjate cómo se acomodan los números (por columnas)</span></span>
+<span id="cb123-2"><a href="álgebra-repaso.html#cb123-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<div id="vectores" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Vectores<a href="álgebra-repaso.html#vectores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="crear-vectores" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Crear vectores<a href="álgebra-repaso.html#crear-vectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="álgebra-repaso.html#cb125-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb125-2"><a href="álgebra-repaso.html#cb125-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb125-3"><a href="álgebra-repaso.html#cb125-3" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>## [1] 1 2</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="álgebra-repaso.html#cb127-1" tabindex="-1"></a>v</span></code></pre></div>
+<pre><code>## [1] 3 1</code></pre>
+<p>Un vector también puede tener más de dos números (una variable por coordenada):</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="álgebra-repaso.html#cb129-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb129-2"><a href="álgebra-repaso.html#cb129-2" tabindex="-1"></a><span class="fu">length</span>(w)    <span class="co"># cuántas coordenadas tiene</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="suma-y-resta" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Suma y resta<a href="álgebra-repaso.html#suma-y-resta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se hacen <strong>coordenada por coordenada</strong>:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="álgebra-repaso.html#cb131-1" tabindex="-1"></a>u <span class="sc">+</span> v</span></code></pre></div>
+<pre><code>## [1] 4 3</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="álgebra-repaso.html#cb133-1" tabindex="-1"></a>u <span class="sc">-</span> v</span></code></pre></div>
+<pre><code>## [1] -2  1</code></pre>
+<p>Gráficamente, la suma es poner un vector a continuación del otro:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="álgebra-repaso.html#cb135-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb135-2"><a href="álgebra-repaso.html#cb135-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb135-3"><a href="álgebra-repaso.html#cb135-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb135-4"><a href="álgebra-repaso.html#cb135-4" tabindex="-1"></a></span>
+<span id="cb135-5"><a href="álgebra-repaso.html#cb135-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, u[<span class="dv">1</span>], u[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)                    <span class="co"># u</span></span>
+<span id="cb135-6"><a href="álgebra-repaso.html#cb135-6" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)                     <span class="co"># v</span></span>
+<span id="cb135-7"><a href="álgebra-repaso.html#cb135-7" tabindex="-1"></a><span class="fu">arrows</span>(u[<span class="dv">1</span>], u[<span class="dv">2</span>], u[<span class="dv">1</span>] <span class="sc">+</span> v[<span class="dv">1</span>], u[<span class="dv">2</span>] <span class="sc">+</span> v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="co"># v pegado a u</span></span>
+<span id="cb135-8"><a href="álgebra-repaso.html#cb135-8" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, (u <span class="sc">+</span> v)[<span class="dv">1</span>], (u <span class="sc">+</span> v)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)   <span class="co"># u + v</span></span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-45-1.png" alt="" width="672" /></p>
+</div>
+<div id="multiplicar-por-un-escalar" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Multiplicar por un escalar<a href="álgebra-repaso.html#multiplicar-por-un-escalar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un número multiplica <strong>todas</strong> las coordenadas:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="álgebra-repaso.html#cb136-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> u</span></code></pre></div>
+<pre><code>## [1] 2 4</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="álgebra-repaso.html#cb138-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">*</span> u</span></code></pre></div>
+<pre><code>## [1] 0.5 1.0</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="álgebra-repaso.html#cb140-1" tabindex="-1"></a><span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> u</span></code></pre></div>
+<pre><code>## [1] -1 -2</code></pre>
+</div>
+</div>
+<div id="combinaciones-lineales" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Combinaciones lineales<a href="álgebra-repaso.html#combinaciones-lineales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una <strong>combinación lineal</strong> es multiplicar cada vector por un número y sumar:</p>
+<p><span class="math display">\[c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2\]</span></p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="álgebra-repaso.html#cb142-1" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb142-2"><a href="álgebra-repaso.html#cb142-2" tabindex="-1"></a>v2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb142-3"><a href="álgebra-repaso.html#cb142-3" tabindex="-1"></a></span>
+<span id="cb142-4"><a href="álgebra-repaso.html#cb142-4" tabindex="-1"></a><span class="co"># 3 veces v1 más 2 veces v2</span></span>
+<span id="cb142-5"><a href="álgebra-repaso.html#cb142-5" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> v1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> v2</span></code></pre></div>
+<pre><code>## [1] 8 7</code></pre>
+<p>La <strong>base canónica</strong> son los vectores <code>e1</code> y <code>e2</code>. Las coordenadas de un vector son los coeficientes de su combinación lineal:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="álgebra-repaso.html#cb144-1" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb144-2"><a href="álgebra-repaso.html#cb144-2" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb144-3"><a href="álgebra-repaso.html#cb144-3" tabindex="-1"></a></span>
+<span id="cb144-4"><a href="álgebra-repaso.html#cb144-4" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> e1 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> e2     <span class="co"># es el vector (5, 4)</span></span></code></pre></div>
+<pre><code>## [1] 5 4</code></pre>
+<p>Dos vectores en la <strong>misma recta</strong> no sirven para llegar a todo el plano:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="álgebra-repaso.html#cb146-1" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">2</span>     <span class="co"># (2, 4) es solo el doble de (1, 2)</span></span></code></pre></div>
+<pre><code>## [1] 2 4</code></pre>
+</div>
+<div id="matrices" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Matrices<a href="álgebra-repaso.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="crear-una-matriz" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Crear una matriz<a href="álgebra-repaso.html#crear-una-matriz" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="álgebra-repaso.html#cb148-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb148-2"><a href="álgebra-repaso.html#cb148-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb148-3"><a href="álgebra-repaso.html#cb148-3" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    2    1
+## [2,]    1    3</code></pre>
+<p>La primera columna es <code>(2, 1)</code> y la segunda <code>(1, 3)</code>. Para sacar partes de la matriz:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="álgebra-repaso.html#cb150-1" tabindex="-1"></a>A[<span class="dv">1</span>, <span class="dv">2</span>]     <span class="co"># fila 1, columna 2</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="álgebra-repaso.html#cb152-1" tabindex="-1"></a>A[, <span class="dv">1</span>]      <span class="co"># primera columna</span></span></code></pre></div>
+<pre><code>## [1] 2 1</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="álgebra-repaso.html#cb154-1" tabindex="-1"></a>A[<span class="dv">2</span>, ]      <span class="co"># segunda fila</span></span></code></pre></div>
+<pre><code>## [1] 1 3</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="álgebra-repaso.html#cb156-1" tabindex="-1"></a><span class="fu">dim</span>(A)      <span class="co"># dimensiones</span></span></code></pre></div>
+<pre><code>## [1] 2 2</code></pre>
+</div>
+<div id="suma-resta-y-escalar" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Suma, resta y escalar<a href="álgebra-repaso.html#suma-resta-y-escalar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="álgebra-repaso.html#cb158-1" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>,</span>
+<span id="cb158-2"><a href="álgebra-repaso.html#cb158-2" tabindex="-1"></a>              <span class="dv">4</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb158-3"><a href="álgebra-repaso.html#cb158-3" tabindex="-1"></a></span>
+<span id="cb158-4"><a href="álgebra-repaso.html#cb158-4" tabindex="-1"></a>A <span class="sc">+</span> B</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    3    5
+## [2,]    1    5</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="álgebra-repaso.html#cb160-1" tabindex="-1"></a>A <span class="sc">-</span> B</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1   -3
+## [2,]    1    1</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="álgebra-repaso.html#cb162-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    6    3
+## [2,]    3    9</code></pre>
+</div>
+<div id="transpuesta" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Transpuesta<a href="álgebra-repaso.html#transpuesta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cambia filas por columnas:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="álgebra-repaso.html#cb164-1" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    2    1
+## [2,]    1    3</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="álgebra-repaso.html#cb166-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb166-2"><a href="álgebra-repaso.html#cb166-2" tabindex="-1"></a>M</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="álgebra-repaso.html#cb168-1" tabindex="-1"></a><span class="fu">t</span>(M)</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    5    6</code></pre>
+</div>
+<div id="multiplicar-matrices" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Multiplicar matrices<a href="álgebra-repaso.html#multiplicar-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se usa <code>%*%</code> (no <code>*</code>). <strong>El orden importa.</strong></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="álgebra-repaso.html#cb170-1" tabindex="-1"></a>A <span class="sc">%*%</span> B</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    2   10
+## [2,]    1   10</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="álgebra-repaso.html#cb172-1" tabindex="-1"></a>B <span class="sc">%*%</span> A</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    6   13
+## [2,]    2    6</code></pre>
+<p>Compara con <code>A * B</code>, que multiplica casilla por casilla y <strong>no</strong> es el producto de matrices:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="álgebra-repaso.html#cb174-1" tabindex="-1"></a>A <span class="sc">*</span> B</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    2    4
+## [2,]    0    6</code></pre>
+</div>
+<div id="matriz-por-vector" class="section level3 hasAnchor" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> Matriz por vector<a href="álgebra-repaso.html#matriz-por-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="álgebra-repaso.html#cb176-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb176-2"><a href="álgebra-repaso.html#cb176-2" tabindex="-1"></a>A <span class="sc">%*%</span> x</span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]    8
+## [2,]    9</code></pre>
+<p>Es la combinación lineal de las columnas de <code>A</code>: 3 veces la columna 1 más 2 veces la columna 2.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="álgebra-repaso.html#cb178-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> A[, <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> A[, <span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 8 9</code></pre>
+</div>
+<div id="la-matriz-identidad" class="section level3 hasAnchor" number="3.3.6">
+<h3><span class="header-section-number">3.3.6</span> La matriz identidad<a href="álgebra-repaso.html#la-matriz-identidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>No cambia nada al multiplicar:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="álgebra-repaso.html#cb180-1" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb180-2"><a href="álgebra-repaso.html#cb180-2" tabindex="-1"></a>I</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="álgebra-repaso.html#cb182-1" tabindex="-1"></a>A <span class="sc">%*%</span> I</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    2    1
+## [2,]    1    3</code></pre>
+</div>
+</div>
+<div id="determinante" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Determinante<a href="álgebra-repaso.html#determinante" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El determinante de una matriz 2x2 es <code>ad - bc</code>. Mide <strong>cuánto cambia el área</strong>.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="álgebra-repaso.html#cb184-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb184-2"><a href="álgebra-repaso.html#cb184-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb184-3"><a href="álgebra-repaso.html#cb184-3" tabindex="-1"></a></span>
+<span id="cb184-4"><a href="álgebra-repaso.html#cb184-4" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="álgebra-repaso.html#cb186-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> <span class="dv">1</span>     <span class="co"># a mano: ad - bc</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Un determinante <strong>cero</strong> significa que la matriz aplasta el plano y no tiene inversa. Pasa cuando una columna es múltiplo de la otra:</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="álgebra-repaso.html#cb188-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</span>
+<span id="cb188-2"><a href="álgebra-repaso.html#cb188-2" tabindex="-1"></a>              <span class="dv">2</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb188-3"><a href="álgebra-repaso.html#cb188-3" tabindex="-1"></a><span class="fu">det</span>(S)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Para comparar, algunos casos:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="álgebra-repaso.html#cb190-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">diag</span>(<span class="dv">2</span>))                           <span class="co"># identidad: el área no cambia</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="álgebra-repaso.html#cb192-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>))   <span class="co"># estira x2 y x3: el área se multiplica por 6</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="álgebra-repaso.html#cb194-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">2</span>))   <span class="co"># intercambia ejes: el signo cambia</span></span></code></pre></div>
+<pre><code>## [1] -1</code></pre>
+</div>
+<div id="inversa" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Inversa<a href="álgebra-repaso.html#inversa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La inversa <code>A^{-1}</code> deshace lo que hace <code>A</code>. En R se calcula con <code>solve()</code>:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="álgebra-repaso.html#cb196-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb196-2"><a href="álgebra-repaso.html#cb196-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb196-3"><a href="álgebra-repaso.html#cb196-3" tabindex="-1"></a></span>
+<span id="cb196-4"><a href="álgebra-repaso.html#cb196-4" tabindex="-1"></a>A_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb196-5"><a href="álgebra-repaso.html#cb196-5" tabindex="-1"></a>A_inv</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]  0.6 -0.2
+## [2,] -0.2  0.4</code></pre>
+<p>Comprobamos que <code>A</code> por su inversa da la identidad:</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="álgebra-repaso.html#cb198-1" tabindex="-1"></a>A <span class="sc">%*%</span> A_inv</span></code></pre></div>
+<pre><code>##               [,1] [,2]
+## [1,]  1.000000e+00    0
+## [2,] -1.110223e-16    1</code></pre>
+<p>(Si ves números como <code>1e-16</code>, es solo redondeo del computador: cuentan como cero.)</p>
+<p>Si el determinante es cero, <strong>no hay inversa</strong>:</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="álgebra-repaso.html#cb200-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb200-2"><a href="álgebra-repaso.html#cb200-2" tabindex="-1"></a><span class="fu">solve</span>(S)</span></code></pre></div>
+<pre><code>## Error in `solve.default()`:
+## ! Lapack routine dgesv: system is exactly singular: U[2,2] = 0</code></pre>
+</div>
+<div id="producto-punto-y-norma" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Producto punto y norma<a href="álgebra-repaso.html#producto-punto-y-norma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="producto-punto" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Producto punto<a href="álgebra-repaso.html#producto-punto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se multiplica coordenada por coordenada y se suma:</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="álgebra-repaso.html#cb202-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb202-2"><a href="álgebra-repaso.html#cb202-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb202-3"><a href="álgebra-repaso.html#cb202-3" tabindex="-1"></a></span>
+<span id="cb202-4"><a href="álgebra-repaso.html#cb202-4" tabindex="-1"></a><span class="fu">sum</span>(u <span class="sc">*</span> v)           <span class="co"># 2*3 + 1*4</span></span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="álgebra-repaso.html#cb204-1" tabindex="-1"></a><span class="fu">t</span>(u) <span class="sc">%*%</span> v           <span class="co"># lo mismo, en forma de matriz</span></span></code></pre></div>
+<pre><code>##      [,1]
+## [1,]   10</code></pre>
+</div>
+<div id="norma-largo-de-un-vector" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Norma (largo de un vector)<a href="álgebra-repaso.html#norma-largo-de-un-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="álgebra-repaso.html#cb206-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(v <span class="sc">*</span> v))     <span class="co"># largo de v = (3, 4)</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="álgebra-repaso.html#cb208-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(u <span class="sc">*</span> u))     <span class="co"># largo de u</span></span></code></pre></div>
+<pre><code>## [1] 2.236068</code></pre>
+</div>
+<div id="distancia-entre-dos-puntos" class="section level3 hasAnchor" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Distancia entre dos puntos<a href="álgebra-repaso.html#distancia-entre-dos-puntos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Es la norma de la diferencia:</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="álgebra-repaso.html#cb210-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((u <span class="sc">-</span> v)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 3.162278</code></pre>
+</div>
+<div id="ángulo-entre-dos-vectores" class="section level3 hasAnchor" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Ángulo entre dos vectores<a href="álgebra-repaso.html#ángulo-entre-dos-vectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[\cos\theta = \frac{u^\top v}{\|u\|\,\|v\|}\]</span></p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="álgebra-repaso.html#cb212-1" tabindex="-1"></a>coseno <span class="ot">&lt;-</span> <span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">sum</span>(u <span class="sc">*</span> u)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(v <span class="sc">*</span> v)))</span>
+<span id="cb212-2"><a href="álgebra-repaso.html#cb212-2" tabindex="-1"></a>coseno</span></code></pre></div>
+<pre><code>## [1] 0.8944272</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="álgebra-repaso.html#cb214-1" tabindex="-1"></a><span class="fu">acos</span>(coseno) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi    <span class="co"># el ángulo en grados</span></span></code></pre></div>
+<pre><code>## [1] 26.56505</code></pre>
+</div>
+</div>
+<div id="ortogonalidad" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Ortogonalidad<a href="álgebra-repaso.html#ortogonalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dos vectores son <strong>ortogonales</strong> (perpendiculares) cuando su producto punto es <strong>cero</strong>:</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="álgebra-repaso.html#cb216-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb216-2"><a href="álgebra-repaso.html#cb216-2" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb216-3"><a href="álgebra-repaso.html#cb216-3" tabindex="-1"></a></span>
+<span id="cb216-4"><a href="álgebra-repaso.html#cb216-4" tabindex="-1"></a><span class="fu">sum</span>(p <span class="sc">*</span> q)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Un ejemplo que <strong>no</strong> lo es:</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="álgebra-repaso.html#cb218-1" tabindex="-1"></a><span class="fu">sum</span>(p <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p>Ver el dibujo ayuda:</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="álgebra-repaso.html#cb220-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb220-2"><a href="álgebra-repaso.html#cb220-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb220-3"><a href="álgebra-repaso.html#cb220-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb220-4"><a href="álgebra-repaso.html#cb220-4" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, p[<span class="dv">1</span>], p[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb220-5"><a href="álgebra-repaso.html#cb220-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, q[<span class="dv">1</span>], q[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-71-1.png" alt="" width="672" /></p>
+</div>
+<div id="proyección" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Proyección<a href="álgebra-repaso.html#proyección" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La proyección de <code>v</code> sobre <code>u</code> es la “sombra” de <code>v</code> en la recta de <code>u</code>:</p>
+<p><span class="math display">\[\text{proj}_u v = \frac{u^\top v}{u^\top u}\, u\]</span></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="álgebra-repaso.html#cb221-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)</span>
+<span id="cb221-2"><a href="álgebra-repaso.html#cb221-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb221-3"><a href="álgebra-repaso.html#cb221-3" tabindex="-1"></a></span>
+<span id="cb221-4"><a href="álgebra-repaso.html#cb221-4" tabindex="-1"></a>c_ <span class="ot">&lt;-</span> <span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> <span class="fu">sum</span>(u <span class="sc">*</span> u)     <span class="co"># el número por el que se multiplica u</span></span>
+<span id="cb221-5"><a href="álgebra-repaso.html#cb221-5" tabindex="-1"></a>c_</span></code></pre></div>
+<pre><code>## [1] 1.5</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="álgebra-repaso.html#cb223-1" tabindex="-1"></a>proyeccion <span class="ot">&lt;-</span> c_ <span class="sc">*</span> u</span>
+<span id="cb223-2"><a href="álgebra-repaso.html#cb223-2" tabindex="-1"></a>proyeccion</span></code></pre></div>
+<pre><code>## [1] 3 0</code></pre>
+<p>El <strong>residuo</strong> es lo que sobra, y es ortogonal a <code>u</code>:</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="álgebra-repaso.html#cb225-1" tabindex="-1"></a>residuo <span class="ot">&lt;-</span> v <span class="sc">-</span> proyeccion</span>
+<span id="cb225-2"><a href="álgebra-repaso.html#cb225-2" tabindex="-1"></a>residuo</span></code></pre></div>
+<pre><code>## [1] 0 4</code></pre>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="álgebra-repaso.html#cb227-1" tabindex="-1"></a><span class="fu">sum</span>(u <span class="sc">*</span> residuo)       <span class="co"># cero: son ortogonales</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="álgebra-repaso.html#cb229-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb229-2"><a href="álgebra-repaso.html#cb229-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb229-3"><a href="álgebra-repaso.html#cb229-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb229-4"><a href="álgebra-repaso.html#cb229-4" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, u[<span class="dv">1</span>], u[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb229-5"><a href="álgebra-repaso.html#cb229-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb229-6"><a href="álgebra-repaso.html#cb229-6" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, proyeccion[<span class="dv">1</span>], proyeccion[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb229-7"><a href="álgebra-repaso.html#cb229-7" tabindex="-1"></a><span class="fu">arrows</span>(proyeccion[<span class="dv">1</span>], proyeccion[<span class="dv">2</span>], v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-74-1.png" alt="" width="672" />
+## Valores y vectores propios</p>
+<p>Un vector propio <code>v</code> de <code>A</code> cumple <code>A v = λ v</code>: la matriz solo lo <strong>estira</strong> (o encoge), sin girarlo.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="álgebra-repaso.html#cb230-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb230-2"><a href="álgebra-repaso.html#cb230-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb230-3"><a href="álgebra-repaso.html#cb230-3" tabindex="-1"></a></span>
+<span id="cb230-4"><a href="álgebra-repaso.html#cb230-4" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
+<span id="cb230-5"><a href="álgebra-repaso.html#cb230-5" tabindex="-1"></a>resultado</span></code></pre></div>
+<pre><code>## eigen() decomposition
+## $values
+## [1] 3 1
+## 
+## $vectors
+##           [,1]       [,2]
+## [1,] 0.7071068 -0.7071068
+## [2,] 0.7071068  0.7071068</code></pre>
+<p>Se guardan por separado así:</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="álgebra-repaso.html#cb232-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span> resultado<span class="sc">$</span>values</span>
+<span id="cb232-2"><a href="álgebra-repaso.html#cb232-2" tabindex="-1"></a>vectores <span class="ot">&lt;-</span> resultado<span class="sc">$</span>vectors</span>
+<span id="cb232-3"><a href="álgebra-repaso.html#cb232-3" tabindex="-1"></a></span>
+<span id="cb232-4"><a href="álgebra-repaso.html#cb232-4" tabindex="-1"></a>valores        <span class="co"># los valores propios (de mayor a menor)</span></span></code></pre></div>
+<pre><code>## [1] 3 1</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="álgebra-repaso.html#cb234-1" tabindex="-1"></a>vectores       <span class="co"># cada columna es un vector propio</span></span></code></pre></div>
+<pre><code>##           [,1]       [,2]
+## [1,] 0.7071068 -0.7071068
+## [2,] 0.7071068  0.7071068</code></pre>
+<div id="comprobar-la-definición" class="section level3 hasAnchor" number="3.8.1">
+<h3><span class="header-section-number">3.8.1</span> Comprobar la definición<a href="álgebra-repaso.html#comprobar-la-definición" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="álgebra-repaso.html#cb236-1" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> vectores[, <span class="dv">1</span>]</span>
+<span id="cb236-2"><a href="álgebra-repaso.html#cb236-2" tabindex="-1"></a></span>
+<span id="cb236-3"><a href="álgebra-repaso.html#cb236-3" tabindex="-1"></a>A <span class="sc">%*%</span> v1               <span class="co"># lado izquierdo: A por v</span></span></code></pre></div>
+<pre><code>##         [,1]
+## [1,] 2.12132
+## [2,] 2.12132</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="álgebra-repaso.html#cb238-1" tabindex="-1"></a>valores[<span class="dv">1</span>] <span class="sc">*</span> v1        <span class="co"># lado derecho: lambda por v</span></span></code></pre></div>
+<pre><code>## [1] 2.12132 2.12132</code></pre>
+<p>Son iguales: <code>A</code> solo estiró a <code>v1</code> por el factor 3.</p>
+<p>(Si en tu computador el vector sale con signo negativo no hay error: un vector y su opuesto marcan la misma recta.)</p>
+</div>
+<div id="dos-atajos-útiles" class="section level3 hasAnchor" number="3.8.2">
+<h3><span class="header-section-number">3.8.2</span> Dos atajos útiles<a href="álgebra-repaso.html#dos-atajos-útiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="álgebra-repaso.html#cb240-1" tabindex="-1"></a><span class="fu">sum</span>(valores)       <span class="co"># suma de valores propios = traza</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="álgebra-repaso.html#cb242-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(A))</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="álgebra-repaso.html#cb244-1" tabindex="-1"></a><span class="fu">prod</span>(valores)      <span class="co"># producto = determinante</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="álgebra-repaso.html#cb246-1" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="matrices-simétricas" class="section level3 hasAnchor" number="3.8.3">
+<h3><span class="header-section-number">3.8.3</span> Matrices simétricas<a href="álgebra-repaso.html#matrices-simétricas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Una matriz simétrica cumple <code>A = t(A)</code>. Sus vectores propios son <strong>ortogonales</strong>:</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="álgebra-repaso.html#cb248-1" tabindex="-1"></a>A <span class="sc">==</span> <span class="fu">t</span>(A)</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,] TRUE TRUE
+## [2,] TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="álgebra-repaso.html#cb250-1" tabindex="-1"></a><span class="fu">sum</span>(vectores[, <span class="dv">1</span>] <span class="sc">*</span> vectores[, <span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+</div>
+</div>
+<div id="resumen" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Resumen<a href="álgebra-repaso.html#resumen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Operación</th>
+<th align="left">En R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Vector</td>
+<td align="left"><code>c(1, 2)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Suma, resta, escalar</td>
+<td align="left"><code>u + v</code>, <code>u - v</code>, <code>2 * u</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Combinación lineal</td>
+<td align="left"><code>3 * v1 + 2 * v2</code></td>
+</tr>
+<tr class="even">
+<td align="left">Matriz</td>
+<td align="left"><code>matrix(c(...), nrow = 2)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Transpuesta</td>
+<td align="left"><code>t(A)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Producto de matrices</td>
+<td align="left"><code>A %*% B</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Determinante</td>
+<td align="left"><code>det(A)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Inversa / sistema</td>
+<td align="left"><code>solve(A)</code>, <code>solve(A, b)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Producto punto</td>
+<td align="left"><code>sum(u * v)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Norma</td>
+<td align="left"><code>sqrt(sum(v * v))</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Ortogonales</td>
+<td align="left"><code>sum(u * v) == 0</code></td>
+</tr>
+<tr class="even">
+<td align="left">Proyección</td>
+<td align="left"><code>sum(u * v) / sum(u * u) * u</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Valores y vectores propios</td>
+<td align="left"><code>eigen(A)</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bases-de-datos-en-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conceptos-básicos-estadística.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Análisis Multivariado en Rstudio.pdf", "Análisis Multivariado en Rstudio.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

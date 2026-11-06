@@ -1,0 +1,424 @@
+# Álgebra: Repaso
+
+
+En esta lección aprendes a hacer **en R** las operaciones de álgebra que vimos en clase. 
+
+Dos recordatorios de R que vamos a usar todo el tiempo:
+
+- `c( )` crea un vector.
+- `matrix( )` crea una matriz. **R llena la matriz por columnas.**
+
+
+
+
+```{r}
+# Un vector con tres números
+c(5, 2, 7)
+
+# Una matriz 2x2: fíjate cómo se acomodan los números (por columnas)
+matrix(c(1, 2, 3, 4), nrow = 2)
+```
+
+## Vectores
+
+### Crear vectores
+
+```{r}
+u <- c(1, 2)
+v <- c(3, 1)
+u
+v
+```
+
+Un vector también puede tener más de dos números (una variable por coordenada):
+
+```{r}
+w <- c(4, 0, 2)
+length(w)    # cuántas coordenadas tiene
+```
+
+### Suma y resta
+
+Se hacen **coordenada por coordenada**:
+
+```{r}
+u + v
+u - v
+```
+
+Gráficamente, la suma es poner un vector a continuación del otro:
+
+```{r}
+plot(0, 0, type = "n", xlim = c(-1, 5), ylim = c(-1, 4), xlab = "x", ylab = "y", asp = 1)
+grid()
+abline(h = 0, v = 0)
+
+arrows(0, 0, u[1], u[2], col = "blue", lwd = 3)                    # u
+arrows(0, 0, v[1], v[2], col = "red", lwd = 3)                     # v
+arrows(u[1], u[2], u[1] + v[1], u[2] + v[2], col = "red", lty = 2) # v pegado a u
+arrows(0, 0, (u + v)[1], (u + v)[2], col = "darkgreen", lwd = 3)   # u + v
+```
+
+### Multiplicar por un escalar
+
+Un número multiplica **todas** las coordenadas:
+
+```{r}
+2 * u
+0.5 * u
+-1 * u
+```
+
+
+## Combinaciones lineales
+
+Una **combinación lineal** es multiplicar cada vector por un número y sumar:
+
+$$c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2$$
+
+```{r}
+v1 <- c(2, 1)
+v2 <- c(1, 2)
+
+# 3 veces v1 más 2 veces v2
+3 * v1 + 2 * v2
+```
+
+La **base canónica** son los vectores `e1` y `e2`. Las coordenadas de un vector son los coeficientes de su combinación lineal:
+
+```{r}
+e1 <- c(1, 0)
+e2 <- c(0, 1)
+
+5 * e1 + 4 * e2     # es el vector (5, 4)
+```
+
+Dos vectores en la **misma recta** no sirven para llegar a todo el plano:
+
+```{r}
+c(1, 2) * 2     # (2, 4) es solo el doble de (1, 2)
+```
+
+
+
+## Matrices
+
+### Crear una matriz
+
+```{r}
+A <- matrix(c(2, 1,
+              1, 3), nrow = 2)
+A
+```
+
+La primera columna es `(2, 1)` y la segunda `(1, 3)`. Para sacar partes de la matriz:
+
+```{r}
+A[1, 2]     # fila 1, columna 2
+A[, 1]      # primera columna
+A[2, ]      # segunda fila
+dim(A)      # dimensiones
+```
+
+### Suma, resta y escalar
+
+```{r}
+B <- matrix(c(1, 0,
+              4, 2), nrow = 2)
+
+A + B
+A - B
+3 * A
+```
+
+### Transpuesta
+
+Cambia filas por columnas:
+
+```{r}
+t(A)
+
+M <- matrix(c(1, 2, 3, 4, 5, 6), nrow = 2)
+M
+t(M)
+```
+
+### Multiplicar matrices
+
+Se usa `%*%` (no `*`). **El orden importa.**
+
+```{r}
+A %*% B
+B %*% A
+```
+
+Compara con `A * B`, que multiplica casilla por casilla y **no** es el producto de matrices:
+
+```{r}
+A * B
+```
+
+### Matriz por vector
+
+```{r}
+x <- c(3, 2)
+A %*% x
+```
+
+Es la combinación lineal de las columnas de `A`: 3 veces la columna 1 más 2 veces la columna 2.
+
+```{r}
+3 * A[, 1] + 2 * A[, 2]
+```
+
+### La matriz identidad
+
+No cambia nada al multiplicar:
+
+```{r}
+I <- diag(2)
+I
+
+A %*% I
+```
+
+
+## Determinante
+
+El determinante de una matriz 2x2 es `ad - bc`. Mide **cuánto cambia el área**.
+
+```{r}
+A <- matrix(c(2, 1,
+              1, 3), nrow = 2)
+
+det(A)
+2 * 3 - 1 * 1     # a mano: ad - bc
+```
+
+Un determinante **cero** significa que la matriz aplasta el plano y no tiene inversa. Pasa cuando una columna es múltiplo de la otra:
+
+```{r}
+S <- matrix(c(1, 2,
+              2, 4), nrow = 2)
+det(S)
+```
+
+Para comparar, algunos casos:
+
+```{r}
+det(diag(2))                           # identidad: el área no cambia
+det(matrix(c(2, 0, 0, 3), nrow = 2))   # estira x2 y x3: el área se multiplica por 6
+det(matrix(c(0, 1, 1, 0), nrow = 2))   # intercambia ejes: el signo cambia
+```
+
+
+
+
+## Inversa
+
+La inversa `A^{-1}` deshace lo que hace `A`. En R se calcula con `solve()`:
+
+```{r}
+A <- matrix(c(2, 1,
+              1, 3), nrow = 2)
+
+A_inv <- solve(A)
+A_inv
+```
+
+Comprobamos que `A` por su inversa da la identidad:
+
+```{r}
+A %*% A_inv
+```
+
+(Si ves números como `1e-16`, es solo redondeo del computador: cuentan como cero.)
+
+Si el determinante es cero, **no hay inversa**:
+
+```{r, error=TRUE}
+S <- matrix(c(1, 2, 2, 4), nrow = 2)
+solve(S)
+```
+
+
+## Producto punto y norma
+
+### Producto punto
+
+Se multiplica coordenada por coordenada y se suma:
+
+```{r}
+u <- c(2, 1)
+v <- c(3, 4)
+
+sum(u * v)           # 2*3 + 1*4
+t(u) %*% v           # lo mismo, en forma de matriz
+```
+
+### Norma (largo de un vector)
+
+```{r}
+sqrt(sum(v * v))     # largo de v = (3, 4)
+sqrt(sum(u * u))     # largo de u
+```
+
+### Distancia entre dos puntos
+
+Es la norma de la diferencia:
+
+```{r}
+sqrt(sum((u - v)^2))
+```
+
+### Ángulo entre dos vectores
+
+$$\cos\theta = \frac{u^\top v}{\|u\|\,\|v\|}$$
+
+```{r}
+coseno <- sum(u * v) / (sqrt(sum(u * u)) * sqrt(sum(v * v)))
+coseno
+
+acos(coseno) * 180 / pi    # el ángulo en grados
+```
+
+
+## Ortogonalidad
+
+Dos vectores son **ortogonales** (perpendiculares) cuando su producto punto es **cero**:
+
+```{r}
+p <- c(2, 1)
+q <- c(-1, 2)
+
+sum(p * q)
+```
+
+Un ejemplo que **no** lo es:
+
+```{r}
+sum(p * c(3, 4))
+```
+
+Ver el dibujo ayuda:
+
+```{r}
+plot(0, 0, type = "n", xlim = c(-3, 3), ylim = c(-2, 3), xlab = "x", ylab = "y", asp = 1)
+grid()
+abline(h = 0, v = 0)
+arrows(0, 0, p[1], p[2], col = "blue", lwd = 3)
+arrows(0, 0, q[1], q[2], col = "red", lwd = 3)
+```
+
+## Proyección
+
+La proyección de `v` sobre `u` es la "sombra" de `v` en la recta de `u`:
+
+$$\text{proj}_u v = \frac{u^\top v}{u^\top u}\, u$$
+
+```{r}
+u <- c(2, 0)
+v <- c(3, 4)
+
+c_ <- sum(u * v) / sum(u * u)     # el número por el que se multiplica u
+c_
+
+proyeccion <- c_ * u
+proyeccion
+```
+
+El **residuo** es lo que sobra, y es ortogonal a `u`:
+
+```{r}
+residuo <- v - proyeccion
+residuo
+
+sum(u * residuo)       # cero: son ortogonales
+```
+
+```{r}
+plot(0, 0, type = "n", xlim = c(-1, 5), ylim = c(-1, 5), xlab = "x", ylab = "y", asp = 1)
+grid()
+abline(h = 0, v = 0)
+arrows(0, 0, u[1], u[2], col = "blue", lwd = 3)
+arrows(0, 0, v[1], v[2], col = "red", lwd = 3)
+arrows(0, 0, proyeccion[1], proyeccion[2], col = "darkgreen", lwd = 3)
+arrows(proyeccion[1], proyeccion[2], v[1], v[2], col = "purple", lwd = 2)
+```
+## Valores y vectores propios
+
+Un vector propio `v` de `A` cumple `A v = λ v`: la matriz solo lo **estira** (o encoge), sin girarlo.
+
+```{r}
+A <- matrix(c(2, 1,
+              1, 2), nrow = 2)
+
+resultado <- eigen(A)
+resultado
+```
+
+Se guardan por separado así:
+
+```{r}
+valores <- resultado$values
+vectores <- resultado$vectors
+
+valores        # los valores propios (de mayor a menor)
+vectores       # cada columna es un vector propio
+```
+
+### Comprobar la definición
+
+```{r}
+v1 <- vectores[, 1]
+
+A %*% v1               # lado izquierdo: A por v
+valores[1] * v1        # lado derecho: lambda por v
+```
+
+Son iguales: `A` solo estiró a `v1` por el factor 3.
+
+(Si en tu computador el vector sale con signo negativo no hay error: un vector y su opuesto marcan la misma recta.)
+
+### Dos atajos útiles
+
+```{r}
+sum(valores)       # suma de valores propios = traza
+sum(diag(A))
+
+prod(valores)      # producto = determinante
+det(A)
+```
+
+### Matrices simétricas
+
+Una matriz simétrica cumple `A = t(A)`. Sus vectores propios son **ortogonales**:
+
+```{r}
+A == t(A)
+
+sum(vectores[, 1] * vectores[, 2])
+```
+
+
+
+## Resumen
+
+| Operación | En R |
+|:--|:--|
+| Vector | `c(1, 2)` |
+| Suma, resta, escalar | `u + v`, `u - v`, `2 * u` |
+| Combinación lineal | `3 * v1 + 2 * v2` |
+| Matriz | `matrix(c(...), nrow = 2)` |
+| Transpuesta | `t(A)` |
+| Producto de matrices | `A %*% B` |
+| Determinante | `det(A)` |
+| Inversa / sistema | `solve(A)`, `solve(A, b)` |
+| Producto punto | `sum(u * v)` |
+| Norma | `sqrt(sum(v * v))` |
+| Ortogonales | `sum(u * v) == 0` |
+| Proyección | `sum(u * v) / sum(u * u) * u` |
+| Valores y vectores propios | `eigen(A)` |
+
+
+

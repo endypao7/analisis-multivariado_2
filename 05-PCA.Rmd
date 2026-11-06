@@ -1,0 +1,530 @@
+# Análisis de componentes principales
+
+El **análisis de componentes principales (PCA)** resume un conjunto de variables correlacionadas en pocas variables nuevas, los **componentes principales**. Cada componente es una combinación lineal de las variables originales, los componentes no están correlacionados entre sí y están ordenados de mayor a menor varianza.
+
+El capítulo tiene dos partes. En la primera, un ejemplo pequeño se resuelve **paso a paso con operaciones de matrices**, para ver qué hay detrás de la técnica. En la segunda, un conjunto de datos reales se analiza **de forma completa con funciones automáticas**: exploración, verificación de supuestos, cálculo, selección de componentes, interpretación y gráficos.
+
+### Notación
+
+Sea $\mathbf{X}=(X_1,\dots,X_p)^\top$ un vector aleatorio con media $\boldsymbol{\mu}$ y matriz de covarianzas $\Sigma$. Con datos, estas cantidades se estiman por $\bar{\mathbf{x}}$ y $S$ (o por la matriz de correlaciones $R$).
+
+| Símbolo | Significado |
+|:--|:--|
+| $\lambda_1\ge\cdots\ge\lambda_p$ | eigenvalores de $S$ (o de $R$): varianzas de los componentes |
+| $\mathbf{v}_1,\dots,\mathbf{v}_p$ | eigenvectores unitarios: **loadings** (direcciones de los ejes) |
+| $Z_k=\mathbf{v}_k^\top(\mathbf{X}-\boldsymbol{\mu})$ | $k$-ésimo componente principal |
+| $z_{ik}$ | **score** de la observación $i$ en el componente $k$ |
+| $\lambda_k/\sum_j\lambda_j$ | proporción de varianza explicada (PVE) |
+
+Resultado central: $\operatorname{Var}(Z_k)=\lambda_k$, $\operatorname{Cov}(Z_j,Z_k)=0$ para $j\neq k$ y $\sum_k\lambda_k=\operatorname{tr}(S)$. El procedimiento sigue siempre cinco pasos:
+
+| Paso | Operación | Función en R |
+|:--|:--|:--|
+| 1 | Centrar y, si hace falta, estandarizar | `scale()` |
+| 2 | Calcular la matriz de covarianzas o de correlaciones | `cov()`, `cor()` |
+| 3 | Obtener eigenvalores y eigenvectores | `eigen()` |
+| 4 | Seleccionar el número de componentes | PVE, gráfico de sedimentación |
+| 5 | Proyectar los datos (scores) e interpretar | `%*%`, `prcomp()` |
+
+## Parte A. Ejemplo manual
+
+### Datos
+
+Una máquina registra temperatura (°C), vibración (mm/s) y presión (bar) en ocho momentos. Es un conjunto pequeño, suficiente para seguir cada operación.
+
+```{r}
+maq <- data.frame(
+  temperatura = c(78.8, 73.6, 72.0, 74.4, 74.0, 66.2, 73.1, 72.6),
+  vibracion   = c(4.6, 3.4, 2.7, 3.6, 3.7, 2.5, 3.0, 3.4),
+  presion     = c(4.7, 4.9, 5.4, 4.8, 4.8, 5.4, 5.7, 5.9))
+
+X <- as.matrix(maq)
+n <- nrow(X)      # observaciones
+p <- ncol(X)      # variables
+X
+```
+
+```{r}
+pairs(maq, pch = 19, col = "steelblue")
+```
+
+Temperatura y vibración crecen juntas; la presión se mueve en sentido contrario. Hay información repetida entre las variables.
+
+### Paso 1. Centrado y estandarización
+
+Centrar significa restar a cada variable su media; estandarizar, además, dividir entre su desviación estándar. Las varianzas originales muestran por qué conviene estandarizar:
+
+```{r}
+medias <- colMeans(X)
+round(medias, 2)
+round(apply(X, 2, var), 2)   # la temperatura domina solo por sus unidades
+```
+
+```{r}
+Xc <- sweep(X, 2, medias)                  # datos centrados
+Z  <- scale(X)                             # datos estandarizados
+
+round(colMeans(Xc), 10)                    # medias cero
+round(apply(Z, 2, sd), 10)                 # desviaciones uno
+```
+
+### Paso 2. Matrices de covarianzas y de correlaciones
+
+La matriz de covarianzas es $S=\frac{1}{n-1}X_c^\top X_c$. Con datos estandarizados, la misma operación produce la matriz de correlaciones $R$.
+
+```{r}
+S <- t(Xc) %*% Xc / (n - 1)
+round(S, 2)
+all.equal(S, cov(X), check.attributes = FALSE)
+```
+
+```{r}
+R <- t(Z) %*% Z / (n - 1)
+round(R, 2)
+all.equal(R, cor(X), check.attributes = FALSE)
+```
+
+Se trabaja con $R$, porque las unidades de las variables no son comparables.
+
+### Paso 3. Eigenvalores y eigenvectores
+
+Los eigenvalores $\lambda_k$ y eigenvectores $\mathbf{v}_k$ de $R$ cumplen $R\mathbf{v}_k=\lambda_k\mathbf{v}_k$. La función `eigen()` los devuelve ordenados de mayor a menor.
+
+```{r}
+e <- eigen(R)
+valores  <- e$values
+vectores <- e$vectors
+rownames(vectores) <- colnames(X)
+colnames(vectores) <- paste0("PC", 1:p)
+
+round(valores, 3)
+round(vectores, 3)
+```
+
+Verificación de la definición para el primer par:
+
+```{r}
+R %*% vectores[, 1]          # lado izquierdo
+valores[1] * vectores[, 1]   # lado derecho
+```
+
+Los eigenvectores son unitarios y perpendiculares entre sí:
+
+```{r}
+round(t(vectores) %*% vectores, 10)    # matriz identidad
+```
+
+El signo de cada eigenvector es arbitrario: $\mathbf{v}$ y $-\mathbf{v}$ definen el mismo eje.
+
+### Paso 4. Varianza explicada
+
+La proporción de varianza explicada por el componente $k$ es $\lambda_k/\sum_j\lambda_j$. Con una matriz de correlaciones, la suma de los eigenvalores es $p$.
+
+```{r}
+sum(valores)                            # igual a p = 3
+
+pve <- valores / sum(valores)
+round(rbind(PVE = pve, Acumulada = cumsum(pve)), 3)
+```
+
+```{r}
+plot(valores, type = "b", pch = 19, xlab = "Componente", ylab = "Eigenvalor",
+     main = "Gráfico de sedimentación")
+abline(h = 1, lty = 2, col = "red")    # criterio de Kaiser
+```
+
+El primer componente explica cerca de 79 % de la variabilidad; con dos se alcanza 97 %. Un tercer componente aporta poco.
+
+### Paso 5. Scores
+
+Los scores son las coordenadas de las observaciones en los nuevos ejes: $Z_{\text{scores}}=Z\,V$.
+
+```{r}
+scores <- Z %*% vectores
+round(scores, 2)
+```
+
+Las propiedades del teorema se verifican directamente: los componentes tienen varianza $\lambda_k$ y covarianza cero.
+
+```{r}
+round(cov(scores), 3)     # diagonal: eigenvalores; fuera de la diagonal: ceros
+round(valores, 3)
+```
+
+```{r}
+plot(scores[, 1], scores[, 2], pch = 19, col = "steelblue",
+     xlab = "PC1", ylab = "PC2", main = "Scores")
+text(scores[, 1], scores[, 2], labels = 1:n, pos = 3)
+abline(h = 0, v = 0, col = "grey80")
+```
+
+### Loadings y correlación con las variables
+
+Los loadings indican el peso de cada variable en el componente. Cuando se parte de $R$, la correlación entre la variable $j$ y el componente $k$ es $\sqrt{\lambda_k}\,v_{jk}$.
+
+```{r}
+round(vectores[, 1:2], 2)
+
+correl <- sweep(vectores, 2, sqrt(valores), "*")
+round(correl[, 1:2], 2)
+
+round(cor(Z, scores)[, 1:2], 2)     # coincide con la tabla anterior
+```
+
+El primer componente tiene cargas del mismo signo en temperatura y vibración, y signo contrario en presión: describe un régimen de operación con calor y vibración altos y presión baja.
+
+
+### Comprobación con `prcomp()`
+
+La función `prcomp()` realiza todos los pasos anteriores:
+
+```{r}
+pc <- prcomp(X, scale. = TRUE)
+
+all.equal(pc$sdev^2, valores)
+all.equal(abs(unname(pc$rotation)), abs(unname(vectores)))
+all.equal(abs(unname(pc$x)), abs(unname(scores)))
+```
+
+Los resultados son iguales salvo el signo de las columnas. Con los fundamentos claros, la segunda parte usa funciones automáticas.
+
+## Parte B. Aplicación con datos reales
+
+### Datos
+
+El conjunto de datos **Wine** (Forina et al., UCI Machine Learning Repository) contiene el análisis químico de 178 vinos italianos producidos por tres cultivares. Cada vino tiene 13 mediciones. El cultivar se usará solo para validar el resultado, no para calcular los componentes.
+
+```{r}
+url <- "https://raw.githubusercontent.com/jbrownlee/Datasets/master/wine.csv"
+vino <- read.csv(url, header = FALSE)
+
+names(vino) <- c("Alcohol", "Malico", "Ceniza", "Alcalinidad", "Magnesio",
+                 "Fenoles", "Flavonoides", "NoFlavonoides", "Proantocianinas",
+                 "Color", "Matiz", "OD280", "Prolina", "Cultivar")
+vino$Cultivar <- factor(vino$Cultivar)
+
+str(vino)
+```
+
+| Variable | Descripción |
+|:--|:--|
+| `Alcohol`, `Malico`, `Ceniza`, `Alcalinidad`, `Magnesio` | contenido de alcohol, ácido málico, ceniza, alcalinidad de la ceniza y magnesio |
+| `Fenoles`, `Flavonoides`, `NoFlavonoides`, `Proantocianinas` | compuestos fenólicos |
+| `Color`, `Matiz` | intensidad y tono del color |
+| `OD280` | absorbancia de los vinos diluidos |
+| `Prolina` | contenido de prolina |
+
+```{r}
+X <- vino[, 1:13]          # variables cuantitativas para PCA
+n <- nrow(X)
+p <- ncol(X)
+
+c(n = n, p = p)
+sum(is.na(X))              # datos faltantes
+table(vino$Cultivar)
+```
+
+### Exploración univariada
+
+```{r}
+summary(X)
+```
+
+```{r, fig.width=9, fig.height=6}
+par(mfrow = c(3, 5))
+for (v in names(X)) hist(X[[v]], main = v, xlab = "", col = "lightblue")
+par(mfrow = c(1, 1))
+```
+
+La mayoría de las variables tiene forma aproximadamente simétrica; `Malico` y `Proantocianinas` muestran cola derecha. Las escalas son muy distintas:
+
+```{r}
+round(sapply(X, sd), 2)
+```
+
+La desviación de `Prolina` (cercana a 315) es mayor que la de cualquier otra variable. Sin estandarizar, `Prolina` dominaría el primer componente. Por ello el análisis se hará con la **matriz de correlaciones**.
+
+### Exploración bivariada
+
+```{r, fig.width=7, fig.height=7}
+library(corrplot)
+
+R <- cor(X)
+corrplot(R, method = "color", type = "upper", tl.col = "black", tl.cex = 0.8,
+         addCoef.col = "black", number.cex = 0.5)
+```
+
+Un grupo de variables fenólicas (`Fenoles`, `Flavonoides`, `OD280`, `Proantocianinas`) muestra correlaciones moderadas a altas, lo que indica redundancia aprovechable por PCA.
+
+```{r}
+# Pares con correlación mayor a 0.6 en valor absoluto
+pares <- which(abs(R) > 0.6 & upper.tri(R), arr.ind = TRUE)
+data.frame(var1 = rownames(R)[pares[, 1]], var2 = colnames(R)[pares[, 2]],
+           r = round(R[pares], 2))
+```
+
+```{r, fig.width=7, fig.height=7}
+pairs(X[, c("Alcohol", "Flavonoides", "Color", "Prolina")],
+      pch = 19, col = vino$Cultivar, cex = 0.6)
+```
+
+Las relaciones son aproximadamente lineales, y los colores (cultivares) ya se separan en algunos pares.
+
+### Verificación de supuestos
+
+PCA requiere variables cuantitativas, relaciones aproximadamente lineales, correlaciones suficientes, tamaño de muestra adecuado y ausencia de atípicos extremos. La normalidad multivariada no es necesaria para el cálculo descriptivo, pero se revisa porque facilita la inferencia.
+
+#### Correlación suficiente
+
+Si $R$ fuera la identidad, no habría estructura que resumir. Una señal es el determinante de $R$, que se acerca a 0 con variables redundantes:
+
+```{r}
+det(R)
+```
+
+La **prueba de esfericidad de Bartlett** contrasta $H_0: R = I$ con el estadístico
+
+$$\chi^2 = -\left(n-1-\frac{2p+5}{6}\right)\ln|R|, \qquad gl = \frac{p(p-1)}{2}.$$
+
+```{r}
+chi2 <- -(n - 1 - (2 * p + 5) / 6) * log(det(R))
+gl <- p * (p - 1) / 2
+
+c(chi2 = chi2, gl = gl, valor_p = pchisq(chi2, gl, lower.tail = FALSE))
+```
+
+El valor $p$ es prácticamente cero: se rechaza $H_0$ y hay correlación suficiente. Con el paquete `psych` se obtiene lo mismo:
+
+```{r}
+library(psych)
+cortest.bartlett(R, n = n)
+```
+
+#### Adecuación muestral: índice KMO
+
+El índice de **Kaiser-Meyer-Olkin** compara las correlaciones con las correlaciones parciales. Valores sobre 0.6 se consideran aceptables y sobre 0.8, buenos.
+
+```{r}
+kmo <- KMO(R)
+round(kmo$MSA, 3)            # KMO global
+round(kmo$MSAi, 2)           # KMO por variable
+```
+
+El KMO global es 0.78, aceptable. Todas las variables superan 0.6 salvo `Ceniza` (0.44), que aporta menos estructura común. Se conserva en el análisis, pero se interpreta con cautela.
+
+#### Tamaño muestral
+
+Una regla práctica pide al menos 5 a 10 observaciones por variable. Aquí hay $178/13\approx 13.7$, suficiente.
+
+#### Atípicos multivariados
+
+La distancia de Mahalanobis al cuadrado, $d^2=(\mathbf{x}-\bar{\mathbf{x}})^\top S^{-1}(\mathbf{x}-\bar{\mathbf{x}})$, se compara con el cuantil 0.99 de una chi-cuadrado con $p$ grados de libertad.
+
+```{r}
+d2 <- mahalanobis(X, colMeans(X), cov(X))
+corte <- qchisq(0.99, df = p)
+
+corte
+which(d2 > corte)           # observaciones señaladas
+round(sort(d2, decreasing = TRUE)[1:6], 1)
+```
+
+```{r}
+plot(d2, pch = 19, col = ifelse(d2 > corte, "red", "steelblue"),
+     xlab = "Observación", ylab = "d² de Mahalanobis")
+abline(h = corte, lty = 2)
+```
+
+Seis vinos superan el corte (3.4 % de la muestra). Con una normal se esperaría cerca de 1 %. Se mantienen en el análisis, pero se vigilarán en los resultados; la observación 111 es la más extrema.
+
+#### Normalidad multivariada
+
+```{r}
+plot(qchisq(ppoints(n), df = p), sort(d2), pch = 19, col = "steelblue", cex = 0.6,
+     xlab = "Cuantiles chi-cuadrado", ylab = "d² de Mahalanobis")
+abline(0, 1, col = "red", lwd = 2)
+```
+
+Los puntos siguen la recta salvo en la cola superior, que corresponde a los atípicos ya identificados. La aproximación es razonable para un análisis descriptivo.
+
+### Cálculo de componentes
+
+```{r}
+pca <- prcomp(X, scale. = TRUE)
+summary(pca)
+```
+
+El objeto `pca` contiene `sdev` (desviaciones de los componentes), `rotation` (loadings) y `x` (scores).
+
+```{r}
+eigenvalores <- pca$sdev^2
+round(eigenvalores, 2)
+sum(eigenvalores)            # igual a p = 13
+```
+
+### Selección del número de componentes
+
+```{r}
+pve <- eigenvalores / sum(eigenvalores)
+tabla <- data.frame(Componente = paste0("PC", 1:p),
+                    Eigenvalor = round(eigenvalores, 2),
+                    PVE = round(100 * pve, 1),
+                    Acumulada = round(100 * cumsum(pve), 1))
+tabla
+```
+
+```{r, fig.width=9, fig.height=4}
+library(factoextra)
+
+fviz_eig(pca, addlabels = TRUE, ncp = 13, main = "Gráfico de sedimentación")
+```
+
+```{r}
+plot(cumsum(pve), type = "b", pch = 19, ylim = c(0, 1),
+     xlab = "Componentes retenidos", ylab = "Varianza acumulada")
+abline(h = c(0.7, 0.8), lty = 2, col = "red")
+```
+
+Criterios de decisión:
+
+| Criterio | Resultado |
+|:--|:--|
+| Kaiser ($\lambda>1$) | 3 componentes (4.71, 2.50, 1.45) |
+| Varianza acumulada | 66.5 % con 3; 80.2 % con 5 |
+| Codo del gráfico | cambio de pendiente después del tercer componente |
+
+Se retienen **tres componentes**, que explican 66.5 % de la varianza. Para visualizar se usan los dos primeros (55.4 %).
+
+### Interpretación de loadings
+
+```{r}
+cargas <- pca$rotation[, 1:3]
+round(cargas, 2)
+```
+
+```{r, fig.width=9, fig.height=4}
+par(mfrow = c(1, 3))
+for (k in 1:3) {
+  barplot(cargas[, k], las = 2, col = ifelse(cargas[, k] > 0, "steelblue", "firebrick"),
+          main = paste0("PC", k), cex.names = 0.7)
+  abline(h = 0)
+}
+par(mfrow = c(1, 1))
+```
+
+La correlación de cada variable con los componentes es $\sqrt{\lambda_k}\,v_{jk}$:
+
+```{r}
+correl <- sweep(pca$rotation, 2, pca$sdev, "*")
+round(correl[, 1:3], 2)
+```
+
+```{r, fig.width=7, fig.height=6}
+fviz_pca_var(pca, col.var = "cos2", gradient.cols = c("black", "orange", "green"),
+             repel = TRUE)
+```
+
+Interpretación sugerida (los signos son arbitrarios; importan los contrastes):
+
+- **PC1** contrasta `Flavonoides`, `Fenoles`, `OD280`, `Proantocianinas` y `Matiz` (peso negativo) frente a `NoFlavonoides`, `Alcalinidad` y `Malico` (peso positivo): un eje de **contenido fenólico**.
+- **PC2** está dominado por `Color`, `Alcohol`, `Prolina` y `Magnesio`: un eje de **intensidad** del vino (color, alcohol, prolina).
+- **PC3** se asocia sobre todo con `Ceniza` y `Alcalinidad`.
+
+El aporte de cada variable a los dos primeros ejes se resume en un gráfico de contribuciones:
+
+```{r, fig.width=8, fig.height=4}
+fviz_contrib(pca, choice = "var", axes = 1:2, top = 13)
+```
+
+### Scores y gráficos de observaciones
+
+```{r}
+scores <- pca$x
+round(head(scores[, 1:3]), 2)
+```
+
+```{r, fig.width=7, fig.height=6}
+plot(scores[, 1], scores[, 2], pch = 19, col = vino$Cultivar,
+     xlab = paste0("PC1 (", round(100 * pve[1], 1), " %)"),
+     ylab = paste0("PC2 (", round(100 * pve[2], 1), " %)"),
+     main = "Scores: vinos según cultivar")
+abline(h = 0, v = 0, col = "grey80")
+legend("topright", legend = levels(vino$Cultivar), col = 1:3, pch = 19, title = "Cultivar")
+```
+
+Los tres cultivares se separan en el plano de los dos primeros componentes, aunque PCA no usó esa información.
+
+```{r, fig.width=8, fig.height=6}
+fviz_pca_ind(pca, geom = "point", col.ind = vino$Cultivar,
+             addEllipses = TRUE, legend.title = "Cultivar")
+```
+
+```{r, fig.width=8, fig.height=6}
+fviz_pca_biplot(pca, geom.ind = "point", col.ind = vino$Cultivar,
+                col.var = "black", repel = TRUE, legend.title = "Cultivar")
+```
+
+En el biplot, una observación ubicada en la dirección de una flecha tiene valores altos en esa variable; flechas cercanas indican variables correlacionadas.
+
+```{r, fig.width=7, fig.height=4}
+boxplot(scores[, 1] ~ vino$Cultivar, col = 2:4, xlab = "Cultivar", ylab = "PC1")
+```
+
+Los scores de PC1 separan en particular al cultivar 1 del cultivar 3.
+
+### Atípicos en el espacio de componentes
+
+La distancia de Mahalanobis se expresa con los componentes: $d^2=\sum_k z_k^2/\lambda_k$.
+
+```{r}
+d2_pc <- rowSums(sweep(scores^2, 2, eigenvalores, "/"))
+all.equal(unname(d2_pc), unname(mahalanobis(scale(X), rep(0, p), cor(X))))
+```
+
+Con los dos primeros componentes se obtiene una versión visualizable:
+
+```{r, fig.width=7, fig.height=6}
+d2_2 <- scores[, 1]^2 / eigenvalores[1] + scores[, 2]^2 / eigenvalores[2]
+extremos <- rank(-d2_2) <= 5          # las cinco observaciones más alejadas
+
+plot(scores[, 1], scores[, 2], pch = 19, col = ifelse(extremos, "red", "grey60"),
+     xlab = "PC1", ylab = "PC2", main = "Cinco observaciones más alejadas en PC1 y PC2")
+text(scores[extremos, 1], scores[extremos, 2], labels = which(extremos), pos = 3)
+```
+
+### Uso posterior de los componentes
+
+Los primeros componentes pueden reemplazar a las 13 variables en otras técnicas. Como ilustración, un agrupamiento con $k$-medias sobre PC1 y PC2 se compara con el cultivar real:
+
+```{r}
+set.seed(123)
+grupos <- kmeans(scores[, 1:2], centers = 3, nstart = 20)$cluster
+
+table(Cultivar = vino$Cultivar, Grupo = grupos)
+```
+
+Los grupos recuperan casi por completo los cultivares (los números de grupo son etiquetas arbitrarias), con solo dos variables nuevas en lugar de trece.
+
+### Resumen del análisis
+
+| Etapa | Resultado |
+|:--|:--|
+| Datos | 178 vinos, 13 variables químicas, sin datos faltantes |
+| Escala | muy distinta: se usa la matriz de correlaciones |
+| Supuestos | Bartlett significativo, KMO = 0.78, relaciones lineales, 6 atípicos moderados |
+| Componentes retenidos | 3 (66.5 % de varianza) |
+| PC1 | contenido fenólico (flavonoides, fenoles, OD280) |
+| PC2 | intensidad (color, alcohol, prolina) |
+| Validación | los scores separan los tres cultivares |
+
+### Lista de verificación
+
+1. Variables cuantitativas, sin faltantes y con tamaño de muestra suficiente.
+2. Exploración univariada y bivariada.
+3. Decisión de escala: covarianzas o correlaciones.
+4. Bartlett y KMO.
+5. Revisión de atípicos multivariados.
+6. Selección del número de componentes con varios criterios.
+7. Interpretación con loadings y gráficos.
+8. Reporte de varianza explicada, recordando que varianza no equivale a relevancia científica.
+
