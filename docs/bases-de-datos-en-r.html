@@ -412,13 +412,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb91-2"><a href="bases-de-datos-en-r.html#cb91-2" tabindex="-1"></a></span>
 <span id="cb91-3"><a href="bases-de-datos-en-r.html#cb91-3" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;datos.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb91-4"><a href="bases-de-datos-en-r.html#cb91-4" tabindex="-1"></a><span class="fu">help</span>(<span class="st">&quot;write.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## starting httpd help server ... done</code></pre>
 </div>
 <div id="importar-un-dataframe-desde-un-archivo-csv" class="section level3 hasAnchor" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Importar un Dataframe desde un archivo CSV<a href="bases-de-datos-en-r.html#importar-un-dataframe-desde-un-archivo-csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="bases-de-datos-en-r.html#cb92-1" tabindex="-1"></a><span class="co"># Leer un archivo CSV</span></span>
-<span id="cb92-2"><a href="bases-de-datos-en-r.html#cb92-2" tabindex="-1"></a></span>
-<span id="cb92-3"><a href="bases-de-datos-en-r.html#cb92-3" tabindex="-1"></a>df_importado <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;datos.csv&quot;</span>)</span>
-<span id="cb92-4"><a href="bases-de-datos-en-r.html#cb92-4" tabindex="-1"></a>df_importado</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="bases-de-datos-en-r.html#cb93-1" tabindex="-1"></a><span class="co"># Leer un archivo CSV</span></span>
+<span id="cb93-2"><a href="bases-de-datos-en-r.html#cb93-2" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="bases-de-datos-en-r.html#cb93-3" tabindex="-1"></a>df_importado <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;datos.csv&quot;</span>)</span>
+<span id="cb93-4"><a href="bases-de-datos-en-r.html#cb93-4" tabindex="-1"></a>df_importado</span></code></pre></div>
 <pre><code>##   nombre edad ingresos puntaje
 ## 1    Ana   23  2600000      85
 ## 2   Luis   25  3000000      90
@@ -438,10 +439,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="pre-procesamiento-de-una-base-de-datos-preinstalada-en-r" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Pre procesamiento de una Base de Datos Preinstalada en R<a href="bases-de-datos-en-r.html#pre-procesamiento-de-una-base-de-datos-preinstalada-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R incluye varias bases de datos preinstaladas. En este ejemplo, usaremos <code>mtcars</code>, una base de datos con información sobre automóviles.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="bases-de-datos-en-r.html#cb94-1" tabindex="-1"></a><span class="co"># Cargar la base de datos mtcars</span></span>
-<span id="cb94-2"><a href="bases-de-datos-en-r.html#cb94-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mtcars&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="bases-de-datos-en-r.html#cb95-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> mtcars</span>
-<span id="cb95-2"><a href="bases-de-datos-en-r.html#cb95-2" tabindex="-1"></a><span class="fu">head</span>(datos)<span class="co"># Ver las primeras filas</span></span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="bases-de-datos-en-r.html#cb95-1" tabindex="-1"></a><span class="co"># Cargar la base de datos mtcars</span></span>
+<span id="cb95-2"><a href="bases-de-datos-en-r.html#cb95-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mtcars&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="bases-de-datos-en-r.html#cb96-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> mtcars</span>
+<span id="cb96-2"><a href="bases-de-datos-en-r.html#cb96-2" tabindex="-1"></a><span class="fu">head</span>(datos)<span class="co"># Ver las primeras filas</span></span></code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -451,12 +452,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <p><strong>Exploración de Datos</strong></p>
 <p>Para ver las dimensiones del dataframe o el tamaño de mi base de datos:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="bases-de-datos-en-r.html#cb97-1" tabindex="-1"></a><span class="co"># Dimensiones del dataframe</span></span>
-<span id="cb97-2"><a href="bases-de-datos-en-r.html#cb97-2" tabindex="-1"></a><span class="fu">dim</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="bases-de-datos-en-r.html#cb98-1" tabindex="-1"></a><span class="co"># Dimensiones del dataframe</span></span>
+<span id="cb98-2"><a href="bases-de-datos-en-r.html#cb98-2" tabindex="-1"></a><span class="fu">dim</span>(datos)</span></code></pre></div>
 <pre><code>## [1] 32 11</code></pre>
 <p>Ver los tipos de datos o variables</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="bases-de-datos-en-r.html#cb99-1" tabindex="-1"></a><span class="co"># Ver estructura de los datos</span></span>
-<span id="cb99-2"><a href="bases-de-datos-en-r.html#cb99-2" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="bases-de-datos-en-r.html#cb100-1" tabindex="-1"></a><span class="co"># Ver estructura de los datos</span></span>
+<span id="cb100-2"><a href="bases-de-datos-en-r.html#cb100-2" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
 ##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
 ##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -470,37 +471,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
 ##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
 <p>Hacer un resumen estadístico (muy general). Esta es la primera impresión de todas las variables</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="bases-de-datos-en-r.html#cb101-1" tabindex="-1"></a><span class="co"># Resumen estadístico general</span></span>
-<span id="cb101-2"><a href="bases-de-datos-en-r.html#cb101-2" tabindex="-1"></a><span class="fu">summary</span>(datos)</span></code></pre></div>
-<pre><code>##       mpg             cyl             disp             hp             drat             wt             qsec      
-##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0   Min.   :2.760   Min.   :1.513   Min.   :14.50  
-##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5   1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89  
-##  Median :19.20   Median :6.000   Median :196.3   Median :123.0   Median :3.695   Median :3.325   Median :17.71  
-##  Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7   Mean   :3.597   Mean   :3.217   Mean   :17.85  
-##  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0   3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90  
-##  Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0   Max.   :4.930   Max.   :5.424   Max.   :22.90  
-##        vs               am              gear            carb      
-##  Min.   :0.0000   Min.   :0.0000   Min.   :3.000   Min.   :1.000  
-##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
-##  Median :0.0000   Median :0.0000   Median :4.000   Median :2.000  
-##  Mean   :0.4375   Mean   :0.4062   Mean   :3.688   Mean   :2.812  
-##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
-##  Max.   :1.0000   Max.   :1.0000   Max.   :5.000   Max.   :8.000</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="bases-de-datos-en-r.html#cb102-1" tabindex="-1"></a><span class="co"># Resumen estadístico general</span></span>
+<span id="cb102-2"><a href="bases-de-datos-en-r.html#cb102-2" tabindex="-1"></a><span class="fu">summary</span>(datos)</span></code></pre></div>
+<pre><code>##       mpg             cyl             disp             hp       
+##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+##  Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+##  Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+##  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+##  Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+##       drat             wt             qsec             vs        
+##  Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+##  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+##  Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+##  Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+##  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+##  Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+##        am              gear            carb      
+##  Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+##  1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :0.0000   Median :4.000   Median :2.000  
+##  Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+##  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :1.0000   Max.   :5.000   Max.   :8.000</code></pre>
 <p><strong>Verificación y Manejo de Datos Faltantes</strong></p>
 <p>Verificar:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="bases-de-datos-en-r.html#cb103-1" tabindex="-1"></a><span class="co"># Verificar valores faltantes</span></span>
-<span id="cb103-2"><a href="bases-de-datos-en-r.html#cb103-2" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(datos))</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="bases-de-datos-en-r.html#cb104-1" tabindex="-1"></a><span class="co"># Verificar valores faltantes</span></span>
+<span id="cb104-2"><a href="bases-de-datos-en-r.html#cb104-2" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(datos))</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Eliminar:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="bases-de-datos-en-r.html#cb105-1" tabindex="-1"></a><span class="co"># Si hubiera valores NA, podríamos eliminarlos con:</span></span>
-<span id="cb105-2"><a href="bases-de-datos-en-r.html#cb105-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="bases-de-datos-en-r.html#cb106-1" tabindex="-1"></a><span class="co"># Si hubiera valores NA, podríamos eliminarlos con:</span></span>
+<span id="cb106-2"><a href="bases-de-datos-en-r.html#cb106-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(datos)</span></code></pre></div>
 <div class="warning">
 <p>La solución a los datos faltantes NO SIEMPRE va a ser eliminarlos. Es muy importante dar el tratamiento correcto.</p>
 </div>
 <p><strong>Eliminación de Columnas Innecesarias</strong></p>
 <p>Si algunas columnas no son relevantes para el análisis, es posible eliminarlas.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="bases-de-datos-en-r.html#cb106-1" tabindex="-1"></a><span class="co"># Eliminar la columna &#39;carb&#39;</span></span>
-<span id="cb106-2"><a href="bases-de-datos-en-r.html#cb106-2" tabindex="-1"></a>datos</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="bases-de-datos-en-r.html#cb107-1" tabindex="-1"></a><span class="co"># Eliminar la columna &#39;carb&#39;</span></span>
+<span id="cb107-2"><a href="bases-de-datos-en-r.html#cb107-2" tabindex="-1"></a>datos</span></code></pre></div>
 <pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
@@ -534,8 +542,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
 ## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 ## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="bases-de-datos-en-r.html#cb108-1" tabindex="-1"></a>datos<span class="sc">$</span>carb <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb108-2"><a href="bases-de-datos-en-r.html#cb108-2" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="bases-de-datos-en-r.html#cb109-1" tabindex="-1"></a>datos<span class="sc">$</span>carb <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb109-2"><a href="bases-de-datos-en-r.html#cb109-2" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4
@@ -545,10 +553,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3</code></pre>
 <p><strong>Filtrado de Datos</strong></p>
 <p>Se pueden filtrar observaciones basadas en condiciones específicas.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="bases-de-datos-en-r.html#cb110-1" tabindex="-1"></a><span class="co"># Filtrar autos con más de 20 millas por galón (mpg)</span></span>
-<span id="cb110-2"><a href="bases-de-datos-en-r.html#cb110-2" tabindex="-1"></a></span>
-<span id="cb110-3"><a href="bases-de-datos-en-r.html#cb110-3" tabindex="-1"></a>df_filtrado <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos, mpg <span class="sc">&gt;</span> <span class="dv">20</span>)</span>
-<span id="cb110-4"><a href="bases-de-datos-en-r.html#cb110-4" tabindex="-1"></a>df_filtrado</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="bases-de-datos-en-r.html#cb111-1" tabindex="-1"></a><span class="co"># Filtrar autos con más de 20 millas por galón (mpg)</span></span>
+<span id="cb111-2"><a href="bases-de-datos-en-r.html#cb111-2" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="bases-de-datos-en-r.html#cb111-3" tabindex="-1"></a>df_filtrado <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos, mpg <span class="sc">&gt;</span> <span class="dv">20</span>)</span>
+<span id="cb111-4"><a href="bases-de-datos-en-r.html#cb111-4" tabindex="-1"></a>df_filtrado</span></code></pre></div>
 <pre><code>##                 mpg cyl  disp  hp drat    wt  qsec vs am gear
 ## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4
 ## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4
@@ -566,10 +574,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4</code></pre>
 <p><strong>Transformación de Datos</strong></p>
 <p>Podemos agregar columnas nuevas basadas en cálculos.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="bases-de-datos-en-r.html#cb112-1" tabindex="-1"></a><span class="co"># Crear una nueva columna con consumo en km por litro</span></span>
-<span id="cb112-2"><a href="bases-de-datos-en-r.html#cb112-2" tabindex="-1"></a></span>
-<span id="cb112-3"><a href="bases-de-datos-en-r.html#cb112-3" tabindex="-1"></a>datos<span class="sc">$</span>km_per_l <span class="ot">&lt;-</span> datos<span class="sc">$</span>mpg <span class="sc">*</span> <span class="fl">0.425144</span></span>
-<span id="cb112-4"><a href="bases-de-datos-en-r.html#cb112-4" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="bases-de-datos-en-r.html#cb113-1" tabindex="-1"></a><span class="co"># Crear una nueva columna con consumo en km por litro</span></span>
+<span id="cb113-2"><a href="bases-de-datos-en-r.html#cb113-2" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="bases-de-datos-en-r.html#cb113-3" tabindex="-1"></a>datos<span class="sc">$</span>km_per_l <span class="ot">&lt;-</span> datos<span class="sc">$</span>mpg <span class="sc">*</span> <span class="fl">0.425144</span></span>
+<span id="cb113-4"><a href="bases-de-datos-en-r.html#cb113-4" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear km_per_l
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4 8.928024
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4 8.928024
@@ -579,7 +587,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3 7.695106</code></pre>
 <p><strong>Cambio de Tipo de Variable</strong></p>
 <p>Podemos convertir una variable numérica en categórica.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="bases-de-datos-en-r.html#cb114-1" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="bases-de-datos-en-r.html#cb115-1" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
 ##  $ mpg     : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
 ##  $ cyl     : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -592,10 +600,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ am      : num  1 1 1 0 0 0 0 0 0 0 ...
 ##  $ gear    : num  4 4 4 3 3 3 3 4 4 4 ...
 ##  $ km_per_l: num  8.93 8.93 9.69 9.1 7.95 ...</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="bases-de-datos-en-r.html#cb116-1" tabindex="-1"></a><span class="co"># Convertir la variable &#39;cyl&#39; (cilindros) en factor</span></span>
-<span id="cb116-2"><a href="bases-de-datos-en-r.html#cb116-2" tabindex="-1"></a>datos<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(datos<span class="sc">$</span>cyl)</span></code></pre></div>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="bases-de-datos-en-r.html#cb117-1" tabindex="-1"></a><span class="co"># Ver estructura para confirmar el cambio</span></span>
-<span id="cb117-2"><a href="bases-de-datos-en-r.html#cb117-2" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="bases-de-datos-en-r.html#cb117-1" tabindex="-1"></a><span class="co"># Convertir la variable &#39;cyl&#39; (cilindros) en factor</span></span>
+<span id="cb117-2"><a href="bases-de-datos-en-r.html#cb117-2" tabindex="-1"></a>datos<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(datos<span class="sc">$</span>cyl)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="bases-de-datos-en-r.html#cb118-1" tabindex="-1"></a><span class="co"># Ver estructura para confirmar el cambio</span></span>
+<span id="cb118-2"><a href="bases-de-datos-en-r.html#cb118-2" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
 ##  $ mpg     : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
 ##  $ cyl     : Factor w/ 3 levels &quot;4&quot;,&quot;6&quot;,&quot;8&quot;: 2 2 1 2 3 2 3 1 1 2 ...
@@ -609,9 +617,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ gear    : num  4 4 4 3 3 3 3 4 4 4 ...
 ##  $ km_per_l: num  8.93 8.93 9.69 9.1 7.95 ...</code></pre>
 <p><strong>Ordenamiento de Datos</strong></p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="bases-de-datos-en-r.html#cb119-1" tabindex="-1"></a><span class="co"># Ordenar por caballos de fuerza (hp)</span></span>
-<span id="cb119-2"><a href="bases-de-datos-en-r.html#cb119-2" tabindex="-1"></a>df_ordenado <span class="ot">&lt;-</span> datos[<span class="fu">order</span>(datos<span class="sc">$</span>hp), ]</span>
-<span id="cb119-3"><a href="bases-de-datos-en-r.html#cb119-3" tabindex="-1"></a><span class="fu">head</span>(df_ordenado)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="bases-de-datos-en-r.html#cb120-1" tabindex="-1"></a><span class="co"># Ordenar por caballos de fuerza (hp)</span></span>
+<span id="cb120-2"><a href="bases-de-datos-en-r.html#cb120-2" tabindex="-1"></a>df_ordenado <span class="ot">&lt;-</span> datos[<span class="fu">order</span>(datos<span class="sc">$</span>hp), ]</span>
+<span id="cb120-3"><a href="bases-de-datos-en-r.html#cb120-3" tabindex="-1"></a><span class="fu">head</span>(df_ordenado)</span></code></pre></div>
 <pre><code>##                 mpg cyl  disp hp drat    wt  qsec vs am gear km_per_l
 ## Honda Civic    30.4   4  75.7 52 4.93 1.615 18.52  1  1    4 12.92438
 ## Merc 240D      24.4   4 146.7 62 3.69 3.190 20.00  1  0    4 10.37351

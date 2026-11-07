@@ -6,7 +6,7 @@ El capítulo tiene dos partes. En la primera, un ejemplo pequeño se resuelve **
 
 ### Notación
 
-Sea $\mathbf{X}=(X_1,\dots,X_p)^\top$ un vector aleatorio con media $\boldsymbol{\mu}$ y matriz de covarianzas $\Sigma$. Con datos, estas cantidades se estiman por $\bar{\mathbf{x}}$ y $S$ (o por la matriz de correlaciones $R$).
+Sea $\mathbf{X}=(X_1,\dots,X_p)^\top$ un vector aleatorio con media $\boldsymbol{\mu}$ y matriz de covarianzas $\Sigma$. Con datos, estas cantidades se estiman por $\bar{\mathbf{x}}$ y $S$ (o por la matriz de correlaciones $R$). 
 
 | Símbolo | Significado |
 |:--|:--|

@@ -326,11 +326,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>c( )</code> crea un vector.</li>
 <li><code>matrix( )</code> crea una matriz. <strong>R llena la matriz por columnas.</strong></li>
 </ul>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="álgebra-repaso.html#cb121-1" tabindex="-1"></a><span class="co"># Un vector con tres números</span></span>
-<span id="cb121-2"><a href="álgebra-repaso.html#cb121-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="álgebra-repaso.html#cb122-1" tabindex="-1"></a><span class="co"># Un vector con tres números</span></span>
+<span id="cb122-2"><a href="álgebra-repaso.html#cb122-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">7</span>)</span></code></pre></div>
 <pre><code>## [1] 5 2 7</code></pre>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="álgebra-repaso.html#cb123-1" tabindex="-1"></a><span class="co"># Una matriz 2x2: fíjate cómo se acomodan los números (por columnas)</span></span>
-<span id="cb123-2"><a href="álgebra-repaso.html#cb123-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="álgebra-repaso.html#cb124-1" tabindex="-1"></a><span class="co"># Una matriz 2x2: fíjate cómo se acomodan los números (por columnas)</span></span>
+<span id="cb124-2"><a href="álgebra-repaso.html#cb124-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    3
 ## [2,]    2    4</code></pre>
@@ -338,43 +338,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> Vectores<a href="álgebra-repaso.html#vectores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="crear-vectores" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Crear vectores<a href="álgebra-repaso.html#crear-vectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="álgebra-repaso.html#cb125-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb125-2"><a href="álgebra-repaso.html#cb125-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb125-3"><a href="álgebra-repaso.html#cb125-3" tabindex="-1"></a>u</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="álgebra-repaso.html#cb126-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb126-2"><a href="álgebra-repaso.html#cb126-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb126-3"><a href="álgebra-repaso.html#cb126-3" tabindex="-1"></a>u</span></code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="álgebra-repaso.html#cb127-1" tabindex="-1"></a>v</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="álgebra-repaso.html#cb128-1" tabindex="-1"></a>v</span></code></pre></div>
 <pre><code>## [1] 3 1</code></pre>
 <p>Un vector también puede tener más de dos números (una variable por coordenada):</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="álgebra-repaso.html#cb129-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb129-2"><a href="álgebra-repaso.html#cb129-2" tabindex="-1"></a><span class="fu">length</span>(w)    <span class="co"># cuántas coordenadas tiene</span></span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="álgebra-repaso.html#cb130-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb130-2"><a href="álgebra-repaso.html#cb130-2" tabindex="-1"></a><span class="fu">length</span>(w)    <span class="co"># cuántas coordenadas tiene</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="suma-y-resta" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> Suma y resta<a href="álgebra-repaso.html#suma-y-resta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se hacen <strong>coordenada por coordenada</strong>:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="álgebra-repaso.html#cb131-1" tabindex="-1"></a>u <span class="sc">+</span> v</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="álgebra-repaso.html#cb132-1" tabindex="-1"></a>u <span class="sc">+</span> v</span></code></pre></div>
 <pre><code>## [1] 4 3</code></pre>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="álgebra-repaso.html#cb133-1" tabindex="-1"></a>u <span class="sc">-</span> v</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="álgebra-repaso.html#cb134-1" tabindex="-1"></a>u <span class="sc">-</span> v</span></code></pre></div>
 <pre><code>## [1] -2  1</code></pre>
 <p>Gráficamente, la suma es poner un vector a continuación del otro:</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="álgebra-repaso.html#cb135-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb135-2"><a href="álgebra-repaso.html#cb135-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
-<span id="cb135-3"><a href="álgebra-repaso.html#cb135-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
-<span id="cb135-4"><a href="álgebra-repaso.html#cb135-4" tabindex="-1"></a></span>
-<span id="cb135-5"><a href="álgebra-repaso.html#cb135-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, u[<span class="dv">1</span>], u[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)                    <span class="co"># u</span></span>
-<span id="cb135-6"><a href="álgebra-repaso.html#cb135-6" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)                     <span class="co"># v</span></span>
-<span id="cb135-7"><a href="álgebra-repaso.html#cb135-7" tabindex="-1"></a><span class="fu">arrows</span>(u[<span class="dv">1</span>], u[<span class="dv">2</span>], u[<span class="dv">1</span>] <span class="sc">+</span> v[<span class="dv">1</span>], u[<span class="dv">2</span>] <span class="sc">+</span> v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="co"># v pegado a u</span></span>
-<span id="cb135-8"><a href="álgebra-repaso.html#cb135-8" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, (u <span class="sc">+</span> v)[<span class="dv">1</span>], (u <span class="sc">+</span> v)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)   <span class="co"># u + v</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="álgebra-repaso.html#cb136-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb136-2"><a href="álgebra-repaso.html#cb136-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb136-3"><a href="álgebra-repaso.html#cb136-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb136-4"><a href="álgebra-repaso.html#cb136-4" tabindex="-1"></a></span>
+<span id="cb136-5"><a href="álgebra-repaso.html#cb136-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, u[<span class="dv">1</span>], u[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)                    <span class="co"># u</span></span>
+<span id="cb136-6"><a href="álgebra-repaso.html#cb136-6" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)                     <span class="co"># v</span></span>
+<span id="cb136-7"><a href="álgebra-repaso.html#cb136-7" tabindex="-1"></a><span class="fu">arrows</span>(u[<span class="dv">1</span>], u[<span class="dv">2</span>], u[<span class="dv">1</span>] <span class="sc">+</span> v[<span class="dv">1</span>], u[<span class="dv">2</span>] <span class="sc">+</span> v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="co"># v pegado a u</span></span>
+<span id="cb136-8"><a href="álgebra-repaso.html#cb136-8" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, (u <span class="sc">+</span> v)[<span class="dv">1</span>], (u <span class="sc">+</span> v)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)   <span class="co"># u + v</span></span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-45-1.png" alt="" width="672" /></p>
 </div>
 <div id="multiplicar-por-un-escalar" class="section level3 hasAnchor" number="3.1.3">
 <h3><span class="header-section-number">3.1.3</span> Multiplicar por un escalar<a href="álgebra-repaso.html#multiplicar-por-un-escalar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Un número multiplica <strong>todas</strong> las coordenadas:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="álgebra-repaso.html#cb136-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> u</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="álgebra-repaso.html#cb137-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> u</span></code></pre></div>
 <pre><code>## [1] 2 4</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="álgebra-repaso.html#cb138-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">*</span> u</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="álgebra-repaso.html#cb139-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">*</span> u</span></code></pre></div>
 <pre><code>## [1] 0.5 1.0</code></pre>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="álgebra-repaso.html#cb140-1" tabindex="-1"></a><span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> u</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="álgebra-repaso.html#cb141-1" tabindex="-1"></a><span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> u</span></code></pre></div>
 <pre><code>## [1] -1 -2</code></pre>
 </div>
 </div>
@@ -382,56 +382,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.2</span> Combinaciones lineales<a href="álgebra-repaso.html#combinaciones-lineales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Una <strong>combinación lineal</strong> es multiplicar cada vector por un número y sumar:</p>
 <p><span class="math display">\[c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2\]</span></p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="álgebra-repaso.html#cb142-1" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb142-2"><a href="álgebra-repaso.html#cb142-2" tabindex="-1"></a>v2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb142-3"><a href="álgebra-repaso.html#cb142-3" tabindex="-1"></a></span>
-<span id="cb142-4"><a href="álgebra-repaso.html#cb142-4" tabindex="-1"></a><span class="co"># 3 veces v1 más 2 veces v2</span></span>
-<span id="cb142-5"><a href="álgebra-repaso.html#cb142-5" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> v1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> v2</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="álgebra-repaso.html#cb143-1" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb143-2"><a href="álgebra-repaso.html#cb143-2" tabindex="-1"></a>v2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb143-3"><a href="álgebra-repaso.html#cb143-3" tabindex="-1"></a></span>
+<span id="cb143-4"><a href="álgebra-repaso.html#cb143-4" tabindex="-1"></a><span class="co"># 3 veces v1 más 2 veces v2</span></span>
+<span id="cb143-5"><a href="álgebra-repaso.html#cb143-5" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> v1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> v2</span></code></pre></div>
 <pre><code>## [1] 8 7</code></pre>
 <p>La <strong>base canónica</strong> son los vectores <code>e1</code> y <code>e2</code>. Las coordenadas de un vector son los coeficientes de su combinación lineal:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="álgebra-repaso.html#cb144-1" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb144-2"><a href="álgebra-repaso.html#cb144-2" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb144-3"><a href="álgebra-repaso.html#cb144-3" tabindex="-1"></a></span>
-<span id="cb144-4"><a href="álgebra-repaso.html#cb144-4" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> e1 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> e2     <span class="co"># es el vector (5, 4)</span></span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="álgebra-repaso.html#cb145-1" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb145-2"><a href="álgebra-repaso.html#cb145-2" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb145-3"><a href="álgebra-repaso.html#cb145-3" tabindex="-1"></a></span>
+<span id="cb145-4"><a href="álgebra-repaso.html#cb145-4" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> e1 <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> e2     <span class="co"># es el vector (5, 4)</span></span></code></pre></div>
 <pre><code>## [1] 5 4</code></pre>
 <p>Dos vectores en la <strong>misma recta</strong> no sirven para llegar a todo el plano:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="álgebra-repaso.html#cb146-1" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">2</span>     <span class="co"># (2, 4) es solo el doble de (1, 2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="álgebra-repaso.html#cb147-1" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">2</span>     <span class="co"># (2, 4) es solo el doble de (1, 2)</span></span></code></pre></div>
 <pre><code>## [1] 2 4</code></pre>
 </div>
 <div id="matrices" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Matrices<a href="álgebra-repaso.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="crear-una-matriz" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Crear una matriz<a href="álgebra-repaso.html#crear-una-matriz" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="álgebra-repaso.html#cb148-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
-<span id="cb148-2"><a href="álgebra-repaso.html#cb148-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb148-3"><a href="álgebra-repaso.html#cb148-3" tabindex="-1"></a>A</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="álgebra-repaso.html#cb149-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb149-2"><a href="álgebra-repaso.html#cb149-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb149-3"><a href="álgebra-repaso.html#cb149-3" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    1
 ## [2,]    1    3</code></pre>
 <p>La primera columna es <code>(2, 1)</code> y la segunda <code>(1, 3)</code>. Para sacar partes de la matriz:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="álgebra-repaso.html#cb150-1" tabindex="-1"></a>A[<span class="dv">1</span>, <span class="dv">2</span>]     <span class="co"># fila 1, columna 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="álgebra-repaso.html#cb151-1" tabindex="-1"></a>A[<span class="dv">1</span>, <span class="dv">2</span>]     <span class="co"># fila 1, columna 2</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="álgebra-repaso.html#cb152-1" tabindex="-1"></a>A[, <span class="dv">1</span>]      <span class="co"># primera columna</span></span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="álgebra-repaso.html#cb153-1" tabindex="-1"></a>A[, <span class="dv">1</span>]      <span class="co"># primera columna</span></span></code></pre></div>
 <pre><code>## [1] 2 1</code></pre>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="álgebra-repaso.html#cb154-1" tabindex="-1"></a>A[<span class="dv">2</span>, ]      <span class="co"># segunda fila</span></span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="álgebra-repaso.html#cb155-1" tabindex="-1"></a>A[<span class="dv">2</span>, ]      <span class="co"># segunda fila</span></span></code></pre></div>
 <pre><code>## [1] 1 3</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="álgebra-repaso.html#cb156-1" tabindex="-1"></a><span class="fu">dim</span>(A)      <span class="co"># dimensiones</span></span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="álgebra-repaso.html#cb157-1" tabindex="-1"></a><span class="fu">dim</span>(A)      <span class="co"># dimensiones</span></span></code></pre></div>
 <pre><code>## [1] 2 2</code></pre>
 </div>
 <div id="suma-resta-y-escalar" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Suma, resta y escalar<a href="álgebra-repaso.html#suma-resta-y-escalar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="álgebra-repaso.html#cb158-1" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>,</span>
-<span id="cb158-2"><a href="álgebra-repaso.html#cb158-2" tabindex="-1"></a>              <span class="dv">4</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb158-3"><a href="álgebra-repaso.html#cb158-3" tabindex="-1"></a></span>
-<span id="cb158-4"><a href="álgebra-repaso.html#cb158-4" tabindex="-1"></a>A <span class="sc">+</span> B</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="álgebra-repaso.html#cb159-1" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>,</span>
+<span id="cb159-2"><a href="álgebra-repaso.html#cb159-2" tabindex="-1"></a>              <span class="dv">4</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb159-3"><a href="álgebra-repaso.html#cb159-3" tabindex="-1"></a></span>
+<span id="cb159-4"><a href="álgebra-repaso.html#cb159-4" tabindex="-1"></a>A <span class="sc">+</span> B</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    3    5
 ## [2,]    1    5</code></pre>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="álgebra-repaso.html#cb160-1" tabindex="-1"></a>A <span class="sc">-</span> B</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="álgebra-repaso.html#cb161-1" tabindex="-1"></a>A <span class="sc">-</span> B</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1   -3
 ## [2,]    1    1</code></pre>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="álgebra-repaso.html#cb162-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> A</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="álgebra-repaso.html#cb163-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> A</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    6    3
 ## [2,]    3    9</code></pre>
@@ -439,16 +439,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="transpuesta" class="section level3 hasAnchor" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Transpuesta<a href="álgebra-repaso.html#transpuesta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Cambia filas por columnas:</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="álgebra-repaso.html#cb164-1" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="álgebra-repaso.html#cb165-1" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    1
 ## [2,]    1    3</code></pre>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="álgebra-repaso.html#cb166-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb166-2"><a href="álgebra-repaso.html#cb166-2" tabindex="-1"></a>M</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="álgebra-repaso.html#cb167-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb167-2"><a href="álgebra-repaso.html#cb167-2" tabindex="-1"></a>M</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    3    5
 ## [2,]    2    4    6</code></pre>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="álgebra-repaso.html#cb168-1" tabindex="-1"></a><span class="fu">t</span>(M)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="álgebra-repaso.html#cb169-1" tabindex="-1"></a><span class="fu">t</span>(M)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    3    4
@@ -457,40 +457,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="multiplicar-matrices" class="section level3 hasAnchor" number="3.3.4">
 <h3><span class="header-section-number">3.3.4</span> Multiplicar matrices<a href="álgebra-repaso.html#multiplicar-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se usa <code>%*%</code> (no <code>*</code>). <strong>El orden importa.</strong></p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="álgebra-repaso.html#cb170-1" tabindex="-1"></a>A <span class="sc">%*%</span> B</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="álgebra-repaso.html#cb171-1" tabindex="-1"></a>A <span class="sc">%*%</span> B</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    2   10
 ## [2,]    1   10</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="álgebra-repaso.html#cb172-1" tabindex="-1"></a>B <span class="sc">%*%</span> A</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="álgebra-repaso.html#cb173-1" tabindex="-1"></a>B <span class="sc">%*%</span> A</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    6   13
 ## [2,]    2    6</code></pre>
 <p>Compara con <code>A * B</code>, que multiplica casilla por casilla y <strong>no</strong> es el producto de matrices:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="álgebra-repaso.html#cb174-1" tabindex="-1"></a>A <span class="sc">*</span> B</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="álgebra-repaso.html#cb175-1" tabindex="-1"></a>A <span class="sc">*</span> B</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    4
 ## [2,]    0    6</code></pre>
 </div>
 <div id="matriz-por-vector" class="section level3 hasAnchor" number="3.3.5">
 <h3><span class="header-section-number">3.3.5</span> Matriz por vector<a href="álgebra-repaso.html#matriz-por-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="álgebra-repaso.html#cb176-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb176-2"><a href="álgebra-repaso.html#cb176-2" tabindex="-1"></a>A <span class="sc">%*%</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="álgebra-repaso.html#cb177-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb177-2"><a href="álgebra-repaso.html#cb177-2" tabindex="-1"></a>A <span class="sc">%*%</span> x</span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    8
 ## [2,]    9</code></pre>
 <p>Es la combinación lineal de las columnas de <code>A</code>: 3 veces la columna 1 más 2 veces la columna 2.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="álgebra-repaso.html#cb178-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> A[, <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> A[, <span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="álgebra-repaso.html#cb179-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> A[, <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> A[, <span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [1] 8 9</code></pre>
 </div>
 <div id="la-matriz-identidad" class="section level3 hasAnchor" number="3.3.6">
 <h3><span class="header-section-number">3.3.6</span> La matriz identidad<a href="álgebra-repaso.html#la-matriz-identidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>No cambia nada al multiplicar:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="álgebra-repaso.html#cb180-1" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
-<span id="cb180-2"><a href="álgebra-repaso.html#cb180-2" tabindex="-1"></a>I</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="álgebra-repaso.html#cb181-1" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb181-2"><a href="álgebra-repaso.html#cb181-2" tabindex="-1"></a>I</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    0
 ## [2,]    0    1</code></pre>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="álgebra-repaso.html#cb182-1" tabindex="-1"></a>A <span class="sc">%*%</span> I</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="álgebra-repaso.html#cb183-1" tabindex="-1"></a>A <span class="sc">%*%</span> I</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    2    1
 ## [2,]    1    3</code></pre>
@@ -499,46 +499,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="determinante" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Determinante<a href="álgebra-repaso.html#determinante" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El determinante de una matriz 2x2 es <code>ad - bc</code>. Mide <strong>cuánto cambia el área</strong>.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="álgebra-repaso.html#cb184-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
-<span id="cb184-2"><a href="álgebra-repaso.html#cb184-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb184-3"><a href="álgebra-repaso.html#cb184-3" tabindex="-1"></a></span>
-<span id="cb184-4"><a href="álgebra-repaso.html#cb184-4" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="álgebra-repaso.html#cb185-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb185-2"><a href="álgebra-repaso.html#cb185-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb185-3"><a href="álgebra-repaso.html#cb185-3" tabindex="-1"></a></span>
+<span id="cb185-4"><a href="álgebra-repaso.html#cb185-4" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="álgebra-repaso.html#cb186-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> <span class="dv">1</span>     <span class="co"># a mano: ad - bc</span></span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="álgebra-repaso.html#cb187-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> <span class="dv">1</span>     <span class="co"># a mano: ad - bc</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>Un determinante <strong>cero</strong> significa que la matriz aplasta el plano y no tiene inversa. Pasa cuando una columna es múltiplo de la otra:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="álgebra-repaso.html#cb188-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</span>
-<span id="cb188-2"><a href="álgebra-repaso.html#cb188-2" tabindex="-1"></a>              <span class="dv">2</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb188-3"><a href="álgebra-repaso.html#cb188-3" tabindex="-1"></a><span class="fu">det</span>(S)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="álgebra-repaso.html#cb189-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,</span>
+<span id="cb189-2"><a href="álgebra-repaso.html#cb189-2" tabindex="-1"></a>              <span class="dv">2</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb189-3"><a href="álgebra-repaso.html#cb189-3" tabindex="-1"></a><span class="fu">det</span>(S)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Para comparar, algunos casos:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="álgebra-repaso.html#cb190-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">diag</span>(<span class="dv">2</span>))                           <span class="co"># identidad: el área no cambia</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="álgebra-repaso.html#cb191-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">diag</span>(<span class="dv">2</span>))                           <span class="co"># identidad: el área no cambia</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="álgebra-repaso.html#cb192-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>))   <span class="co"># estira x2 y x3: el área se multiplica por 6</span></span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="álgebra-repaso.html#cb193-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>))   <span class="co"># estira x2 y x3: el área se multiplica por 6</span></span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="álgebra-repaso.html#cb194-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">2</span>))   <span class="co"># intercambia ejes: el signo cambia</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="álgebra-repaso.html#cb195-1" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">2</span>))   <span class="co"># intercambia ejes: el signo cambia</span></span></code></pre></div>
 <pre><code>## [1] -1</code></pre>
 </div>
 <div id="inversa" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Inversa<a href="álgebra-repaso.html#inversa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La inversa <code>A^{-1}</code> deshace lo que hace <code>A</code>. En R se calcula con <code>solve()</code>:</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="álgebra-repaso.html#cb196-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
-<span id="cb196-2"><a href="álgebra-repaso.html#cb196-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb196-3"><a href="álgebra-repaso.html#cb196-3" tabindex="-1"></a></span>
-<span id="cb196-4"><a href="álgebra-repaso.html#cb196-4" tabindex="-1"></a>A_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
-<span id="cb196-5"><a href="álgebra-repaso.html#cb196-5" tabindex="-1"></a>A_inv</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="álgebra-repaso.html#cb197-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb197-2"><a href="álgebra-repaso.html#cb197-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb197-3"><a href="álgebra-repaso.html#cb197-3" tabindex="-1"></a></span>
+<span id="cb197-4"><a href="álgebra-repaso.html#cb197-4" tabindex="-1"></a>A_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb197-5"><a href="álgebra-repaso.html#cb197-5" tabindex="-1"></a>A_inv</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]  0.6 -0.2
 ## [2,] -0.2  0.4</code></pre>
 <p>Comprobamos que <code>A</code> por su inversa da la identidad:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="álgebra-repaso.html#cb198-1" tabindex="-1"></a>A <span class="sc">%*%</span> A_inv</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="álgebra-repaso.html#cb199-1" tabindex="-1"></a>A <span class="sc">%*%</span> A_inv</span></code></pre></div>
 <pre><code>##               [,1] [,2]
 ## [1,]  1.000000e+00    0
 ## [2,] -1.110223e-16    1</code></pre>
 <p>(Si ves números como <code>1e-16</code>, es solo redondeo del computador: cuentan como cero.)</p>
 <p>Si el determinante es cero, <strong>no hay inversa</strong>:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="álgebra-repaso.html#cb200-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb200-2"><a href="álgebra-repaso.html#cb200-2" tabindex="-1"></a><span class="fu">solve</span>(S)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="álgebra-repaso.html#cb201-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb201-2"><a href="álgebra-repaso.html#cb201-2" tabindex="-1"></a><span class="fu">solve</span>(S)</span></code></pre></div>
 <pre><code>## Error in `solve.default()`:
 ## ! Lapack routine dgesv: system is exactly singular: U[2,2] = 0</code></pre>
 </div>
@@ -547,91 +547,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="producto-punto" class="section level3 hasAnchor" number="3.6.1">
 <h3><span class="header-section-number">3.6.1</span> Producto punto<a href="álgebra-repaso.html#producto-punto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se multiplica coordenada por coordenada y se suma:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="álgebra-repaso.html#cb202-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb202-2"><a href="álgebra-repaso.html#cb202-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb202-3"><a href="álgebra-repaso.html#cb202-3" tabindex="-1"></a></span>
-<span id="cb202-4"><a href="álgebra-repaso.html#cb202-4" tabindex="-1"></a><span class="fu">sum</span>(u <span class="sc">*</span> v)           <span class="co"># 2*3 + 1*4</span></span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="álgebra-repaso.html#cb203-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb203-2"><a href="álgebra-repaso.html#cb203-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb203-3"><a href="álgebra-repaso.html#cb203-3" tabindex="-1"></a></span>
+<span id="cb203-4"><a href="álgebra-repaso.html#cb203-4" tabindex="-1"></a><span class="fu">sum</span>(u <span class="sc">*</span> v)           <span class="co"># 2*3 + 1*4</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="álgebra-repaso.html#cb204-1" tabindex="-1"></a><span class="fu">t</span>(u) <span class="sc">%*%</span> v           <span class="co"># lo mismo, en forma de matriz</span></span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="álgebra-repaso.html#cb205-1" tabindex="-1"></a><span class="fu">t</span>(u) <span class="sc">%*%</span> v           <span class="co"># lo mismo, en forma de matriz</span></span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]   10</code></pre>
 </div>
 <div id="norma-largo-de-un-vector" class="section level3 hasAnchor" number="3.6.2">
 <h3><span class="header-section-number">3.6.2</span> Norma (largo de un vector)<a href="álgebra-repaso.html#norma-largo-de-un-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="álgebra-repaso.html#cb206-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(v <span class="sc">*</span> v))     <span class="co"># largo de v = (3, 4)</span></span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="álgebra-repaso.html#cb207-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(v <span class="sc">*</span> v))     <span class="co"># largo de v = (3, 4)</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="álgebra-repaso.html#cb208-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(u <span class="sc">*</span> u))     <span class="co"># largo de u</span></span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="álgebra-repaso.html#cb209-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(u <span class="sc">*</span> u))     <span class="co"># largo de u</span></span></code></pre></div>
 <pre><code>## [1] 2.236068</code></pre>
 </div>
 <div id="distancia-entre-dos-puntos" class="section level3 hasAnchor" number="3.6.3">
 <h3><span class="header-section-number">3.6.3</span> Distancia entre dos puntos<a href="álgebra-repaso.html#distancia-entre-dos-puntos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Es la norma de la diferencia:</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="álgebra-repaso.html#cb210-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((u <span class="sc">-</span> v)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="álgebra-repaso.html#cb211-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((u <span class="sc">-</span> v)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 3.162278</code></pre>
 </div>
 <div id="ángulo-entre-dos-vectores" class="section level3 hasAnchor" number="3.6.4">
 <h3><span class="header-section-number">3.6.4</span> Ángulo entre dos vectores<a href="álgebra-repaso.html#ángulo-entre-dos-vectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[\cos\theta = \frac{u^\top v}{\|u\|\,\|v\|}\]</span></p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="álgebra-repaso.html#cb212-1" tabindex="-1"></a>coseno <span class="ot">&lt;-</span> <span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">sum</span>(u <span class="sc">*</span> u)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(v <span class="sc">*</span> v)))</span>
-<span id="cb212-2"><a href="álgebra-repaso.html#cb212-2" tabindex="-1"></a>coseno</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="álgebra-repaso.html#cb213-1" tabindex="-1"></a>coseno <span class="ot">&lt;-</span> <span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">sum</span>(u <span class="sc">*</span> u)) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(v <span class="sc">*</span> v)))</span>
+<span id="cb213-2"><a href="álgebra-repaso.html#cb213-2" tabindex="-1"></a>coseno</span></code></pre></div>
 <pre><code>## [1] 0.8944272</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="álgebra-repaso.html#cb214-1" tabindex="-1"></a><span class="fu">acos</span>(coseno) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi    <span class="co"># el ángulo en grados</span></span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="álgebra-repaso.html#cb215-1" tabindex="-1"></a><span class="fu">acos</span>(coseno) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi    <span class="co"># el ángulo en grados</span></span></code></pre></div>
 <pre><code>## [1] 26.56505</code></pre>
 </div>
 </div>
 <div id="ortogonalidad" class="section level2 hasAnchor" number="3.7">
 <h2><span class="header-section-number">3.7</span> Ortogonalidad<a href="álgebra-repaso.html#ortogonalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Dos vectores son <strong>ortogonales</strong> (perpendiculares) cuando su producto punto es <strong>cero</strong>:</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="álgebra-repaso.html#cb216-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb216-2"><a href="álgebra-repaso.html#cb216-2" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb216-3"><a href="álgebra-repaso.html#cb216-3" tabindex="-1"></a></span>
-<span id="cb216-4"><a href="álgebra-repaso.html#cb216-4" tabindex="-1"></a><span class="fu">sum</span>(p <span class="sc">*</span> q)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="álgebra-repaso.html#cb217-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb217-2"><a href="álgebra-repaso.html#cb217-2" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb217-3"><a href="álgebra-repaso.html#cb217-3" tabindex="-1"></a></span>
+<span id="cb217-4"><a href="álgebra-repaso.html#cb217-4" tabindex="-1"></a><span class="fu">sum</span>(p <span class="sc">*</span> q)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Un ejemplo que <strong>no</strong> lo es:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="álgebra-repaso.html#cb218-1" tabindex="-1"></a><span class="fu">sum</span>(p <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="álgebra-repaso.html#cb219-1" tabindex="-1"></a><span class="fu">sum</span>(p <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>Ver el dibujo ayuda:</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="álgebra-repaso.html#cb220-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb220-2"><a href="álgebra-repaso.html#cb220-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
-<span id="cb220-3"><a href="álgebra-repaso.html#cb220-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
-<span id="cb220-4"><a href="álgebra-repaso.html#cb220-4" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, p[<span class="dv">1</span>], p[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb220-5"><a href="álgebra-repaso.html#cb220-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, q[<span class="dv">1</span>], q[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="álgebra-repaso.html#cb221-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb221-2"><a href="álgebra-repaso.html#cb221-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb221-3"><a href="álgebra-repaso.html#cb221-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb221-4"><a href="álgebra-repaso.html#cb221-4" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, p[<span class="dv">1</span>], p[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb221-5"><a href="álgebra-repaso.html#cb221-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, q[<span class="dv">1</span>], q[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-71-1.png" alt="" width="672" /></p>
 </div>
 <div id="proyección" class="section level2 hasAnchor" number="3.8">
 <h2><span class="header-section-number">3.8</span> Proyección<a href="álgebra-repaso.html#proyección" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La proyección de <code>v</code> sobre <code>u</code> es la “sombra” de <code>v</code> en la recta de <code>u</code>:</p>
 <p><span class="math display">\[\text{proj}_u v = \frac{u^\top v}{u^\top u}\, u\]</span></p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="álgebra-repaso.html#cb221-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)</span>
-<span id="cb221-2"><a href="álgebra-repaso.html#cb221-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb221-3"><a href="álgebra-repaso.html#cb221-3" tabindex="-1"></a></span>
-<span id="cb221-4"><a href="álgebra-repaso.html#cb221-4" tabindex="-1"></a>c_ <span class="ot">&lt;-</span> <span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> <span class="fu">sum</span>(u <span class="sc">*</span> u)     <span class="co"># el número por el que se multiplica u</span></span>
-<span id="cb221-5"><a href="álgebra-repaso.html#cb221-5" tabindex="-1"></a>c_</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="álgebra-repaso.html#cb222-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)</span>
+<span id="cb222-2"><a href="álgebra-repaso.html#cb222-2" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb222-3"><a href="álgebra-repaso.html#cb222-3" tabindex="-1"></a></span>
+<span id="cb222-4"><a href="álgebra-repaso.html#cb222-4" tabindex="-1"></a>c_ <span class="ot">&lt;-</span> <span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> <span class="fu">sum</span>(u <span class="sc">*</span> u)     <span class="co"># el número por el que se multiplica u</span></span>
+<span id="cb222-5"><a href="álgebra-repaso.html#cb222-5" tabindex="-1"></a>c_</span></code></pre></div>
 <pre><code>## [1] 1.5</code></pre>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="álgebra-repaso.html#cb223-1" tabindex="-1"></a>proyeccion <span class="ot">&lt;-</span> c_ <span class="sc">*</span> u</span>
-<span id="cb223-2"><a href="álgebra-repaso.html#cb223-2" tabindex="-1"></a>proyeccion</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="álgebra-repaso.html#cb224-1" tabindex="-1"></a>proyeccion <span class="ot">&lt;-</span> c_ <span class="sc">*</span> u</span>
+<span id="cb224-2"><a href="álgebra-repaso.html#cb224-2" tabindex="-1"></a>proyeccion</span></code></pre></div>
 <pre><code>## [1] 3 0</code></pre>
 <p>El <strong>residuo</strong> es lo que sobra, y es ortogonal a <code>u</code>:</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="álgebra-repaso.html#cb225-1" tabindex="-1"></a>residuo <span class="ot">&lt;-</span> v <span class="sc">-</span> proyeccion</span>
-<span id="cb225-2"><a href="álgebra-repaso.html#cb225-2" tabindex="-1"></a>residuo</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="álgebra-repaso.html#cb226-1" tabindex="-1"></a>residuo <span class="ot">&lt;-</span> v <span class="sc">-</span> proyeccion</span>
+<span id="cb226-2"><a href="álgebra-repaso.html#cb226-2" tabindex="-1"></a>residuo</span></code></pre></div>
 <pre><code>## [1] 0 4</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="álgebra-repaso.html#cb227-1" tabindex="-1"></a><span class="fu">sum</span>(u <span class="sc">*</span> residuo)       <span class="co"># cero: son ortogonales</span></span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="álgebra-repaso.html#cb228-1" tabindex="-1"></a><span class="fu">sum</span>(u <span class="sc">*</span> residuo)       <span class="co"># cero: son ortogonales</span></span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="álgebra-repaso.html#cb229-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb229-2"><a href="álgebra-repaso.html#cb229-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
-<span id="cb229-3"><a href="álgebra-repaso.html#cb229-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
-<span id="cb229-4"><a href="álgebra-repaso.html#cb229-4" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, u[<span class="dv">1</span>], u[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb229-5"><a href="álgebra-repaso.html#cb229-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb229-6"><a href="álgebra-repaso.html#cb229-6" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, proyeccion[<span class="dv">1</span>], proyeccion[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb229-7"><a href="álgebra-repaso.html#cb229-7" tabindex="-1"></a><span class="fu">arrows</span>(proyeccion[<span class="dv">1</span>], proyeccion[<span class="dv">2</span>], v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="álgebra-repaso.html#cb230-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb230-2"><a href="álgebra-repaso.html#cb230-2" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb230-3"><a href="álgebra-repaso.html#cb230-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>)</span>
+<span id="cb230-4"><a href="álgebra-repaso.html#cb230-4" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, u[<span class="dv">1</span>], u[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb230-5"><a href="álgebra-repaso.html#cb230-5" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb230-6"><a href="álgebra-repaso.html#cb230-6" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, proyeccion[<span class="dv">1</span>], proyeccion[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb230-7"><a href="álgebra-repaso.html#cb230-7" tabindex="-1"></a><span class="fu">arrows</span>(proyeccion[<span class="dv">1</span>], proyeccion[<span class="dv">2</span>], v[<span class="dv">1</span>], v[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-74-1.png" alt="" width="672" />
 ## Valores y vectores propios</p>
 <p>Un vector propio <code>v</code> de <code>A</code> cumple <code>A v = λ v</code>: la matriz solo lo <strong>estira</strong> (o encoge), sin girarlo.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="álgebra-repaso.html#cb230-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
-<span id="cb230-2"><a href="álgebra-repaso.html#cb230-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb230-3"><a href="álgebra-repaso.html#cb230-3" tabindex="-1"></a></span>
-<span id="cb230-4"><a href="álgebra-repaso.html#cb230-4" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
-<span id="cb230-5"><a href="álgebra-repaso.html#cb230-5" tabindex="-1"></a>resultado</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="álgebra-repaso.html#cb231-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb231-2"><a href="álgebra-repaso.html#cb231-2" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb231-3"><a href="álgebra-repaso.html#cb231-3" tabindex="-1"></a></span>
+<span id="cb231-4"><a href="álgebra-repaso.html#cb231-4" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
+<span id="cb231-5"><a href="álgebra-repaso.html#cb231-5" tabindex="-1"></a>resultado</span></code></pre></div>
 <pre><code>## eigen() decomposition
 ## $values
 ## [1] 3 1
@@ -641,47 +641,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1,] 0.7071068 -0.7071068
 ## [2,] 0.7071068  0.7071068</code></pre>
 <p>Se guardan por separado así:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="álgebra-repaso.html#cb232-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span> resultado<span class="sc">$</span>values</span>
-<span id="cb232-2"><a href="álgebra-repaso.html#cb232-2" tabindex="-1"></a>vectores <span class="ot">&lt;-</span> resultado<span class="sc">$</span>vectors</span>
-<span id="cb232-3"><a href="álgebra-repaso.html#cb232-3" tabindex="-1"></a></span>
-<span id="cb232-4"><a href="álgebra-repaso.html#cb232-4" tabindex="-1"></a>valores        <span class="co"># los valores propios (de mayor a menor)</span></span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="álgebra-repaso.html#cb233-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span> resultado<span class="sc">$</span>values</span>
+<span id="cb233-2"><a href="álgebra-repaso.html#cb233-2" tabindex="-1"></a>vectores <span class="ot">&lt;-</span> resultado<span class="sc">$</span>vectors</span>
+<span id="cb233-3"><a href="álgebra-repaso.html#cb233-3" tabindex="-1"></a></span>
+<span id="cb233-4"><a href="álgebra-repaso.html#cb233-4" tabindex="-1"></a>valores        <span class="co"># los valores propios (de mayor a menor)</span></span></code></pre></div>
 <pre><code>## [1] 3 1</code></pre>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="álgebra-repaso.html#cb234-1" tabindex="-1"></a>vectores       <span class="co"># cada columna es un vector propio</span></span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="álgebra-repaso.html#cb235-1" tabindex="-1"></a>vectores       <span class="co"># cada columna es un vector propio</span></span></code></pre></div>
 <pre><code>##           [,1]       [,2]
 ## [1,] 0.7071068 -0.7071068
 ## [2,] 0.7071068  0.7071068</code></pre>
 <div id="comprobar-la-definición" class="section level3 hasAnchor" number="3.8.1">
 <h3><span class="header-section-number">3.8.1</span> Comprobar la definición<a href="álgebra-repaso.html#comprobar-la-definición" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="álgebra-repaso.html#cb236-1" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> vectores[, <span class="dv">1</span>]</span>
-<span id="cb236-2"><a href="álgebra-repaso.html#cb236-2" tabindex="-1"></a></span>
-<span id="cb236-3"><a href="álgebra-repaso.html#cb236-3" tabindex="-1"></a>A <span class="sc">%*%</span> v1               <span class="co"># lado izquierdo: A por v</span></span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="álgebra-repaso.html#cb237-1" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> vectores[, <span class="dv">1</span>]</span>
+<span id="cb237-2"><a href="álgebra-repaso.html#cb237-2" tabindex="-1"></a></span>
+<span id="cb237-3"><a href="álgebra-repaso.html#cb237-3" tabindex="-1"></a>A <span class="sc">%*%</span> v1               <span class="co"># lado izquierdo: A por v</span></span></code></pre></div>
 <pre><code>##         [,1]
 ## [1,] 2.12132
 ## [2,] 2.12132</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="álgebra-repaso.html#cb238-1" tabindex="-1"></a>valores[<span class="dv">1</span>] <span class="sc">*</span> v1        <span class="co"># lado derecho: lambda por v</span></span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="álgebra-repaso.html#cb239-1" tabindex="-1"></a>valores[<span class="dv">1</span>] <span class="sc">*</span> v1        <span class="co"># lado derecho: lambda por v</span></span></code></pre></div>
 <pre><code>## [1] 2.12132 2.12132</code></pre>
 <p>Son iguales: <code>A</code> solo estiró a <code>v1</code> por el factor 3.</p>
 <p>(Si en tu computador el vector sale con signo negativo no hay error: un vector y su opuesto marcan la misma recta.)</p>
 </div>
 <div id="dos-atajos-útiles" class="section level3 hasAnchor" number="3.8.2">
 <h3><span class="header-section-number">3.8.2</span> Dos atajos útiles<a href="álgebra-repaso.html#dos-atajos-útiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="álgebra-repaso.html#cb240-1" tabindex="-1"></a><span class="fu">sum</span>(valores)       <span class="co"># suma de valores propios = traza</span></span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="álgebra-repaso.html#cb241-1" tabindex="-1"></a><span class="fu">sum</span>(valores)       <span class="co"># suma de valores propios = traza</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="álgebra-repaso.html#cb242-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(A))</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="álgebra-repaso.html#cb243-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(A))</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="álgebra-repaso.html#cb244-1" tabindex="-1"></a><span class="fu">prod</span>(valores)      <span class="co"># producto = determinante</span></span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="álgebra-repaso.html#cb245-1" tabindex="-1"></a><span class="fu">prod</span>(valores)      <span class="co"># producto = determinante</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="álgebra-repaso.html#cb246-1" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="álgebra-repaso.html#cb247-1" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="matrices-simétricas" class="section level3 hasAnchor" number="3.8.3">
 <h3><span class="header-section-number">3.8.3</span> Matrices simétricas<a href="álgebra-repaso.html#matrices-simétricas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Una matriz simétrica cumple <code>A = t(A)</code>. Sus vectores propios son <strong>ortogonales</strong>:</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="álgebra-repaso.html#cb248-1" tabindex="-1"></a>A <span class="sc">==</span> <span class="fu">t</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="álgebra-repaso.html#cb249-1" tabindex="-1"></a>A <span class="sc">==</span> <span class="fu">t</span>(A)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,] TRUE TRUE
 ## [2,] TRUE TRUE</code></pre>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="álgebra-repaso.html#cb250-1" tabindex="-1"></a><span class="fu">sum</span>(vectores[, <span class="dv">1</span>] <span class="sc">*</span> vectores[, <span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="álgebra-repaso.html#cb251-1" tabindex="-1"></a><span class="fu">sum</span>(vectores[, <span class="dv">1</span>] <span class="sc">*</span> vectores[, <span class="dv">2</span>])</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 </div>
 </div>

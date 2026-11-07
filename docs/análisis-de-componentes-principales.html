@@ -407,15 +407,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="datos" class="section level3 hasAnchor" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Datos<a href="análisis-de-componentes-principales.html#datos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Una máquina registra temperatura (°C), vibración (mm/s) y presión (bar) en ocho momentos. Es un conjunto pequeño, suficiente para seguir cada operación.</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="análisis-de-componentes-principales.html#cb422-1" tabindex="-1"></a>maq <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb422-2"><a href="análisis-de-componentes-principales.html#cb422-2" tabindex="-1"></a>  <span class="at">temperatura =</span> <span class="fu">c</span>(<span class="fl">78.8</span>, <span class="fl">73.6</span>, <span class="fl">72.0</span>, <span class="fl">74.4</span>, <span class="fl">74.0</span>, <span class="fl">66.2</span>, <span class="fl">73.1</span>, <span class="fl">72.6</span>),</span>
-<span id="cb422-3"><a href="análisis-de-componentes-principales.html#cb422-3" tabindex="-1"></a>  <span class="at">vibracion   =</span> <span class="fu">c</span>(<span class="fl">4.6</span>, <span class="fl">3.4</span>, <span class="fl">2.7</span>, <span class="fl">3.6</span>, <span class="fl">3.7</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.4</span>),</span>
-<span id="cb422-4"><a href="análisis-de-componentes-principales.html#cb422-4" tabindex="-1"></a>  <span class="at">presion     =</span> <span class="fu">c</span>(<span class="fl">4.7</span>, <span class="fl">4.9</span>, <span class="fl">5.4</span>, <span class="fl">4.8</span>, <span class="fl">4.8</span>, <span class="fl">5.4</span>, <span class="fl">5.7</span>, <span class="fl">5.9</span>))</span>
-<span id="cb422-5"><a href="análisis-de-componentes-principales.html#cb422-5" tabindex="-1"></a></span>
-<span id="cb422-6"><a href="análisis-de-componentes-principales.html#cb422-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(maq)</span>
-<span id="cb422-7"><a href="análisis-de-componentes-principales.html#cb422-7" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)      <span class="co"># observaciones</span></span>
-<span id="cb422-8"><a href="análisis-de-componentes-principales.html#cb422-8" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)      <span class="co"># variables</span></span>
-<span id="cb422-9"><a href="análisis-de-componentes-principales.html#cb422-9" tabindex="-1"></a>X</span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="análisis-de-componentes-principales.html#cb423-1" tabindex="-1"></a>maq <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb423-2"><a href="análisis-de-componentes-principales.html#cb423-2" tabindex="-1"></a>  <span class="at">temperatura =</span> <span class="fu">c</span>(<span class="fl">78.8</span>, <span class="fl">73.6</span>, <span class="fl">72.0</span>, <span class="fl">74.4</span>, <span class="fl">74.0</span>, <span class="fl">66.2</span>, <span class="fl">73.1</span>, <span class="fl">72.6</span>),</span>
+<span id="cb423-3"><a href="análisis-de-componentes-principales.html#cb423-3" tabindex="-1"></a>  <span class="at">vibracion   =</span> <span class="fu">c</span>(<span class="fl">4.6</span>, <span class="fl">3.4</span>, <span class="fl">2.7</span>, <span class="fl">3.6</span>, <span class="fl">3.7</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.4</span>),</span>
+<span id="cb423-4"><a href="análisis-de-componentes-principales.html#cb423-4" tabindex="-1"></a>  <span class="at">presion     =</span> <span class="fu">c</span>(<span class="fl">4.7</span>, <span class="fl">4.9</span>, <span class="fl">5.4</span>, <span class="fl">4.8</span>, <span class="fl">4.8</span>, <span class="fl">5.4</span>, <span class="fl">5.7</span>, <span class="fl">5.9</span>))</span>
+<span id="cb423-5"><a href="análisis-de-componentes-principales.html#cb423-5" tabindex="-1"></a></span>
+<span id="cb423-6"><a href="análisis-de-componentes-principales.html#cb423-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(maq)</span>
+<span id="cb423-7"><a href="análisis-de-componentes-principales.html#cb423-7" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)      <span class="co"># observaciones</span></span>
+<span id="cb423-8"><a href="análisis-de-componentes-principales.html#cb423-8" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)      <span class="co"># variables</span></span>
+<span id="cb423-9"><a href="análisis-de-componentes-principales.html#cb423-9" tabindex="-1"></a>X</span></code></pre></div>
 <pre><code>##      temperatura vibracion presion
 ## [1,]        78.8       4.6     4.7
 ## [2,]        73.6       3.4     4.9
@@ -425,78 +425,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [6,]        66.2       2.5     5.4
 ## [7,]        73.1       3.0     5.7
 ## [8,]        72.6       3.4     5.9</code></pre>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="análisis-de-componentes-principales.html#cb424-1" tabindex="-1"></a><span class="fu">pairs</span>(maq, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="análisis-de-componentes-principales.html#cb425-1" tabindex="-1"></a><span class="fu">pairs</span>(maq, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-141-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Temperatura y vibración crecen juntas; la presión se mueve en sentido contrario. Hay información repetida entre las variables.</p>
 </div>
 <div id="paso-1.-centrado-y-estandarización" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Paso 1. Centrado y estandarización<a href="análisis-de-componentes-principales.html#paso-1.-centrado-y-estandarización" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Centrar significa restar a cada variable su media; estandarizar, además, dividir entre su desviación estándar. Las varianzas originales muestran por qué conviene estandarizar:</p>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="análisis-de-componentes-principales.html#cb425-1" tabindex="-1"></a>medias <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(X)</span>
-<span id="cb425-2"><a href="análisis-de-componentes-principales.html#cb425-2" tabindex="-1"></a><span class="fu">round</span>(medias, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="análisis-de-componentes-principales.html#cb426-1" tabindex="-1"></a>medias <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(X)</span>
+<span id="cb426-2"><a href="análisis-de-componentes-principales.html#cb426-2" tabindex="-1"></a><span class="fu">round</span>(medias, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## temperatura   vibracion     presion 
 ##       73.09        3.36        5.20</code></pre>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="análisis-de-componentes-principales.html#cb427-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(X, <span class="dv">2</span>, var), <span class="dv">2</span>)   <span class="co"># la temperatura domina solo por sus unidades</span></span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="análisis-de-componentes-principales.html#cb428-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(X, <span class="dv">2</span>, var), <span class="dv">2</span>)   <span class="co"># la temperatura domina solo por sus unidades</span></span></code></pre></div>
 <pre><code>## temperatura   vibracion     presion 
 ##       12.04        0.43        0.21</code></pre>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="análisis-de-componentes-principales.html#cb429-1" tabindex="-1"></a>Xc <span class="ot">&lt;-</span> <span class="fu">sweep</span>(X, <span class="dv">2</span>, medias)                  <span class="co"># datos centrados</span></span>
-<span id="cb429-2"><a href="análisis-de-componentes-principales.html#cb429-2" tabindex="-1"></a>Z  <span class="ot">&lt;-</span> <span class="fu">scale</span>(X)                             <span class="co"># datos estandarizados</span></span>
-<span id="cb429-3"><a href="análisis-de-componentes-principales.html#cb429-3" tabindex="-1"></a></span>
-<span id="cb429-4"><a href="análisis-de-componentes-principales.html#cb429-4" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">colMeans</span>(Xc), <span class="dv">10</span>)                    <span class="co"># medias cero</span></span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="análisis-de-componentes-principales.html#cb430-1" tabindex="-1"></a>Xc <span class="ot">&lt;-</span> <span class="fu">sweep</span>(X, <span class="dv">2</span>, medias)                  <span class="co"># datos centrados</span></span>
+<span id="cb430-2"><a href="análisis-de-componentes-principales.html#cb430-2" tabindex="-1"></a>Z  <span class="ot">&lt;-</span> <span class="fu">scale</span>(X)                             <span class="co"># datos estandarizados</span></span>
+<span id="cb430-3"><a href="análisis-de-componentes-principales.html#cb430-3" tabindex="-1"></a></span>
+<span id="cb430-4"><a href="análisis-de-componentes-principales.html#cb430-4" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">colMeans</span>(Xc), <span class="dv">10</span>)                    <span class="co"># medias cero</span></span></code></pre></div>
 <pre><code>## temperatura   vibracion     presion 
 ##           0           0           0</code></pre>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="análisis-de-componentes-principales.html#cb431-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(Z, <span class="dv">2</span>, sd), <span class="dv">10</span>)                 <span class="co"># desviaciones uno</span></span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="análisis-de-componentes-principales.html#cb432-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(Z, <span class="dv">2</span>, sd), <span class="dv">10</span>)                 <span class="co"># desviaciones uno</span></span></code></pre></div>
 <pre><code>## temperatura   vibracion     presion 
 ##           1           1           1</code></pre>
 </div>
 <div id="paso-2.-matrices-de-covarianzas-y-de-correlaciones" class="section level3 hasAnchor" number="6.1.3">
 <h3><span class="header-section-number">6.1.3</span> Paso 2. Matrices de covarianzas y de correlaciones<a href="análisis-de-componentes-principales.html#paso-2.-matrices-de-covarianzas-y-de-correlaciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La matriz de covarianzas es <span class="math inline">\(S=\frac{1}{n-1}X_c^\top X_c\)</span>. Con datos estandarizados, la misma operación produce la matriz de correlaciones <span class="math inline">\(R\)</span>.</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="análisis-de-componentes-principales.html#cb433-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">t</span>(Xc) <span class="sc">%*%</span> Xc <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb433-2"><a href="análisis-de-componentes-principales.html#cb433-2" tabindex="-1"></a><span class="fu">round</span>(S, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="análisis-de-componentes-principales.html#cb434-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">t</span>(Xc) <span class="sc">%*%</span> Xc <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb434-2"><a href="análisis-de-componentes-principales.html#cb434-2" tabindex="-1"></a><span class="fu">round</span>(S, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##             temperatura vibracion presion
 ## temperatura       12.04      2.05   -0.83
 ## vibracion          2.05      0.43   -0.19
 ## presion           -0.83     -0.19    0.21</code></pre>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="análisis-de-componentes-principales.html#cb435-1" tabindex="-1"></a><span class="fu">all.equal</span>(S, <span class="fu">cov</span>(X), <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="análisis-de-componentes-principales.html#cb436-1" tabindex="-1"></a><span class="fu">all.equal</span>(S, <span class="fu">cov</span>(X), <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="análisis-de-componentes-principales.html#cb437-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">t</span>(Z) <span class="sc">%*%</span> Z <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb437-2"><a href="análisis-de-componentes-principales.html#cb437-2" tabindex="-1"></a><span class="fu">round</span>(R, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="análisis-de-componentes-principales.html#cb438-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">t</span>(Z) <span class="sc">%*%</span> Z <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb438-2"><a href="análisis-de-componentes-principales.html#cb438-2" tabindex="-1"></a><span class="fu">round</span>(R, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##             temperatura vibracion presion
 ## temperatura        1.00      0.90   -0.52
 ## vibracion          0.90      1.00   -0.62
 ## presion           -0.52     -0.62    1.00</code></pre>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="análisis-de-componentes-principales.html#cb439-1" tabindex="-1"></a><span class="fu">all.equal</span>(R, <span class="fu">cor</span>(X), <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="análisis-de-componentes-principales.html#cb440-1" tabindex="-1"></a><span class="fu">all.equal</span>(R, <span class="fu">cor</span>(X), <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Se trabaja con <span class="math inline">\(R\)</span>, porque las unidades de las variables no son comparables.</p>
 </div>
 <div id="paso-3.-eigenvalores-y-eigenvectores" class="section level3 hasAnchor" number="6.1.4">
 <h3><span class="header-section-number">6.1.4</span> Paso 3. Eigenvalores y eigenvectores<a href="análisis-de-componentes-principales.html#paso-3.-eigenvalores-y-eigenvectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los eigenvalores <span class="math inline">\(\lambda_k\)</span> y eigenvectores <span class="math inline">\(\mathbf{v}_k\)</span> de <span class="math inline">\(R\)</span> cumplen <span class="math inline">\(R\mathbf{v}_k=\lambda_k\mathbf{v}_k\)</span>. La función <code>eigen()</code> los devuelve ordenados de mayor a menor.</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="análisis-de-componentes-principales.html#cb441-1" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">eigen</span>(R)</span>
-<span id="cb441-2"><a href="análisis-de-componentes-principales.html#cb441-2" tabindex="-1"></a>valores  <span class="ot">&lt;-</span> e<span class="sc">$</span>values</span>
-<span id="cb441-3"><a href="análisis-de-componentes-principales.html#cb441-3" tabindex="-1"></a>vectores <span class="ot">&lt;-</span> e<span class="sc">$</span>vectors</span>
-<span id="cb441-4"><a href="análisis-de-componentes-principales.html#cb441-4" tabindex="-1"></a><span class="fu">rownames</span>(vectores) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(X)</span>
-<span id="cb441-5"><a href="análisis-de-componentes-principales.html#cb441-5" tabindex="-1"></a><span class="fu">colnames</span>(vectores) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p)</span>
-<span id="cb441-6"><a href="análisis-de-componentes-principales.html#cb441-6" tabindex="-1"></a></span>
-<span id="cb441-7"><a href="análisis-de-componentes-principales.html#cb441-7" tabindex="-1"></a><span class="fu">round</span>(valores, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="análisis-de-componentes-principales.html#cb442-1" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">eigen</span>(R)</span>
+<span id="cb442-2"><a href="análisis-de-componentes-principales.html#cb442-2" tabindex="-1"></a>valores  <span class="ot">&lt;-</span> e<span class="sc">$</span>values</span>
+<span id="cb442-3"><a href="análisis-de-componentes-principales.html#cb442-3" tabindex="-1"></a>vectores <span class="ot">&lt;-</span> e<span class="sc">$</span>vectors</span>
+<span id="cb442-4"><a href="análisis-de-componentes-principales.html#cb442-4" tabindex="-1"></a><span class="fu">rownames</span>(vectores) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(X)</span>
+<span id="cb442-5"><a href="análisis-de-componentes-principales.html#cb442-5" tabindex="-1"></a><span class="fu">colnames</span>(vectores) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p)</span>
+<span id="cb442-6"><a href="análisis-de-componentes-principales.html#cb442-6" tabindex="-1"></a></span>
+<span id="cb442-7"><a href="análisis-de-componentes-principales.html#cb442-7" tabindex="-1"></a><span class="fu">round</span>(valores, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 2.377 0.532 0.091</code></pre>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="análisis-de-componentes-principales.html#cb443-1" tabindex="-1"></a><span class="fu">round</span>(vectores, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="análisis-de-componentes-principales.html#cb444-1" tabindex="-1"></a><span class="fu">round</span>(vectores, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##                PC1   PC2    PC3
 ## temperatura -0.598 0.458  0.658
 ## vibracion   -0.620 0.256 -0.741
 ## presion      0.508 0.851 -0.132</code></pre>
 <p>Verificación de la definición para el primer par:</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="análisis-de-componentes-principales.html#cb445-1" tabindex="-1"></a>R <span class="sc">%*%</span> vectores[, <span class="dv">1</span>]          <span class="co"># lado izquierdo</span></span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="análisis-de-componentes-principales.html#cb446-1" tabindex="-1"></a>R <span class="sc">%*%</span> vectores[, <span class="dv">1</span>]          <span class="co"># lado izquierdo</span></span></code></pre></div>
 <pre><code>##                  [,1]
 ## temperatura -1.420614
 ## vibracion   -1.475011
 ## presion      1.207206</code></pre>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="análisis-de-componentes-principales.html#cb447-1" tabindex="-1"></a>valores[<span class="dv">1</span>] <span class="sc">*</span> vectores[, <span class="dv">1</span>]   <span class="co"># lado derecho</span></span></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="análisis-de-componentes-principales.html#cb448-1" tabindex="-1"></a>valores[<span class="dv">1</span>] <span class="sc">*</span> vectores[, <span class="dv">1</span>]   <span class="co"># lado derecho</span></span></code></pre></div>
 <pre><code>## temperatura   vibracion     presion 
 ##   -1.420614   -1.475011    1.207206</code></pre>
 <p>Los eigenvectores son unitarios y perpendiculares entre sí:</p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="análisis-de-componentes-principales.html#cb449-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">t</span>(vectores) <span class="sc">%*%</span> vectores, <span class="dv">10</span>)    <span class="co"># matriz identidad</span></span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="análisis-de-componentes-principales.html#cb450-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">t</span>(vectores) <span class="sc">%*%</span> vectores, <span class="dv">10</span>)    <span class="co"># matriz identidad</span></span></code></pre></div>
 <pre><code>##     PC1 PC2 PC3
 ## PC1   1   0   0
 ## PC2   0   1   0
@@ -506,24 +506,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="paso-4.-varianza-explicada" class="section level3 hasAnchor" number="6.1.5">
 <h3><span class="header-section-number">6.1.5</span> Paso 4. Varianza explicada<a href="análisis-de-componentes-principales.html#paso-4.-varianza-explicada" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La proporción de varianza explicada por el componente <span class="math inline">\(k\)</span> es <span class="math inline">\(\lambda_k/\sum_j\lambda_j\)</span>. Con una matriz de correlaciones, la suma de los eigenvalores es <span class="math inline">\(p\)</span>.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="análisis-de-componentes-principales.html#cb451-1" tabindex="-1"></a><span class="fu">sum</span>(valores)                            <span class="co"># igual a p = 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="análisis-de-componentes-principales.html#cb452-1" tabindex="-1"></a><span class="fu">sum</span>(valores)                            <span class="co"># igual a p = 3</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="análisis-de-componentes-principales.html#cb453-1" tabindex="-1"></a>pve <span class="ot">&lt;-</span> valores <span class="sc">/</span> <span class="fu">sum</span>(valores)</span>
-<span id="cb453-2"><a href="análisis-de-componentes-principales.html#cb453-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">rbind</span>(<span class="at">PVE =</span> pve, <span class="at">Acumulada =</span> <span class="fu">cumsum</span>(pve)), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="análisis-de-componentes-principales.html#cb454-1" tabindex="-1"></a>pve <span class="ot">&lt;-</span> valores <span class="sc">/</span> <span class="fu">sum</span>(valores)</span>
+<span id="cb454-2"><a href="análisis-de-componentes-principales.html#cb454-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">rbind</span>(<span class="at">PVE =</span> pve, <span class="at">Acumulada =</span> <span class="fu">cumsum</span>(pve)), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##            [,1]  [,2] [,3]
 ## PVE       0.792 0.177 0.03
 ## Acumulada 0.792 0.970 1.00</code></pre>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="análisis-de-componentes-principales.html#cb455-1" tabindex="-1"></a><span class="fu">plot</span>(valores, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">&quot;Componente&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Eigenvalor&quot;</span>,</span>
-<span id="cb455-2"><a href="análisis-de-componentes-principales.html#cb455-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Gráfico de sedimentación&quot;</span>)</span>
-<span id="cb455-3"><a href="análisis-de-componentes-principales.html#cb455-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)    <span class="co"># criterio de Kaiser</span></span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="análisis-de-componentes-principales.html#cb456-1" tabindex="-1"></a><span class="fu">plot</span>(valores, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlab =</span> <span class="st">&quot;Componente&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Eigenvalor&quot;</span>,</span>
+<span id="cb456-2"><a href="análisis-de-componentes-principales.html#cb456-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Gráfico de sedimentación&quot;</span>)</span>
+<span id="cb456-3"><a href="análisis-de-componentes-principales.html#cb456-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)    <span class="co"># criterio de Kaiser</span></span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-150-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>El primer componente explica cerca de 79 % de la variabilidad; con dos se alcanza 97 %. Un tercer componente aporta poco.</p>
 </div>
 <div id="paso-5.-scores" class="section level3 hasAnchor" number="6.1.6">
 <h3><span class="header-section-number">6.1.6</span> Paso 5. Scores<a href="análisis-de-componentes-principales.html#paso-5.-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los scores son las coordenadas de las observaciones en los nuevos ejes: <span class="math inline">\(Z_{\text{scores}}=Z\,V\)</span>.</p>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="análisis-de-componentes-principales.html#cb456-1" tabindex="-1"></a>scores <span class="ot">&lt;-</span> Z <span class="sc">%*%</span> vectores</span>
-<span id="cb456-2"><a href="análisis-de-componentes-principales.html#cb456-2" tabindex="-1"></a><span class="fu">round</span>(scores, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="análisis-de-componentes-principales.html#cb457-1" tabindex="-1"></a>scores <span class="ot">&lt;-</span> Z <span class="sc">%*%</span> vectores</span>
+<span id="cb457-2"><a href="análisis-de-componentes-principales.html#cb457-2" tabindex="-1"></a><span class="fu">round</span>(scores, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##        PC1   PC2   PC3
 ## [1,] -2.71  0.31 -0.17
 ## [2,] -0.46 -0.47  0.14
@@ -534,34 +534,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [7,]  0.89  0.79  0.27
 ## [8,]  0.82  1.25 -0.34</code></pre>
 <p>Las propiedades del teorema se verifican directamente: los componentes tienen varianza <span class="math inline">\(\lambda_k\)</span> y covarianza cero.</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="análisis-de-componentes-principales.html#cb458-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov</span>(scores), <span class="dv">3</span>)     <span class="co"># diagonal: eigenvalores; fuera de la diagonal: ceros</span></span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="análisis-de-componentes-principales.html#cb459-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov</span>(scores), <span class="dv">3</span>)     <span class="co"># diagonal: eigenvalores; fuera de la diagonal: ceros</span></span></code></pre></div>
 <pre><code>##       PC1   PC2   PC3
 ## PC1 2.377 0.000 0.000
 ## PC2 0.000 0.532 0.000
 ## PC3 0.000 0.000 0.091</code></pre>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="análisis-de-componentes-principales.html#cb460-1" tabindex="-1"></a><span class="fu">round</span>(valores, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="análisis-de-componentes-principales.html#cb461-1" tabindex="-1"></a><span class="fu">round</span>(valores, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 2.377 0.532 0.091</code></pre>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="análisis-de-componentes-principales.html#cb462-1" tabindex="-1"></a><span class="fu">plot</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
-<span id="cb462-2"><a href="análisis-de-componentes-principales.html#cb462-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC2&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Scores&quot;</span>)</span>
-<span id="cb462-3"><a href="análisis-de-componentes-principales.html#cb462-3" tabindex="-1"></a><span class="fu">text</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span>n, <span class="at">pos =</span> <span class="dv">3</span>)</span>
-<span id="cb462-4"><a href="análisis-de-componentes-principales.html#cb462-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;grey80&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="análisis-de-componentes-principales.html#cb463-1" tabindex="-1"></a><span class="fu">plot</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb463-2"><a href="análisis-de-componentes-principales.html#cb463-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC2&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Scores&quot;</span>)</span>
+<span id="cb463-3"><a href="análisis-de-componentes-principales.html#cb463-3" tabindex="-1"></a><span class="fu">text</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span>n, <span class="at">pos =</span> <span class="dv">3</span>)</span>
+<span id="cb463-4"><a href="análisis-de-componentes-principales.html#cb463-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;grey80&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-153-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="loadings-y-correlación-con-las-variables" class="section level3 hasAnchor" number="6.1.7">
 <h3><span class="header-section-number">6.1.7</span> Loadings y correlación con las variables<a href="análisis-de-componentes-principales.html#loadings-y-correlación-con-las-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los loadings indican el peso de cada variable en el componente. Cuando se parte de <span class="math inline">\(R\)</span>, la correlación entre la variable <span class="math inline">\(j\)</span> y el componente <span class="math inline">\(k\)</span> es <span class="math inline">\(\sqrt{\lambda_k}\,v_{jk}\)</span>.</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="análisis-de-componentes-principales.html#cb463-1" tabindex="-1"></a><span class="fu">round</span>(vectores[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="análisis-de-componentes-principales.html#cb464-1" tabindex="-1"></a><span class="fu">round</span>(vectores[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               PC1  PC2
 ## temperatura -0.60 0.46
 ## vibracion   -0.62 0.26
 ## presion      0.51 0.85</code></pre>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="análisis-de-componentes-principales.html#cb465-1" tabindex="-1"></a>correl <span class="ot">&lt;-</span> <span class="fu">sweep</span>(vectores, <span class="dv">2</span>, <span class="fu">sqrt</span>(valores), <span class="st">&quot;*&quot;</span>)</span>
-<span id="cb465-2"><a href="análisis-de-componentes-principales.html#cb465-2" tabindex="-1"></a><span class="fu">round</span>(correl[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="análisis-de-componentes-principales.html#cb466-1" tabindex="-1"></a>correl <span class="ot">&lt;-</span> <span class="fu">sweep</span>(vectores, <span class="dv">2</span>, <span class="fu">sqrt</span>(valores), <span class="st">&quot;*&quot;</span>)</span>
+<span id="cb466-2"><a href="análisis-de-componentes-principales.html#cb466-2" tabindex="-1"></a><span class="fu">round</span>(correl[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               PC1  PC2
 ## temperatura -0.92 0.33
 ## vibracion   -0.96 0.19
 ## presion      0.78 0.62</code></pre>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="análisis-de-componentes-principales.html#cb467-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(Z, scores)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)     <span class="co"># coincide con la tabla anterior</span></span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="análisis-de-componentes-principales.html#cb468-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(Z, scores)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)     <span class="co"># coincide con la tabla anterior</span></span></code></pre></div>
 <pre><code>##               PC1  PC2
 ## temperatura -0.92 0.33
 ## vibracion   -0.96 0.19
@@ -571,13 +571,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="comprobación-con-prcomp" class="section level3 hasAnchor" number="6.1.8">
 <h3><span class="header-section-number">6.1.8</span> Comprobación con <code>prcomp()</code><a href="análisis-de-componentes-principales.html#comprobación-con-prcomp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La función <code>prcomp()</code> realiza todos los pasos anteriores:</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="análisis-de-componentes-principales.html#cb469-1" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(X, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb469-2"><a href="análisis-de-componentes-principales.html#cb469-2" tabindex="-1"></a></span>
-<span id="cb469-3"><a href="análisis-de-componentes-principales.html#cb469-3" tabindex="-1"></a><span class="fu">all.equal</span>(pc<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>, valores)</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="análisis-de-componentes-principales.html#cb470-1" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(X, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb470-2"><a href="análisis-de-componentes-principales.html#cb470-2" tabindex="-1"></a></span>
+<span id="cb470-3"><a href="análisis-de-componentes-principales.html#cb470-3" tabindex="-1"></a><span class="fu">all.equal</span>(pc<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span>, valores)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="análisis-de-componentes-principales.html#cb471-1" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">abs</span>(<span class="fu">unname</span>(pc<span class="sc">$</span>rotation)), <span class="fu">abs</span>(<span class="fu">unname</span>(vectores)))</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="análisis-de-componentes-principales.html#cb472-1" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">abs</span>(<span class="fu">unname</span>(pc<span class="sc">$</span>rotation)), <span class="fu">abs</span>(<span class="fu">unname</span>(vectores)))</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="análisis-de-componentes-principales.html#cb473-1" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">abs</span>(<span class="fu">unname</span>(pc<span class="sc">$</span>x)), <span class="fu">abs</span>(<span class="fu">unname</span>(scores)))</span></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="análisis-de-componentes-principales.html#cb474-1" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">abs</span>(<span class="fu">unname</span>(pc<span class="sc">$</span>x)), <span class="fu">abs</span>(<span class="fu">unname</span>(scores)))</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Los resultados son iguales salvo el signo de las columnas. Con los fundamentos claros, la segunda parte usa funciones automáticas.</p>
 </div>
@@ -587,15 +587,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="datos-1" class="section level3 hasAnchor" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> Datos<a href="análisis-de-componentes-principales.html#datos-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El conjunto de datos <strong>Wine</strong> (Forina et al., UCI Machine Learning Repository) contiene el análisis químico de 178 vinos italianos producidos por tres cultivares. Cada vino tiene 13 mediciones. El cultivar se usará solo para validar el resultado, no para calcular los componentes.</p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="análisis-de-componentes-principales.html#cb475-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/jbrownlee/Datasets/master/wine.csv&quot;</span></span>
-<span id="cb475-2"><a href="análisis-de-componentes-principales.html#cb475-2" tabindex="-1"></a>vino <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb475-3"><a href="análisis-de-componentes-principales.html#cb475-3" tabindex="-1"></a></span>
-<span id="cb475-4"><a href="análisis-de-componentes-principales.html#cb475-4" tabindex="-1"></a><span class="fu">names</span>(vino) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Alcohol&quot;</span>, <span class="st">&quot;Malico&quot;</span>, <span class="st">&quot;Ceniza&quot;</span>, <span class="st">&quot;Alcalinidad&quot;</span>, <span class="st">&quot;Magnesio&quot;</span>,</span>
-<span id="cb475-5"><a href="análisis-de-componentes-principales.html#cb475-5" tabindex="-1"></a>                 <span class="st">&quot;Fenoles&quot;</span>, <span class="st">&quot;Flavonoides&quot;</span>, <span class="st">&quot;NoFlavonoides&quot;</span>, <span class="st">&quot;Proantocianinas&quot;</span>,</span>
-<span id="cb475-6"><a href="análisis-de-componentes-principales.html#cb475-6" tabindex="-1"></a>                 <span class="st">&quot;Color&quot;</span>, <span class="st">&quot;Matiz&quot;</span>, <span class="st">&quot;OD280&quot;</span>, <span class="st">&quot;Prolina&quot;</span>, <span class="st">&quot;Cultivar&quot;</span>)</span>
-<span id="cb475-7"><a href="análisis-de-componentes-principales.html#cb475-7" tabindex="-1"></a>vino<span class="sc">$</span>Cultivar <span class="ot">&lt;-</span> <span class="fu">factor</span>(vino<span class="sc">$</span>Cultivar)</span>
-<span id="cb475-8"><a href="análisis-de-componentes-principales.html#cb475-8" tabindex="-1"></a></span>
-<span id="cb475-9"><a href="análisis-de-componentes-principales.html#cb475-9" tabindex="-1"></a><span class="fu">str</span>(vino)</span></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="análisis-de-componentes-principales.html#cb476-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/jbrownlee/Datasets/master/wine.csv&quot;</span></span>
+<span id="cb476-2"><a href="análisis-de-componentes-principales.html#cb476-2" tabindex="-1"></a>vino <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb476-3"><a href="análisis-de-componentes-principales.html#cb476-3" tabindex="-1"></a></span>
+<span id="cb476-4"><a href="análisis-de-componentes-principales.html#cb476-4" tabindex="-1"></a><span class="fu">names</span>(vino) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Alcohol&quot;</span>, <span class="st">&quot;Malico&quot;</span>, <span class="st">&quot;Ceniza&quot;</span>, <span class="st">&quot;Alcalinidad&quot;</span>, <span class="st">&quot;Magnesio&quot;</span>,</span>
+<span id="cb476-5"><a href="análisis-de-componentes-principales.html#cb476-5" tabindex="-1"></a>                 <span class="st">&quot;Fenoles&quot;</span>, <span class="st">&quot;Flavonoides&quot;</span>, <span class="st">&quot;NoFlavonoides&quot;</span>, <span class="st">&quot;Proantocianinas&quot;</span>,</span>
+<span id="cb476-6"><a href="análisis-de-componentes-principales.html#cb476-6" tabindex="-1"></a>                 <span class="st">&quot;Color&quot;</span>, <span class="st">&quot;Matiz&quot;</span>, <span class="st">&quot;OD280&quot;</span>, <span class="st">&quot;Prolina&quot;</span>, <span class="st">&quot;Cultivar&quot;</span>)</span>
+<span id="cb476-7"><a href="análisis-de-componentes-principales.html#cb476-7" tabindex="-1"></a>vino<span class="sc">$</span>Cultivar <span class="ot">&lt;-</span> <span class="fu">factor</span>(vino<span class="sc">$</span>Cultivar)</span>
+<span id="cb476-8"><a href="análisis-de-componentes-principales.html#cb476-8" tabindex="-1"></a></span>
+<span id="cb476-9"><a href="análisis-de-componentes-principales.html#cb476-9" tabindex="-1"></a><span class="fu">str</span>(vino)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    178 obs. of  14 variables:
 ##  $ Alcohol        : num  14.2 13.2 13.2 14.4 13.2 ...
 ##  $ Malico         : num  1.71 1.78 2.36 1.95 2.59 1.76 1.87 2.15 1.64 1.35 ...
@@ -645,62 +645,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="análisis-de-componentes-principales.html#cb477-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> vino[, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>]          <span class="co"># variables cuantitativas para PCA</span></span>
-<span id="cb477-2"><a href="análisis-de-componentes-principales.html#cb477-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
-<span id="cb477-3"><a href="análisis-de-componentes-principales.html#cb477-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)</span>
-<span id="cb477-4"><a href="análisis-de-componentes-principales.html#cb477-4" tabindex="-1"></a></span>
-<span id="cb477-5"><a href="análisis-de-componentes-principales.html#cb477-5" tabindex="-1"></a><span class="fu">c</span>(<span class="at">n =</span> n, <span class="at">p =</span> p)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="análisis-de-componentes-principales.html#cb478-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> vino[, <span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>]          <span class="co"># variables cuantitativas para PCA</span></span>
+<span id="cb478-2"><a href="análisis-de-componentes-principales.html#cb478-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb478-3"><a href="análisis-de-componentes-principales.html#cb478-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)</span>
+<span id="cb478-4"><a href="análisis-de-componentes-principales.html#cb478-4" tabindex="-1"></a></span>
+<span id="cb478-5"><a href="análisis-de-componentes-principales.html#cb478-5" tabindex="-1"></a><span class="fu">c</span>(<span class="at">n =</span> n, <span class="at">p =</span> p)</span></code></pre></div>
 <pre><code>##   n   p 
 ## 178  13</code></pre>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="análisis-de-componentes-principales.html#cb479-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(X))              <span class="co"># datos faltantes</span></span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="análisis-de-componentes-principales.html#cb480-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(X))              <span class="co"># datos faltantes</span></span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="análisis-de-componentes-principales.html#cb481-1" tabindex="-1"></a><span class="fu">table</span>(vino<span class="sc">$</span>Cultivar)</span></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="análisis-de-componentes-principales.html#cb482-1" tabindex="-1"></a><span class="fu">table</span>(vino<span class="sc">$</span>Cultivar)</span></code></pre></div>
 <pre><code>## 
 ##  1  2  3 
 ## 59 71 48</code></pre>
 </div>
 <div id="exploración-univariada" class="section level3 hasAnchor" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> Exploración univariada<a href="análisis-de-componentes-principales.html#exploración-univariada" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="análisis-de-componentes-principales.html#cb483-1" tabindex="-1"></a><span class="fu">summary</span>(X)</span></code></pre></div>
-<pre><code>##     Alcohol          Malico          Ceniza       Alcalinidad       Magnesio         Fenoles       Flavonoides   
-##  Min.   :11.03   Min.   :0.740   Min.   :1.360   Min.   :10.60   Min.   : 70.00   Min.   :0.980   Min.   :0.340  
-##  1st Qu.:12.36   1st Qu.:1.603   1st Qu.:2.210   1st Qu.:17.20   1st Qu.: 88.00   1st Qu.:1.742   1st Qu.:1.205  
-##  Median :13.05   Median :1.865   Median :2.360   Median :19.50   Median : 98.00   Median :2.355   Median :2.135  
-##  Mean   :13.00   Mean   :2.336   Mean   :2.367   Mean   :19.49   Mean   : 99.74   Mean   :2.295   Mean   :2.029  
-##  3rd Qu.:13.68   3rd Qu.:3.083   3rd Qu.:2.558   3rd Qu.:21.50   3rd Qu.:107.00   3rd Qu.:2.800   3rd Qu.:2.875  
-##  Max.   :14.83   Max.   :5.800   Max.   :3.230   Max.   :30.00   Max.   :162.00   Max.   :3.880   Max.   :5.080  
-##  NoFlavonoides    Proantocianinas     Color            Matiz            OD280          Prolina      
-##  Min.   :0.1300   Min.   :0.410   Min.   : 1.280   Min.   :0.4800   Min.   :1.270   Min.   : 278.0  
-##  1st Qu.:0.2700   1st Qu.:1.250   1st Qu.: 3.220   1st Qu.:0.7825   1st Qu.:1.938   1st Qu.: 500.5  
-##  Median :0.3400   Median :1.555   Median : 4.690   Median :0.9650   Median :2.780   Median : 673.5  
-##  Mean   :0.3619   Mean   :1.591   Mean   : 5.058   Mean   :0.9574   Mean   :2.612   Mean   : 746.9  
-##  3rd Qu.:0.4375   3rd Qu.:1.950   3rd Qu.: 6.200   3rd Qu.:1.1200   3rd Qu.:3.170   3rd Qu.: 985.0  
-##  Max.   :0.6600   Max.   :3.580   Max.   :13.000   Max.   :1.7100   Max.   :4.000   Max.   :1680.0</code></pre>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="análisis-de-componentes-principales.html#cb485-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb485-2"><a href="análisis-de-componentes-principales.html#cb485-2" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">names</span>(X)) <span class="fu">hist</span>(X[[v]], <span class="at">main =</span> v, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
-<span id="cb485-3"><a href="análisis-de-componentes-principales.html#cb485-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="análisis-de-componentes-principales.html#cb484-1" tabindex="-1"></a><span class="fu">summary</span>(X)</span></code></pre></div>
+<pre><code>##     Alcohol          Malico          Ceniza       Alcalinidad   
+##  Min.   :11.03   Min.   :0.740   Min.   :1.360   Min.   :10.60  
+##  1st Qu.:12.36   1st Qu.:1.603   1st Qu.:2.210   1st Qu.:17.20  
+##  Median :13.05   Median :1.865   Median :2.360   Median :19.50  
+##  Mean   :13.00   Mean   :2.336   Mean   :2.367   Mean   :19.49  
+##  3rd Qu.:13.68   3rd Qu.:3.083   3rd Qu.:2.558   3rd Qu.:21.50  
+##  Max.   :14.83   Max.   :5.800   Max.   :3.230   Max.   :30.00  
+##     Magnesio         Fenoles       Flavonoides    NoFlavonoides   
+##  Min.   : 70.00   Min.   :0.980   Min.   :0.340   Min.   :0.1300  
+##  1st Qu.: 88.00   1st Qu.:1.742   1st Qu.:1.205   1st Qu.:0.2700  
+##  Median : 98.00   Median :2.355   Median :2.135   Median :0.3400  
+##  Mean   : 99.74   Mean   :2.295   Mean   :2.029   Mean   :0.3619  
+##  3rd Qu.:107.00   3rd Qu.:2.800   3rd Qu.:2.875   3rd Qu.:0.4375  
+##  Max.   :162.00   Max.   :3.880   Max.   :5.080   Max.   :0.6600  
+##  Proantocianinas     Color            Matiz            OD280      
+##  Min.   :0.410   Min.   : 1.280   Min.   :0.4800   Min.   :1.270  
+##  1st Qu.:1.250   1st Qu.: 3.220   1st Qu.:0.7825   1st Qu.:1.938  
+##  Median :1.555   Median : 4.690   Median :0.9650   Median :2.780  
+##  Mean   :1.591   Mean   : 5.058   Mean   :0.9574   Mean   :2.612  
+##  3rd Qu.:1.950   3rd Qu.: 6.200   3rd Qu.:1.1200   3rd Qu.:3.170  
+##  Max.   :3.580   Max.   :13.000   Max.   :1.7100   Max.   :4.000  
+##     Prolina      
+##  Min.   : 278.0  
+##  1st Qu.: 500.5  
+##  Median : 673.5  
+##  Mean   : 746.9  
+##  3rd Qu.: 985.0  
+##  Max.   :1680.0</code></pre>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="análisis-de-componentes-principales.html#cb486-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb486-2"><a href="análisis-de-componentes-principales.html#cb486-2" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">names</span>(X)) <span class="fu">hist</span>(X[[v]], <span class="at">main =</span> v, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb486-3"><a href="análisis-de-componentes-principales.html#cb486-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-159-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
 <p>La mayoría de las variables tiene forma aproximadamente simétrica; <code>Malico</code> y <code>Proantocianinas</code> muestran cola derecha. Las escalas son muy distintas:</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="análisis-de-componentes-principales.html#cb486-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sapply</span>(X, sd), <span class="dv">2</span>)</span></code></pre></div>
-<pre><code>##         Alcohol          Malico          Ceniza     Alcalinidad        Magnesio         Fenoles     Flavonoides 
-##            0.81            1.12            0.27            3.34           14.28            0.63            1.00 
-##   NoFlavonoides Proantocianinas           Color           Matiz           OD280         Prolina 
-##            0.12            0.57            2.32            0.23            0.71          314.91</code></pre>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="análisis-de-componentes-principales.html#cb487-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sapply</span>(X, sd), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##         Alcohol          Malico          Ceniza     Alcalinidad        Magnesio 
+##            0.81            1.12            0.27            3.34           14.28 
+##         Fenoles     Flavonoides   NoFlavonoides Proantocianinas           Color 
+##            0.63            1.00            0.12            0.57            2.32 
+##           Matiz           OD280         Prolina 
+##            0.23            0.71          314.91</code></pre>
 <p>La desviación de <code>Prolina</code> (cercana a 315) es mayor que la de cualquier otra variable. Sin estandarizar, <code>Prolina</code> dominaría el primer componente. Por ello el análisis se hará con la <strong>matriz de correlaciones</strong>.</p>
 </div>
 <div id="exploración-bivariada" class="section level3 hasAnchor" number="6.2.3">
 <h3><span class="header-section-number">6.2.3</span> Exploración bivariada<a href="análisis-de-componentes-principales.html#exploración-bivariada" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="análisis-de-componentes-principales.html#cb488-1" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb488-2"><a href="análisis-de-componentes-principales.html#cb488-2" tabindex="-1"></a></span>
-<span id="cb488-3"><a href="análisis-de-componentes-principales.html#cb488-3" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(X)</span>
-<span id="cb488-4"><a href="análisis-de-componentes-principales.html#cb488-4" tabindex="-1"></a><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.cex =</span> <span class="fl">0.8</span>,</span>
-<span id="cb488-5"><a href="análisis-de-componentes-principales.html#cb488-5" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">number.cex =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="análisis-de-componentes-principales.html#cb489-1" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb489-2"><a href="análisis-de-componentes-principales.html#cb489-2" tabindex="-1"></a></span>
+<span id="cb489-3"><a href="análisis-de-componentes-principales.html#cb489-3" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(X)</span>
+<span id="cb489-4"><a href="análisis-de-componentes-principales.html#cb489-4" tabindex="-1"></a><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.cex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb489-5"><a href="análisis-de-componentes-principales.html#cb489-5" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">number.cex =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-161-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Un grupo de variables fenólicas (<code>Fenoles</code>, <code>Flavonoides</code>, <code>OD280</code>, <code>Proantocianinas</code>) muestra correlaciones moderadas a altas, lo que indica redundancia aprovechable por PCA.</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="análisis-de-componentes-principales.html#cb489-1" tabindex="-1"></a><span class="co"># Pares con correlación mayor a 0.6 en valor absoluto</span></span>
-<span id="cb489-2"><a href="análisis-de-componentes-principales.html#cb489-2" tabindex="-1"></a>pares <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(R) <span class="sc">&gt;</span> <span class="fl">0.6</span> <span class="sc">&amp;</span> <span class="fu">upper.tri</span>(R), <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb489-3"><a href="análisis-de-componentes-principales.html#cb489-3" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="fu">rownames</span>(R)[pares[, <span class="dv">1</span>]], <span class="at">var2 =</span> <span class="fu">colnames</span>(R)[pares[, <span class="dv">2</span>]],</span>
-<span id="cb489-4"><a href="análisis-de-componentes-principales.html#cb489-4" tabindex="-1"></a>           <span class="at">r =</span> <span class="fu">round</span>(R[pares], <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="análisis-de-componentes-principales.html#cb490-1" tabindex="-1"></a><span class="co"># Pares con correlación mayor a 0.6 en valor absoluto</span></span>
+<span id="cb490-2"><a href="análisis-de-componentes-principales.html#cb490-2" tabindex="-1"></a>pares <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(R) <span class="sc">&gt;</span> <span class="fl">0.6</span> <span class="sc">&amp;</span> <span class="fu">upper.tri</span>(R), <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb490-3"><a href="análisis-de-componentes-principales.html#cb490-3" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">var1 =</span> <span class="fu">rownames</span>(R)[pares[, <span class="dv">1</span>]], <span class="at">var2 =</span> <span class="fu">colnames</span>(R)[pares[, <span class="dv">2</span>]],</span>
+<span id="cb490-4"><a href="análisis-de-componentes-principales.html#cb490-4" tabindex="-1"></a>           <span class="at">r =</span> <span class="fu">round</span>(R[pares], <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##          var1            var2    r
 ## 1     Fenoles     Flavonoides 0.86
 ## 2     Fenoles Proantocianinas 0.61
@@ -708,8 +724,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4     Fenoles           OD280 0.70
 ## 5 Flavonoides           OD280 0.79
 ## 6     Alcohol         Prolina 0.64</code></pre>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="análisis-de-componentes-principales.html#cb491-1" tabindex="-1"></a><span class="fu">pairs</span>(X[, <span class="fu">c</span>(<span class="st">&quot;Alcohol&quot;</span>, <span class="st">&quot;Flavonoides&quot;</span>, <span class="st">&quot;Color&quot;</span>, <span class="st">&quot;Prolina&quot;</span>)],</span>
-<span id="cb491-2"><a href="análisis-de-componentes-principales.html#cb491-2" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> vino<span class="sc">$</span>Cultivar, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="análisis-de-componentes-principales.html#cb492-1" tabindex="-1"></a><span class="fu">pairs</span>(X[, <span class="fu">c</span>(<span class="st">&quot;Alcohol&quot;</span>, <span class="st">&quot;Flavonoides&quot;</span>, <span class="st">&quot;Color&quot;</span>, <span class="st">&quot;Prolina&quot;</span>)],</span>
+<span id="cb492-2"><a href="análisis-de-componentes-principales.html#cb492-2" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> vino<span class="sc">$</span>Cultivar, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-163-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Las relaciones son aproximadamente lineales, y los colores (cultivares) ya se separan en algunos pares.</p>
 </div>
@@ -719,19 +735,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="correlación-suficiente" class="section level4 hasAnchor" number="6.2.4.1">
 <h4><span class="header-section-number">6.2.4.1</span> Correlación suficiente<a href="análisis-de-componentes-principales.html#correlación-suficiente" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Si <span class="math inline">\(R\)</span> fuera la identidad, no habría estructura que resumir. Una señal es el determinante de <span class="math inline">\(R\)</span>, que se acerca a 0 con variables redundantes:</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="análisis-de-componentes-principales.html#cb492-1" tabindex="-1"></a><span class="fu">det</span>(R)</span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="análisis-de-componentes-principales.html#cb493-1" tabindex="-1"></a><span class="fu">det</span>(R)</span></code></pre></div>
 <pre><code>## [1] 0.0004687431</code></pre>
 <p>La <strong>prueba de esfericidad de Bartlett</strong> contrasta <span class="math inline">\(H_0: R = I\)</span> con el estadístico</p>
 <p><span class="math display">\[\chi^2 = -\left(n-1-\frac{2p+5}{6}\right)\ln|R|, \qquad gl = \frac{p(p-1)}{2}.\]</span></p>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="análisis-de-componentes-principales.html#cb494-1" tabindex="-1"></a>chi2 <span class="ot">&lt;-</span> <span class="sc">-</span>(n <span class="sc">-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">2</span> <span class="sc">*</span> p <span class="sc">+</span> <span class="dv">5</span>) <span class="sc">/</span> <span class="dv">6</span>) <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">det</span>(R))</span>
-<span id="cb494-2"><a href="análisis-de-componentes-principales.html#cb494-2" tabindex="-1"></a>gl <span class="ot">&lt;-</span> p <span class="sc">*</span> (p <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb494-3"><a href="análisis-de-componentes-principales.html#cb494-3" tabindex="-1"></a></span>
-<span id="cb494-4"><a href="análisis-de-componentes-principales.html#cb494-4" tabindex="-1"></a><span class="fu">c</span>(<span class="at">chi2 =</span> chi2, <span class="at">gl =</span> gl, <span class="at">valor_p =</span> <span class="fu">pchisq</span>(chi2, gl, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="análisis-de-componentes-principales.html#cb495-1" tabindex="-1"></a>chi2 <span class="ot">&lt;-</span> <span class="sc">-</span>(n <span class="sc">-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">2</span> <span class="sc">*</span> p <span class="sc">+</span> <span class="dv">5</span>) <span class="sc">/</span> <span class="dv">6</span>) <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">det</span>(R))</span>
+<span id="cb495-2"><a href="análisis-de-componentes-principales.html#cb495-2" tabindex="-1"></a>gl <span class="ot">&lt;-</span> p <span class="sc">*</span> (p <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb495-3"><a href="análisis-de-componentes-principales.html#cb495-3" tabindex="-1"></a></span>
+<span id="cb495-4"><a href="análisis-de-componentes-principales.html#cb495-4" tabindex="-1"></a><span class="fu">c</span>(<span class="at">chi2 =</span> chi2, <span class="at">gl =</span> gl, <span class="at">valor_p =</span> <span class="fu">pchisq</span>(chi2, gl, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>##          chi2            gl       valor_p 
 ##  1.317181e+03  7.800000e+01 2.468617e-224</code></pre>
 <p>El valor <span class="math inline">\(p\)</span> es prácticamente cero: se rechaza <span class="math inline">\(H_0\)</span> y hay correlación suficiente. Con el paquete <code>psych</code> se obtiene lo mismo:</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="análisis-de-componentes-principales.html#cb496-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb496-2"><a href="análisis-de-componentes-principales.html#cb496-2" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(R, <span class="at">n =</span> n)</span></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="análisis-de-componentes-principales.html#cb497-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb497-2"><a href="análisis-de-componentes-principales.html#cb497-2" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(R, <span class="at">n =</span> n)</span></code></pre></div>
 <pre><code>## $chisq
 ## [1] 1317.181
 ## 
@@ -744,14 +760,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="adecuación-muestral-índice-kmo" class="section level4 hasAnchor" number="6.2.4.2">
 <h4><span class="header-section-number">6.2.4.2</span> Adecuación muestral: índice KMO<a href="análisis-de-componentes-principales.html#adecuación-muestral-índice-kmo" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>El índice de <strong>Kaiser-Meyer-Olkin</strong> compara las correlaciones con las correlaciones parciales. Valores sobre 0.6 se consideran aceptables y sobre 0.8, buenos.</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="análisis-de-componentes-principales.html#cb498-1" tabindex="-1"></a>kmo <span class="ot">&lt;-</span> <span class="fu">KMO</span>(R)</span>
-<span id="cb498-2"><a href="análisis-de-componentes-principales.html#cb498-2" tabindex="-1"></a><span class="fu">round</span>(kmo<span class="sc">$</span>MSA, <span class="dv">3</span>)            <span class="co"># KMO global</span></span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="análisis-de-componentes-principales.html#cb499-1" tabindex="-1"></a>kmo <span class="ot">&lt;-</span> <span class="fu">KMO</span>(R)</span>
+<span id="cb499-2"><a href="análisis-de-componentes-principales.html#cb499-2" tabindex="-1"></a><span class="fu">round</span>(kmo<span class="sc">$</span>MSA, <span class="dv">3</span>)            <span class="co"># KMO global</span></span></code></pre></div>
 <pre><code>## [1] 0.779</code></pre>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="análisis-de-componentes-principales.html#cb500-1" tabindex="-1"></a><span class="fu">round</span>(kmo<span class="sc">$</span>MSAi, <span class="dv">2</span>)           <span class="co"># KMO por variable</span></span></code></pre></div>
-<pre><code>##         Alcohol          Malico          Ceniza     Alcalinidad        Magnesio         Fenoles     Flavonoides 
-##            0.73            0.80            0.44            0.68            0.68            0.87            0.81 
-##   NoFlavonoides Proantocianinas           Color           Matiz           OD280         Prolina 
-##            0.83            0.85            0.62            0.79            0.87            0.82</code></pre>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="análisis-de-componentes-principales.html#cb501-1" tabindex="-1"></a><span class="fu">round</span>(kmo<span class="sc">$</span>MSAi, <span class="dv">2</span>)           <span class="co"># KMO por variable</span></span></code></pre></div>
+<pre><code>##         Alcohol          Malico          Ceniza     Alcalinidad        Magnesio 
+##            0.73            0.80            0.44            0.68            0.68 
+##         Fenoles     Flavonoides   NoFlavonoides Proantocianinas           Color 
+##            0.87            0.81            0.83            0.85            0.62 
+##           Matiz           OD280         Prolina 
+##            0.79            0.87            0.82</code></pre>
 <p>El KMO global es 0.78, aceptable. Todas las variables superan 0.6 salvo <code>Ceniza</code> (0.44), que aporta menos estructura común. Se conserva en el análisis, pero se interpreta con cautela.</p>
 </div>
 <div id="tamaño-muestral" class="section level4 hasAnchor" number="6.2.4.3">
@@ -761,58 +779,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="atípicos-multivariados" class="section level4 hasAnchor" number="6.2.4.4">
 <h4><span class="header-section-number">6.2.4.4</span> Atípicos multivariados<a href="análisis-de-componentes-principales.html#atípicos-multivariados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>La distancia de Mahalanobis al cuadrado, <span class="math inline">\(d^2=(\mathbf{x}-\bar{\mathbf{x}})^\top S^{-1}(\mathbf{x}-\bar{\mathbf{x}})\)</span>, se compara con el cuantil 0.99 de una chi-cuadrado con <span class="math inline">\(p\)</span> grados de libertad.</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="análisis-de-componentes-principales.html#cb502-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(X, <span class="fu">colMeans</span>(X), <span class="fu">cov</span>(X))</span>
-<span id="cb502-2"><a href="análisis-de-componentes-principales.html#cb502-2" tabindex="-1"></a>corte <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="fl">0.99</span>, <span class="at">df =</span> p)</span>
-<span id="cb502-3"><a href="análisis-de-componentes-principales.html#cb502-3" tabindex="-1"></a></span>
-<span id="cb502-4"><a href="análisis-de-componentes-principales.html#cb502-4" tabindex="-1"></a>corte</span></code></pre></div>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="análisis-de-componentes-principales.html#cb503-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(X, <span class="fu">colMeans</span>(X), <span class="fu">cov</span>(X))</span>
+<span id="cb503-2"><a href="análisis-de-componentes-principales.html#cb503-2" tabindex="-1"></a>corte <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="fl">0.99</span>, <span class="at">df =</span> p)</span>
+<span id="cb503-3"><a href="análisis-de-componentes-principales.html#cb503-3" tabindex="-1"></a></span>
+<span id="cb503-4"><a href="análisis-de-componentes-principales.html#cb503-4" tabindex="-1"></a>corte</span></code></pre></div>
 <pre><code>## [1] 27.68825</code></pre>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="análisis-de-componentes-principales.html#cb504-1" tabindex="-1"></a><span class="fu">which</span>(d2 <span class="sc">&gt;</span> corte)           <span class="co"># observaciones señaladas</span></span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="análisis-de-componentes-principales.html#cb505-1" tabindex="-1"></a><span class="fu">which</span>(d2 <span class="sc">&gt;</span> corte)           <span class="co"># observaciones señaladas</span></span></code></pre></div>
 <pre><code>## [1]  70  74  96 111 122 159</code></pre>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="análisis-de-componentes-principales.html#cb506-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sort</span>(d2, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="análisis-de-componentes-principales.html#cb507-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sort</span>(d2, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 58.7 38.7 38.2 38.0 36.5 35.2</code></pre>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="análisis-de-componentes-principales.html#cb508-1" tabindex="-1"></a><span class="fu">plot</span>(d2, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(d2 <span class="sc">&gt;</span> corte, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;steelblue&quot;</span>),</span>
-<span id="cb508-2"><a href="análisis-de-componentes-principales.html#cb508-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Observación&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;d² de Mahalanobis&quot;</span>)</span>
-<span id="cb508-3"><a href="análisis-de-componentes-principales.html#cb508-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> corte, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="análisis-de-componentes-principales.html#cb509-1" tabindex="-1"></a><span class="fu">plot</span>(d2, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(d2 <span class="sc">&gt;</span> corte, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;steelblue&quot;</span>),</span>
+<span id="cb509-2"><a href="análisis-de-componentes-principales.html#cb509-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Observación&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;d² de Mahalanobis&quot;</span>)</span>
+<span id="cb509-3"><a href="análisis-de-componentes-principales.html#cb509-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> corte, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-169-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Seis vinos superan el corte (3.4 % de la muestra). Con una normal se esperaría cerca de 1 %. Se mantienen en el análisis, pero se vigilarán en los resultados; la observación 111 es la más extrema.</p>
 </div>
 <div id="normalidad-multivariada" class="section level4 hasAnchor" number="6.2.4.5">
 <h4><span class="header-section-number">6.2.4.5</span> Normalidad multivariada<a href="análisis-de-componentes-principales.html#normalidad-multivariada" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="análisis-de-componentes-principales.html#cb509-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">qchisq</span>(<span class="fu">ppoints</span>(n), <span class="at">df =</span> p), <span class="fu">sort</span>(d2), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>,</span>
-<span id="cb509-2"><a href="análisis-de-componentes-principales.html#cb509-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Cuantiles chi-cuadrado&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;d² de Mahalanobis&quot;</span>)</span>
-<span id="cb509-3"><a href="análisis-de-componentes-principales.html#cb509-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="análisis-de-componentes-principales.html#cb510-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">qchisq</span>(<span class="fu">ppoints</span>(n), <span class="at">df =</span> p), <span class="fu">sort</span>(d2), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>,</span>
+<span id="cb510-2"><a href="análisis-de-componentes-principales.html#cb510-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Cuantiles chi-cuadrado&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;d² de Mahalanobis&quot;</span>)</span>
+<span id="cb510-3"><a href="análisis-de-componentes-principales.html#cb510-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-170-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Los puntos siguen la recta salvo en la cola superior, que corresponde a los atípicos ya identificados. La aproximación es razonable para un análisis descriptivo.</p>
 </div>
 </div>
 <div id="cálculo-de-componentes" class="section level3 hasAnchor" number="6.2.5">
 <h3><span class="header-section-number">6.2.5</span> Cálculo de componentes<a href="análisis-de-componentes-principales.html#cálculo-de-componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="análisis-de-componentes-principales.html#cb510-1" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(X, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb510-2"><a href="análisis-de-componentes-principales.html#cb510-2" tabindex="-1"></a><span class="fu">summary</span>(pca)</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="análisis-de-componentes-principales.html#cb511-1" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(X, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb511-2"><a href="análisis-de-componentes-principales.html#cb511-2" tabindex="-1"></a><span class="fu">summary</span>(pca)</span></code></pre></div>
 <pre><code>## Importance of components:
-##                          PC1    PC2    PC3     PC4     PC5     PC6     PC7     PC8     PC9   PC10    PC11    PC12
-## Standard deviation     2.169 1.5802 1.2025 0.95863 0.92370 0.80103 0.74231 0.59034 0.53748 0.5009 0.47517 0.41082
-## Proportion of Variance 0.362 0.1921 0.1112 0.07069 0.06563 0.04936 0.04239 0.02681 0.02222 0.0193 0.01737 0.01298
-## Cumulative Proportion  0.362 0.5541 0.6653 0.73599 0.80162 0.85098 0.89337 0.92018 0.94240 0.9617 0.97907 0.99205
-##                           PC13
-## Standard deviation     0.32152
-## Proportion of Variance 0.00795
-## Cumulative Proportion  1.00000</code></pre>
+##                          PC1    PC2    PC3     PC4     PC5     PC6     PC7
+## Standard deviation     2.169 1.5802 1.2025 0.95863 0.92370 0.80103 0.74231
+## Proportion of Variance 0.362 0.1921 0.1112 0.07069 0.06563 0.04936 0.04239
+## Cumulative Proportion  0.362 0.5541 0.6653 0.73599 0.80162 0.85098 0.89337
+##                            PC8     PC9   PC10    PC11    PC12    PC13
+## Standard deviation     0.59034 0.53748 0.5009 0.47517 0.41082 0.32152
+## Proportion of Variance 0.02681 0.02222 0.0193 0.01737 0.01298 0.00795
+## Cumulative Proportion  0.92018 0.94240 0.9617 0.97907 0.99205 1.00000</code></pre>
 <p>El objeto <code>pca</code> contiene <code>sdev</code> (desviaciones de los componentes), <code>rotation</code> (loadings) y <code>x</code> (scores).</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="análisis-de-componentes-principales.html#cb512-1" tabindex="-1"></a>eigenvalores <span class="ot">&lt;-</span> pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb512-2"><a href="análisis-de-componentes-principales.html#cb512-2" tabindex="-1"></a><span class="fu">round</span>(eigenvalores, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="análisis-de-componentes-principales.html#cb513-1" tabindex="-1"></a>eigenvalores <span class="ot">&lt;-</span> pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb513-2"><a href="análisis-de-componentes-principales.html#cb513-2" tabindex="-1"></a><span class="fu">round</span>(eigenvalores, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##  [1] 4.71 2.50 1.45 0.92 0.85 0.64 0.55 0.35 0.29 0.25 0.23 0.17 0.10</code></pre>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="análisis-de-componentes-principales.html#cb514-1" tabindex="-1"></a><span class="fu">sum</span>(eigenvalores)            <span class="co"># igual a p = 13</span></span></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="análisis-de-componentes-principales.html#cb515-1" tabindex="-1"></a><span class="fu">sum</span>(eigenvalores)            <span class="co"># igual a p = 13</span></span></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 </div>
 <div id="selección-del-número-de-componentes" class="section level3 hasAnchor" number="6.2.6">
 <h3><span class="header-section-number">6.2.6</span> Selección del número de componentes<a href="análisis-de-componentes-principales.html#selección-del-número-de-componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="análisis-de-componentes-principales.html#cb516-1" tabindex="-1"></a>pve <span class="ot">&lt;-</span> eigenvalores <span class="sc">/</span> <span class="fu">sum</span>(eigenvalores)</span>
-<span id="cb516-2"><a href="análisis-de-componentes-principales.html#cb516-2" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Componente =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p),</span>
-<span id="cb516-3"><a href="análisis-de-componentes-principales.html#cb516-3" tabindex="-1"></a>                    <span class="at">Eigenvalor =</span> <span class="fu">round</span>(eigenvalores, <span class="dv">2</span>),</span>
-<span id="cb516-4"><a href="análisis-de-componentes-principales.html#cb516-4" tabindex="-1"></a>                    <span class="at">PVE =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pve, <span class="dv">1</span>),</span>
-<span id="cb516-5"><a href="análisis-de-componentes-principales.html#cb516-5" tabindex="-1"></a>                    <span class="at">Acumulada =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">cumsum</span>(pve), <span class="dv">1</span>))</span>
-<span id="cb516-6"><a href="análisis-de-componentes-principales.html#cb516-6" tabindex="-1"></a>tabla</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="análisis-de-componentes-principales.html#cb517-1" tabindex="-1"></a>pve <span class="ot">&lt;-</span> eigenvalores <span class="sc">/</span> <span class="fu">sum</span>(eigenvalores)</span>
+<span id="cb517-2"><a href="análisis-de-componentes-principales.html#cb517-2" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Componente =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p),</span>
+<span id="cb517-3"><a href="análisis-de-componentes-principales.html#cb517-3" tabindex="-1"></a>                    <span class="at">Eigenvalor =</span> <span class="fu">round</span>(eigenvalores, <span class="dv">2</span>),</span>
+<span id="cb517-4"><a href="análisis-de-componentes-principales.html#cb517-4" tabindex="-1"></a>                    <span class="at">PVE =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pve, <span class="dv">1</span>),</span>
+<span id="cb517-5"><a href="análisis-de-componentes-principales.html#cb517-5" tabindex="-1"></a>                    <span class="at">Acumulada =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">cumsum</span>(pve), <span class="dv">1</span>))</span>
+<span id="cb517-6"><a href="análisis-de-componentes-principales.html#cb517-6" tabindex="-1"></a>tabla</span></code></pre></div>
 <pre><code>##    Componente Eigenvalor  PVE Acumulada
 ## 1         PC1       4.71 36.2      36.2
 ## 2         PC2       2.50 19.2      55.4
@@ -827,13 +845,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11       PC11       0.23  1.7      97.9
 ## 12       PC12       0.17  1.3      99.2
 ## 13       PC13       0.10  0.8     100.0</code></pre>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="análisis-de-componentes-principales.html#cb518-1" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb518-2"><a href="análisis-de-componentes-principales.html#cb518-2" tabindex="-1"></a></span>
-<span id="cb518-3"><a href="análisis-de-componentes-principales.html#cb518-3" tabindex="-1"></a><span class="fu">fviz_eig</span>(pca, <span class="at">addlabels =</span> <span class="cn">TRUE</span>, <span class="at">ncp =</span> <span class="dv">13</span>, <span class="at">main =</span> <span class="st">&quot;Gráfico de sedimentación&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="análisis-de-componentes-principales.html#cb519-1" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb519-2"><a href="análisis-de-componentes-principales.html#cb519-2" tabindex="-1"></a></span>
+<span id="cb519-3"><a href="análisis-de-componentes-principales.html#cb519-3" tabindex="-1"></a><span class="fu">fviz_eig</span>(pca, <span class="at">addlabels =</span> <span class="cn">TRUE</span>, <span class="at">ncp =</span> <span class="dv">13</span>, <span class="at">main =</span> <span class="st">&quot;Gráfico de sedimentación&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-174-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="análisis-de-componentes-principales.html#cb519-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(pve), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb519-2"><a href="análisis-de-componentes-principales.html#cb519-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Componentes retenidos&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Varianza acumulada&quot;</span>)</span>
-<span id="cb519-3"><a href="análisis-de-componentes-principales.html#cb519-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.8</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="análisis-de-componentes-principales.html#cb520-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(pve), <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb520-2"><a href="análisis-de-componentes-principales.html#cb520-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Componentes retenidos&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Varianza acumulada&quot;</span>)</span>
+<span id="cb520-3"><a href="análisis-de-componentes-principales.html#cb520-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.8</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-175-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Criterios de decisión:</p>
 <table>
@@ -862,8 +880,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="interpretación-de-loadings" class="section level3 hasAnchor" number="6.2.7">
 <h3><span class="header-section-number">6.2.7</span> Interpretación de loadings<a href="análisis-de-componentes-principales.html#interpretación-de-loadings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="análisis-de-componentes-principales.html#cb520-1" tabindex="-1"></a>cargas <span class="ot">&lt;-</span> pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb520-2"><a href="análisis-de-componentes-principales.html#cb520-2" tabindex="-1"></a><span class="fu">round</span>(cargas, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="análisis-de-componentes-principales.html#cb521-1" tabindex="-1"></a>cargas <span class="ot">&lt;-</span> pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb521-2"><a href="análisis-de-componentes-principales.html#cb521-2" tabindex="-1"></a><span class="fu">round</span>(cargas, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##                   PC1   PC2   PC3
 ## Alcohol         -0.14 -0.48 -0.21
 ## Malico           0.25 -0.22  0.09
@@ -878,17 +896,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Matiz           -0.30  0.28  0.09
 ## OD280           -0.38  0.16  0.17
 ## Prolina         -0.29 -0.36 -0.13</code></pre>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="análisis-de-componentes-principales.html#cb522-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb522-2"><a href="análisis-de-componentes-principales.html#cb522-2" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
-<span id="cb522-3"><a href="análisis-de-componentes-principales.html#cb522-3" tabindex="-1"></a>  <span class="fu">barplot</span>(cargas[, k], <span class="at">las =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(cargas[, k] <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;firebrick&quot;</span>),</span>
-<span id="cb522-4"><a href="análisis-de-componentes-principales.html#cb522-4" tabindex="-1"></a>          <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, k), <span class="at">cex.names =</span> <span class="fl">0.7</span>)</span>
-<span id="cb522-5"><a href="análisis-de-componentes-principales.html#cb522-5" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
-<span id="cb522-6"><a href="análisis-de-componentes-principales.html#cb522-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="análisis-de-componentes-principales.html#cb523-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb523-2"><a href="análisis-de-componentes-principales.html#cb523-2" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb523-3"><a href="análisis-de-componentes-principales.html#cb523-3" tabindex="-1"></a>  <span class="fu">barplot</span>(cargas[, k], <span class="at">las =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(cargas[, k] <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;firebrick&quot;</span>),</span>
+<span id="cb523-4"><a href="análisis-de-componentes-principales.html#cb523-4" tabindex="-1"></a>          <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC&quot;</span>, k), <span class="at">cex.names =</span> <span class="fl">0.7</span>)</span>
+<span id="cb523-5"><a href="análisis-de-componentes-principales.html#cb523-5" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span>
+<span id="cb523-6"><a href="análisis-de-componentes-principales.html#cb523-6" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-177-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="análisis-de-componentes-principales.html#cb523-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="análisis-de-componentes-principales.html#cb524-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p>La correlación de cada variable con los componentes es <span class="math inline">\(\sqrt{\lambda_k}\,v_{jk}\)</span>:</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="análisis-de-componentes-principales.html#cb524-1" tabindex="-1"></a>correl <span class="ot">&lt;-</span> <span class="fu">sweep</span>(pca<span class="sc">$</span>rotation, <span class="dv">2</span>, pca<span class="sc">$</span>sdev, <span class="st">&quot;*&quot;</span>)</span>
-<span id="cb524-2"><a href="análisis-de-componentes-principales.html#cb524-2" tabindex="-1"></a><span class="fu">round</span>(correl[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="análisis-de-componentes-principales.html#cb525-1" tabindex="-1"></a>correl <span class="ot">&lt;-</span> <span class="fu">sweep</span>(pca<span class="sc">$</span>rotation, <span class="dv">2</span>, pca<span class="sc">$</span>sdev, <span class="st">&quot;*&quot;</span>)</span>
+<span id="cb525-2"><a href="análisis-de-componentes-principales.html#cb525-2" tabindex="-1"></a><span class="fu">round</span>(correl[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##                   PC1   PC2   PC3
 ## Alcohol         -0.31 -0.76 -0.25
 ## Malico           0.53 -0.36  0.11
@@ -903,8 +921,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Matiz           -0.64  0.44  0.10
 ## OD280           -0.82  0.26  0.20
 ## Prolina         -0.62 -0.58 -0.15</code></pre>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="análisis-de-componentes-principales.html#cb526-1" tabindex="-1"></a><span class="fu">fviz_pca_var</span>(pca, <span class="at">col.var =</span> <span class="st">&quot;cos2&quot;</span>, <span class="at">gradient.cols =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;green&quot;</span>),</span>
-<span id="cb526-2"><a href="análisis-de-componentes-principales.html#cb526-2" tabindex="-1"></a>             <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="análisis-de-componentes-principales.html#cb527-1" tabindex="-1"></a><span class="fu">fviz_pca_var</span>(pca, <span class="at">col.var =</span> <span class="st">&quot;cos2&quot;</span>, <span class="at">gradient.cols =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;green&quot;</span>),</span>
+<span id="cb527-2"><a href="análisis-de-componentes-principales.html#cb527-2" tabindex="-1"></a>             <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-179-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Interpretación sugerida (los signos son arbitrarios; importan los contrastes):</p>
 <ul>
@@ -913,13 +931,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>PC3</strong> se asocia sobre todo con <code>Ceniza</code> y <code>Alcalinidad</code>.</li>
 </ul>
 <p>El aporte de cada variable a los dos primeros ejes se resume en un gráfico de contribuciones:</p>
-<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="análisis-de-componentes-principales.html#cb527-1" tabindex="-1"></a><span class="fu">fviz_contrib</span>(pca, <span class="at">choice =</span> <span class="st">&quot;var&quot;</span>, <span class="at">axes =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">top =</span> <span class="dv">13</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="análisis-de-componentes-principales.html#cb528-1" tabindex="-1"></a><span class="fu">fviz_contrib</span>(pca, <span class="at">choice =</span> <span class="st">&quot;var&quot;</span>, <span class="at">axes =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">top =</span> <span class="dv">13</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-180-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="scores-y-gráficos-de-observaciones" class="section level3 hasAnchor" number="6.2.8">
 <h3><span class="header-section-number">6.2.8</span> Scores y gráficos de observaciones<a href="análisis-de-componentes-principales.html#scores-y-gráficos-de-observaciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="análisis-de-componentes-principales.html#cb528-1" tabindex="-1"></a>scores <span class="ot">&lt;-</span> pca<span class="sc">$</span>x</span>
-<span id="cb528-2"><a href="análisis-de-componentes-principales.html#cb528-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(scores[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]), <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="análisis-de-componentes-principales.html#cb529-1" tabindex="-1"></a>scores <span class="ot">&lt;-</span> pca<span class="sc">$</span>x</span>
+<span id="cb529-2"><a href="análisis-de-componentes-principales.html#cb529-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(scores[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##        PC1   PC2   PC3
 ## [1,] -3.31 -1.44 -0.17
 ## [2,] -2.20  0.33 -2.02
@@ -927,47 +945,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [4,] -3.75 -2.75 -0.18
 ## [5,] -1.01 -0.87  2.02
 ## [6,] -3.04 -2.12 -0.63</code></pre>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="análisis-de-componentes-principales.html#cb530-1" tabindex="-1"></a><span class="fu">plot</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> vino<span class="sc">$</span>Cultivar,</span>
-<span id="cb530-2"><a href="análisis-de-componentes-principales.html#cb530-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC1 (&quot;</span>, <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pve[<span class="dv">1</span>], <span class="dv">1</span>), <span class="st">&quot; %)&quot;</span>),</span>
-<span id="cb530-3"><a href="análisis-de-componentes-principales.html#cb530-3" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC2 (&quot;</span>, <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pve[<span class="dv">2</span>], <span class="dv">1</span>), <span class="st">&quot; %)&quot;</span>),</span>
-<span id="cb530-4"><a href="análisis-de-componentes-principales.html#cb530-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Scores: vinos según cultivar&quot;</span>)</span>
-<span id="cb530-5"><a href="análisis-de-componentes-principales.html#cb530-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;grey80&quot;</span>)</span>
-<span id="cb530-6"><a href="análisis-de-componentes-principales.html#cb530-6" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">levels</span>(vino<span class="sc">$</span>Cultivar), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">title =</span> <span class="st">&quot;Cultivar&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="análisis-de-componentes-principales.html#cb531-1" tabindex="-1"></a><span class="fu">plot</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> vino<span class="sc">$</span>Cultivar,</span>
+<span id="cb531-2"><a href="análisis-de-componentes-principales.html#cb531-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC1 (&quot;</span>, <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pve[<span class="dv">1</span>], <span class="dv">1</span>), <span class="st">&quot; %)&quot;</span>),</span>
+<span id="cb531-3"><a href="análisis-de-componentes-principales.html#cb531-3" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">paste0</span>(<span class="st">&quot;PC2 (&quot;</span>, <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pve[<span class="dv">2</span>], <span class="dv">1</span>), <span class="st">&quot; %)&quot;</span>),</span>
+<span id="cb531-4"><a href="análisis-de-componentes-principales.html#cb531-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Scores: vinos según cultivar&quot;</span>)</span>
+<span id="cb531-5"><a href="análisis-de-componentes-principales.html#cb531-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;grey80&quot;</span>)</span>
+<span id="cb531-6"><a href="análisis-de-componentes-principales.html#cb531-6" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">levels</span>(vino<span class="sc">$</span>Cultivar), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">title =</span> <span class="st">&quot;Cultivar&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-182-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Los tres cultivares se separan en el plano de los dos primeros componentes, aunque PCA no usó esa información.</p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="análisis-de-componentes-principales.html#cb531-1" tabindex="-1"></a><span class="fu">fviz_pca_ind</span>(pca, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">col.ind =</span> vino<span class="sc">$</span>Cultivar,</span>
-<span id="cb531-2"><a href="análisis-de-componentes-principales.html#cb531-2" tabindex="-1"></a>             <span class="at">addEllipses =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&quot;Cultivar&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="análisis-de-componentes-principales.html#cb532-1" tabindex="-1"></a><span class="fu">fviz_pca_ind</span>(pca, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">col.ind =</span> vino<span class="sc">$</span>Cultivar,</span>
+<span id="cb532-2"><a href="análisis-de-componentes-principales.html#cb532-2" tabindex="-1"></a>             <span class="at">addEllipses =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&quot;Cultivar&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-183-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="análisis-de-componentes-principales.html#cb532-1" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca, <span class="at">geom.ind =</span> <span class="st">&quot;point&quot;</span>, <span class="at">col.ind =</span> vino<span class="sc">$</span>Cultivar,</span>
-<span id="cb532-2"><a href="análisis-de-componentes-principales.html#cb532-2" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">&quot;black&quot;</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&quot;Cultivar&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="análisis-de-componentes-principales.html#cb533-1" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca, <span class="at">geom.ind =</span> <span class="st">&quot;point&quot;</span>, <span class="at">col.ind =</span> vino<span class="sc">$</span>Cultivar,</span>
+<span id="cb533-2"><a href="análisis-de-componentes-principales.html#cb533-2" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">&quot;black&quot;</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">legend.title =</span> <span class="st">&quot;Cultivar&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-184-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <p>En el biplot, una observación ubicada en la dirección de una flecha tiene valores altos en esa variable; flechas cercanas indican variables correlacionadas.</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="análisis-de-componentes-principales.html#cb533-1" tabindex="-1"></a><span class="fu">boxplot</span>(scores[, <span class="dv">1</span>] <span class="sc">~</span> vino<span class="sc">$</span>Cultivar, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">xlab =</span> <span class="st">&quot;Cultivar&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="análisis-de-componentes-principales.html#cb534-1" tabindex="-1"></a><span class="fu">boxplot</span>(scores[, <span class="dv">1</span>] <span class="sc">~</span> vino<span class="sc">$</span>Cultivar, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">xlab =</span> <span class="st">&quot;Cultivar&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC1&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-185-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Los scores de PC1 separan en particular al cultivar 1 del cultivar 3.</p>
 </div>
 <div id="atípicos-en-el-espacio-de-componentes" class="section level3 hasAnchor" number="6.2.9">
 <h3><span class="header-section-number">6.2.9</span> Atípicos en el espacio de componentes<a href="análisis-de-componentes-principales.html#atípicos-en-el-espacio-de-componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La distancia de Mahalanobis se expresa con los componentes: <span class="math inline">\(d^2=\sum_k z_k^2/\lambda_k\)</span>.</p>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="análisis-de-componentes-principales.html#cb534-1" tabindex="-1"></a>d2_pc <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">sweep</span>(scores<span class="sc">^</span><span class="dv">2</span>, <span class="dv">2</span>, eigenvalores, <span class="st">&quot;/&quot;</span>))</span>
-<span id="cb534-2"><a href="análisis-de-componentes-principales.html#cb534-2" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">unname</span>(d2_pc), <span class="fu">unname</span>(<span class="fu">mahalanobis</span>(<span class="fu">scale</span>(X), <span class="fu">rep</span>(<span class="dv">0</span>, p), <span class="fu">cor</span>(X))))</span></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="análisis-de-componentes-principales.html#cb535-1" tabindex="-1"></a>d2_pc <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">sweep</span>(scores<span class="sc">^</span><span class="dv">2</span>, <span class="dv">2</span>, eigenvalores, <span class="st">&quot;/&quot;</span>))</span>
+<span id="cb535-2"><a href="análisis-de-componentes-principales.html#cb535-2" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">unname</span>(d2_pc), <span class="fu">unname</span>(<span class="fu">mahalanobis</span>(<span class="fu">scale</span>(X), <span class="fu">rep</span>(<span class="dv">0</span>, p), <span class="fu">cor</span>(X))))</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Con los dos primeros componentes se obtiene una versión visualizable:</p>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="análisis-de-componentes-principales.html#cb536-1" tabindex="-1"></a>d2_2 <span class="ot">&lt;-</span> scores[, <span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> eigenvalores[<span class="dv">1</span>] <span class="sc">+</span> scores[, <span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> eigenvalores[<span class="dv">2</span>]</span>
-<span id="cb536-2"><a href="análisis-de-componentes-principales.html#cb536-2" tabindex="-1"></a>extremos <span class="ot">&lt;-</span> <span class="fu">rank</span>(<span class="sc">-</span>d2_2) <span class="sc">&lt;=</span> <span class="dv">5</span>          <span class="co"># las cinco observaciones más alejadas</span></span>
-<span id="cb536-3"><a href="análisis-de-componentes-principales.html#cb536-3" tabindex="-1"></a></span>
-<span id="cb536-4"><a href="análisis-de-componentes-principales.html#cb536-4" tabindex="-1"></a><span class="fu">plot</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(extremos, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;grey60&quot;</span>),</span>
-<span id="cb536-5"><a href="análisis-de-componentes-principales.html#cb536-5" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC2&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Cinco observaciones más alejadas en PC1 y PC2&quot;</span>)</span>
-<span id="cb536-6"><a href="análisis-de-componentes-principales.html#cb536-6" tabindex="-1"></a><span class="fu">text</span>(scores[extremos, <span class="dv">1</span>], scores[extremos, <span class="dv">2</span>], <span class="at">labels =</span> <span class="fu">which</span>(extremos), <span class="at">pos =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="análisis-de-componentes-principales.html#cb537-1" tabindex="-1"></a>d2_2 <span class="ot">&lt;-</span> scores[, <span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> eigenvalores[<span class="dv">1</span>] <span class="sc">+</span> scores[, <span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> eigenvalores[<span class="dv">2</span>]</span>
+<span id="cb537-2"><a href="análisis-de-componentes-principales.html#cb537-2" tabindex="-1"></a>extremos <span class="ot">&lt;-</span> <span class="fu">rank</span>(<span class="sc">-</span>d2_2) <span class="sc">&lt;=</span> <span class="dv">5</span>          <span class="co"># las cinco observaciones más alejadas</span></span>
+<span id="cb537-3"><a href="análisis-de-componentes-principales.html#cb537-3" tabindex="-1"></a></span>
+<span id="cb537-4"><a href="análisis-de-componentes-principales.html#cb537-4" tabindex="-1"></a><span class="fu">plot</span>(scores[, <span class="dv">1</span>], scores[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(extremos, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;grey60&quot;</span>),</span>
+<span id="cb537-5"><a href="análisis-de-componentes-principales.html#cb537-5" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;PC1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC2&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Cinco observaciones más alejadas en PC1 y PC2&quot;</span>)</span>
+<span id="cb537-6"><a href="análisis-de-componentes-principales.html#cb537-6" tabindex="-1"></a><span class="fu">text</span>(scores[extremos, <span class="dv">1</span>], scores[extremos, <span class="dv">2</span>], <span class="at">labels =</span> <span class="fu">which</span>(extremos), <span class="at">pos =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-187-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="uso-posterior-de-los-componentes" class="section level3 hasAnchor" number="6.2.10">
 <h3><span class="header-section-number">6.2.10</span> Uso posterior de los componentes<a href="análisis-de-componentes-principales.html#uso-posterior-de-los-componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los primeros componentes pueden reemplazar a las 13 variables en otras técnicas. Como ilustración, un agrupamiento con <span class="math inline">\(k\)</span>-medias sobre PC1 y PC2 se compara con el cultivar real:</p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="análisis-de-componentes-principales.html#cb537-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb537-2"><a href="análisis-de-componentes-principales.html#cb537-2" tabindex="-1"></a>grupos <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(scores[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)<span class="sc">$</span>cluster</span>
-<span id="cb537-3"><a href="análisis-de-componentes-principales.html#cb537-3" tabindex="-1"></a></span>
-<span id="cb537-4"><a href="análisis-de-componentes-principales.html#cb537-4" tabindex="-1"></a><span class="fu">table</span>(<span class="at">Cultivar =</span> vino<span class="sc">$</span>Cultivar, <span class="at">Grupo =</span> grupos)</span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="análisis-de-componentes-principales.html#cb538-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb538-2"><a href="análisis-de-componentes-principales.html#cb538-2" tabindex="-1"></a>grupos <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(scores[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)<span class="sc">$</span>cluster</span>
+<span id="cb538-3"><a href="análisis-de-componentes-principales.html#cb538-3" tabindex="-1"></a></span>
+<span id="cb538-4"><a href="análisis-de-componentes-principales.html#cb538-4" tabindex="-1"></a><span class="fu">table</span>(<span class="at">Cultivar =</span> vino<span class="sc">$</span>Cultivar, <span class="at">Grupo =</span> grupos)</span></code></pre></div>
 <pre><code>##         Grupo
 ## Cultivar  1  2  3
 ##        1 59  0  0

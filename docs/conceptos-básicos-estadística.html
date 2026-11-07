@@ -327,18 +327,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="traer-la-base-desde-internet" class="section level3 hasAnchor" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Traer la base desde internet<a href="conceptos-básicos-estadística.html#traer-la-base-desde-internet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Con <code>read.csv()</code> se puede leer un archivo directamente desde un enlace:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="conceptos-básicos-estadística.html#cb252-1" tabindex="-1"></a><span class="co"># Leer la base desde GitHub</span></span>
-<span id="cb252-2"><a href="conceptos-básicos-estadística.html#cb252-2" tabindex="-1"></a>direccion <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv&quot;</span></span>
-<span id="cb252-3"><a href="conceptos-básicos-estadística.html#cb252-3" tabindex="-1"></a>autos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(direccion)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="conceptos-básicos-estadística.html#cb253-1" tabindex="-1"></a><span class="co"># Leer la base desde GitHub</span></span>
+<span id="cb253-2"><a href="conceptos-básicos-estadística.html#cb253-2" tabindex="-1"></a>direccion <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv&quot;</span></span>
+<span id="cb253-3"><a href="conceptos-básicos-estadística.html#cb253-3" tabindex="-1"></a>autos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(direccion)</span></code></pre></div>
 <p>Ya está guardada en el objeto <code>autos</code>. Los nombres de las columnas vienen en inglés; los cambiamos al español con <code>names()</code>:</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="conceptos-básicos-estadística.html#cb253-1" tabindex="-1"></a><span class="fu">names</span>(autos)     <span class="co"># nombres originales</span></span></code></pre></div>
-<pre><code>## [1] &quot;mpg&quot;          &quot;cylinders&quot;    &quot;displacement&quot; &quot;horsepower&quot;   &quot;weight&quot;       &quot;acceleration&quot; &quot;model_year&quot;  
-## [8] &quot;origin&quot;       &quot;name&quot;</code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="conceptos-básicos-estadística.html#cb255-1" tabindex="-1"></a><span class="fu">names</span>(autos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;consumo&quot;</span>, <span class="st">&quot;cilindros&quot;</span>, <span class="st">&quot;cilindrada&quot;</span>, <span class="st">&quot;potencia&quot;</span>,</span>
-<span id="cb255-2"><a href="conceptos-básicos-estadística.html#cb255-2" tabindex="-1"></a>                  <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;aceleracion&quot;</span>, <span class="st">&quot;anio&quot;</span>, <span class="st">&quot;origen&quot;</span>, <span class="st">&quot;nombre&quot;</span>)</span>
-<span id="cb255-3"><a href="conceptos-básicos-estadística.html#cb255-3" tabindex="-1"></a><span class="fu">names</span>(autos)     <span class="co"># nombres nuevos</span></span></code></pre></div>
-<pre><code>## [1] &quot;consumo&quot;     &quot;cilindros&quot;   &quot;cilindrada&quot;  &quot;potencia&quot;    &quot;peso&quot;        &quot;aceleracion&quot; &quot;anio&quot;        &quot;origen&quot;     
-## [9] &quot;nombre&quot;</code></pre>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="conceptos-básicos-estadística.html#cb254-1" tabindex="-1"></a><span class="fu">names</span>(autos)     <span class="co"># nombres originales</span></span></code></pre></div>
+<pre><code>## [1] &quot;mpg&quot;          &quot;cylinders&quot;    &quot;displacement&quot; &quot;horsepower&quot;   &quot;weight&quot;      
+## [6] &quot;acceleration&quot; &quot;model_year&quot;   &quot;origin&quot;       &quot;name&quot;</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="conceptos-básicos-estadística.html#cb256-1" tabindex="-1"></a><span class="fu">names</span>(autos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;consumo&quot;</span>, <span class="st">&quot;cilindros&quot;</span>, <span class="st">&quot;cilindrada&quot;</span>, <span class="st">&quot;potencia&quot;</span>,</span>
+<span id="cb256-2"><a href="conceptos-básicos-estadística.html#cb256-2" tabindex="-1"></a>                  <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;aceleracion&quot;</span>, <span class="st">&quot;anio&quot;</span>, <span class="st">&quot;origen&quot;</span>, <span class="st">&quot;nombre&quot;</span>)</span>
+<span id="cb256-3"><a href="conceptos-básicos-estadística.html#cb256-3" tabindex="-1"></a><span class="fu">names</span>(autos)     <span class="co"># nombres nuevos</span></span></code></pre></div>
+<pre><code>## [1] &quot;consumo&quot;     &quot;cilindros&quot;   &quot;cilindrada&quot;  &quot;potencia&quot;    &quot;peso&quot;       
+## [6] &quot;aceleracion&quot; &quot;anio&quot;        &quot;origen&quot;      &quot;nombre&quot;</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -401,22 +401,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="estructura-de-la-base-de-datos" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Estructura de la base de datos<a href="conceptos-básicos-estadística.html#estructura-de-la-base-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En una base de datos, <strong>cada fila es un individuo</strong> (aquí, un modelo de carro) y <strong>cada columna es una variable</strong>.</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="conceptos-básicos-estadística.html#cb257-1" tabindex="-1"></a><span class="fu">head</span>(autos)       <span class="co"># las primeras 6 filas</span></span></code></pre></div>
-<pre><code>##   consumo cilindros cilindrada potencia peso aceleracion anio origen                    nombre
-## 1      18         8        307      130 3504        12.0   70    usa chevrolet chevelle malibu
-## 2      15         8        350      165 3693        11.5   70    usa         buick skylark 320
-## 3      18         8        318      150 3436        11.0   70    usa        plymouth satellite
-## 4      16         8        304      150 3433        12.0   70    usa             amc rebel sst
-## 5      17         8        302      140 3449        10.5   70    usa               ford torino
-## 6      15         8        429      198 4341        10.0   70    usa          ford galaxie 500</code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="conceptos-básicos-estadística.html#cb259-1" tabindex="-1"></a><span class="fu">dim</span>(autos)        <span class="co"># filas y columnas</span></span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="conceptos-básicos-estadística.html#cb258-1" tabindex="-1"></a><span class="fu">head</span>(autos)       <span class="co"># las primeras 6 filas</span></span></code></pre></div>
+<pre><code>##   consumo cilindros cilindrada potencia peso aceleracion anio origen
+## 1      18         8        307      130 3504        12.0   70    usa
+## 2      15         8        350      165 3693        11.5   70    usa
+## 3      18         8        318      150 3436        11.0   70    usa
+## 4      16         8        304      150 3433        12.0   70    usa
+## 5      17         8        302      140 3449        10.5   70    usa
+## 6      15         8        429      198 4341        10.0   70    usa
+##                      nombre
+## 1 chevrolet chevelle malibu
+## 2         buick skylark 320
+## 3        plymouth satellite
+## 4             amc rebel sst
+## 5               ford torino
+## 6          ford galaxie 500</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="conceptos-básicos-estadística.html#cb260-1" tabindex="-1"></a><span class="fu">dim</span>(autos)        <span class="co"># filas y columnas</span></span></code></pre></div>
 <pre><code>## [1] 398   9</code></pre>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="conceptos-básicos-estadística.html#cb261-1" tabindex="-1"></a><span class="fu">nrow</span>(autos)       <span class="co"># número de individuos (n)</span></span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="conceptos-básicos-estadística.html#cb262-1" tabindex="-1"></a><span class="fu">nrow</span>(autos)       <span class="co"># número de individuos (n)</span></span></code></pre></div>
 <pre><code>## [1] 398</code></pre>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="conceptos-básicos-estadística.html#cb263-1" tabindex="-1"></a><span class="fu">ncol</span>(autos)       <span class="co"># número de variables (p)</span></span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="conceptos-básicos-estadística.html#cb264-1" tabindex="-1"></a><span class="fu">ncol</span>(autos)       <span class="co"># número de variables (p)</span></span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p>La función <code>str()</code> nos muestra cómo R guardó cada variable:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="conceptos-básicos-estadística.html#cb265-1" tabindex="-1"></a><span class="fu">str</span>(autos)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="conceptos-básicos-estadística.html#cb266-1" tabindex="-1"></a><span class="fu">str</span>(autos)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    398 obs. of  9 variables:
 ##  $ consumo    : num  18 15 18 16 17 15 14 14 14 15 ...
 ##  $ cilindros  : int  8 8 8 8 8 8 8 8 8 8 ...
@@ -428,16 +435,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ origen     : chr  &quot;usa&quot; &quot;usa&quot; &quot;usa&quot; &quot;usa&quot; ...
 ##  $ nombre     : chr  &quot;chevrolet chevelle malibu&quot; &quot;buick skylark 320&quot; &quot;plymouth satellite&quot; &quot;amc rebel sst&quot; ...</code></pre>
 <p>Para sacar una variable (una columna) usamos <code>$</code>:</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="conceptos-básicos-estadística.html#cb267-1" tabindex="-1"></a>autos<span class="sc">$</span>consumo[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]     <span class="co"># consumo de los primeros 10 carros</span></span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="conceptos-básicos-estadística.html#cb268-1" tabindex="-1"></a>autos<span class="sc">$</span>consumo[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]     <span class="co"># consumo de los primeros 10 carros</span></span></code></pre></div>
 <pre><code>##  [1] 18 15 18 16 17 15 14 14 14 15</code></pre>
 <p>Y para un dato específico, <code>[fila, columna]</code>:</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="conceptos-básicos-estadística.html#cb269-1" tabindex="-1"></a>autos[<span class="dv">3</span>, <span class="dv">5</span>]                       <span class="co"># fila 3, columna 5 (peso)</span></span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="conceptos-básicos-estadística.html#cb270-1" tabindex="-1"></a>autos[<span class="dv">3</span>, <span class="dv">5</span>]                       <span class="co"># fila 3, columna 5 (peso)</span></span></code></pre></div>
 <pre><code>## [1] 3436</code></pre>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="conceptos-básicos-estadística.html#cb271-1" tabindex="-1"></a>autos[autos<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;japan&quot;</span>, ][<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ]   <span class="co"># los primeros 3 carros japoneses</span></span></code></pre></div>
-<pre><code>##    consumo cilindros cilindrada potencia peso aceleracion anio origen                nombre
-## 15      24         4        113       95 2372        15.0   70  japan toyota corona mark ii
-## 19      27         4         97       88 2130        14.5   70  japan          datsun pl510
-## 30      27         4         97       88 2130        14.5   71  japan          datsun pl510</code></pre>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="conceptos-básicos-estadística.html#cb272-1" tabindex="-1"></a>autos[autos<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;japan&quot;</span>, ][<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ]   <span class="co"># los primeros 3 carros japoneses</span></span></code></pre></div>
+<pre><code>##    consumo cilindros cilindrada potencia peso aceleracion anio origen
+## 15      24         4        113       95 2372        15.0   70  japan
+## 19      27         4         97       88 2130        14.5   70  japan
+## 30      27         4         97       88 2130        14.5   71  japan
+##                   nombre
+## 15 toyota corona mark ii
+## 19          datsun pl510
+## 30          datsun pl510</code></pre>
 </div>
 <div id="tipos-de-variables" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Tipos de variables<a href="conceptos-básicos-estadística.html#tipos-de-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -480,23 +491,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="variables-cualitativas" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Variables cualitativas<a href="conceptos-básicos-estadística.html#variables-cualitativas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se resumen con <strong>tablas de frecuencias</strong>:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="conceptos-básicos-estadística.html#cb273-1" tabindex="-1"></a><span class="fu">table</span>(autos<span class="sc">$</span>origen)                          <span class="co"># frecuencias</span></span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="conceptos-básicos-estadística.html#cb274-1" tabindex="-1"></a><span class="fu">table</span>(autos<span class="sc">$</span>origen)                          <span class="co"># frecuencias</span></span></code></pre></div>
 <pre><code>## 
 ## europe  japan    usa 
 ##     70     79    249</code></pre>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="conceptos-básicos-estadística.html#cb275-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(autos<span class="sc">$</span>origen))              <span class="co"># proporciones</span></span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="conceptos-básicos-estadística.html#cb276-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(autos<span class="sc">$</span>origen))              <span class="co"># proporciones</span></span></code></pre></div>
 <pre><code>## 
 ##    europe     japan       usa 
 ## 0.1758794 0.1984925 0.6256281</code></pre>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="conceptos-básicos-estadística.html#cb277-1" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">prop.table</span>(<span class="fu">table</span>(autos<span class="sc">$</span>origen)), <span class="dv">1</span>)   <span class="co"># porcentajes</span></span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="conceptos-básicos-estadística.html#cb278-1" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">prop.table</span>(<span class="fu">table</span>(autos<span class="sc">$</span>origen)), <span class="dv">1</span>)   <span class="co"># porcentajes</span></span></code></pre></div>
 <pre><code>## 
 ## europe  japan    usa 
 ##   17.6   19.8   62.6</code></pre>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="conceptos-básicos-estadística.html#cb279-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(autos<span class="sc">$</span>origen), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),</span>
-<span id="cb279-2"><a href="conceptos-básicos-estadística.html#cb279-2" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Número de modelos&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Modelos por región de origen&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="conceptos-básicos-estadística.html#cb280-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(autos<span class="sc">$</span>origen), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),</span>
+<span id="cb280-2"><a href="conceptos-básicos-estadística.html#cb280-2" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Número de modelos&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Modelos por región de origen&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-88-1.png" alt="" width="672" /></p>
 <p>Dos variables juntas, una <strong>tabla cruzada</strong>:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="conceptos-básicos-estadística.html#cb280-1" tabindex="-1"></a><span class="fu">table</span>(autos<span class="sc">$</span>cilindros, autos<span class="sc">$</span>origen)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="conceptos-básicos-estadística.html#cb281-1" tabindex="-1"></a><span class="fu">table</span>(autos<span class="sc">$</span>cilindros, autos<span class="sc">$</span>origen)</span></code></pre></div>
 <pre><code>##    
 ##     europe japan usa
 ##   3      0     4   0
@@ -506,68 +517,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   8      0     0 103</code></pre>
 <p>La mayoría de los carros de Estados Unidos tienen 8 cilindros; los japoneses y europeos, casi todos 4.</p>
 <p>Para que R trate una variable como categoría, la convertimos en <strong>factor</strong>:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="conceptos-básicos-estadística.html#cb282-1" tabindex="-1"></a>autos<span class="sc">$</span>origen <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(autos<span class="sc">$</span>origen)</span>
-<span id="cb282-2"><a href="conceptos-básicos-estadística.html#cb282-2" tabindex="-1"></a></span>
-<span id="cb282-3"><a href="conceptos-básicos-estadística.html#cb282-3" tabindex="-1"></a><span class="fu">levels</span>(autos<span class="sc">$</span>origen)       <span class="co"># las categorías</span></span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="conceptos-básicos-estadística.html#cb283-1" tabindex="-1"></a>autos<span class="sc">$</span>origen <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(autos<span class="sc">$</span>origen)</span>
+<span id="cb283-2"><a href="conceptos-básicos-estadística.html#cb283-2" tabindex="-1"></a></span>
+<span id="cb283-3"><a href="conceptos-básicos-estadística.html#cb283-3" tabindex="-1"></a><span class="fu">levels</span>(autos<span class="sc">$</span>origen)       <span class="co"># las categorías</span></span></code></pre></div>
 <pre><code>## [1] &quot;europe&quot; &quot;japan&quot;  &quot;usa&quot;</code></pre>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="conceptos-básicos-estadística.html#cb284-1" tabindex="-1"></a><span class="fu">summary</span>(autos<span class="sc">$</span>origen)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="conceptos-básicos-estadística.html#cb285-1" tabindex="-1"></a><span class="fu">summary</span>(autos<span class="sc">$</span>origen)</span></code></pre></div>
 <pre><code>## europe  japan    usa 
 ##     70     79    249</code></pre>
 </div>
 <div id="variables-cuantitativas" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Variables cuantitativas<a href="conceptos-básicos-estadística.html#variables-cuantitativas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se resumen con medidas numéricas. <code>summary()</code> da lo esencial de toda la base:</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="conceptos-básicos-estadística.html#cb286-1" tabindex="-1"></a><span class="fu">summary</span>(autos)</span></code></pre></div>
-<pre><code>##     consumo        cilindros       cilindrada       potencia          peso       aceleracion         anio      
-##  Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0   Min.   :1613   Min.   : 8.00   Min.   :70.00  
-##  1st Qu.:17.50   1st Qu.:4.000   1st Qu.:104.2   1st Qu.: 75.0   1st Qu.:2224   1st Qu.:13.82   1st Qu.:73.00  
-##  Median :23.00   Median :4.000   Median :148.5   Median : 93.5   Median :2804   Median :15.50   Median :76.00  
-##  Mean   :23.51   Mean   :5.455   Mean   :193.4   Mean   :104.5   Mean   :2970   Mean   :15.57   Mean   :76.01  
-##  3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:262.0   3rd Qu.:126.0   3rd Qu.:3608   3rd Qu.:17.18   3rd Qu.:79.00  
-##  Max.   :46.60   Max.   :8.000   Max.   :455.0   Max.   :230.0   Max.   :5140   Max.   :24.80   Max.   :82.00  
-##                                                  NA&#39;s   :6                                                     
-##     origen       nombre         
-##  europe: 70   Length:398        
-##  japan : 79   Class :character  
-##  usa   :249   Mode  :character  
-##                                 
-##                                 
-##                                 
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="conceptos-básicos-estadística.html#cb287-1" tabindex="-1"></a><span class="fu">summary</span>(autos)</span></code></pre></div>
+<pre><code>##     consumo        cilindros       cilindrada       potencia          peso     
+##  Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0   Min.   :1613  
+##  1st Qu.:17.50   1st Qu.:4.000   1st Qu.:104.2   1st Qu.: 75.0   1st Qu.:2224  
+##  Median :23.00   Median :4.000   Median :148.5   Median : 93.5   Median :2804  
+##  Mean   :23.51   Mean   :5.455   Mean   :193.4   Mean   :104.5   Mean   :2970  
+##  3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:262.0   3rd Qu.:126.0   3rd Qu.:3608  
+##  Max.   :46.60   Max.   :8.000   Max.   :455.0   Max.   :230.0   Max.   :5140  
+##                                                  NA&#39;s   :6                     
+##   aceleracion         anio          origen       nombre         
+##  Min.   : 8.00   Min.   :70.00   europe: 70   Length:398        
+##  1st Qu.:13.82   1st Qu.:73.00   japan : 79   Class :character  
+##  Median :15.50   Median :76.00   usa   :249   Mode  :character  
+##  Mean   :15.57   Mean   :76.01                                  
+##  3rd Qu.:17.18   3rd Qu.:79.00                                  
+##  Max.   :24.80   Max.   :82.00                                  
 ## </code></pre>
 </div>
 </div>
 <div id="datos-faltantes" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Datos faltantes<a href="conceptos-básicos-estadística.html#datos-faltantes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En R, un dato faltante se escribe <strong><code>NA</code></strong>. Primero, ¿cuántos hay en cada variable?</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="conceptos-básicos-estadística.html#cb288-1" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(autos))</span></code></pre></div>
-<pre><code>##     consumo   cilindros  cilindrada    potencia        peso aceleracion        anio      origen      nombre 
-##           0           0           0           6           0           0           0           0           0</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="conceptos-básicos-estadística.html#cb289-1" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(autos))</span></code></pre></div>
+<pre><code>##     consumo   cilindros  cilindrada    potencia        peso aceleracion 
+##           0           0           0           6           0           0 
+##        anio      origen      nombre 
+##           0           0           0</code></pre>
 <p>Solo la <code>potencia</code> tiene faltantes: 6 carros. ¿Cuáles son?</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="conceptos-básicos-estadística.html#cb290-1" tabindex="-1"></a>autos[<span class="fu">is.na</span>(autos<span class="sc">$</span>potencia), ]</span></code></pre></div>
-<pre><code>##     consumo cilindros cilindrada potencia peso aceleracion anio origen               nombre
-## 33     25.0         4         98       NA 2046        19.0   71    usa           ford pinto
-## 127    21.0         6        200       NA 2875        17.0   74    usa        ford maverick
-## 331    40.9         4         85       NA 1835        17.3   80 europe renault lecar deluxe
-## 337    23.6         4        140       NA 2905        14.3   80    usa   ford mustang cobra
-## 355    34.5         4        100       NA 2320        15.8   81 europe          renault 18i
-## 375    23.0         4        151       NA 3035        20.5   82    usa       amc concord dl</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="conceptos-básicos-estadística.html#cb291-1" tabindex="-1"></a>autos[<span class="fu">is.na</span>(autos<span class="sc">$</span>potencia), ]</span></code></pre></div>
+<pre><code>##     consumo cilindros cilindrada potencia peso aceleracion anio origen
+## 33     25.0         4         98       NA 2046        19.0   71    usa
+## 127    21.0         6        200       NA 2875        17.0   74    usa
+## 331    40.9         4         85       NA 1835        17.3   80 europe
+## 337    23.6         4        140       NA 2905        14.3   80    usa
+## 355    34.5         4        100       NA 2320        15.8   81 europe
+## 375    23.0         4        151       NA 3035        20.5   82    usa
+##                   nombre
+## 33            ford pinto
+## 127        ford maverick
+## 331 renault lecar deluxe
+## 337   ford mustang cobra
+## 355          renault 18i
+## 375       amc concord dl</code></pre>
 <div id="qué-pasa-si-ignoramos-los-na" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Qué pasa si ignoramos los <code>NA</code><a href="conceptos-básicos-estadística.html#qué-pasa-si-ignoramos-los-na" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Casi todas las funciones de R devuelven <code>NA</code> si hay faltantes:</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="conceptos-básicos-estadística.html#cb292-1" tabindex="-1"></a><span class="fu">mean</span>(autos<span class="sc">$</span>potencia)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="conceptos-básicos-estadística.html#cb293-1" tabindex="-1"></a><span class="fu">mean</span>(autos<span class="sc">$</span>potencia)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>Hay que decirle que los <strong>ignore</strong> con <code>na.rm = TRUE</code>:</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="conceptos-básicos-estadística.html#cb294-1" tabindex="-1"></a><span class="fu">mean</span>(autos<span class="sc">$</span>potencia, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="conceptos-básicos-estadística.html#cb295-1" tabindex="-1"></a><span class="fu">mean</span>(autos<span class="sc">$</span>potencia, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 104.4694</code></pre>
 </div>
 <div id="eliminar-los-individuos-con-faltantes" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Eliminar los individuos con faltantes<a href="conceptos-básicos-estadística.html#eliminar-los-individuos-con-faltantes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para análisis multivariado, lo más sencillo es trabajar con los <strong>casos completos</strong>:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="conceptos-básicos-estadística.html#cb296-1" tabindex="-1"></a>autos2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(autos)</span>
-<span id="cb296-2"><a href="conceptos-básicos-estadística.html#cb296-2" tabindex="-1"></a></span>
-<span id="cb296-3"><a href="conceptos-básicos-estadística.html#cb296-3" tabindex="-1"></a><span class="fu">nrow</span>(autos)      <span class="co"># antes</span></span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="conceptos-básicos-estadística.html#cb297-1" tabindex="-1"></a>autos2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(autos)</span>
+<span id="cb297-2"><a href="conceptos-básicos-estadística.html#cb297-2" tabindex="-1"></a></span>
+<span id="cb297-3"><a href="conceptos-básicos-estadística.html#cb297-3" tabindex="-1"></a><span class="fu">nrow</span>(autos)      <span class="co"># antes</span></span></code></pre></div>
 <pre><code>## [1] 398</code></pre>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="conceptos-básicos-estadística.html#cb298-1" tabindex="-1"></a><span class="fu">nrow</span>(autos2)     <span class="co"># después</span></span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="conceptos-básicos-estadística.html#cb299-1" tabindex="-1"></a><span class="fu">nrow</span>(autos2)     <span class="co"># después</span></span></code></pre></div>
 <pre><code>## [1] 392</code></pre>
 <p>Perdimos 6 carros (1.5% de la base). Eliminar es simple, pero siempre se debe <strong>mirar cuántos se pierden y por qué</strong>. Si se perdiera, por ejemplo, el 30% de la base, habría que pensar en otra estrategia.</p>
 </div>
@@ -575,27 +595,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="valores-atípicos-outliers" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Valores atípicos (outliers)<a href="conceptos-básicos-estadística.html#valores-atípicos-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Un <strong>outlier</strong> es un dato muy distinto de los demás. El <strong>diagrama de caja</strong> los marca con puntos:</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="conceptos-básicos-estadística.html#cb300-1" tabindex="-1"></a><span class="fu">boxplot</span>(autos2<span class="sc">$</span>potencia, <span class="at">ylab =</span> <span class="st">&quot;Potencia (hp)&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="conceptos-básicos-estadística.html#cb301-1" tabindex="-1"></a><span class="fu">boxplot</span>(autos2<span class="sc">$</span>potencia, <span class="at">ylab =</span> <span class="st">&quot;Potencia (hp)&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-97-1.png" alt="" width="672" /></p>
 <p>La regla más usada: un dato es atípico si queda por fuera de</p>
 <p><span class="math display">\[[Q_1 - 1.5 \cdot RIC, \;\; Q_3 + 1.5 \cdot RIC]\]</span></p>
 <p>donde <span class="math inline">\(RIC = Q_3 - Q_1\)</span> es el rango intercuartílico. Lo calculamos:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="conceptos-básicos-estadística.html#cb301-1" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(autos2<span class="sc">$</span>potencia, <span class="fl">0.25</span>)</span>
-<span id="cb301-2"><a href="conceptos-básicos-estadística.html#cb301-2" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(autos2<span class="sc">$</span>potencia, <span class="fl">0.75</span>)</span>
-<span id="cb301-3"><a href="conceptos-básicos-estadística.html#cb301-3" tabindex="-1"></a>ric <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
-<span id="cb301-4"><a href="conceptos-básicos-estadística.html#cb301-4" tabindex="-1"></a></span>
-<span id="cb301-5"><a href="conceptos-básicos-estadística.html#cb301-5" tabindex="-1"></a>limite_inf <span class="ot">&lt;-</span> q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
-<span id="cb301-6"><a href="conceptos-básicos-estadística.html#cb301-6" tabindex="-1"></a>limite_sup <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
-<span id="cb301-7"><a href="conceptos-básicos-estadística.html#cb301-7" tabindex="-1"></a></span>
-<span id="cb301-8"><a href="conceptos-básicos-estadística.html#cb301-8" tabindex="-1"></a>limite_inf</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="conceptos-básicos-estadística.html#cb302-1" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(autos2<span class="sc">$</span>potencia, <span class="fl">0.25</span>)</span>
+<span id="cb302-2"><a href="conceptos-básicos-estadística.html#cb302-2" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(autos2<span class="sc">$</span>potencia, <span class="fl">0.75</span>)</span>
+<span id="cb302-3"><a href="conceptos-básicos-estadística.html#cb302-3" tabindex="-1"></a>ric <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb302-4"><a href="conceptos-básicos-estadística.html#cb302-4" tabindex="-1"></a></span>
+<span id="cb302-5"><a href="conceptos-básicos-estadística.html#cb302-5" tabindex="-1"></a>limite_inf <span class="ot">&lt;-</span> q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
+<span id="cb302-6"><a href="conceptos-básicos-estadística.html#cb302-6" tabindex="-1"></a>limite_sup <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> ric</span>
+<span id="cb302-7"><a href="conceptos-básicos-estadística.html#cb302-7" tabindex="-1"></a></span>
+<span id="cb302-8"><a href="conceptos-básicos-estadística.html#cb302-8" tabindex="-1"></a>limite_inf</span></code></pre></div>
 <pre><code>##  25% 
 ## -1.5</code></pre>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="conceptos-básicos-estadística.html#cb303-1" tabindex="-1"></a>limite_sup</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="conceptos-básicos-estadística.html#cb304-1" tabindex="-1"></a>limite_sup</span></code></pre></div>
 <pre><code>##   75% 
 ## 202.5</code></pre>
 <p>¿Qué carros quedan por fuera?</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="conceptos-básicos-estadística.html#cb305-1" tabindex="-1"></a>atipicos <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>potencia <span class="sc">&lt;</span> limite_inf <span class="sc">|</span> autos2<span class="sc">$</span>potencia <span class="sc">&gt;</span> limite_sup, ]</span>
-<span id="cb305-2"><a href="conceptos-básicos-estadística.html#cb305-2" tabindex="-1"></a>atipicos[, <span class="fu">c</span>(<span class="st">&quot;nombre&quot;</span>, <span class="st">&quot;potencia&quot;</span>, <span class="st">&quot;cilindrada&quot;</span>, <span class="st">&quot;consumo&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="conceptos-básicos-estadística.html#cb306-1" tabindex="-1"></a>atipicos <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>potencia <span class="sc">&lt;</span> limite_inf <span class="sc">|</span> autos2<span class="sc">$</span>potencia <span class="sc">&gt;</span> limite_sup, ]</span>
+<span id="cb306-2"><a href="conceptos-básicos-estadística.html#cb306-2" tabindex="-1"></a>atipicos[, <span class="fu">c</span>(<span class="st">&quot;nombre&quot;</span>, <span class="st">&quot;potencia&quot;</span>, <span class="st">&quot;cilindrada&quot;</span>, <span class="st">&quot;consumo&quot;</span>)]</span></code></pre></div>
 <pre><code>##                           nombre potencia cilindrada consumo
 ## 7               chevrolet impala      220        454      14
 ## 8              plymouth fury iii      215        440      14
@@ -613,22 +633,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <div id="cuánto-afectan-al-resumen" class="section level3 hasAnchor" number="4.5.1">
 <h3><span class="header-section-number">4.5.1</span> Cuánto afectan al resumen<a href="conceptos-básicos-estadística.html#cuánto-afectan-al-resumen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="conceptos-básicos-estadística.html#cb307-1" tabindex="-1"></a>sin_atipicos <span class="ot">&lt;-</span> autos2<span class="sc">$</span>potencia[autos2<span class="sc">$</span>potencia <span class="sc">&gt;=</span> limite_inf <span class="sc">&amp;</span></span>
-<span id="cb307-2"><a href="conceptos-básicos-estadística.html#cb307-2" tabindex="-1"></a>                                autos2<span class="sc">$</span>potencia <span class="sc">&lt;=</span> limite_sup]</span>
-<span id="cb307-3"><a href="conceptos-básicos-estadística.html#cb307-3" tabindex="-1"></a></span>
-<span id="cb307-4"><a href="conceptos-básicos-estadística.html#cb307-4" tabindex="-1"></a><span class="co"># Con los atípicos</span></span>
-<span id="cb307-5"><a href="conceptos-básicos-estadística.html#cb307-5" tabindex="-1"></a><span class="fu">mean</span>(autos2<span class="sc">$</span>potencia)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="conceptos-básicos-estadística.html#cb308-1" tabindex="-1"></a>sin_atipicos <span class="ot">&lt;-</span> autos2<span class="sc">$</span>potencia[autos2<span class="sc">$</span>potencia <span class="sc">&gt;=</span> limite_inf <span class="sc">&amp;</span></span>
+<span id="cb308-2"><a href="conceptos-básicos-estadística.html#cb308-2" tabindex="-1"></a>                                autos2<span class="sc">$</span>potencia <span class="sc">&lt;=</span> limite_sup]</span>
+<span id="cb308-3"><a href="conceptos-básicos-estadística.html#cb308-3" tabindex="-1"></a></span>
+<span id="cb308-4"><a href="conceptos-básicos-estadística.html#cb308-4" tabindex="-1"></a><span class="co"># Con los atípicos</span></span>
+<span id="cb308-5"><a href="conceptos-básicos-estadística.html#cb308-5" tabindex="-1"></a><span class="fu">mean</span>(autos2<span class="sc">$</span>potencia)</span></code></pre></div>
 <pre><code>## [1] 104.4694</code></pre>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="conceptos-básicos-estadística.html#cb309-1" tabindex="-1"></a><span class="fu">median</span>(autos2<span class="sc">$</span>potencia)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="conceptos-básicos-estadística.html#cb310-1" tabindex="-1"></a><span class="fu">median</span>(autos2<span class="sc">$</span>potencia)</span></code></pre></div>
 <pre><code>## [1] 93.5</code></pre>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="conceptos-básicos-estadística.html#cb311-1" tabindex="-1"></a><span class="fu">sd</span>(autos2<span class="sc">$</span>potencia)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="conceptos-básicos-estadística.html#cb312-1" tabindex="-1"></a><span class="fu">sd</span>(autos2<span class="sc">$</span>potencia)</span></code></pre></div>
 <pre><code>## [1] 38.49116</code></pre>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="conceptos-básicos-estadística.html#cb313-1" tabindex="-1"></a><span class="co"># Sin los atípicos</span></span>
-<span id="cb313-2"><a href="conceptos-básicos-estadística.html#cb313-2" tabindex="-1"></a><span class="fu">mean</span>(sin_atipicos)</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="conceptos-básicos-estadística.html#cb314-1" tabindex="-1"></a><span class="co"># Sin los atípicos</span></span>
+<span id="cb314-2"><a href="conceptos-básicos-estadística.html#cb314-2" tabindex="-1"></a><span class="fu">mean</span>(sin_atipicos)</span></code></pre></div>
 <pre><code>## [1] 101.4764</code></pre>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="conceptos-básicos-estadística.html#cb315-1" tabindex="-1"></a><span class="fu">median</span>(sin_atipicos)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="conceptos-básicos-estadística.html#cb316-1" tabindex="-1"></a><span class="fu">median</span>(sin_atipicos)</span></code></pre></div>
 <pre><code>## [1] 92</code></pre>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="conceptos-básicos-estadística.html#cb317-1" tabindex="-1"></a><span class="fu">sd</span>(sin_atipicos)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="conceptos-básicos-estadística.html#cb318-1" tabindex="-1"></a><span class="fu">sd</span>(sin_atipicos)</span></code></pre></div>
 <pre><code>## [1] 34.16331</code></pre>
 <p>La media y la desviación cambian más que la mediana, que es <strong>robusta</strong>.</p>
 </div>
@@ -636,54 +656,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="análisis-univariado-una-variable" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> Análisis univariado: una variable<a href="conceptos-básicos-estadística.html#análisis-univariado-una-variable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Trabajamos con el consumo de combustible (millas por galón), sin faltantes:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="conceptos-básicos-estadística.html#cb319-1" tabindex="-1"></a>consumo <span class="ot">&lt;-</span> autos2<span class="sc">$</span>consumo</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="conceptos-básicos-estadística.html#cb320-1" tabindex="-1"></a>consumo <span class="ot">&lt;-</span> autos2<span class="sc">$</span>consumo</span></code></pre></div>
 <div id="media" class="section level3 hasAnchor" number="4.6.1">
 <h3><span class="header-section-number">4.6.1</span> Media<a href="conceptos-básicos-estadística.html#media" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El promedio: suma de los datos dividida entre cuántos son.</p>
 <p><span class="math display">\[\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\]</span></p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="conceptos-básicos-estadística.html#cb320-1" tabindex="-1"></a><span class="fu">sum</span>(consumo) <span class="sc">/</span> <span class="fu">length</span>(consumo)     <span class="co"># a mano</span></span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="conceptos-básicos-estadística.html#cb321-1" tabindex="-1"></a><span class="fu">sum</span>(consumo) <span class="sc">/</span> <span class="fu">length</span>(consumo)     <span class="co"># a mano</span></span></code></pre></div>
 <pre><code>## [1] 23.44592</code></pre>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="conceptos-básicos-estadística.html#cb322-1" tabindex="-1"></a><span class="fu">mean</span>(consumo)                      <span class="co"># con la función</span></span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="conceptos-básicos-estadística.html#cb323-1" tabindex="-1"></a><span class="fu">mean</span>(consumo)                      <span class="co"># con la función</span></span></code></pre></div>
 <pre><code>## [1] 23.44592</code></pre>
 </div>
 <div id="mediana" class="section level3 hasAnchor" number="4.6.2">
 <h3><span class="header-section-number">4.6.2</span> Mediana<a href="conceptos-básicos-estadística.html#mediana" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El dato del centro cuando se ordenan. La mitad queda por debajo y la mitad por encima.</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="conceptos-básicos-estadística.html#cb324-1" tabindex="-1"></a><span class="fu">median</span>(consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="conceptos-básicos-estadística.html#cb325-1" tabindex="-1"></a><span class="fu">median</span>(consumo)</span></code></pre></div>
 <pre><code>## [1] 22.75</code></pre>
 </div>
 <div id="varianza" class="section level3 hasAnchor" number="4.6.3">
 <h3><span class="header-section-number">4.6.3</span> Varianza<a href="conceptos-básicos-estadística.html#varianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Mide <strong>qué tan dispersos</strong> están los datos alrededor de la media: es el promedio de las desviaciones al cuadrado (dividiendo entre <span class="math inline">\(n-1\)</span>).</p>
 <p><span class="math display">\[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2\]</span></p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="conceptos-básicos-estadística.html#cb326-1" tabindex="-1"></a><span class="co"># Paso a paso, a mano</span></span>
-<span id="cb326-2"><a href="conceptos-básicos-estadística.html#cb326-2" tabindex="-1"></a>desviaciones <span class="ot">&lt;-</span> consumo <span class="sc">-</span> <span class="fu">mean</span>(consumo)</span>
-<span id="cb326-3"><a href="conceptos-básicos-estadística.html#cb326-3" tabindex="-1"></a><span class="fu">sum</span>(desviaciones<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(consumo) <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="conceptos-básicos-estadística.html#cb327-1" tabindex="-1"></a><span class="co"># Paso a paso, a mano</span></span>
+<span id="cb327-2"><a href="conceptos-básicos-estadística.html#cb327-2" tabindex="-1"></a>desviaciones <span class="ot">&lt;-</span> consumo <span class="sc">-</span> <span class="fu">mean</span>(consumo)</span>
+<span id="cb327-3"><a href="conceptos-básicos-estadística.html#cb327-3" tabindex="-1"></a><span class="fu">sum</span>(desviaciones<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">length</span>(consumo) <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 60.91814</code></pre>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="conceptos-básicos-estadística.html#cb328-1" tabindex="-1"></a><span class="co"># Con la función</span></span>
-<span id="cb328-2"><a href="conceptos-básicos-estadística.html#cb328-2" tabindex="-1"></a><span class="fu">var</span>(consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="conceptos-básicos-estadística.html#cb329-1" tabindex="-1"></a><span class="co"># Con la función</span></span>
+<span id="cb329-2"><a href="conceptos-básicos-estadística.html#cb329-2" tabindex="-1"></a><span class="fu">var</span>(consumo)</span></code></pre></div>
 <pre><code>## [1] 60.91814</code></pre>
 </div>
 <div id="desviación-estándar" class="section level3 hasAnchor" number="4.6.4">
 <h3><span class="header-section-number">4.6.4</span> Desviación estándar<a href="conceptos-básicos-estadística.html#desviación-estándar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Es la raíz de la varianza. Tiene <strong>las mismas unidades</strong> que los datos (mpg), por eso se interpreta mejor.</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="conceptos-básicos-estadística.html#cb330-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(consumo))</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="conceptos-básicos-estadística.html#cb331-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(consumo))</span></code></pre></div>
 <pre><code>## [1] 7.805007</code></pre>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="conceptos-básicos-estadística.html#cb332-1" tabindex="-1"></a><span class="fu">sd</span>(consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="conceptos-básicos-estadística.html#cb333-1" tabindex="-1"></a><span class="fu">sd</span>(consumo)</span></code></pre></div>
 <pre><code>## [1] 7.805007</code></pre>
 </div>
 <div id="coeficiente-de-variación" class="section level3 hasAnchor" number="4.6.5">
 <h3><span class="header-section-number">4.6.5</span> Coeficiente de variación<a href="conceptos-básicos-estadística.html#coeficiente-de-variación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La desviación estándar como <strong>porcentaje de la media</strong>. Sirve para <strong>comparar la dispersión</strong> de variables con unidades distintas.</p>
 <p><span class="math display">\[CV = \frac{s}{\bar{x}} \times 100\]</span></p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="conceptos-básicos-estadística.html#cb334-1" tabindex="-1"></a><span class="fu">sd</span>(consumo) <span class="sc">/</span> <span class="fu">mean</span>(consumo) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="conceptos-básicos-estadística.html#cb335-1" tabindex="-1"></a><span class="fu">sd</span>(consumo) <span class="sc">/</span> <span class="fu">mean</span>(consumo) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <pre><code>## [1] 33.28941</code></pre>
 </div>
 <div id="todas-las-variables-numéricas-a-la-vez" class="section level3 hasAnchor" number="4.6.6">
 <h3><span class="header-section-number">4.6.6</span> Todas las variables numéricas a la vez<a href="conceptos-básicos-estadística.html#todas-las-variables-numéricas-a-la-vez" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Con <code>sapply()</code> aplicamos una función a varias columnas. Primero separamos las numéricas continuas:</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="conceptos-básicos-estadística.html#cb336-1" tabindex="-1"></a>numericas <span class="ot">&lt;-</span> autos2[, <span class="fu">c</span>(<span class="st">&quot;consumo&quot;</span>, <span class="st">&quot;cilindrada&quot;</span>, <span class="st">&quot;potencia&quot;</span>, <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;aceleracion&quot;</span>)]</span>
-<span id="cb336-2"><a href="conceptos-básicos-estadística.html#cb336-2" tabindex="-1"></a><span class="fu">head</span>(numericas)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="conceptos-básicos-estadística.html#cb337-1" tabindex="-1"></a>numericas <span class="ot">&lt;-</span> autos2[, <span class="fu">c</span>(<span class="st">&quot;consumo&quot;</span>, <span class="st">&quot;cilindrada&quot;</span>, <span class="st">&quot;potencia&quot;</span>, <span class="st">&quot;peso&quot;</span>, <span class="st">&quot;aceleracion&quot;</span>)]</span>
+<span id="cb337-2"><a href="conceptos-básicos-estadística.html#cb337-2" tabindex="-1"></a><span class="fu">head</span>(numericas)</span></code></pre></div>
 <pre><code>##   consumo cilindrada potencia peso aceleracion
 ## 1      18        307      130 3504        12.0
 ## 2      15        350      165 3693        11.5
@@ -691,14 +711,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4      16        304      150 3433        12.0
 ## 5      17        302      140 3449        10.5
 ## 6      15        429      198 4341        10.0</code></pre>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="conceptos-básicos-estadística.html#cb338-1" tabindex="-1"></a>medias <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numericas, mean)</span>
-<span id="cb338-2"><a href="conceptos-básicos-estadística.html#cb338-2" tabindex="-1"></a>varianzas <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numericas, var)</span>
-<span id="cb338-3"><a href="conceptos-básicos-estadística.html#cb338-3" tabindex="-1"></a>desviaciones <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numericas, sd)</span>
-<span id="cb338-4"><a href="conceptos-básicos-estadística.html#cb338-4" tabindex="-1"></a>cv <span class="ot">&lt;-</span> desviaciones <span class="sc">/</span> medias <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb338-5"><a href="conceptos-básicos-estadística.html#cb338-5" tabindex="-1"></a></span>
-<span id="cb338-6"><a href="conceptos-básicos-estadística.html#cb338-6" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">media =</span> medias, <span class="at">varianza =</span> varianzas,</span>
-<span id="cb338-7"><a href="conceptos-básicos-estadística.html#cb338-7" tabindex="-1"></a>                      <span class="at">desviacion =</span> desviaciones, <span class="at">cv =</span> cv)</span>
-<span id="cb338-8"><a href="conceptos-básicos-estadística.html#cb338-8" tabindex="-1"></a><span class="fu">round</span>(resumen, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="conceptos-básicos-estadística.html#cb339-1" tabindex="-1"></a>medias <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numericas, mean)</span>
+<span id="cb339-2"><a href="conceptos-básicos-estadística.html#cb339-2" tabindex="-1"></a>varianzas <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numericas, var)</span>
+<span id="cb339-3"><a href="conceptos-básicos-estadística.html#cb339-3" tabindex="-1"></a>desviaciones <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numericas, sd)</span>
+<span id="cb339-4"><a href="conceptos-básicos-estadística.html#cb339-4" tabindex="-1"></a>cv <span class="ot">&lt;-</span> desviaciones <span class="sc">/</span> medias <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb339-5"><a href="conceptos-básicos-estadística.html#cb339-5" tabindex="-1"></a></span>
+<span id="cb339-6"><a href="conceptos-básicos-estadística.html#cb339-6" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">media =</span> medias, <span class="at">varianza =</span> varianzas,</span>
+<span id="cb339-7"><a href="conceptos-básicos-estadística.html#cb339-7" tabindex="-1"></a>                      <span class="at">desviacion =</span> desviaciones, <span class="at">cv =</span> cv)</span>
+<span id="cb339-8"><a href="conceptos-básicos-estadística.html#cb339-8" tabindex="-1"></a><span class="fu">round</span>(resumen, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##              media varianza desviacion   cv
 ## consumo       23.4     60.9        7.8 33.3
 ## cilindrada   194.4  10950.4      104.6 53.8
@@ -709,24 +729,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="gráficos-de-una-variable" class="section level3 hasAnchor" number="4.6.7">
 <h3><span class="header-section-number">4.6.7</span> Gráficos de una variable<a href="conceptos-básicos-estadística.html#gráficos-de-una-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="conceptos-básicos-estadística.html#cb340-1" tabindex="-1"></a><span class="fu">hist</span>(consumo, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Consumo de combustible&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Millas por galón&quot;</span>)</span>
-<span id="cb340-2"><a href="conceptos-básicos-estadística.html#cb340-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(consumo), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb340-3"><a href="conceptos-básicos-estadística.html#cb340-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(consumo), <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="conceptos-básicos-estadística.html#cb341-1" tabindex="-1"></a><span class="fu">hist</span>(consumo, <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Consumo de combustible&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Millas por galón&quot;</span>)</span>
+<span id="cb341-2"><a href="conceptos-básicos-estadística.html#cb341-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(consumo), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb341-3"><a href="conceptos-básicos-estadística.html#cb341-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(consumo), <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-109-1.png" alt="" width="672" /></p>
 <p>La línea roja es la media y la verde la mediana. Como la media queda a la derecha de la mediana, la distribución tiene una <strong>cola hacia la derecha</strong> (pocos carros de consumo muy alto).</p>
 </div>
 <div id="comparar-por-grupos" class="section level3 hasAnchor" number="4.6.8">
 <h3><span class="header-section-number">4.6.8</span> Comparar por grupos<a href="conceptos-básicos-estadística.html#comparar-por-grupos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>tapply()</code> calcula una medida <strong>para cada categoría</strong>:</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="conceptos-básicos-estadística.html#cb341-1" tabindex="-1"></a><span class="fu">tapply</span>(autos2<span class="sc">$</span>consumo, autos2<span class="sc">$</span>origen, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="conceptos-básicos-estadística.html#cb342-1" tabindex="-1"></a><span class="fu">tapply</span>(autos2<span class="sc">$</span>consumo, autos2<span class="sc">$</span>origen, mean)</span></code></pre></div>
 <pre><code>##   europe    japan      usa 
 ## 27.60294 30.45063 20.03347</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="conceptos-básicos-estadística.html#cb343-1" tabindex="-1"></a><span class="fu">tapply</span>(autos2<span class="sc">$</span>consumo, autos2<span class="sc">$</span>origen, sd)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="conceptos-básicos-estadística.html#cb344-1" tabindex="-1"></a><span class="fu">tapply</span>(autos2<span class="sc">$</span>consumo, autos2<span class="sc">$</span>origen, sd)</span></code></pre></div>
 <pre><code>##   europe    japan      usa 
 ## 6.580182 6.090048 6.440384</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="conceptos-básicos-estadística.html#cb345-1" tabindex="-1"></a><span class="fu">boxplot</span>(consumo <span class="sc">~</span> origen, <span class="at">data =</span> autos2,</span>
-<span id="cb345-2"><a href="conceptos-básicos-estadística.html#cb345-2" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),</span>
-<span id="cb345-3"><a href="conceptos-básicos-estadística.html#cb345-3" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Región de origen&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo (mpg)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="conceptos-básicos-estadística.html#cb346-1" tabindex="-1"></a><span class="fu">boxplot</span>(consumo <span class="sc">~</span> origen, <span class="at">data =</span> autos2,</span>
+<span id="cb346-2"><a href="conceptos-básicos-estadística.html#cb346-2" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),</span>
+<span id="cb346-3"><a href="conceptos-básicos-estadística.html#cb346-3" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Región de origen&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo (mpg)&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-111-1.png" alt="" width="672" /></p>
 <p>Los carros americanos rinden menos por galón que los japoneses y europeos.</p>
 </div>
@@ -734,13 +754,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="análisis-bivariado-dos-variables-juntas" class="section level2 hasAnchor" number="4.7">
 <h2><span class="header-section-number">4.7</span> Análisis bivariado: dos variables juntas<a href="conceptos-básicos-estadística.html#análisis-bivariado-dos-variables-juntas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ahora preguntamos: ¿cuando una variable sube, la otra qué hace? Usamos el peso del carro y su consumo.</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="conceptos-básicos-estadística.html#cb346-1" tabindex="-1"></a>peso <span class="ot">&lt;-</span> autos2<span class="sc">$</span>peso</span>
-<span id="cb346-2"><a href="conceptos-básicos-estadística.html#cb346-2" tabindex="-1"></a>consumo <span class="ot">&lt;-</span> autos2<span class="sc">$</span>consumo</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="conceptos-básicos-estadística.html#cb347-1" tabindex="-1"></a>peso <span class="ot">&lt;-</span> autos2<span class="sc">$</span>peso</span>
+<span id="cb347-2"><a href="conceptos-básicos-estadística.html#cb347-2" tabindex="-1"></a>consumo <span class="ot">&lt;-</span> autos2<span class="sc">$</span>consumo</span></code></pre></div>
 <div id="diagrama-de-dispersión" class="section level3 hasAnchor" number="4.7.1">
 <h3><span class="header-section-number">4.7.1</span> Diagrama de dispersión<a href="conceptos-básicos-estadística.html#diagrama-de-dispersión" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Cada punto es <strong>un carro</strong>: su posición dice cuánto pesa y cuánto rinde.</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="conceptos-básicos-estadística.html#cb347-1" tabindex="-1"></a><span class="fu">plot</span>(peso, consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
-<span id="cb347-2"><a href="conceptos-básicos-estadística.html#cb347-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso (libras)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo (mpg)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="conceptos-básicos-estadística.html#cb348-1" tabindex="-1"></a><span class="fu">plot</span>(peso, consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb348-2"><a href="conceptos-básicos-estadística.html#cb348-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso (libras)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo (mpg)&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-113-1.png" alt="" width="672" /></p>
 <p>Los carros más pesados <strong>tienden a rendir menos</strong>. Es una relación lineal decreciente.</p>
 </div>
@@ -753,17 +773,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Covarianza <strong>negativa</strong>: cuando una sube, la otra tiende a bajar.</li>
 <li>Covarianza <strong>cercana a cero</strong>: no hay relación lineal.</li>
 </ul>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="conceptos-básicos-estadística.html#cb348-1" tabindex="-1"></a><span class="co"># A mano: se centran los datos y se multiplican</span></span>
-<span id="cb348-2"><a href="conceptos-básicos-estadística.html#cb348-2" tabindex="-1"></a>peso_c <span class="ot">&lt;-</span> peso <span class="sc">-</span> <span class="fu">mean</span>(peso)</span>
-<span id="cb348-3"><a href="conceptos-básicos-estadística.html#cb348-3" tabindex="-1"></a>consumo_c <span class="ot">&lt;-</span> consumo <span class="sc">-</span> <span class="fu">mean</span>(consumo)</span>
-<span id="cb348-4"><a href="conceptos-básicos-estadística.html#cb348-4" tabindex="-1"></a><span class="fu">sum</span>(peso_c <span class="sc">*</span> consumo_c) <span class="sc">/</span> (<span class="fu">length</span>(peso) <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="conceptos-básicos-estadística.html#cb349-1" tabindex="-1"></a><span class="co"># A mano: se centran los datos y se multiplican</span></span>
+<span id="cb349-2"><a href="conceptos-básicos-estadística.html#cb349-2" tabindex="-1"></a>peso_c <span class="ot">&lt;-</span> peso <span class="sc">-</span> <span class="fu">mean</span>(peso)</span>
+<span id="cb349-3"><a href="conceptos-básicos-estadística.html#cb349-3" tabindex="-1"></a>consumo_c <span class="ot">&lt;-</span> consumo <span class="sc">-</span> <span class="fu">mean</span>(consumo)</span>
+<span id="cb349-4"><a href="conceptos-básicos-estadística.html#cb349-4" tabindex="-1"></a><span class="fu">sum</span>(peso_c <span class="sc">*</span> consumo_c) <span class="sc">/</span> (<span class="fu">length</span>(peso) <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] -5517.441</code></pre>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="conceptos-básicos-estadística.html#cb350-1" tabindex="-1"></a><span class="co"># Con la función</span></span>
-<span id="cb350-2"><a href="conceptos-básicos-estadística.html#cb350-2" tabindex="-1"></a><span class="fu">cov</span>(peso, consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="conceptos-básicos-estadística.html#cb351-1" tabindex="-1"></a><span class="co"># Con la función</span></span>
+<span id="cb351-2"><a href="conceptos-básicos-estadística.html#cb351-2" tabindex="-1"></a><span class="fu">cov</span>(peso, consumo)</span></code></pre></div>
 <pre><code>## [1] -5517.441</code></pre>
 <p>Es negativa: se mueven en sentido contrario. Pero <strong>-5517 ¿es mucho o poco?</strong> No lo sabemos, porque depende de las unidades. Veamos qué pasa si pasamos el peso de libras a kilogramos:</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="conceptos-básicos-estadística.html#cb352-1" tabindex="-1"></a>peso_kg <span class="ot">&lt;-</span> peso <span class="sc">*</span> <span class="fl">0.4536</span></span>
-<span id="cb352-2"><a href="conceptos-básicos-estadística.html#cb352-2" tabindex="-1"></a><span class="fu">cov</span>(peso_kg, consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="conceptos-básicos-estadística.html#cb353-1" tabindex="-1"></a>peso_kg <span class="ot">&lt;-</span> peso <span class="sc">*</span> <span class="fl">0.4536</span></span>
+<span id="cb353-2"><a href="conceptos-básicos-estadística.html#cb353-2" tabindex="-1"></a><span class="fu">cov</span>(peso_kg, consumo)</span></code></pre></div>
 <pre><code>## [1] -2502.711</code></pre>
 <p>Es otro número, y la relación es <strong>exactamente la misma</strong>. La covarianza <strong>depende de las unidades</strong>, así que no sirve para decir qué tan fuerte es la relación.</p>
 </div>
@@ -771,14 +791,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.7.3</span> Correlación<a href="conceptos-básicos-estadística.html#correlación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La correlación corrige eso: divide la covarianza entre las dos desviaciones estándar.</p>
 <p><span class="math display">\[r = \frac{s_{xy}}{s_x \, s_y}\]</span></p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="conceptos-básicos-estadística.html#cb354-1" tabindex="-1"></a><span class="co"># A mano</span></span>
-<span id="cb354-2"><a href="conceptos-básicos-estadística.html#cb354-2" tabindex="-1"></a><span class="fu">cov</span>(peso, consumo) <span class="sc">/</span> (<span class="fu">sd</span>(peso) <span class="sc">*</span> <span class="fu">sd</span>(consumo))</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="conceptos-básicos-estadística.html#cb355-1" tabindex="-1"></a><span class="co"># A mano</span></span>
+<span id="cb355-2"><a href="conceptos-básicos-estadística.html#cb355-2" tabindex="-1"></a><span class="fu">cov</span>(peso, consumo) <span class="sc">/</span> (<span class="fu">sd</span>(peso) <span class="sc">*</span> <span class="fu">sd</span>(consumo))</span></code></pre></div>
 <pre><code>## [1] -0.8322442</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="conceptos-básicos-estadística.html#cb356-1" tabindex="-1"></a><span class="co"># Con la función</span></span>
-<span id="cb356-2"><a href="conceptos-básicos-estadística.html#cb356-2" tabindex="-1"></a><span class="fu">cor</span>(peso, consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="conceptos-básicos-estadística.html#cb357-1" tabindex="-1"></a><span class="co"># Con la función</span></span>
+<span id="cb357-2"><a href="conceptos-básicos-estadística.html#cb357-2" tabindex="-1"></a><span class="fu">cor</span>(peso, consumo)</span></code></pre></div>
 <pre><code>## [1] -0.8322442</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="conceptos-básicos-estadística.html#cb358-1" tabindex="-1"></a><span class="co"># Y con el peso en kilogramos: no cambia</span></span>
-<span id="cb358-2"><a href="conceptos-básicos-estadística.html#cb358-2" tabindex="-1"></a><span class="fu">cor</span>(peso_kg, consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="conceptos-básicos-estadística.html#cb359-1" tabindex="-1"></a><span class="co"># Y con el peso en kilogramos: no cambia</span></span>
+<span id="cb359-2"><a href="conceptos-básicos-estadística.html#cb359-2" tabindex="-1"></a><span class="fu">cor</span>(peso_kg, consumo)</span></code></pre></div>
 <pre><code>## [1] -0.8322442</code></pre>
 <p>La correlación <strong>no depende de las unidades</strong> y siempre está entre <strong>-1 y 1</strong>:</p>
 <table>
@@ -807,21 +827,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="ejemplos-para-revisar-la-correlación" class="section level3 hasAnchor" number="4.7.4">
 <h3><span class="header-section-number">4.7.4</span> Ejemplos para revisar la correlación<a href="conceptos-básicos-estadística.html#ejemplos-para-revisar-la-correlación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="conceptos-básicos-estadística.html#cb360-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb360-2"><a href="conceptos-básicos-estadística.html#cb360-2" tabindex="-1"></a></span>
-<span id="cb360-3"><a href="conceptos-básicos-estadística.html#cb360-3" tabindex="-1"></a><span class="fu">plot</span>(peso, consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
-<span id="cb360-4"><a href="conceptos-básicos-estadística.html#cb360-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;r =&quot;</span>, <span class="fu">round</span>(<span class="fu">cor</span>(peso, consumo), <span class="dv">2</span>)),</span>
-<span id="cb360-5"><a href="conceptos-básicos-estadística.html#cb360-5" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo&quot;</span>)</span>
-<span id="cb360-6"><a href="conceptos-básicos-estadística.html#cb360-6" tabindex="-1"></a></span>
-<span id="cb360-7"><a href="conceptos-básicos-estadística.html#cb360-7" tabindex="-1"></a><span class="fu">plot</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>potencia, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb360-8"><a href="conceptos-básicos-estadística.html#cb360-8" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;r =&quot;</span>, <span class="fu">round</span>(<span class="fu">cor</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>potencia), <span class="dv">2</span>)),</span>
-<span id="cb360-9"><a href="conceptos-básicos-estadística.html#cb360-9" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Potencia&quot;</span>)</span>
-<span id="cb360-10"><a href="conceptos-básicos-estadística.html#cb360-10" tabindex="-1"></a></span>
-<span id="cb360-11"><a href="conceptos-básicos-estadística.html#cb360-11" tabindex="-1"></a><span class="fu">plot</span>(autos2<span class="sc">$</span>aceleracion, autos2<span class="sc">$</span>consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>,</span>
-<span id="cb360-12"><a href="conceptos-básicos-estadística.html#cb360-12" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;r =&quot;</span>, <span class="fu">round</span>(<span class="fu">cor</span>(autos2<span class="sc">$</span>aceleracion, autos2<span class="sc">$</span>consumo), <span class="dv">2</span>)),</span>
-<span id="cb360-13"><a href="conceptos-básicos-estadística.html#cb360-13" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Aceleración (s)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="conceptos-básicos-estadística.html#cb361-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb361-2"><a href="conceptos-básicos-estadística.html#cb361-2" tabindex="-1"></a></span>
+<span id="cb361-3"><a href="conceptos-básicos-estadística.html#cb361-3" tabindex="-1"></a><span class="fu">plot</span>(peso, consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb361-4"><a href="conceptos-básicos-estadística.html#cb361-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;r =&quot;</span>, <span class="fu">round</span>(<span class="fu">cor</span>(peso, consumo), <span class="dv">2</span>)),</span>
+<span id="cb361-5"><a href="conceptos-básicos-estadística.html#cb361-5" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo&quot;</span>)</span>
+<span id="cb361-6"><a href="conceptos-básicos-estadística.html#cb361-6" tabindex="-1"></a></span>
+<span id="cb361-7"><a href="conceptos-básicos-estadística.html#cb361-7" tabindex="-1"></a><span class="fu">plot</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>potencia, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb361-8"><a href="conceptos-básicos-estadística.html#cb361-8" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;r =&quot;</span>, <span class="fu">round</span>(<span class="fu">cor</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>potencia), <span class="dv">2</span>)),</span>
+<span id="cb361-9"><a href="conceptos-básicos-estadística.html#cb361-9" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Potencia&quot;</span>)</span>
+<span id="cb361-10"><a href="conceptos-básicos-estadística.html#cb361-10" tabindex="-1"></a></span>
+<span id="cb361-11"><a href="conceptos-básicos-estadística.html#cb361-11" tabindex="-1"></a><span class="fu">plot</span>(autos2<span class="sc">$</span>aceleracion, autos2<span class="sc">$</span>consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>,</span>
+<span id="cb361-12"><a href="conceptos-básicos-estadística.html#cb361-12" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;r =&quot;</span>, <span class="fu">round</span>(<span class="fu">cor</span>(autos2<span class="sc">$</span>aceleracion, autos2<span class="sc">$</span>consumo), <span class="dv">2</span>)),</span>
+<span id="cb361-13"><a href="conceptos-básicos-estadística.html#cb361-13" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Aceleración (s)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo&quot;</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-117-1.png" alt="" width="864" /></p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="conceptos-básicos-estadística.html#cb361-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="conceptos-básicos-estadística.html#cb362-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p>Izquierda, relación negativa fuerte; en el centro, positiva fuerte (más peso, más potencia); a la derecha, positiva débil.</p>
 </div>
 <div id="cuidado-correlación-no-es-causalidad" class="section level3 hasAnchor" number="4.7.5">
@@ -832,8 +852,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="matriz-de-correlación" class="section level2 hasAnchor" number="4.8">
 <h2><span class="header-section-number">4.8</span> Matriz de correlación<a href="conceptos-básicos-estadística.html#matriz-de-correlación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Con muchas variables, calculamos la correlación de <strong>todos los pares</strong> y la organizamos en una <strong>matriz</strong>:</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="conceptos-básicos-estadística.html#cb362-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(numericas)</span>
-<span id="cb362-2"><a href="conceptos-básicos-estadística.html#cb362-2" tabindex="-1"></a><span class="fu">round</span>(R, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="conceptos-básicos-estadística.html#cb363-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(numericas)</span>
+<span id="cb363-2"><a href="conceptos-básicos-estadística.html#cb363-2" tabindex="-1"></a><span class="fu">round</span>(R, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##             consumo cilindrada potencia  peso aceleracion
 ## consumo        1.00      -0.81    -0.78 -0.83        0.42
 ## cilindrada    -0.81       1.00     0.90  0.93       -0.54
@@ -846,61 +866,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>La matriz es <strong>simétrica</strong>: la correlación de A con B es igual a la de B con A.</li>
 <li>Cada casilla es la correlación de la variable de la <strong>fila</strong> con la de la <strong>columna</strong>.</li>
 </ul>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="conceptos-básicos-estadística.html#cb364-1" tabindex="-1"></a>R[<span class="st">&quot;peso&quot;</span>, <span class="st">&quot;consumo&quot;</span>]    <span class="co"># sacar una casilla</span></span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="conceptos-básicos-estadística.html#cb365-1" tabindex="-1"></a>R[<span class="st">&quot;peso&quot;</span>, <span class="st">&quot;consumo&quot;</span>]    <span class="co"># sacar una casilla</span></span></code></pre></div>
 <pre><code>## [1] -0.8322442</code></pre>
 <div id="mapa-de-calor-de-la-matriz-de-correlación" class="section level3 hasAnchor" number="4.8.1">
 <h3><span class="header-section-number">4.8.1</span> Mapa de calor de la matriz de correlación<a href="conceptos-básicos-estadística.html#mapa-de-calor-de-la-matriz-de-correlación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Una matriz con muchos números cansa la vista. Un <strong>mapa de calor</strong> pinta cada casilla según su correlación: <strong>azul</strong> para positiva, <strong>rojo</strong> para negativa y <strong>blanco</strong> para cercana a cero.</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="conceptos-básicos-estadística.html#cb366-1" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;blue&quot;</span>))(<span class="dv">21</span>)</span>
-<span id="cb366-2"><a href="conceptos-básicos-estadística.html#cb366-2" tabindex="-1"></a></span>
-<span id="cb366-3"><a href="conceptos-básicos-estadística.html#cb366-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">2</span>))    <span class="co"># más margen para los nombres</span></span>
-<span id="cb366-4"><a href="conceptos-básicos-estadística.html#cb366-4" tabindex="-1"></a></span>
-<span id="cb366-5"><a href="conceptos-básicos-estadística.html#cb366-5" tabindex="-1"></a><span class="co"># La matriz se voltea para que se vea igual que al imprimirla</span></span>
-<span id="cb366-6"><a href="conceptos-básicos-estadística.html#cb366-6" tabindex="-1"></a><span class="fu">image</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">t</span>(R[<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>, ]), <span class="at">col =</span> colores, <span class="at">zlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>),</span>
-<span id="cb366-7"><a href="conceptos-básicos-estadística.html#cb366-7" tabindex="-1"></a>      <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb366-8"><a href="conceptos-básicos-estadística.html#cb366-8" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">labels =</span> <span class="fu">colnames</span>(R), <span class="at">las =</span> <span class="dv">2</span>)</span>
-<span id="cb366-9"><a href="conceptos-básicos-estadística.html#cb366-9" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">labels =</span> <span class="fu">rev</span>(<span class="fu">colnames</span>(R)), <span class="at">las =</span> <span class="dv">1</span>)</span>
-<span id="cb366-10"><a href="conceptos-básicos-estadística.html#cb366-10" tabindex="-1"></a></span>
-<span id="cb366-11"><a href="conceptos-básicos-estadística.html#cb366-11" tabindex="-1"></a><span class="co"># Escribir el valor de cada casilla</span></span>
-<span id="cb366-12"><a href="conceptos-básicos-estadística.html#cb366-12" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb366-13"><a href="conceptos-básicos-estadística.html#cb366-13" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb366-14"><a href="conceptos-básicos-estadística.html#cb366-14" tabindex="-1"></a>    <span class="fu">text</span>(j, <span class="dv">6</span> <span class="sc">-</span> i, <span class="fu">round</span>(R[i, j], <span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.9</span>)</span>
-<span id="cb366-15"><a href="conceptos-básicos-estadística.html#cb366-15" tabindex="-1"></a>  }</span>
-<span id="cb366-16"><a href="conceptos-básicos-estadística.html#cb366-16" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="conceptos-básicos-estadística.html#cb367-1" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;blue&quot;</span>))(<span class="dv">21</span>)</span>
+<span id="cb367-2"><a href="conceptos-básicos-estadística.html#cb367-2" tabindex="-1"></a></span>
+<span id="cb367-3"><a href="conceptos-básicos-estadística.html#cb367-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">2</span>))    <span class="co"># más margen para los nombres</span></span>
+<span id="cb367-4"><a href="conceptos-básicos-estadística.html#cb367-4" tabindex="-1"></a></span>
+<span id="cb367-5"><a href="conceptos-básicos-estadística.html#cb367-5" tabindex="-1"></a><span class="co"># La matriz se voltea para que se vea igual que al imprimirla</span></span>
+<span id="cb367-6"><a href="conceptos-básicos-estadística.html#cb367-6" tabindex="-1"></a><span class="fu">image</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">t</span>(R[<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>, ]), <span class="at">col =</span> colores, <span class="at">zlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb367-7"><a href="conceptos-básicos-estadística.html#cb367-7" tabindex="-1"></a>      <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb367-8"><a href="conceptos-básicos-estadística.html#cb367-8" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">labels =</span> <span class="fu">colnames</span>(R), <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb367-9"><a href="conceptos-básicos-estadística.html#cb367-9" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">labels =</span> <span class="fu">rev</span>(<span class="fu">colnames</span>(R)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb367-10"><a href="conceptos-básicos-estadística.html#cb367-10" tabindex="-1"></a></span>
+<span id="cb367-11"><a href="conceptos-básicos-estadística.html#cb367-11" tabindex="-1"></a><span class="co"># Escribir el valor de cada casilla</span></span>
+<span id="cb367-12"><a href="conceptos-básicos-estadística.html#cb367-12" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb367-13"><a href="conceptos-básicos-estadística.html#cb367-13" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb367-14"><a href="conceptos-básicos-estadística.html#cb367-14" tabindex="-1"></a>    <span class="fu">text</span>(j, <span class="dv">6</span> <span class="sc">-</span> i, <span class="fu">round</span>(R[i, j], <span class="dv">2</span>), <span class="at">cex =</span> <span class="fl">0.9</span>)</span>
+<span id="cb367-15"><a href="conceptos-básicos-estadística.html#cb367-15" tabindex="-1"></a>  }</span>
+<span id="cb367-16"><a href="conceptos-básicos-estadística.html#cb367-16" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-120-1.png" alt="" width="576" /></p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="conceptos-básicos-estadística.html#cb367-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="sc">+</span> <span class="fl">0.1</span>)    <span class="co"># volver al margen normal</span></span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="conceptos-básicos-estadística.html#cb368-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="sc">+</span> <span class="fl">0.1</span>)    <span class="co"># volver al margen normal</span></span></code></pre></div>
 <p>Se ve enseguida el bloque azul de <code>cilindrada</code>, <code>potencia</code> y <code>peso</code> (muy correlacionadas entre sí) y el rojo de <code>consumo</code> contra ellas.</p>
 <p>También existe el paquete <strong>corrplot</strong>, que lo hace en una sola línea (instálalo una vez con <code>install.packages("corrplot")</code>):</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="conceptos-básicos-estadística.html#cb368-1" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb368-2"><a href="conceptos-básicos-estadística.html#cb368-2" tabindex="-1"></a><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="conceptos-básicos-estadística.html#cb369-1" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb369-2"><a href="conceptos-básicos-estadística.html#cb369-2" tabindex="-1"></a><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p>Mira la matriz con atención: <code>cilindrada</code>, <code>potencia</code> y <code>peso</code> están correlacionadas <strong>entre sí con valores de 0.86 a 0.93</strong>. Son variables <strong>muy redundantes</strong>: un motor grande es un motor potente y va en un carro pesado. Más adelante veremos cómo el análisis de componentes principales aprovecha justo esa redundancia.</p>
 </div>
 <div id="ver-todas-las-relaciones-a-la-vez" class="section level3 hasAnchor" number="4.8.2">
 <h3><span class="header-section-number">4.8.2</span> Ver todas las relaciones a la vez<a href="conceptos-básicos-estadística.html#ver-todas-las-relaciones-a-la-vez" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>pairs()</code> hace todos los diagramas de dispersión de una vez:</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="conceptos-básicos-estadística.html#cb369-1" tabindex="-1"></a><span class="fu">pairs</span>(numericas, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="conceptos-básicos-estadística.html#cb370-1" tabindex="-1"></a><span class="fu">pairs</span>(numericas, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-122-1.png" alt="" width="672" /></p>
 </div>
 <div id="la-matriz-de-covarianzas" class="section level3 hasAnchor" number="4.8.3">
 <h3><span class="header-section-number">4.8.3</span> La matriz de covarianzas<a href="conceptos-básicos-estadística.html#la-matriz-de-covarianzas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Igual que la de correlaciones, pero con covarianzas. En la <strong>diagonal están las varianzas</strong>:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="conceptos-básicos-estadística.html#cb370-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">cov</span>(numericas)</span>
-<span id="cb370-2"><a href="conceptos-básicos-estadística.html#cb370-2" tabindex="-1"></a><span class="fu">round</span>(S, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="conceptos-básicos-estadística.html#cb371-1" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">cov</span>(numericas)</span>
+<span id="cb371-2"><a href="conceptos-básicos-estadística.html#cb371-2" tabindex="-1"></a><span class="fu">round</span>(S, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##             consumo cilindrada potencia     peso aceleracion
 ## consumo        60.9     -657.6   -233.9  -5517.4         9.1
 ## cilindrada   -657.6    10950.4   3614.0  82929.1      -157.0
 ## potencia     -233.9     3614.0   1481.6  28265.6       -73.2
 ## peso        -5517.4    82929.1  28265.6 721484.7      -976.8
 ## aceleracion     9.1     -157.0    -73.2   -976.8         7.6</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="conceptos-básicos-estadística.html#cb372-1" tabindex="-1"></a><span class="fu">diag</span>(S)                     <span class="co"># varianzas</span></span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="conceptos-básicos-estadística.html#cb373-1" tabindex="-1"></a><span class="fu">diag</span>(S)                     <span class="co"># varianzas</span></span></code></pre></div>
 <pre><code>##      consumo   cilindrada     potencia         peso  aceleracion 
 ## 6.091814e+01 1.095037e+04 1.481569e+03 7.214847e+05 7.611331e+00</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="conceptos-básicos-estadística.html#cb374-1" tabindex="-1"></a>varianzas                   <span class="co"># las que calculamos antes</span></span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="conceptos-básicos-estadística.html#cb375-1" tabindex="-1"></a>varianzas                   <span class="co"># las que calculamos antes</span></span></code></pre></div>
 <pre><code>##      consumo   cilindrada     potencia         peso  aceleracion 
 ## 6.091814e+01 1.095037e+04 1.481569e+03 7.214847e+05 7.611331e+00</code></pre>
 <p>Esta matriz (<code>S</code>) es la protagonista del análisis multivariado. Fíjate que el peso domina por estar en libras (varianza enorme). Se relaciona con la de correlaciones: la matriz de correlaciones es la matriz de covarianzas de las variables <strong>estandarizadas</strong> (media 0 y desviación 1):</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="conceptos-básicos-estadística.html#cb376-1" tabindex="-1"></a>estandarizadas <span class="ot">&lt;-</span> <span class="fu">scale</span>(numericas)</span>
-<span id="cb376-2"><a href="conceptos-básicos-estadística.html#cb376-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov</span>(estandarizadas), <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="conceptos-básicos-estadística.html#cb377-1" tabindex="-1"></a>estandarizadas <span class="ot">&lt;-</span> <span class="fu">scale</span>(numericas)</span>
+<span id="cb377-2"><a href="conceptos-básicos-estadística.html#cb377-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov</span>(estandarizadas), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##             consumo cilindrada potencia  peso aceleracion
 ## consumo        1.00      -0.81    -0.78 -0.83        0.42
 ## cilindrada    -0.81       1.00     0.90  0.93       -0.54
@@ -911,25 +931,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="cuidado-con-los-grupos-mezclados" class="section level3 hasAnchor" number="4.8.4">
 <h3><span class="header-section-number">4.8.4</span> Cuidado con los grupos mezclados<a href="conceptos-básicos-estadística.html#cuidado-con-los-grupos-mezclados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La relación entre peso y consumo puede ser distinta según el grupo. Coloreemos por región de origen:</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="conceptos-básicos-estadística.html#cb378-1" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>)[<span class="fu">as.numeric</span>(autos2<span class="sc">$</span>origen)]</span>
-<span id="cb378-2"><a href="conceptos-básicos-estadística.html#cb378-2" tabindex="-1"></a></span>
-<span id="cb378-3"><a href="conceptos-básicos-estadística.html#cb378-3" tabindex="-1"></a><span class="fu">plot</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> colores,</span>
-<span id="cb378-4"><a href="conceptos-básicos-estadística.html#cb378-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso (libras)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo (mpg)&quot;</span>)</span>
-<span id="cb378-5"><a href="conceptos-básicos-estadística.html#cb378-5" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">levels</span>(autos2<span class="sc">$</span>origen),</span>
-<span id="cb378-6"><a href="conceptos-básicos-estadística.html#cb378-6" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="conceptos-básicos-estadística.html#cb379-1" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>)[<span class="fu">as.numeric</span>(autos2<span class="sc">$</span>origen)]</span>
+<span id="cb379-2"><a href="conceptos-básicos-estadística.html#cb379-2" tabindex="-1"></a></span>
+<span id="cb379-3"><a href="conceptos-básicos-estadística.html#cb379-3" tabindex="-1"></a><span class="fu">plot</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>consumo, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> colores,</span>
+<span id="cb379-4"><a href="conceptos-básicos-estadística.html#cb379-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Peso (libras)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Consumo (mpg)&quot;</span>)</span>
+<span id="cb379-5"><a href="conceptos-básicos-estadística.html#cb379-5" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">levels</span>(autos2<span class="sc">$</span>origen),</span>
+<span id="cb379-6"><a href="conceptos-básicos-estadística.html#cb379-6" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/unnamed-chunk-125-1.png" alt="" width="672" /></p>
 <p>Calculemos la correlación entre peso y consumo <strong>dentro de cada región</strong>:</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="conceptos-básicos-estadística.html#cb379-1" tabindex="-1"></a><span class="fu">cor</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>consumo)    <span class="co"># todos juntos</span></span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="conceptos-básicos-estadística.html#cb380-1" tabindex="-1"></a><span class="fu">cor</span>(autos2<span class="sc">$</span>peso, autos2<span class="sc">$</span>consumo)    <span class="co"># todos juntos</span></span></code></pre></div>
 <pre><code>## [1] -0.8322442</code></pre>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="conceptos-básicos-estadística.html#cb381-1" tabindex="-1"></a>usa <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;usa&quot;</span>, ]</span>
-<span id="cb381-2"><a href="conceptos-básicos-estadística.html#cb381-2" tabindex="-1"></a>japon <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;japan&quot;</span>, ]</span>
-<span id="cb381-3"><a href="conceptos-básicos-estadística.html#cb381-3" tabindex="-1"></a>europa <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;europe&quot;</span>, ]</span>
-<span id="cb381-4"><a href="conceptos-básicos-estadística.html#cb381-4" tabindex="-1"></a></span>
-<span id="cb381-5"><a href="conceptos-básicos-estadística.html#cb381-5" tabindex="-1"></a><span class="fu">cor</span>(usa<span class="sc">$</span>peso, usa<span class="sc">$</span>consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="conceptos-básicos-estadística.html#cb382-1" tabindex="-1"></a>usa <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;usa&quot;</span>, ]</span>
+<span id="cb382-2"><a href="conceptos-básicos-estadística.html#cb382-2" tabindex="-1"></a>japon <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;japan&quot;</span>, ]</span>
+<span id="cb382-3"><a href="conceptos-básicos-estadística.html#cb382-3" tabindex="-1"></a>europa <span class="ot">&lt;-</span> autos2[autos2<span class="sc">$</span>origen <span class="sc">==</span> <span class="st">&quot;europe&quot;</span>, ]</span>
+<span id="cb382-4"><a href="conceptos-básicos-estadística.html#cb382-4" tabindex="-1"></a></span>
+<span id="cb382-5"><a href="conceptos-básicos-estadística.html#cb382-5" tabindex="-1"></a><span class="fu">cor</span>(usa<span class="sc">$</span>peso, usa<span class="sc">$</span>consumo)</span></code></pre></div>
 <pre><code>## [1] -0.846424</code></pre>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="conceptos-básicos-estadística.html#cb383-1" tabindex="-1"></a><span class="fu">cor</span>(japon<span class="sc">$</span>peso, japon<span class="sc">$</span>consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="conceptos-básicos-estadística.html#cb384-1" tabindex="-1"></a><span class="fu">cor</span>(japon<span class="sc">$</span>peso, japon<span class="sc">$</span>consumo)</span></code></pre></div>
 <pre><code>## [1] -0.5641064</code></pre>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="conceptos-básicos-estadística.html#cb385-1" tabindex="-1"></a><span class="fu">cor</span>(europa<span class="sc">$</span>peso, europa<span class="sc">$</span>consumo)</span></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="conceptos-básicos-estadística.html#cb386-1" tabindex="-1"></a><span class="fu">cor</span>(europa<span class="sc">$</span>peso, europa<span class="sc">$</span>consumo)</span></code></pre></div>
 <pre><code>## [1] -0.5120112</code></pre>
 <p>La relación negativa existe en los tres grupos, pero es <strong>más débil</strong> en japoneses y europeos que en el total. Al mezclar grupos con pesos y consumos muy distintos, la correlación puede <strong>cambiar</strong>. Moraleja: antes de interpretar una correlación, <strong>mira el gráfico</strong> y piensa si hay grupos escondidos.</p>
 </div>
