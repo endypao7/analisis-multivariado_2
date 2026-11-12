@@ -1,0 +1,216 @@
+---
+pagetitle: "AFE en R"
+author: "Endy Paola Salon"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.align = "center", fig.width = 6, fig.height = 5)
+library(psych); library(GPArotation); library(corrplot)
+```
+
+# Análisis Factorial Exploratorio en RStudio
+
+## Introducción
+
+Este informe aplica el **Análisis Factorial Exploratorio (AFE)** a indicadores socioeconómicos y demográficos de los estados de Estados Unidos (Censo y FiveThirtyEight, 2016). La pregunta que guía el análisis es si las seis variables observadas, que se mueven juntas de formas complejas, pueden resumirse en **pocas dimensiones latentes**, es decir, factores que no se miden directamente pero que explican las correlaciones entre las variables.
+
+El análisis sigue la ruta de la sesión: se exploran los datos, se verifican los supuestos, se extraen los factores con dos métodos (**Ejes Principales** y **Mínimos Residuos**), se decide el número de factores, se rotan y se interpretan.
+
+Todo el trabajo se realiza con la función `fa()` del paquete `psych`. Sus argumentos principales son:
+
+- `r`: la matriz de correlaciones.
+- `nfactors`: el número de factores que se extraen.
+- `n.obs`: el número de observaciones, necesario para las pruebas de ajuste.
+- `fm`: el método de **extracción**, `"pa"` para ejes principales y `"minres"` para mínimos residuos.
+- `rotate`: la **rotación**, que puede ser `"none"`, `"varimax"` (factores independientes) u `"oblimin"` (factores correlacionados).
+
+Si falta algún paquete, se instala con `install.packages(c("psych", "GPArotation", "corrplot"))`.
+
+## Los datos
+
+La base se lee desde el repositorio público de datos; si no hay conexión a internet, la instrucción `tryCatch` usa el archivo `hate_crimes.csv`, que debe estar en la misma carpeta que este documento.
+
+```{r datos}
+url <- "https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/fivethirtyeight/hate_crimes.csv"
+d <- tryCatch(read.csv(url), error = function(e) read.csv("hate_crimes.csv"))
+```
+
+Se seleccionan seis variables y se les asigna una etiqueta corta, que facilita leer las tablas y los gráficos:
+
+| Etiqueta | Variable |
+|:--|:--|
+| ING | ingreso mediano del hogar (USD) |
+| POB | proporción de población blanca bajo la línea de pobreza |
+| EDU | proporción de adultos con bachillerato |
+| MET | proporción de población en áreas metropolitanas |
+| NOC | proporción de población no ciudadana |
+| NOB | proporción de población no blanca |
+
+```{r seleccion}
+vars <- c("median_house_inc", "share_white_poverty", "share_pop_hs",
+          "share_pop_metro", "share_non_citizen", "share_non_white")
+etq  <- c("ING", "POB", "EDU", "MET", "NOC", "NOB")
+
+Z <- na.omit(d[, c("state", vars)])
+X <- Z[, vars]
+colnames(X) <- etq
+n <- nrow(X)
+n
+```
+
+La función `na.omit()` elimina los estados con datos faltantes, y `colnames()` reemplaza los nombres originales por las etiquetas. Quedan **`r n` estados** para el análisis.
+
+## Exploración
+
+### Resumen numérico
+
+```{r resumen}
+summary(X)
+```
+
+El ingreso mediano promedio es de unos 55.750 dólares, con estados que van de 39.550 a 76.165. Las demás variables son proporciones: en promedio, el 9 % de la población blanca vive en pobreza, el 87 % de los adultos tiene bachillerato, el 77 % de la población vive en áreas metropolitanas, el 5,5 % no es ciudadana y el 32 % no es blanca. Como las variables están en **unidades muy distintas** (dólares y proporciones), el AFE se aplica sobre la **matriz de correlaciones**, que no depende de las unidades de medida.
+
+### Matriz de correlaciones
+
+La función `cor()` calcula la matriz de correlaciones y `corrplot()` la dibuja: azul para correlaciones positivas, rojo para negativas, y más intenso mientras más fuerte la relación.
+
+```{r corr, fig.width=6, fig.height=5.5}
+R <- cor(X)
+corrplot(R, method = "color", addCoef.col = "black", tl.col = "black",
+         col = colorRampPalette(c("#B2182B", "white", "#2166AC"))(200), cl.pos = "n")
+```
+
+La matriz muestra **dos bloques**. En el primero, ING, POB y EDU están relacionadas entre sí: el ingreso y la educación se mueven juntos (0,65) y ambos se asocian de forma negativa con la pobreza (−0,81 y −0,49). En el segundo, MET, NOC y NOB también están relacionadas entre sí: la proporción no ciudadana y la no blanca tienen una correlación de 0,73, y la población metropolitana se asocia con la no ciudadana (0,75). Entre los dos bloques las correlaciones son débiles o moderadas. Esta estructura sugiere que hay dos factores latentes, y el análisis factorial permite comprobarlo.
+
+## Supuestos
+
+El AFE busca factores comunes que expliquen las correlaciones, por lo que solo tiene sentido si las variables están suficientemente correlacionadas. Se verifica con dos pruebas.
+
+### Prueba de esfericidad de Bartlett
+
+La función `cortest.bartlett()` contrasta la hipótesis nula de que la matriz de correlaciones es la identidad, es decir, que las variables no están correlacionadas. Recibe la matriz `R` y el tamaño de muestra `n`.
+
+```{r bartlett}
+cortest.bartlett(R, n = n)
+```
+
+El estadístico es $\chi^2 = 188{,}67$ con 15 grados de libertad y un valor $p$ prácticamente cero. Se rechaza la hipótesis nula: las correlaciones son lo bastante fuertes para justificar un análisis factorial.
+
+### Índice KMO
+
+El índice de Kaiser-Meyer-Olkin compara las correlaciones entre variables con las correlaciones parciales. Si las variables comparten factores comunes, las correlaciones parciales son pequeñas y el KMO es alto.
+
+```{r kmo}
+KMO(R)
+```
+
+El KMO global (`Overall MSA`) es **0,70**, un nivel aceptable. Los valores por variable (`MSA for each item`) van de 0,61 (EDU) a 0,74 (POB y MET), todos por encima del mínimo recomendado de 0,5. Ninguna variable necesita eliminarse.
+
+## Extracción por Ejes Principales (PAF)
+
+La **extracción** estima las cargas de cada variable en cada factor. El método de **Ejes Principales** parte de una estimación inicial de las comunalidades (la proporción de varianza de cada variable que comparte con las demás), calcula las cargas, actualiza las comunalidades con esas cargas y repite el proceso hasta que dejan de cambiar.
+
+Se piden dos factores con `nfactors = 2`, el método `fm = "pa"` y `rotate = "none"`, para observar las cargas tal como salen de la extracción, antes de rotar. El número de factores se justifica más adelante, en la sección *Número de factores*.
+
+```{r paf}
+f_pa <- fa(R, nfactors = 2, n.obs = n, fm = "pa", rotate = "none")
+f_pa
+```
+
+**Cargas.** Las columnas `PA1` y `PA2` son las cargas de cada variable en los dos factores. En el primer factor cargan con signo positivo MET (0,71), NOC (0,85) y NOB (0,67), y con signo negativo POB (−0,71). En el segundo factor, EDU tiene la carga más alta (0,93), seguida de ING (0,69). Sin embargo, varias variables cargan de forma importante en **ambos** factores: ING (0,64 y 0,69), POB (−0,71 y −0,51) y las variables de población (MET, NOC y NOB tienen cargas de entre −0,34 y −0,42 en el segundo). Esto hace difícil darles un nombre a los factores, y es la razón por la que más adelante se rotan.
+
+**Comunalidades y unicidades.** La columna `h2` es la comunalidad: la proporción de la varianza de cada variable que explican los dos factores. ING (0,88), EDU (0,87) y NOC (0,85) quedan muy bien representadas. MET (0,61) y NOB (0,62) tienen las comunalidades más bajas, es decir, una parte importante de su varianza (`u2`, la unicidad, de 0,39 y 0,38) es propia de cada variable y no se explica por los factores comunes.
+
+**Varianza explicada.** Los dos factores explican en conjunto el **76,8 %** de la varianza total (43,2 % el primero y 33,6 % el segundo), según `Cumulative Var`.
+
+**Ajuste.** La raíz del residuo cuadrático medio (`RMSR`) es 0,02: las correlaciones que reproduce el modelo difieren de las observadas en apenas dos centésimas, un ajuste muy bueno (se considera adecuado por debajo de 0,05). La prueba de que dos factores son suficientes no se rechaza ($\chi^2 = 6{,}79$, $p = 0{,}15$), y el índice de Tucker-Lewis es 0,94. El RMSEA (0,12) es alto, pero con solo 48 estados y 4 grados de libertad esa medida es poco estable y se interpreta con cautela.
+
+## Extracción por MINRES
+
+El método de **Mínimos Residuos** plantea el problema de otra manera: busca directamente las cargas que hacen lo más pequeña posible la suma de los residuos al cuadrado, es decir, de las diferencias entre las correlaciones observadas y las que reproduce el modelo (sin contar la diagonal). La llamada a `fa()` es la misma, con `fm = "minres"`.
+
+```{r minres}
+f_mr <- fa(R, nfactors = 2, n.obs = n, fm = "minres", rotate = "none")
+f_mr
+```
+
+La salida se lee igual que la anterior; solo cambian los nombres de los factores (`MR1` y `MR2`). Para comparar los dos métodos se ponen las cargas y las comunalidades lado a lado. La función `cbind()` une las columnas, `unclass()` convierte la matriz de cargas en una matriz numérica simple y `round()` la redondea a tres decimales.
+
+```{r comparacion}
+round(cbind(PAF = unclass(f_pa$loadings), MINRES = unclass(f_mr$loadings)), 3)
+round(cbind(PAF = f_pa$communality, MINRES = f_mr$communality), 3)
+```
+
+Las cargas y las comunalidades de ambos métodos son **prácticamente idénticas**, y el `RMSR` de los dos es 0,023. Esto ocurre cuando la estructura es clara y las comunalidades son altas, como en este caso. Con pocas variables o comunalidades bajas los métodos pueden diferir. En esta base, elegir uno u otro no cambia las conclusiones.
+
+## Número de factores
+
+Hasta ahora se trabajó con dos factores. Para confirmar esa decisión se usa el **análisis paralelo**, con `fa.parallel()`. La función dibuja el gráfico de sedimentación de los datos reales y lo compara con el de datos aleatorios del mismo tamaño: un factor es relevante si explica más varianza que la que se esperaría por azar.
+
+```{r paralelo, results="hide"}
+fa.parallel(R, n.obs = n, fa = "fa")
+```
+
+El análisis sugiere **dos factores**: los dos primeros valores propios quedan por encima de la línea de datos aleatorios, y a partir del tercero la curva se aplana. Esta decisión coincide con la estructura de dos bloques que mostró la matriz de correlaciones y con la varianza explicada (76,8 %).
+
+## Rotaciones
+
+Las cargas sin rotar son difíciles de interpretar porque muchas variables cargan en los dos factores. La **rotación** gira los ejes de los factores para que cada variable quede asociada principalmente a uno solo. La rotación no cambia el ajuste del modelo ni las comunalidades: solo cambia la forma de repartir la varianza entre los factores.
+
+### Varimax
+
+Varimax es una rotación **ortogonal**: los factores rotados siguen siendo independientes entre sí. Se pide con `rotate = "varimax"`. En `print()`, el argumento `cutoff = 0.3` oculta las cargas menores que 0,3 en valor absoluto, para que se vea con claridad a qué factor pertenece cada variable.
+
+```{r varimax}
+f_var <- fa(R, nfactors = 2, n.obs = n, fm = "minres", rotate = "varimax")
+print(f_var$loadings, cutoff = 0.3)
+```
+
+Ahora la estructura es clara. El primer factor (`MR1`) agrupa a **NOC (0,91), NOB (0,79) y MET (0,78)**: estados con mucha población metropolitana, no ciudadana y no blanca. El segundo factor (`MR2`) agrupa a **ING (0,92), POB (−0,81) y EDU (0,80)**: estados con ingresos y educación altos y poca pobreza. EDU conserva una carga moderada en el primer factor (−0,48), lo que la convierte en una variable algo compleja.
+
+Se verifica que la rotación no cambió las comunalidades:
+
+```{r conserva}
+round(cbind(sin_rotar = f_mr$communality, varimax = f_var$communality), 3)
+```
+
+Las dos columnas son iguales. Lo que sí cambió es el reparto de la varianza: antes los factores explicaban 2,59 y 2,02 unidades (de 6), y ahora 2,43 y 2,18; el total, 4,61 (76,8 %), es el mismo.
+
+### Oblimin
+
+Varimax obliga a que los factores sean independientes, pero en la práctica las dimensiones de un fenómeno suelen estar relacionadas. La rotación **oblicua** `oblimin` permite que los factores se correlacionen.
+
+```{r oblimin}
+f_obl <- fa(R, nfactors = 2, n.obs = n, fm = "minres", rotate = "oblimin")
+round(f_obl$Phi, 3)
+```
+
+`Phi` es la matriz de correlaciones entre los factores. La correlación entre ellos es solo **0,063**, es decir, casi nula (los ejes forman un ángulo de unos 86°, muy cerca de los 90° de una rotación ortogonal). Con oblimin se obtienen dos matrices: el **patrón** (efecto propio de cada factor sobre la variable) y la **estructura** (correlación total entre la variable y el factor).
+
+```{r patron}
+round(unclass(f_obl$loadings), 3)
+round(unclass(f_obl$Structure), 3)
+```
+
+Como los factores casi no están correlacionados, las dos matrices son **muy parecidas** entre sí y también a la solución varimax. Es una buena noticia para la interpretación: en este ejemplo no hay que elegir entre rotaciones, porque ambas llevan a la misma lectura. El diagrama resume la solución:
+
+```{r diagrama, fig.width=7, fig.height=5}
+fa.diagram(f_obl)
+```
+
+Las flechas van de los factores a las variables y se acompañan de las cargas. Se muestran solo las cargas relevantes, y la línea entre los factores (si aparece) indica su correlación.
+
+## Conclusiones
+
+El análisis factorial identifica **dos dimensiones latentes** que explican el 76,8 % de la varianza de los seis indicadores:
+
+- **Urbanización y diversidad demográfica** (MET, NOC y NOB): distingue a los estados muy urbanos y diversos de los más rurales y homogéneos.
+- **Bienestar socioeconómico** (ING, EDU y POB con signo negativo): distingue a los estados con ingresos y educación altos y poca pobreza.
+
+Las dos dimensiones son prácticamente independientes ($\phi_{12} = 0{,}06$), por lo que varimax y oblimin llevan a la misma interpretación. Los dos métodos de extracción dan resultados idénticos. Las variables con mayor varianza propia son MET y NOB (unicidad cercana a 0,38), y EDU es la única variable con cargas apreciables en ambos factores.

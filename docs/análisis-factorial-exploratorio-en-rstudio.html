@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Lección 7 Análisis Factorial Exploratorio en RStudio | AFE en R</title>
+  <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Lección 7 Análisis Factorial Exploratorio en RStudio | AFE en R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lección 7 Análisis Factorial Exploratorio en RStudio | AFE en R" />
+  
+  <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  
+
+<meta name="author" content="Endy Paola Salon" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-de-componentes-principales.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Multivariado</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instalación-y-configuración-de-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalación y Configuración de R-STUDIO</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#rstudio-en-tu-equipo-escritorio"><i class="fa fa-check"></i><b>1.1.1</b> Rstudio en tu equipo (escritorio)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#primeros-pasos"><i class="fa fa-check"></i><b>1.2</b> Primeros pasos</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#creación-de-reportes-en-r-con-r-markdown"><i class="fa fa-check"></i><b>1.2.1</b> Creación de reportes en R con R Markdown:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#conceptos-básicos-de-programación-en-r"><i class="fa fa-check"></i><b>1.3</b> Conceptos básicos de programación en R:</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#tipos-de-variables-en-r"><i class="fa fa-check"></i><b>1.3.1</b> Tipos de variables en R:</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#estructuras-de-datos-en-r"><i class="fa fa-check"></i><b>1.3.2</b> Estructuras de Datos en R:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html"><i class="fa fa-check"></i><b>2</b> Bases de datos en R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#dataframes-bases-de-datos"><i class="fa fa-check"></i><b>2.1</b> Dataframes (bases de datos)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#creación-de-dataframes"><i class="fa fa-check"></i><b>2.1.1</b> Creación de Dataframes</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#importar-un-dataframe-desde-un-archivo-csv"><i class="fa fa-check"></i><b>2.1.2</b> Importar un Dataframe desde un archivo CSV</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#pre-procesamiento-de-una-base-de-datos-preinstalada-en-r"><i class="fa fa-check"></i><b>2.2</b> Pre procesamiento de una Base de Datos Preinstalada en R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html"><i class="fa fa-check"></i><b>3</b> Álgebra: Repaso</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#vectores"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-vectores"><i class="fa fa-check"></i><b>3.1.1</b> Crear vectores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-y-resta"><i class="fa fa-check"></i><b>3.1.2</b> Suma y resta</a></li>
+<li class="chapter" data-level="3.1.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-por-un-escalar"><i class="fa fa-check"></i><b>3.1.3</b> Multiplicar por un escalar</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#combinaciones-lineales"><i class="fa fa-check"></i><b>3.2</b> Combinaciones lineales</a></li>
+<li class="chapter" data-level="3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices"><i class="fa fa-check"></i><b>3.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-una-matriz"><i class="fa fa-check"></i><b>3.3.1</b> Crear una matriz</a></li>
+<li class="chapter" data-level="3.3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-resta-y-escalar"><i class="fa fa-check"></i><b>3.3.2</b> Suma, resta y escalar</a></li>
+<li class="chapter" data-level="3.3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#transpuesta"><i class="fa fa-check"></i><b>3.3.3</b> Transpuesta</a></li>
+<li class="chapter" data-level="3.3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Multiplicar matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matriz-por-vector"><i class="fa fa-check"></i><b>3.3.5</b> Matriz por vector</a></li>
+<li class="chapter" data-level="3.3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#la-matriz-identidad"><i class="fa fa-check"></i><b>3.3.6</b> La matriz identidad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#determinante"><i class="fa fa-check"></i><b>3.4</b> Determinante</a></li>
+<li class="chapter" data-level="3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#inversa"><i class="fa fa-check"></i><b>3.5</b> Inversa</a></li>
+<li class="chapter" data-level="3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto-y-norma"><i class="fa fa-check"></i><b>3.6</b> Producto punto y norma</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto"><i class="fa fa-check"></i><b>3.6.1</b> Producto punto</a></li>
+<li class="chapter" data-level="3.6.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#norma-largo-de-un-vector"><i class="fa fa-check"></i><b>3.6.2</b> Norma (largo de un vector)</a></li>
+<li class="chapter" data-level="3.6.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#distancia-entre-dos-puntos"><i class="fa fa-check"></i><b>3.6.3</b> Distancia entre dos puntos</a></li>
+<li class="chapter" data-level="3.6.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ángulo-entre-dos-vectores"><i class="fa fa-check"></i><b>3.6.4</b> Ángulo entre dos vectores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ortogonalidad"><i class="fa fa-check"></i><b>3.7</b> Ortogonalidad</a></li>
+<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a></li>
+<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#valores-y-vectores-propios"><i class="fa fa-check"></i><b>3.9</b> Valores y vectores propios</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.9.1</b> Comprobar la definición</a></li>
+<li class="chapter" data-level="3.9.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.9.2</b> Dos atajos útiles</a></li>
+<li class="chapter" data-level="3.9.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.9.3</b> Matrices simétricas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.10</b> Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html"><i class="fa fa-check"></i><b>4</b> Conceptos básicos: Estadística</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#los-datos-consumo-de-combustible-de-automóviles"><i class="fa fa-check"></i><b>4.1</b> Los datos: consumo de combustible de automóviles</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#traer-la-base-desde-internet"><i class="fa fa-check"></i><b>4.1.1</b> Traer la base desde internet</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#estructura-de-la-base-de-datos"><i class="fa fa-check"></i><b>4.2</b> Estructura de la base de datos</a></li>
+<li class="chapter" data-level="4.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#tipos-de-variables"><i class="fa fa-check"></i><b>4.3</b> Tipos de variables</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cualitativas"><i class="fa fa-check"></i><b>4.3.1</b> Variables cualitativas</a></li>
+<li class="chapter" data-level="4.3.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cuantitativas"><i class="fa fa-check"></i><b>4.3.2</b> Variables cuantitativas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#datos-faltantes"><i class="fa fa-check"></i><b>4.4</b> Datos faltantes</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#qué-pasa-si-ignoramos-los-na"><i class="fa fa-check"></i><b>4.4.1</b> Qué pasa si ignoramos los <code>NA</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#eliminar-los-individuos-con-faltantes"><i class="fa fa-check"></i><b>4.4.2</b> Eliminar los individuos con faltantes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#valores-atípicos-outliers"><i class="fa fa-check"></i><b>4.5</b> Valores atípicos (outliers)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuánto-afectan-al-resumen"><i class="fa fa-check"></i><b>4.5.1</b> Cuánto afectan al resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-univariado-una-variable"><i class="fa fa-check"></i><b>4.6</b> Análisis univariado: una variable</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#media"><i class="fa fa-check"></i><b>4.6.1</b> Media</a></li>
+<li class="chapter" data-level="4.6.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mediana"><i class="fa fa-check"></i><b>4.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="4.6.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#varianza"><i class="fa fa-check"></i><b>4.6.3</b> Varianza</a></li>
+<li class="chapter" data-level="4.6.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#desviación-estándar"><i class="fa fa-check"></i><b>4.6.4</b> Desviación estándar</a></li>
+<li class="chapter" data-level="4.6.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#coeficiente-de-variación"><i class="fa fa-check"></i><b>4.6.5</b> Coeficiente de variación</a></li>
+<li class="chapter" data-level="4.6.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#todas-las-variables-numéricas-a-la-vez"><i class="fa fa-check"></i><b>4.6.6</b> Todas las variables numéricas a la vez</a></li>
+<li class="chapter" data-level="4.6.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#gráficos-de-una-variable"><i class="fa fa-check"></i><b>4.6.7</b> Gráficos de una variable</a></li>
+<li class="chapter" data-level="4.6.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#comparar-por-grupos"><i class="fa fa-check"></i><b>4.6.8</b> Comparar por grupos</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-bivariado-dos-variables-juntas"><i class="fa fa-check"></i><b>4.7</b> Análisis bivariado: dos variables juntas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#diagrama-de-dispersión"><i class="fa fa-check"></i><b>4.7.1</b> Diagrama de dispersión</a></li>
+<li class="chapter" data-level="4.7.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#covarianza"><i class="fa fa-check"></i><b>4.7.2</b> Covarianza</a></li>
+<li class="chapter" data-level="4.7.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#correlación"><i class="fa fa-check"></i><b>4.7.3</b> Correlación</a></li>
+<li class="chapter" data-level="4.7.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ejemplos-para-revisar-la-correlación"><i class="fa fa-check"></i><b>4.7.4</b> Ejemplos para revisar la correlación</a></li>
+<li class="chapter" data-level="4.7.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-correlación-no-es-causalidad"><i class="fa fa-check"></i><b>4.7.5</b> Cuidado: correlación no es causalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#matriz-de-correlación"><i class="fa fa-check"></i><b>4.8</b> Matriz de correlación</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mapa-de-calor-de-la-matriz-de-correlación"><i class="fa fa-check"></i><b>4.8.1</b> Mapa de calor de la matriz de correlación</a></li>
+<li class="chapter" data-level="4.8.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ver-todas-las-relaciones-a-la-vez"><i class="fa fa-check"></i><b>4.8.2</b> Ver todas las relaciones a la vez</a></li>
+<li class="chapter" data-level="4.8.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#la-matriz-de-covarianzas"><i class="fa fa-check"></i><b>4.8.3</b> La matriz de covarianzas</a></li>
+<li class="chapter" data-level="4.8.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-con-los-grupos-mezclados"><i class="fa fa-check"></i><b>4.8.4</b> Cuidado con los grupos mezclados</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#resumen-de-funciones"><i class="fa fa-check"></i><b>4.9</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html"><i class="fa fa-check"></i><b>5</b> Distribuciones de probabilidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#variable-aleatoria-y-distribución-binomial"><i class="fa fa-check"></i><b>5.1</b> Variable aleatoria y distribución binomial</a></li>
+<li class="chapter" data-level="5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal"><i class="fa fa-check"></i><b>5.2</b> Distribución normal</a></li>
+<li class="chapter" data-level="5.3" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#dos-variables-conjunta-marginales-y-covarianza"><i class="fa fa-check"></i><b>5.3</b> Dos variables: conjunta, marginales y covarianza</a></li>
+<li class="chapter" data-level="5.4" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#vector-aleatorio-y-matriz-de-covarianzas"><i class="fa fa-check"></i><b>5.4</b> Vector aleatorio y matriz de covarianzas</a></li>
+<li class="chapter" data-level="5.5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal-multivariada"><i class="fa fa-check"></i><b>5.5</b> Distribución normal multivariada</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#la-densidad-y-el-efecto-de-la-correlación"><i class="fa fa-check"></i><b>5.5.1</b> La densidad y el efecto de la correlación</a></li>
+<li class="chapter" data-level="5.5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#propiedades"><i class="fa fa-check"></i><b>5.5.2</b> Propiedades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distancia-de-mahalanobis-y-normalidad-multivariada"><i class="fa fa-check"></i><b>5.6</b> Distancia de Mahalanobis y normalidad multivariada</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#con-datos-reales"><i class="fa fa-check"></i><b>5.6.1</b> Con datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#resumen-de-funciones-1"><i class="fa fa-check"></i><b>5.7</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>6</b> Análisis de componentes principales</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#notación"><i class="fa fa-check"></i><b>6.0.1</b> Notación</a></li>
+<li class="chapter" data-level="6.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-a.-ejemplo-manual"><i class="fa fa-check"></i><b>6.1</b> Parte A. Ejemplo manual</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos"><i class="fa fa-check"></i><b>6.1.1</b> Datos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-1.-centrado-y-estandarización"><i class="fa fa-check"></i><b>6.1.2</b> Paso 1. Centrado y estandarización</a></li>
+<li class="chapter" data-level="6.1.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-2.-matrices-de-covarianzas-y-de-correlaciones"><i class="fa fa-check"></i><b>6.1.3</b> Paso 2. Matrices de covarianzas y de correlaciones</a></li>
+<li class="chapter" data-level="6.1.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-3.-eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>6.1.4</b> Paso 3. Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="6.1.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-4.-varianza-explicada"><i class="fa fa-check"></i><b>6.1.5</b> Paso 4. Varianza explicada</a></li>
+<li class="chapter" data-level="6.1.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-5.-scores"><i class="fa fa-check"></i><b>6.1.6</b> Paso 5. Scores</a></li>
+<li class="chapter" data-level="6.1.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#loadings-y-correlación-con-las-variables"><i class="fa fa-check"></i><b>6.1.7</b> Loadings y correlación con las variables</a></li>
+<li class="chapter" data-level="6.1.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#comprobación-con-prcomp"><i class="fa fa-check"></i><b>6.1.8</b> Comprobación con <code>prcomp()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-b.-aplicación-con-datos-reales"><i class="fa fa-check"></i><b>6.2</b> Parte B. Aplicación con datos reales</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos-1"><i class="fa fa-check"></i><b>6.2.1</b> Datos</a></li>
+<li class="chapter" data-level="6.2.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-univariada"><i class="fa fa-check"></i><b>6.2.2</b> Exploración univariada</a></li>
+<li class="chapter" data-level="6.2.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-bivariada"><i class="fa fa-check"></i><b>6.2.3</b> Exploración bivariada</a></li>
+<li class="chapter" data-level="6.2.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#verificación-de-supuestos"><i class="fa fa-check"></i><b>6.2.4</b> Verificación de supuestos</a></li>
+<li class="chapter" data-level="6.2.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#cálculo-de-componentes"><i class="fa fa-check"></i><b>6.2.5</b> Cálculo de componentes</a></li>
+<li class="chapter" data-level="6.2.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#selección-del-número-de-componentes"><i class="fa fa-check"></i><b>6.2.6</b> Selección del número de componentes</a></li>
+<li class="chapter" data-level="6.2.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#interpretación-de-loadings"><i class="fa fa-check"></i><b>6.2.7</b> Interpretación de loadings</a></li>
+<li class="chapter" data-level="6.2.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#scores-y-gráficos-de-observaciones"><i class="fa fa-check"></i><b>6.2.8</b> Scores y gráficos de observaciones</a></li>
+<li class="chapter" data-level="6.2.9" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#atípicos-en-el-espacio-de-componentes"><i class="fa fa-check"></i><b>6.2.9</b> Atípicos en el espacio de componentes</a></li>
+<li class="chapter" data-level="6.2.10" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#uso-posterior-de-los-componentes"><i class="fa fa-check"></i><b>6.2.10</b> Uso posterior de los componentes</a></li>
+<li class="chapter" data-level="6.2.11" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#resumen-del-análisis"><i class="fa fa-check"></i><b>6.2.11</b> Resumen del análisis</a></li>
+<li class="chapter" data-level="6.2.12" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#lista-de-verificación"><i class="fa fa-check"></i><b>6.2.12</b> Lista de verificación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html"><i class="fa fa-check"></i><b>7</b> Análisis Factorial Exploratorio en RStudio</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#introducción"><i class="fa fa-check"></i><b>7.1</b> Introducción</a></li>
+<li class="chapter" data-level="7.2" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#los-datos"><i class="fa fa-check"></i><b>7.2</b> Los datos</a></li>
+<li class="chapter" data-level="7.3" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#exploración"><i class="fa fa-check"></i><b>7.3</b> Exploración</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#resumen-numérico"><i class="fa fa-check"></i><b>7.3.1</b> Resumen numérico</a></li>
+<li class="chapter" data-level="7.3.2" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#matriz-de-correlaciones"><i class="fa fa-check"></i><b>7.3.2</b> Matriz de correlaciones</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#supuestos"><i class="fa fa-check"></i><b>7.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#prueba-de-esfericidad-de-bartlett"><i class="fa fa-check"></i><b>7.4.1</b> Prueba de esfericidad de Bartlett</a></li>
+<li class="chapter" data-level="7.4.2" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#índice-kmo"><i class="fa fa-check"></i><b>7.4.2</b> Índice KMO</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#extracción-por-ejes-principales-paf"><i class="fa fa-check"></i><b>7.5</b> Extracción por Ejes Principales (PAF)</a></li>
+<li class="chapter" data-level="7.6" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#extracción-por-minres"><i class="fa fa-check"></i><b>7.6</b> Extracción por MINRES</a></li>
+<li class="chapter" data-level="7.7" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#número-de-factores"><i class="fa fa-check"></i><b>7.7</b> Número de factores</a></li>
+<li class="chapter" data-level="7.8" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#rotaciones"><i class="fa fa-check"></i><b>7.8</b> Rotaciones</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#varimax"><i class="fa fa-check"></i><b>7.8.1</b> Varimax</a></li>
+<li class="chapter" data-level="7.8.2" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#oblimin"><i class="fa fa-check"></i><b>7.8.2</b> Oblimin</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="análisis-factorial-exploratorio-en-rstudio.html"><a href="análisis-factorial-exploratorio-en-rstudio.html#conclusiones"><i class="fa fa-check"></i><b>7.9</b> Conclusiones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">
+  Published with bookdown
+</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Multivariado en Rstudio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-factorial-exploratorio-en-rstudio" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Lección 7</span> Análisis Factorial Exploratorio en RStudio<a href="análisis-factorial-exploratorio-en-rstudio.html#análisis-factorial-exploratorio-en-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introducción" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Introducción<a href="análisis-factorial-exploratorio-en-rstudio.html#introducción" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este informe aplica el <strong>Análisis Factorial Exploratorio (AFE)</strong> a indicadores socioeconómicos y demográficos de los estados de Estados Unidos (Censo y FiveThirtyEight, 2016). La pregunta que guía el análisis es si las seis variables observadas, que se mueven juntas de formas complejas, pueden resumirse en <strong>pocas dimensiones latentes</strong>, es decir, factores que no se miden directamente pero que explican las correlaciones entre las variables.</p>
+<p>El análisis sigue la ruta de la sesión: se exploran los datos, se verifican los supuestos, se extraen los factores con dos métodos (<strong>Ejes Principales</strong> y <strong>Mínimos Residuos</strong>), se decide el número de factores, se rotan y se interpretan.</p>
+<p>Todo el trabajo se realiza con la función <code>fa()</code> del paquete <code>psych</code>. Sus argumentos principales son:</p>
+<ul>
+<li><code>r</code>: la matriz de correlaciones.</li>
+<li><code>nfactors</code>: el número de factores que se extraen.</li>
+<li><code>n.obs</code>: el número de observaciones, necesario para las pruebas de ajuste.</li>
+<li><code>fm</code>: el método de <strong>extracción</strong>, <code>"pa"</code> para ejes principales y <code>"minres"</code> para mínimos residuos.</li>
+<li><code>rotate</code>: la <strong>rotación</strong>, que puede ser <code>"none"</code>, <code>"varimax"</code> (factores independientes) u <code>"oblimin"</code> (factores correlacionados).</li>
+</ul>
+<p>Si falta algún paquete, se instala con <code>install.packages(c("psych", "GPArotation", "corrplot"))</code>.</p>
+</div>
+<div id="los-datos" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Los datos<a href="análisis-factorial-exploratorio-en-rstudio.html#los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La base se lee desde el repositorio público de datos; si no hay conexión a internet, la instrucción <code>tryCatch</code> usa el archivo <code>hate_crimes.csv</code>, que debe estar en la misma carpeta que este documento.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb1-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/fivethirtyeight/hate_crimes.csv&quot;</span></span>
+<span id="cb1-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb1-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(<span class="fu">read.csv</span>(url), <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">read.csv</span>(<span class="st">&quot;hate_crimes.csv&quot;</span>))</span></code></pre></div>
+<p>Se seleccionan seis variables y se les asigna una etiqueta corta, que facilita leer las tablas y los gráficos:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Etiqueta</th>
+<th align="left">Variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ING</td>
+<td align="left">ingreso mediano del hogar (USD)</td>
+</tr>
+<tr class="even">
+<td align="left">POB</td>
+<td align="left">proporción de población blanca bajo la línea de pobreza</td>
+</tr>
+<tr class="odd">
+<td align="left">EDU</td>
+<td align="left">proporción de adultos con bachillerato</td>
+</tr>
+<tr class="even">
+<td align="left">MET</td>
+<td align="left">proporción de población en áreas metropolitanas</td>
+</tr>
+<tr class="odd">
+<td align="left">NOC</td>
+<td align="left">proporción de población no ciudadana</td>
+</tr>
+<tr class="even">
+<td align="left">NOB</td>
+<td align="left">proporción de población no blanca</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-1" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;median_house_inc&quot;</span>, <span class="st">&quot;share_white_poverty&quot;</span>, <span class="st">&quot;share_pop_hs&quot;</span>,</span>
+<span id="cb2-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-2" tabindex="-1"></a>          <span class="st">&quot;share_pop_metro&quot;</span>, <span class="st">&quot;share_non_citizen&quot;</span>, <span class="st">&quot;share_non_white&quot;</span>)</span>
+<span id="cb2-3"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-3" tabindex="-1"></a>etq  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ING&quot;</span>, <span class="st">&quot;POB&quot;</span>, <span class="st">&quot;EDU&quot;</span>, <span class="st">&quot;MET&quot;</span>, <span class="st">&quot;NOC&quot;</span>, <span class="st">&quot;NOB&quot;</span>)</span>
+<span id="cb2-4"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-5" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(d[, <span class="fu">c</span>(<span class="st">&quot;state&quot;</span>, vars)])</span>
+<span id="cb2-6"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> Z[, vars]</span>
+<span id="cb2-7"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-7" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> etq</span>
+<span id="cb2-8"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-8" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb2-9"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-9" tabindex="-1"></a>n</span></code></pre></div>
+<pre><code>## [1] 48</code></pre>
+<p>La función <code>na.omit()</code> elimina los estados con datos faltantes, y <code>colnames()</code> reemplaza los nombres originales por las etiquetas. Quedan <strong>48 estados</strong> para el análisis.</p>
+</div>
+<div id="exploración" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Exploración<a href="análisis-factorial-exploratorio-en-rstudio.html#exploración" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="resumen-numérico" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Resumen numérico<a href="análisis-factorial-exploratorio-en-rstudio.html#resumen-numérico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb4-1" tabindex="-1"></a><span class="fu">summary</span>(X)</span></code></pre></div>
+<pre><code>##       ING             POB               EDU              MET        
+##  Min.   :39552   Min.   :0.04000   Min.   :0.7990   Min.   :0.3100  
+##  1st Qu.:48956   1st Qu.:0.07000   1st Qu.:0.8413   1st Qu.:0.6400  
+##  Median :55432   Median :0.09000   Median :0.8740   Median :0.7950  
+##  Mean   :55753   Mean   :0.09042   Mean   :0.8692   Mean   :0.7658  
+##  3rd Qu.:60783   3rd Qu.:0.10000   3rd Qu.:0.8972   3rd Qu.:0.9000  
+##  Max.   :76165   Max.   :0.17000   Max.   :0.9180   Max.   :1.0000  
+##       NOC               NOB        
+##  Min.   :0.01000   Min.   :0.0600  
+##  1st Qu.:0.03000   1st Qu.:0.2000  
+##  Median :0.04500   Median :0.2900  
+##  Mean   :0.05458   Mean   :0.3208  
+##  3rd Qu.:0.08000   3rd Qu.:0.4200  
+##  Max.   :0.13000   Max.   :0.8100</code></pre>
+<p>El ingreso mediano promedio es de unos 55.750 dólares, con estados que van de 39.550 a 76.165. Las demás variables son proporciones: en promedio, el 9 % de la población blanca vive en pobreza, el 87 % de los adultos tiene bachillerato, el 77 % de la población vive en áreas metropolitanas, el 5,5 % no es ciudadana y el 32 % no es blanca. Como las variables están en <strong>unidades muy distintas</strong> (dólares y proporciones), el AFE se aplica sobre la <strong>matriz de correlaciones</strong>, que no depende de las unidades de medida.</p>
+</div>
+<div id="matriz-de-correlaciones" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Matriz de correlaciones<a href="análisis-factorial-exploratorio-en-rstudio.html#matriz-de-correlaciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>cor()</code> calcula la matriz de correlaciones y <code>corrplot()</code> la dibuja: azul para correlaciones positivas, rojo para negativas, y más intenso mientras más fuerte la relación.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb6-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(X)</span>
+<span id="cb6-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb6-2" tabindex="-1"></a><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb6-3"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb6-3" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;#B2182B&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;#2166AC&quot;</span>))(<span class="dv">200</span>), <span class="at">cl.pos =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/corr-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<p>La matriz muestra <strong>dos bloques</strong>. En el primero, ING, POB y EDU están relacionadas entre sí: el ingreso y la educación se mueven juntos (0,65) y ambos se asocian de forma negativa con la pobreza (−0,81 y −0,49). En el segundo, MET, NOC y NOB también están relacionadas entre sí: la proporción no ciudadana y la no blanca tienen una correlación de 0,73, y la población metropolitana se asocia con la no ciudadana (0,75). Entre los dos bloques las correlaciones son débiles o moderadas. Esta estructura sugiere que hay dos factores latentes, y el análisis factorial permite comprobarlo.</p>
+</div>
+</div>
+<div id="supuestos" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Supuestos<a href="análisis-factorial-exploratorio-en-rstudio.html#supuestos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El AFE busca factores comunes que expliquen las correlaciones, por lo que solo tiene sentido si las variables están suficientemente correlacionadas. Se verifica con dos pruebas.</p>
+<div id="prueba-de-esfericidad-de-bartlett" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Prueba de esfericidad de Bartlett<a href="análisis-factorial-exploratorio-en-rstudio.html#prueba-de-esfericidad-de-bartlett" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>cortest.bartlett()</code> contrasta la hipótesis nula de que la matriz de correlaciones es la identidad, es decir, que las variables no están correlacionadas. Recibe la matriz <code>R</code> y el tamaño de muestra <code>n</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb7-1" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(R, <span class="at">n =</span> n)</span></code></pre></div>
+<pre><code>## $chisq
+## [1] 188.6731
+## 
+## $p.value
+## [1] 4.20818e-32
+## 
+## $df
+## [1] 15</code></pre>
+<p>El estadístico es <span class="math inline">\(\chi^2 = 188{,}67\)</span> con 15 grados de libertad y un valor <span class="math inline">\(p\)</span> prácticamente cero. Se rechaza la hipótesis nula: las correlaciones son lo bastante fuertes para justificar un análisis factorial.</p>
+</div>
+<div id="índice-kmo" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Índice KMO<a href="análisis-factorial-exploratorio-en-rstudio.html#índice-kmo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El índice de Kaiser-Meyer-Olkin compara las correlaciones entre variables con las correlaciones parciales. Si las variables comparten factores comunes, las correlaciones parciales son pequeñas y el KMO es alto.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb9-1" tabindex="-1"></a><span class="fu">KMO</span>(R)</span></code></pre></div>
+<pre><code>## Kaiser-Meyer-Olkin factor adequacy
+## Call: KMO(r = R)
+## Overall MSA =  0.7
+## MSA for each item = 
+##  ING  POB  EDU  MET  NOC  NOB 
+## 0.66 0.74 0.61 0.74 0.72 0.71</code></pre>
+<p>El KMO global (<code>Overall MSA</code>) es <strong>0,70</strong>, un nivel aceptable. Los valores por variable (<code>MSA for each item</code>) van de 0,61 (EDU) a 0,74 (POB y MET), todos por encima del mínimo recomendado de 0,5. Ninguna variable necesita eliminarse.</p>
+</div>
+</div>
+<div id="extracción-por-ejes-principales-paf" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Extracción por Ejes Principales (PAF)<a href="análisis-factorial-exploratorio-en-rstudio.html#extracción-por-ejes-principales-paf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La <strong>extracción</strong> estima las cargas de cada variable en cada factor. El método de <strong>Ejes Principales</strong> parte de una estimación inicial de las comunalidades (la proporción de varianza de cada variable que comparte con las demás), calcula las cargas, actualiza las comunalidades con esas cargas y repite el proceso hasta que dejan de cambiar.</p>
+<p>Se piden dos factores con <code>nfactors = 2</code>, el método <code>fm = "pa"</code> y <code>rotate = "none"</code>, para observar las cargas tal como salen de la extracción, antes de rotar. El número de factores se justifica más adelante, en la sección <em>Número de factores</em>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb11-1" tabindex="-1"></a>f_pa <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;pa&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb11-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb11-2" tabindex="-1"></a>f_pa</span></code></pre></div>
+<pre><code>## Factor Analysis using method =  pa
+## Call: fa(r = R, nfactors = 2, n.obs = n, rotate = &quot;none&quot;, fm = &quot;pa&quot;)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##       PA1   PA2   h2   u2 com
+## ING  0.64  0.69 0.88 0.12 2.0
+## POB -0.71 -0.51 0.77 0.23 1.8
+## EDU  0.02  0.93 0.87 0.13 1.0
+## MET  0.71 -0.34 0.61 0.39 1.4
+## NOC  0.85 -0.35 0.85 0.15 1.3
+## NOB  0.67 -0.42 0.62 0.38 1.7
+## 
+##                        PA1  PA2
+## SS loadings           2.59 2.01
+## Proportion Var        0.43 0.34
+## Cumulative Var        0.43 0.77
+## Proportion Explained  0.56 0.44
+## Cumulative Proportion 0.56 1.00
+## 
+## Mean item complexity =  1.5
+## Test of the hypothesis that 2 factors are sufficient.
+## 
+## df null model =  15  with the objective function =  4.27 with Chi Square =  188.67
+## df of  the model are 4  and the objective function was  0.16 
+## 
+## The root mean square of the residuals (RMSR) is  0.02 
+## The df corrected root mean square of the residuals is  0.05 
+## 
+## The harmonic n.obs is  48 with the empirical chi square  0.78  with prob &lt;  0.94 
+## The total n.obs was  48  with Likelihood Chi Square =  6.79  with prob &lt;  0.15 
+## 
+## Tucker Lewis Index of factoring reliability =  0.938
+## RMSEA index =  0.119  and the 90 % confidence intervals are  0 0.275
+## BIC =  -8.7
+## Fit based upon off diagonal values = 1
+## Measures of factor score adequacy             
+##                                                    PA1  PA2
+## Correlation of (regression) scores with factors   0.96 0.97
+## Multiple R square of scores with factors          0.93 0.93
+## Minimum correlation of possible factor scores     0.86 0.87</code></pre>
+<p><strong>Cargas.</strong> Las columnas <code>PA1</code> y <code>PA2</code> son las cargas de cada variable en los dos factores. En el primer factor cargan con signo positivo MET (0,71), NOC (0,85) y NOB (0,67), y con signo negativo POB (−0,71). En el segundo factor, EDU tiene la carga más alta (0,93), seguida de ING (0,69). Sin embargo, varias variables cargan de forma importante en <strong>ambos</strong> factores: ING (0,64 y 0,69), POB (−0,71 y −0,51) y las variables de población (MET, NOC y NOB tienen cargas de entre −0,34 y −0,42 en el segundo). Esto hace difícil darles un nombre a los factores, y es la razón por la que más adelante se rotan.</p>
+<p><strong>Comunalidades y unicidades.</strong> La columna <code>h2</code> es la comunalidad: la proporción de la varianza de cada variable que explican los dos factores. ING (0,88), EDU (0,87) y NOC (0,85) quedan muy bien representadas. MET (0,61) y NOB (0,62) tienen las comunalidades más bajas, es decir, una parte importante de su varianza (<code>u2</code>, la unicidad, de 0,39 y 0,38) es propia de cada variable y no se explica por los factores comunes.</p>
+<p><strong>Varianza explicada.</strong> Los dos factores explican en conjunto el <strong>76,8 %</strong> de la varianza total (43,2 % el primero y 33,6 % el segundo), según <code>Cumulative Var</code>.</p>
+<p><strong>Ajuste.</strong> La raíz del residuo cuadrático medio (<code>RMSR</code>) es 0,02: las correlaciones que reproduce el modelo difieren de las observadas en apenas dos centésimas, un ajuste muy bueno (se considera adecuado por debajo de 0,05). La prueba de que dos factores son suficientes no se rechaza (<span class="math inline">\(\chi^2 = 6{,}79\)</span>, <span class="math inline">\(p = 0{,}15\)</span>), y el índice de Tucker-Lewis es 0,94. El RMSEA (0,12) es alto, pero con solo 48 estados y 4 grados de libertad esa medida es poco estable y se interpreta con cautela.</p>
+</div>
+<div id="extracción-por-minres" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Extracción por MINRES<a href="análisis-factorial-exploratorio-en-rstudio.html#extracción-por-minres" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El método de <strong>Mínimos Residuos</strong> plantea el problema de otra manera: busca directamente las cargas que hacen lo más pequeña posible la suma de los residuos al cuadrado, es decir, de las diferencias entre las correlaciones observadas y las que reproduce el modelo (sin contar la diagonal). La llamada a <code>fa()</code> es la misma, con <code>fm = "minres"</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb13-1" tabindex="-1"></a>f_mr <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb13-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb13-2" tabindex="-1"></a>f_mr</span></code></pre></div>
+<pre><code>## Factor Analysis using method =  minres
+## Call: fa(r = R, nfactors = 2, n.obs = n, rotate = &quot;none&quot;, fm = &quot;minres&quot;)
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##       MR1   MR2   h2   u2 com
+## ING  0.64  0.69 0.88 0.12 2.0
+## POB -0.71 -0.51 0.76 0.24 1.8
+## EDU  0.02  0.93 0.87 0.13 1.0
+## MET  0.71 -0.34 0.61 0.39 1.4
+## NOC  0.85 -0.35 0.85 0.15 1.3
+## NOB  0.67 -0.42 0.62 0.38 1.7
+## 
+##                        MR1  MR2
+## SS loadings           2.59 2.02
+## Proportion Var        0.43 0.34
+## Cumulative Var        0.43 0.77
+## Proportion Explained  0.56 0.44
+## Cumulative Proportion 0.56 1.00
+## 
+## Mean item complexity =  1.5
+## Test of the hypothesis that 2 factors are sufficient.
+## 
+## df null model =  15  with the objective function =  4.27 with Chi Square =  188.67
+## df of  the model are 4  and the objective function was  0.16 
+## 
+## The root mean square of the residuals (RMSR) is  0.02 
+## The df corrected root mean square of the residuals is  0.05 
+## 
+## The harmonic n.obs is  48 with the empirical chi square  0.78  with prob &lt;  0.94 
+## The total n.obs was  48  with Likelihood Chi Square =  6.9  with prob &lt;  0.14 
+## 
+## Tucker Lewis Index of factoring reliability =  0.935
+## RMSEA index =  0.121  and the 90 % confidence intervals are  0 0.276
+## BIC =  -8.59
+## Fit based upon off diagonal values = 1
+## Measures of factor score adequacy             
+##                                                    MR1  MR2
+## Correlation of (regression) scores with factors   0.97 0.97
+## Multiple R square of scores with factors          0.93 0.94
+## Minimum correlation of possible factor scores     0.86 0.87</code></pre>
+<p>La salida se lee igual que la anterior; solo cambian los nombres de los factores (<code>MR1</code> y <code>MR2</code>). Para comparar los dos métodos se ponen las cargas y las comunalidades lado a lado. La función <code>cbind()</code> une las columnas, <code>unclass()</code> convierte la matriz de cargas en una matriz numérica simple y <code>round()</code> la redondea a tres decimales.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb15-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">PAF =</span> <span class="fu">unclass</span>(f_pa<span class="sc">$</span>loadings), <span class="at">MINRES =</span> <span class="fu">unclass</span>(f_mr<span class="sc">$</span>loadings)), <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##        PA1    PA2    MR1    MR2
+## ING  0.638  0.691  0.638  0.691
+## POB -0.713 -0.508 -0.712 -0.507
+## EDU  0.017  0.931  0.016  0.933
+## MET  0.707 -0.339  0.707 -0.338
+## NOC  0.852 -0.352  0.854 -0.351
+## NOB  0.670 -0.417  0.670 -0.416</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb17-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">PAF =</span> f_pa<span class="sc">$</span>communality, <span class="at">MINRES =</span> f_mr<span class="sc">$</span>communality), <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##       PAF MINRES
+## ING 0.885  0.885
+## POB 0.766  0.764
+## EDU 0.867  0.870
+## MET 0.614  0.614
+## NOC 0.850  0.852
+## NOB 0.622  0.621</code></pre>
+<p>Las cargas y las comunalidades de ambos métodos son <strong>prácticamente idénticas</strong>, y el <code>RMSR</code> de los dos es 0,023. Esto ocurre cuando la estructura es clara y las comunalidades son altas, como en este caso. Con pocas variables o comunalidades bajas los métodos pueden diferir. En esta base, elegir uno u otro no cambia las conclusiones.</p>
+</div>
+<div id="número-de-factores" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> Número de factores<a href="análisis-factorial-exploratorio-en-rstudio.html#número-de-factores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hasta ahora se trabajó con dos factores. Para confirmar esa decisión se usa el <strong>análisis paralelo</strong>, con <code>fa.parallel()</code>. La función dibuja el gráfico de sedimentación de los datos reales y lo compara con el de datos aleatorios del mismo tamaño: un factor es relevante si explica más varianza que la que se esperaría por azar.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb19-1" tabindex="-1"></a><span class="fu">fa.parallel</span>(R, <span class="at">n.obs =</span> n, <span class="at">fa =</span> <span class="st">&quot;fa&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/paralelo-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<p>El análisis sugiere <strong>dos factores</strong>: los dos primeros valores propios quedan por encima de la línea de datos aleatorios, y a partir del tercero la curva se aplana. Esta decisión coincide con la estructura de dos bloques que mostró la matriz de correlaciones y con la varianza explicada (76,8 %).</p>
+</div>
+<div id="rotaciones" class="section level2 hasAnchor" number="7.8">
+<h2><span class="header-section-number">7.8</span> Rotaciones<a href="análisis-factorial-exploratorio-en-rstudio.html#rotaciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las cargas sin rotar son difíciles de interpretar porque muchas variables cargan en los dos factores. La <strong>rotación</strong> gira los ejes de los factores para que cada variable quede asociada principalmente a uno solo. La rotación no cambia el ajuste del modelo ni las comunalidades: solo cambia la forma de repartir la varianza entre los factores.</p>
+<div id="varimax" class="section level3 hasAnchor" number="7.8.1">
+<h3><span class="header-section-number">7.8.1</span> Varimax<a href="análisis-factorial-exploratorio-en-rstudio.html#varimax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Varimax es una rotación <strong>ortogonal</strong>: los factores rotados siguen siendo independientes entre sí. Se pide con <code>rotate = "varimax"</code>. En <code>print()</code>, el argumento <code>cutoff = 0.3</code> oculta las cargas menores que 0,3 en valor absoluto, para que se vea con claridad a qué factor pertenece cada variable.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb20-1" tabindex="-1"></a>f_var <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;varimax&quot;</span>)</span>
+<span id="cb20-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb20-2" tabindex="-1"></a><span class="fu">print</span>(f_var<span class="sc">$</span>loadings, <span class="at">cutoff =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<pre><code>## 
+## Loadings:
+##     MR1    MR2   
+## ING         0.924
+## POB -0.336 -0.807
+## EDU -0.479  0.800
+## MET  0.779       
+## NOC  0.910       
+## NOB  0.788       
+## 
+##                  MR1   MR2
+## SS loadings    2.430 2.176
+## Proportion Var 0.405 0.363
+## Cumulative Var 0.405 0.768</code></pre>
+<p>Ahora la estructura es clara. El primer factor (<code>MR1</code>) agrupa a <strong>NOC (0,91), NOB (0,79) y MET (0,78)</strong>: estados con mucha población metropolitana, no ciudadana y no blanca. El segundo factor (<code>MR2</code>) agrupa a <strong>ING (0,92), POB (−0,81) y EDU (0,80)</strong>: estados con ingresos y educación altos y poca pobreza. EDU conserva una carga moderada en el primer factor (−0,48), lo que la convierte en una variable algo compleja.</p>
+<p>Se verifica que la rotación no cambió las comunalidades:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb22-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">sin_rotar =</span> f_mr<span class="sc">$</span>communality, <span class="at">varimax =</span> f_var<span class="sc">$</span>communality), <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##     sin_rotar varimax
+## ING     0.885   0.885
+## POB     0.764   0.764
+## EDU     0.870   0.870
+## MET     0.614   0.614
+## NOC     0.852   0.852
+## NOB     0.621   0.621</code></pre>
+<p>Las dos columnas son iguales. Lo que sí cambió es el reparto de la varianza: antes los factores explicaban 2,59 y 2,02 unidades (de 6), y ahora 2,43 y 2,18; el total, 4,61 (76,8 %), es el mismo.</p>
+</div>
+<div id="oblimin" class="section level3 hasAnchor" number="7.8.2">
+<h3><span class="header-section-number">7.8.2</span> Oblimin<a href="análisis-factorial-exploratorio-en-rstudio.html#oblimin" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Varimax obliga a que los factores sean independientes, pero en la práctica las dimensiones de un fenómeno suelen estar relacionadas. La rotación <strong>oblicua</strong> <code>oblimin</code> permite que los factores se correlacionen.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb24-1" tabindex="-1"></a>f_obl <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;oblimin&quot;</span>)</span>
+<span id="cb24-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb24-2" tabindex="-1"></a><span class="fu">round</span>(f_obl<span class="sc">$</span>Phi, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##       MR1   MR2
+## MR1 1.000 0.063
+## MR2 0.063 1.000</code></pre>
+<p><code>Phi</code> es la matriz de correlaciones entre los factores. La correlación entre ellos es solo <strong>0,063</strong>, es decir, casi nula (los ejes forman un ángulo de unos 86°, muy cerca de los 90° de una rotación ortogonal). Con oblimin se obtienen dos matrices: el <strong>patrón</strong> (efecto propio de cada factor sobre la variable) y la <strong>estructura</strong> (correlación total entre la variable y el factor).</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb26-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unclass</span>(f_obl<span class="sc">$</span>loadings), <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##        MR1    MR2
+## ING  0.168  0.915
+## POB -0.329 -0.789
+## EDU -0.488  0.826
+## MET  0.779  0.045
+## NOC  0.911  0.104
+## NOB  0.790 -0.041</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb28-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unclass</span>(f_obl<span class="sc">$</span>Structure), <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##        MR1    MR2
+## ING  0.225  0.926
+## POB -0.379 -0.810
+## EDU -0.436  0.796
+## MET  0.782  0.093
+## NOC  0.917  0.161
+## NOB  0.787  0.009</code></pre>
+<p>Como los factores casi no están correlacionados, las dos matrices son <strong>muy parecidas</strong> entre sí y también a la solución varimax. Es una buena noticia para la interpretación: en este ejemplo no hay que elegir entre rotaciones, porque ambas llevan a la misma lectura. El diagrama resume la solución:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb30-1" tabindex="-1"></a><span class="fu">fa.diagram</span>(f_obl)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/diagrama-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Las flechas van de los factores a las variables y se acompañan de las cargas. Se muestran solo las cargas relevantes, y la línea entre los factores (si aparece) indica su correlación.</p>
+</div>
+</div>
+<div id="conclusiones" class="section level2 hasAnchor" number="7.9">
+<h2><span class="header-section-number">7.9</span> Conclusiones<a href="análisis-factorial-exploratorio-en-rstudio.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El análisis factorial identifica <strong>dos dimensiones latentes</strong> que explican el 76,8 % de la varianza de los seis indicadores:</p>
+<ul>
+<li><strong>Urbanización y diversidad demográfica</strong> (MET, NOC y NOB): distingue a los estados muy urbanos y diversos de los más rurales y homogéneos.</li>
+<li><strong>Bienestar socioeconómico</strong> (ING, EDU y POB con signo negativo): distingue a los estados con ingresos y educación altos y poca pobreza.</li>
+</ul>
+<p>Las dos dimensiones son prácticamente independientes (<span class="math inline">\(\phi_{12} = 0{,}06\)</span>), por lo que varimax y oblimin llevan a la misma interpretación. Los dos métodos de extracción dan resultados idénticos. Las variables con mayor varianza propia son MET y NOB (unicidad cercana a 0,38), y EDU es la única variable con cargas apreciables en ambos factores.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-de-componentes-principales.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Análisis Multivariado en Rstudio.pdf", "Análisis Multivariado en Rstudio.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
