@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Análisis Multivariado</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Conoce Rstudio</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instalación-y-configuración-de-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalación y Configuración de R-STUDIO</a>
 <ul>
@@ -192,14 +192,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ángulo-entre-dos-vectores"><i class="fa fa-check"></i><b>3.6.4</b> Ángulo entre dos vectores</a></li>
 </ul></li>
 <li class="chapter" data-level="3.7" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ortogonalidad"><i class="fa fa-check"></i><b>3.7</b> Ortogonalidad</a></li>
-<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a></li>
-<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#valores-y-vectores-propios"><i class="fa fa-check"></i><b>3.9</b> Valores y vectores propios</a>
+<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a>
 <ul>
-<li class="chapter" data-level="3.9.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.9.1</b> Comprobar la definición</a></li>
-<li class="chapter" data-level="3.9.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.9.2</b> Dos atajos útiles</a></li>
-<li class="chapter" data-level="3.9.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.9.3</b> Matrices simétricas</a></li>
+<li class="chapter" data-level="3.8.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.8.1</b> Comprobar la definición</a></li>
+<li class="chapter" data-level="3.8.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.8.2</b> Dos atajos útiles</a></li>
+<li class="chapter" data-level="3.8.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.8.3</b> Matrices simétricas</a></li>
 </ul></li>
-<li class="chapter" data-level="3.10" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.10</b> Resumen</a></li>
+<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.9</b> Resumen</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html"><i class="fa fa-check"></i><b>4</b> Conceptos básicos: Estadística</a>
 <ul>
@@ -335,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Multivariado en Rstudio</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Distribuciones de probabilidad en RStudio</a>
           </h1>
         </div>
 
@@ -362,8 +361,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="los-datos" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Los datos<a href="análisis-factorial-exploratorio-en-rstudio.html#los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La base se lee desde el repositorio público de datos; si no hay conexión a internet, la instrucción <code>tryCatch</code> usa el archivo <code>hate_crimes.csv</code>, que debe estar en la misma carpeta que este documento.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb1-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/fivethirtyeight/hate_crimes.csv&quot;</span></span>
-<span id="cb1-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb1-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(<span class="fu">read.csv</span>(url), <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">read.csv</span>(<span class="st">&quot;hate_crimes.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb540-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/fivethirtyeight/hate_crimes.csv&quot;</span></span>
+<span id="cb540-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb540-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(<span class="fu">read.csv</span>(url), <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">read.csv</span>(<span class="st">&quot;hate_crimes.csv&quot;</span>))</span></code></pre></div>
 <p>Se seleccionan seis variables y se les asigna una etiqueta corta, que facilita leer las tablas y los gráficos:</p>
 <table>
 <thead>
@@ -399,15 +398,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-1" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;median_house_inc&quot;</span>, <span class="st">&quot;share_white_poverty&quot;</span>, <span class="st">&quot;share_pop_hs&quot;</span>,</span>
-<span id="cb2-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-2" tabindex="-1"></a>          <span class="st">&quot;share_pop_metro&quot;</span>, <span class="st">&quot;share_non_citizen&quot;</span>, <span class="st">&quot;share_non_white&quot;</span>)</span>
-<span id="cb2-3"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-3" tabindex="-1"></a>etq  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ING&quot;</span>, <span class="st">&quot;POB&quot;</span>, <span class="st">&quot;EDU&quot;</span>, <span class="st">&quot;MET&quot;</span>, <span class="st">&quot;NOC&quot;</span>, <span class="st">&quot;NOB&quot;</span>)</span>
-<span id="cb2-4"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-4" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-5" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(d[, <span class="fu">c</span>(<span class="st">&quot;state&quot;</span>, vars)])</span>
-<span id="cb2-6"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> Z[, vars]</span>
-<span id="cb2-7"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-7" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> etq</span>
-<span id="cb2-8"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-8" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
-<span id="cb2-9"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb2-9" tabindex="-1"></a>n</span></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-1" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;median_house_inc&quot;</span>, <span class="st">&quot;share_white_poverty&quot;</span>, <span class="st">&quot;share_pop_hs&quot;</span>,</span>
+<span id="cb541-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-2" tabindex="-1"></a>          <span class="st">&quot;share_pop_metro&quot;</span>, <span class="st">&quot;share_non_citizen&quot;</span>, <span class="st">&quot;share_non_white&quot;</span>)</span>
+<span id="cb541-3"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-3" tabindex="-1"></a>etq  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ING&quot;</span>, <span class="st">&quot;POB&quot;</span>, <span class="st">&quot;EDU&quot;</span>, <span class="st">&quot;MET&quot;</span>, <span class="st">&quot;NOC&quot;</span>, <span class="st">&quot;NOB&quot;</span>)</span>
+<span id="cb541-4"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-4" tabindex="-1"></a></span>
+<span id="cb541-5"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-5" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(d[, <span class="fu">c</span>(<span class="st">&quot;state&quot;</span>, vars)])</span>
+<span id="cb541-6"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> Z[, vars]</span>
+<span id="cb541-7"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-7" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> etq</span>
+<span id="cb541-8"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-8" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb541-9"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb541-9" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>## [1] 48</code></pre>
 <p>La función <code>na.omit()</code> elimina los estados con datos faltantes, y <code>colnames()</code> reemplaza los nombres originales por las etiquetas. Quedan <strong>48 estados</strong> para el análisis.</p>
 </div>
@@ -415,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.3</span> Exploración<a href="análisis-factorial-exploratorio-en-rstudio.html#exploración" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="resumen-numérico" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Resumen numérico<a href="análisis-factorial-exploratorio-en-rstudio.html#resumen-numérico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb4-1" tabindex="-1"></a><span class="fu">summary</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb543-1" tabindex="-1"></a><span class="fu">summary</span>(X)</span></code></pre></div>
 <pre><code>##       ING             POB               EDU              MET        
 ##  Min.   :39552   Min.   :0.04000   Min.   :0.7990   Min.   :0.3100  
 ##  1st Qu.:48956   1st Qu.:0.07000   1st Qu.:0.8413   1st Qu.:0.6400  
@@ -435,10 +434,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="matriz-de-correlaciones" class="section level3 hasAnchor" number="7.3.2">
 <h3><span class="header-section-number">7.3.2</span> Matriz de correlaciones<a href="análisis-factorial-exploratorio-en-rstudio.html#matriz-de-correlaciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La función <code>cor()</code> calcula la matriz de correlaciones y <code>corrplot()</code> la dibuja: azul para correlaciones positivas, rojo para negativas, y más intenso mientras más fuerte la relación.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb6-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(X)</span>
-<span id="cb6-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb6-2" tabindex="-1"></a><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb6-3"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb6-3" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;#B2182B&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;#2166AC&quot;</span>))(<span class="dv">200</span>), <span class="at">cl.pos =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
-<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/corr-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb545-1" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(X)</span>
+<span id="cb545-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb545-2" tabindex="-1"></a><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb545-3"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb545-3" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;#B2182B&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;#2166AC&quot;</span>))(<span class="dv">200</span>), <span class="at">cl.pos =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/afe_corr-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
 <p>La matriz muestra <strong>dos bloques</strong>. En el primero, ING, POB y EDU están relacionadas entre sí: el ingreso y la educación se mueven juntos (0,65) y ambos se asocian de forma negativa con la pobreza (−0,81 y −0,49). En el segundo, MET, NOC y NOB también están relacionadas entre sí: la proporción no ciudadana y la no blanca tienen una correlación de 0,73, y la población metropolitana se asocia con la no ciudadana (0,75). Entre los dos bloques las correlaciones son débiles o moderadas. Esta estructura sugiere que hay dos factores latentes, y el análisis factorial permite comprobarlo.</p>
 </div>
 </div>
@@ -448,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="prueba-de-esfericidad-de-bartlett" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Prueba de esfericidad de Bartlett<a href="análisis-factorial-exploratorio-en-rstudio.html#prueba-de-esfericidad-de-bartlett" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La función <code>cortest.bartlett()</code> contrasta la hipótesis nula de que la matriz de correlaciones es la identidad, es decir, que las variables no están correlacionadas. Recibe la matriz <code>R</code> y el tamaño de muestra <code>n</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb7-1" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(R, <span class="at">n =</span> n)</span></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb546-1" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(R, <span class="at">n =</span> n)</span></code></pre></div>
 <pre><code>## $chisq
 ## [1] 188.6731
 ## 
@@ -462,7 +461,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="índice-kmo" class="section level3 hasAnchor" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Índice KMO<a href="análisis-factorial-exploratorio-en-rstudio.html#índice-kmo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El índice de Kaiser-Meyer-Olkin compara las correlaciones entre variables con las correlaciones parciales. Si las variables comparten factores comunes, las correlaciones parciales son pequeñas y el KMO es alto.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb9-1" tabindex="-1"></a><span class="fu">KMO</span>(R)</span></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb548-1" tabindex="-1"></a><span class="fu">KMO</span>(R)</span></code></pre></div>
 <pre><code>## Kaiser-Meyer-Olkin factor adequacy
 ## Call: KMO(r = R)
 ## Overall MSA =  0.7
@@ -476,8 +475,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.5</span> Extracción por Ejes Principales (PAF)<a href="análisis-factorial-exploratorio-en-rstudio.html#extracción-por-ejes-principales-paf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La <strong>extracción</strong> estima las cargas de cada variable en cada factor. El método de <strong>Ejes Principales</strong> parte de una estimación inicial de las comunalidades (la proporción de varianza de cada variable que comparte con las demás), calcula las cargas, actualiza las comunalidades con esas cargas y repite el proceso hasta que dejan de cambiar.</p>
 <p>Se piden dos factores con <code>nfactors = 2</code>, el método <code>fm = "pa"</code> y <code>rotate = "none"</code>, para observar las cargas tal como salen de la extracción, antes de rotar. El número de factores se justifica más adelante, en la sección <em>Número de factores</em>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb11-1" tabindex="-1"></a>f_pa <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;pa&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb11-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb11-2" tabindex="-1"></a>f_pa</span></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb550-1" tabindex="-1"></a>f_pa <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;pa&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb550-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb550-2" tabindex="-1"></a>f_pa</span></code></pre></div>
 <pre><code>## Factor Analysis using method =  pa
 ## Call: fa(r = R, nfactors = 2, n.obs = n, rotate = &quot;none&quot;, fm = &quot;pa&quot;)
 ## Standardized loadings (pattern matrix) based upon correlation matrix
@@ -525,8 +524,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="extracción-por-minres" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> Extracción por MINRES<a href="análisis-factorial-exploratorio-en-rstudio.html#extracción-por-minres" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El método de <strong>Mínimos Residuos</strong> plantea el problema de otra manera: busca directamente las cargas que hacen lo más pequeña posible la suma de los residuos al cuadrado, es decir, de las diferencias entre las correlaciones observadas y las que reproduce el modelo (sin contar la diagonal). La llamada a <code>fa()</code> es la misma, con <code>fm = "minres"</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb13-1" tabindex="-1"></a>f_mr <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb13-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb13-2" tabindex="-1"></a>f_mr</span></code></pre></div>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb552-1" tabindex="-1"></a>f_mr <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb552-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb552-2" tabindex="-1"></a>f_mr</span></code></pre></div>
 <pre><code>## Factor Analysis using method =  minres
 ## Call: fa(r = R, nfactors = 2, n.obs = n, rotate = &quot;none&quot;, fm = &quot;minres&quot;)
 ## Standardized loadings (pattern matrix) based upon correlation matrix
@@ -567,7 +566,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R square of scores with factors          0.93 0.94
 ## Minimum correlation of possible factor scores     0.86 0.87</code></pre>
 <p>La salida se lee igual que la anterior; solo cambian los nombres de los factores (<code>MR1</code> y <code>MR2</code>). Para comparar los dos métodos se ponen las cargas y las comunalidades lado a lado. La función <code>cbind()</code> une las columnas, <code>unclass()</code> convierte la matriz de cargas en una matriz numérica simple y <code>round()</code> la redondea a tres decimales.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb15-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">PAF =</span> <span class="fu">unclass</span>(f_pa<span class="sc">$</span>loadings), <span class="at">MINRES =</span> <span class="fu">unclass</span>(f_mr<span class="sc">$</span>loadings)), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb554-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">PAF =</span> <span class="fu">unclass</span>(f_pa<span class="sc">$</span>loadings), <span class="at">MINRES =</span> <span class="fu">unclass</span>(f_mr<span class="sc">$</span>loadings)), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##        PA1    PA2    MR1    MR2
 ## ING  0.638  0.691  0.638  0.691
 ## POB -0.713 -0.508 -0.712 -0.507
@@ -575,7 +574,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## MET  0.707 -0.339  0.707 -0.338
 ## NOC  0.852 -0.352  0.854 -0.351
 ## NOB  0.670 -0.417  0.670 -0.416</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb17-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">PAF =</span> f_pa<span class="sc">$</span>communality, <span class="at">MINRES =</span> f_mr<span class="sc">$</span>communality), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb556-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">PAF =</span> f_pa<span class="sc">$</span>communality, <span class="at">MINRES =</span> f_mr<span class="sc">$</span>communality), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##       PAF MINRES
 ## ING 0.885  0.885
 ## POB 0.766  0.764
@@ -588,8 +587,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="número-de-factores" class="section level2 hasAnchor" number="7.7">
 <h2><span class="header-section-number">7.7</span> Número de factores<a href="análisis-factorial-exploratorio-en-rstudio.html#número-de-factores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Hasta ahora se trabajó con dos factores. Para confirmar esa decisión se usa el <strong>análisis paralelo</strong>, con <code>fa.parallel()</code>. La función dibuja el gráfico de sedimentación de los datos reales y lo compara con el de datos aleatorios del mismo tamaño: un factor es relevante si explica más varianza que la que se esperaría por azar.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb19-1" tabindex="-1"></a><span class="fu">fa.parallel</span>(R, <span class="at">n.obs =</span> n, <span class="at">fa =</span> <span class="st">&quot;fa&quot;</span>)</span></code></pre></div>
-<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/paralelo-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb558-1" tabindex="-1"></a><span class="fu">fa.parallel</span>(R, <span class="at">n.obs =</span> n, <span class="at">fa =</span> <span class="st">&quot;fa&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/afe_paralelo-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
 <p>El análisis sugiere <strong>dos factores</strong>: los dos primeros valores propios quedan por encima de la línea de datos aleatorios, y a partir del tercero la curva se aplana. Esta decisión coincide con la estructura de dos bloques que mostró la matriz de correlaciones y con la varianza explicada (76,8 %).</p>
 </div>
 <div id="rotaciones" class="section level2 hasAnchor" number="7.8">
@@ -598,8 +597,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="varimax" class="section level3 hasAnchor" number="7.8.1">
 <h3><span class="header-section-number">7.8.1</span> Varimax<a href="análisis-factorial-exploratorio-en-rstudio.html#varimax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Varimax es una rotación <strong>ortogonal</strong>: los factores rotados siguen siendo independientes entre sí. Se pide con <code>rotate = "varimax"</code>. En <code>print()</code>, el argumento <code>cutoff = 0.3</code> oculta las cargas menores que 0,3 en valor absoluto, para que se vea con claridad a qué factor pertenece cada variable.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb20-1" tabindex="-1"></a>f_var <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;varimax&quot;</span>)</span>
-<span id="cb20-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb20-2" tabindex="-1"></a><span class="fu">print</span>(f_var<span class="sc">$</span>loadings, <span class="at">cutoff =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb559-1" tabindex="-1"></a>f_var <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;varimax&quot;</span>)</span>
+<span id="cb559-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb559-2" tabindex="-1"></a><span class="fu">print</span>(f_var<span class="sc">$</span>loadings, <span class="at">cutoff =</span> <span class="fl">0.3</span>)</span></code></pre></div>
 <pre><code>## 
 ## Loadings:
 ##     MR1    MR2   
@@ -616,7 +615,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Cumulative Var 0.405 0.768</code></pre>
 <p>Ahora la estructura es clara. El primer factor (<code>MR1</code>) agrupa a <strong>NOC (0,91), NOB (0,79) y MET (0,78)</strong>: estados con mucha población metropolitana, no ciudadana y no blanca. El segundo factor (<code>MR2</code>) agrupa a <strong>ING (0,92), POB (−0,81) y EDU (0,80)</strong>: estados con ingresos y educación altos y poca pobreza. EDU conserva una carga moderada en el primer factor (−0,48), lo que la convierte en una variable algo compleja.</p>
 <p>Se verifica que la rotación no cambió las comunalidades:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb22-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">sin_rotar =</span> f_mr<span class="sc">$</span>communality, <span class="at">varimax =</span> f_var<span class="sc">$</span>communality), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb561-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(<span class="at">sin_rotar =</span> f_mr<span class="sc">$</span>communality, <span class="at">varimax =</span> f_var<span class="sc">$</span>communality), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##     sin_rotar varimax
 ## ING     0.885   0.885
 ## POB     0.764   0.764
@@ -629,13 +628,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="oblimin" class="section level3 hasAnchor" number="7.8.2">
 <h3><span class="header-section-number">7.8.2</span> Oblimin<a href="análisis-factorial-exploratorio-en-rstudio.html#oblimin" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Varimax obliga a que los factores sean independientes, pero en la práctica las dimensiones de un fenómeno suelen estar relacionadas. La rotación <strong>oblicua</strong> <code>oblimin</code> permite que los factores se correlacionen.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb24-1" tabindex="-1"></a>f_obl <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;oblimin&quot;</span>)</span>
-<span id="cb24-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb24-2" tabindex="-1"></a><span class="fu">round</span>(f_obl<span class="sc">$</span>Phi, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb563-1" tabindex="-1"></a>f_obl <span class="ot">&lt;-</span> <span class="fu">fa</span>(R, <span class="at">nfactors =</span> <span class="dv">2</span>, <span class="at">n.obs =</span> n, <span class="at">fm =</span> <span class="st">&quot;minres&quot;</span>, <span class="at">rotate =</span> <span class="st">&quot;oblimin&quot;</span>)</span>
+<span id="cb563-2"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb563-2" tabindex="-1"></a><span class="fu">round</span>(f_obl<span class="sc">$</span>Phi, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##       MR1   MR2
 ## MR1 1.000 0.063
 ## MR2 0.063 1.000</code></pre>
 <p><code>Phi</code> es la matriz de correlaciones entre los factores. La correlación entre ellos es solo <strong>0,063</strong>, es decir, casi nula (los ejes forman un ángulo de unos 86°, muy cerca de los 90° de una rotación ortogonal). Con oblimin se obtienen dos matrices: el <strong>patrón</strong> (efecto propio de cada factor sobre la variable) y la <strong>estructura</strong> (correlación total entre la variable y el factor).</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb26-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unclass</span>(f_obl<span class="sc">$</span>loadings), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb565-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unclass</span>(f_obl<span class="sc">$</span>loadings), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##        MR1    MR2
 ## ING  0.168  0.915
 ## POB -0.329 -0.789
@@ -643,7 +642,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## MET  0.779  0.045
 ## NOC  0.911  0.104
 ## NOB  0.790 -0.041</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb28-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unclass</span>(f_obl<span class="sc">$</span>Structure), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb567-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">unclass</span>(f_obl<span class="sc">$</span>Structure), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##        MR1    MR2
 ## ING  0.225  0.926
 ## POB -0.379 -0.810
@@ -652,8 +651,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## NOC  0.917  0.161
 ## NOB  0.787  0.009</code></pre>
 <p>Como los factores casi no están correlacionados, las dos matrices son <strong>muy parecidas</strong> entre sí y también a la solución varimax. Es una buena noticia para la interpretación: en este ejemplo no hay que elegir entre rotaciones, porque ambas llevan a la misma lectura. El diagrama resume la solución:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb30-1" tabindex="-1"></a><span class="fu">fa.diagram</span>(f_obl)</span></code></pre></div>
-<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/diagrama-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="análisis-factorial-exploratorio-en-rstudio.html#cb569-1" tabindex="-1"></a><span class="fu">fa.diagram</span>(f_obl)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/afe_diagrama-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p>Las flechas van de los factores a las variables y se acompañan de las cargas. Se muestran solo las cargas relevantes, y la línea entre los factores (si aparece) indica su correlación.</p>
 </div>
 </div>

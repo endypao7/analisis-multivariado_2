@@ -9,7 +9,7 @@ output:
     number_sections: false
 ---
 
-```{r setup, include=FALSE}
+```{r afe_setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.align = "center", fig.width = 6, fig.height = 5)
 library(psych); library(GPArotation); library(corrplot)
 ```
@@ -36,7 +36,7 @@ Si falta algún paquete, se instala con `install.packages(c("psych", "GPArotatio
 
 La base se lee desde el repositorio público de datos; si no hay conexión a internet, la instrucción `tryCatch` usa el archivo `hate_crimes.csv`, que debe estar en la misma carpeta que este documento.
 
-```{r datos}
+```{r afe_datos}
 url <- "https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/fivethirtyeight/hate_crimes.csv"
 d <- tryCatch(read.csv(url), error = function(e) read.csv("hate_crimes.csv"))
 ```
@@ -52,7 +52,7 @@ Se seleccionan seis variables y se les asigna una etiqueta corta, que facilita l
 | NOC | proporción de población no ciudadana |
 | NOB | proporción de población no blanca |
 
-```{r seleccion}
+```{r afe_seleccion}
 vars <- c("median_house_inc", "share_white_poverty", "share_pop_hs",
           "share_pop_metro", "share_non_citizen", "share_non_white")
 etq  <- c("ING", "POB", "EDU", "MET", "NOC", "NOB")
@@ -70,7 +70,7 @@ La función `na.omit()` elimina los estados con datos faltantes, y `colnames()` 
 
 ### Resumen numérico
 
-```{r resumen}
+```{r afe_resumen}
 summary(X)
 ```
 
@@ -80,7 +80,7 @@ El ingreso mediano promedio es de unos 55.750 dólares, con estados que van de 3
 
 La función `cor()` calcula la matriz de correlaciones y `corrplot()` la dibuja: azul para correlaciones positivas, rojo para negativas, y más intenso mientras más fuerte la relación.
 
-```{r corr, fig.width=6, fig.height=5.5}
+```{r afe_corr, fig.width=6, fig.height=5.5}
 R <- cor(X)
 corrplot(R, method = "color", addCoef.col = "black", tl.col = "black",
          col = colorRampPalette(c("#B2182B", "white", "#2166AC"))(200), cl.pos = "n")
@@ -96,7 +96,7 @@ El AFE busca factores comunes que expliquen las correlaciones, por lo que solo t
 
 La función `cortest.bartlett()` contrasta la hipótesis nula de que la matriz de correlaciones es la identidad, es decir, que las variables no están correlacionadas. Recibe la matriz `R` y el tamaño de muestra `n`.
 
-```{r bartlett}
+```{r afe_bartlett}
 cortest.bartlett(R, n = n)
 ```
 
@@ -106,7 +106,7 @@ El estadístico es $\chi^2 = 188{,}67$ con 15 grados de libertad y un valor $p$ 
 
 El índice de Kaiser-Meyer-Olkin compara las correlaciones entre variables con las correlaciones parciales. Si las variables comparten factores comunes, las correlaciones parciales son pequeñas y el KMO es alto.
 
-```{r kmo}
+```{r afe_kmo}
 KMO(R)
 ```
 
@@ -118,7 +118,7 @@ La **extracción** estima las cargas de cada variable en cada factor. El método
 
 Se piden dos factores con `nfactors = 2`, el método `fm = "pa"` y `rotate = "none"`, para observar las cargas tal como salen de la extracción, antes de rotar. El número de factores se justifica más adelante, en la sección *Número de factores*.
 
-```{r paf}
+```{r afe_paf}
 f_pa <- fa(R, nfactors = 2, n.obs = n, fm = "pa", rotate = "none")
 f_pa
 ```
@@ -135,14 +135,14 @@ f_pa
 
 El método de **Mínimos Residuos** plantea el problema de otra manera: busca directamente las cargas que hacen lo más pequeña posible la suma de los residuos al cuadrado, es decir, de las diferencias entre las correlaciones observadas y las que reproduce el modelo (sin contar la diagonal). La llamada a `fa()` es la misma, con `fm = "minres"`.
 
-```{r minres}
+```{r afe_minres}
 f_mr <- fa(R, nfactors = 2, n.obs = n, fm = "minres", rotate = "none")
 f_mr
 ```
 
 La salida se lee igual que la anterior; solo cambian los nombres de los factores (`MR1` y `MR2`). Para comparar los dos métodos se ponen las cargas y las comunalidades lado a lado. La función `cbind()` une las columnas, `unclass()` convierte la matriz de cargas en una matriz numérica simple y `round()` la redondea a tres decimales.
 
-```{r comparacion}
+```{r afe_comparacion}
 round(cbind(PAF = unclass(f_pa$loadings), MINRES = unclass(f_mr$loadings)), 3)
 round(cbind(PAF = f_pa$communality, MINRES = f_mr$communality), 3)
 ```
@@ -153,7 +153,7 @@ Las cargas y las comunalidades de ambos métodos son **prácticamente idénticas
 
 Hasta ahora se trabajó con dos factores. Para confirmar esa decisión se usa el **análisis paralelo**, con `fa.parallel()`. La función dibuja el gráfico de sedimentación de los datos reales y lo compara con el de datos aleatorios del mismo tamaño: un factor es relevante si explica más varianza que la que se esperaría por azar.
 
-```{r paralelo, results="hide"}
+```{r afe_paralelo, results="hide"}
 fa.parallel(R, n.obs = n, fa = "fa")
 ```
 
@@ -167,7 +167,7 @@ Las cargas sin rotar son difíciles de interpretar porque muchas variables carga
 
 Varimax es una rotación **ortogonal**: los factores rotados siguen siendo independientes entre sí. Se pide con `rotate = "varimax"`. En `print()`, el argumento `cutoff = 0.3` oculta las cargas menores que 0,3 en valor absoluto, para que se vea con claridad a qué factor pertenece cada variable.
 
-```{r varimax}
+```{r afe_varimax}
 f_var <- fa(R, nfactors = 2, n.obs = n, fm = "minres", rotate = "varimax")
 print(f_var$loadings, cutoff = 0.3)
 ```
@@ -176,7 +176,7 @@ Ahora la estructura es clara. El primer factor (`MR1`) agrupa a **NOC (0,91), NO
 
 Se verifica que la rotación no cambió las comunalidades:
 
-```{r conserva}
+```{r afe_conserva}
 round(cbind(sin_rotar = f_mr$communality, varimax = f_var$communality), 3)
 ```
 
@@ -186,21 +186,21 @@ Las dos columnas son iguales. Lo que sí cambió es el reparto de la varianza: a
 
 Varimax obliga a que los factores sean independientes, pero en la práctica las dimensiones de un fenómeno suelen estar relacionadas. La rotación **oblicua** `oblimin` permite que los factores se correlacionen.
 
-```{r oblimin}
+```{r afe_oblimin}
 f_obl <- fa(R, nfactors = 2, n.obs = n, fm = "minres", rotate = "oblimin")
 round(f_obl$Phi, 3)
 ```
 
 `Phi` es la matriz de correlaciones entre los factores. La correlación entre ellos es solo **0,063**, es decir, casi nula (los ejes forman un ángulo de unos 86°, muy cerca de los 90° de una rotación ortogonal). Con oblimin se obtienen dos matrices: el **patrón** (efecto propio de cada factor sobre la variable) y la **estructura** (correlación total entre la variable y el factor).
 
-```{r patron}
+```{r afe_patron}
 round(unclass(f_obl$loadings), 3)
 round(unclass(f_obl$Structure), 3)
 ```
 
 Como los factores casi no están correlacionados, las dos matrices son **muy parecidas** entre sí y también a la solución varimax. Es una buena noticia para la interpretación: en este ejemplo no hay que elegir entre rotaciones, porque ambas llevan a la misma lectura. El diagrama resume la solución:
 
-```{r diagrama, fig.width=7, fig.height=5}
+```{r afe_diagrama, fig.width=7, fig.height=5}
 fa.diagram(f_obl)
 ```
 
