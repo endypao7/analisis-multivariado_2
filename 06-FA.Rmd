@@ -14,13 +14,13 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.align = "center", fi
 library(psych); library(GPArotation); library(corrplot)
 ```
 
-# Análisis Factorial Exploratorio en RStudio
+# Análisis Factorial Exploratorio
 
 ## Introducción
 
 Este informe aplica el **Análisis Factorial Exploratorio (AFE)** a indicadores socioeconómicos y demográficos de los estados de Estados Unidos (Censo y FiveThirtyEight, 2016). La pregunta que guía el análisis es si las seis variables observadas, que se mueven juntas de formas complejas, pueden resumirse en **pocas dimensiones latentes**, es decir, factores que no se miden directamente pero que explican las correlaciones entre las variables.
 
-El análisis sigue la ruta de la sesión: se exploran los datos, se verifican los supuestos, se extraen los factores con dos métodos (**Ejes Principales** y **Mínimos Residuos**), se decide el número de factores, se rotan y se interpretan.
+En el análisis se exploran y estandarizan los datos, se verifican los supuestos, se decide el número de factores, se extraen con dos métodos (**Ejes Principales** y **Mínimos Residuos**), se rotan y se interpretan.
 
 Todo el trabajo se realiza con la función `fa()` del paquete `psych`. Sus argumentos principales son:
 
@@ -30,11 +30,11 @@ Todo el trabajo se realiza con la función `fa()` del paquete `psych`. Sus argum
 - `fm`: el método de **extracción**, `"pa"` para ejes principales y `"minres"` para mínimos residuos.
 - `rotate`: la **rotación**, que puede ser `"none"`, `"varimax"` (factores independientes) u `"oblimin"` (factores correlacionados).
 
-Si falta algún paquete, se instala con `install.packages(c("psych", "GPArotation", "corrplot"))`.
+
 
 ## Los datos
 
-La base se lee desde el repositorio público de datos; si no hay conexión a internet, la instrucción `tryCatch` usa el archivo `hate_crimes.csv`, que debe estar en la misma carpeta que este documento.
+La base se lee desde el repositorio público de datos.
 
 ```{r afe_datos}
 url <- "https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/fivethirtyeight/hate_crimes.csv"
@@ -74,14 +74,32 @@ La función `na.omit()` elimina los estados con datos faltantes, y `colnames()` 
 summary(X)
 ```
 
-El ingreso mediano promedio es de unos 55.750 dólares, con estados que van de 39.550 a 76.165. Las demás variables son proporciones: en promedio, el 9 % de la población blanca vive en pobreza, el 87 % de los adultos tiene bachillerato, el 77 % de la población vive en áreas metropolitanas, el 5,5 % no es ciudadana y el 32 % no es blanca. Como las variables están en **unidades muy distintas** (dólares y proporciones), el AFE se aplica sobre la **matriz de correlaciones**, que no depende de las unidades de medida.
+El ingreso mediano promedio es de unos 55.750 dólares, con estados que van de 39.550 a 76.165. Las demás variables son proporciones: en promedio, el 9 % de la población blanca vive en pobreza, el 87 % de los adultos tiene bachillerato, el 77 % de la población vive en áreas metropolitanas, el 5,5 % no es ciudadana y el 32 % no es blanca. Como las variables están en **unidades muy distintas** (dólares y proporciones), hay que ponerlas en la misma escala antes de analizarlas.
+
+### Estandarización
+
+Estandarizar significa restar a cada variable su media y dividir por su desviación estándar, de modo que todas queden con media 0 y desviación 1. La función `scale()` lo hace columna por columna.
+
+```{r afe_estandarizar}
+Xz <- scale(X)
+round(colMeans(Xz), 3)
+apply(Xz, 2, sd)
+```
+
+Las seis variables quedan con media 0 y desviación estándar 1, así que ninguna pesa más que otra por sus unidades. En el AFE la estandarización es automática si se trabaja con la **matriz de correlaciones**, porque la correlación es justamente la covarianza de las variables estandarizadas. Se comprueba que ambos caminos dan lo mismo:
+
+```{r afe_equivale}
+all.equal(cor(X), cov(Xz), check.attributes = FALSE)
+```
+
+`TRUE` indica que `cor(X)` y `cov(Xz)` son la misma matriz. Por eso `fa()` recibe la matriz de correlaciones y no hace falta estandarizar de nuevo.
 
 ### Matriz de correlaciones
 
 La función `cor()` calcula la matriz de correlaciones y `corrplot()` la dibuja: azul para correlaciones positivas, rojo para negativas, y más intenso mientras más fuerte la relación.
 
 ```{r afe_corr, fig.width=6, fig.height=5.5}
-R <- cor(X)
+R <- cor(Xz)
 corrplot(R, method = "color", addCoef.col = "black", tl.col = "black",
          col = colorRampPalette(c("#B2182B", "white", "#2166AC"))(200), cl.pos = "n")
 ```
@@ -110,13 +128,31 @@ El índice de Kaiser-Meyer-Olkin compara las correlaciones entre variables con l
 KMO(R)
 ```
 
-El KMO global (`Overall MSA`) es **0,70**, un nivel aceptable. Los valores por variable (`MSA for each item`) van de 0,61 (EDU) a 0,74 (POB y MET), todos por encima del mínimo recomendado de 0,5. Ninguna variable necesita eliminarse.
+El KMO global (`Overall MSA`) es **0,70**, un nivel aceptable. Los valores por variable (`MSA for each item`) van de 0,61 (EDU) a 0,74 (POB y MET), todos por encima del mínimo recomendado de 0,5. 
+
+## Número de factores
+
+Antes de extraer hay que decidir **cuántos factores** se piden, porque `fa()` extrae solo el número que se le indica en `nfactors` (si se omite, extrae uno). Para decidirlo se usa el **análisis paralelo**, con `fa.parallel()`.
+
+La función compara los valores propios de los datos con los de datos aleatorios:
+
+1. Calcula los valores propios de los datos reales, con la matriz de correlaciones y con la matriz reducida (comunalidades en la diagonal, propia del AFE).
+2. Simula muchas bases aleatorias con el mismo número de observaciones y de variables, pero sin ninguna estructura, y promedia sus valores propios. Esa curva es lo que se obtendría solo por azar.
+3. Conserva los factores cuyo valor propio supera al del azar.
+
+Se le entrega `R`, el tamaño de muestra `n.obs`, y `fa = "fa"` para basar la decisión en los factores del AFE.
+
+```{r afe_paralelo, results="hide"}
+fa.parallel(R, n.obs = n, fa = "fa")
+```
+
+El gráfico muestra los valores propios reales (uno por factor) frente a la línea de datos aleatorios. Los dos primeros factores quedan por encima de la línea y desde el tercero la curva real cae por debajo, lo que indica que el tercero y los siguientes no explican más que el azar. La función lo confirma al imprimir que el número sugerido de factores es **2**. Esto coincide con los dos bloques de variables que mostró la matriz de correlaciones.
 
 ## Extracción por Ejes Principales (PAF)
 
-La **extracción** estima las cargas de cada variable en cada factor. El método de **Ejes Principales** parte de una estimación inicial de las comunalidades (la proporción de varianza de cada variable que comparte con las demás), calcula las cargas, actualiza las comunalidades con esas cargas y repite el proceso hasta que dejan de cambiar.
+La extracción estima las cargas de cada variable en cada factor. El método de **Ejes Principales** parte de una estimación inicial de las comunalidades (la proporción de varianza de cada variable que comparte con las demás), calcula las cargas, actualiza las comunalidades con esas cargas y repite el proceso hasta que dejan de cambiar.
 
-Se piden dos factores con `nfactors = 2`, el método `fm = "pa"` y `rotate = "none"`, para observar las cargas tal como salen de la extracción, antes de rotar. El número de factores se justifica más adelante, en la sección *Número de factores*.
+Se piden dos factores con `nfactors = 2`, el método `fm = "pa"` y `rotate = "none"`, para observar las cargas tal como salen de la extracción, antes de rotar. El número de factores es el que se decidió en la sección anterior.
 
 ```{r afe_paf}
 f_pa <- fa(R, nfactors = 2, n.obs = n, fm = "pa", rotate = "none")
@@ -148,16 +184,6 @@ round(cbind(PAF = f_pa$communality, MINRES = f_mr$communality), 3)
 ```
 
 Las cargas y las comunalidades de ambos métodos son **prácticamente idénticas**, y el `RMSR` de los dos es 0,023. Esto ocurre cuando la estructura es clara y las comunalidades son altas, como en este caso. Con pocas variables o comunalidades bajas los métodos pueden diferir. En esta base, elegir uno u otro no cambia las conclusiones.
-
-## Número de factores
-
-Hasta ahora se trabajó con dos factores. Para confirmar esa decisión se usa el **análisis paralelo**, con `fa.parallel()`. La función dibuja el gráfico de sedimentación de los datos reales y lo compara con el de datos aleatorios del mismo tamaño: un factor es relevante si explica más varianza que la que se esperaría por azar.
-
-```{r afe_paralelo, results="hide"}
-fa.parallel(R, n.obs = n, fa = "fa")
-```
-
-El análisis sugiere **dos factores**: los dos primeros valores propios quedan por encima de la línea de datos aleatorios, y a partir del tercero la curva se aplana. Esta decisión coincide con la estructura de dos bloques que mostró la matriz de correlaciones y con la varianza explicada (76,8 %).
 
 ## Rotaciones
 
