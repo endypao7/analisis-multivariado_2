@@ -1,0 +1,393 @@
+---
+pagetitle: "Análisis de Correspondencias en R"
+author: "Endy Paola Salon"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: false
+---
+
+```{r ac_setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.align = "center", fig.width = 6.5, fig.height = 5)
+library(FactoMineR); library(factoextra); library(corrplot)
+azul <- "#143C6E"; naranja <- "#C85A14"
+```
+
+# Análisis de Correspondencias Simple
+
+## Introducción
+
+El **análisis de correspondencias simple (AC)** estudia la relación entre **dos variables cualitativas** a partir de su **tabla de contingencia** (la tabla de conteos de cada combinación de categorías). Resume esa tabla en un **mapa** de pocas dimensiones donde las categorías de las filas y de las columnas se dibujan juntas: las que se parecen quedan cerca y las que se asocian quedan en la misma dirección.
+
+Este informe aplica la técnica al **color de cabello** y al **color de ojos** de 592 estudiantes. La pregunta que guía el análisis es: ¿existe una relación entre los dos colores y, si existe, cómo es?
+
+Los pasos son: construir la tabla de contingencia, explorarla con perfiles, verificar con la prueba chi-cuadrado que hay asociación, ajustar el AC, decidir cuántas dimensiones se retienen, interpretar coordenadas, contribuciones y calidad de representación, y leer los mapas.
+
+Se usan dos paquetes:
+
+- `FactoMineR`: la función `CA()` ajusta el análisis y devuelve todos los resultados numéricos.
+- `factoextra`: funciones `fviz_*()` que dibujan los resultados con `ggplot2`.
+
+## Los datos
+
+### De datos individuales a una tabla
+
+En la práctica, la información suele llegar como una base con **una fila por persona** y una columna por variable. La base `HairEyeColor` que trae R ya viene resumida en una tabla, así que primero se convierte en una base individual para reproducir el caso habitual. La función `as.data.frame()` convierte la tabla en una lista de combinaciones con su frecuencia (`Freq`), y la indexación con `rep()` repite cada combinación tantas veces como indique su frecuencia.
+
+```{r ac_datos}
+tab0  <- as.data.frame(HairEyeColor)
+datos <- tab0[rep(1:nrow(tab0), tab0$Freq), c("Hair", "Eye")]
+rownames(datos) <- NULL
+
+names(datos)  <- c("Cabello", "Ojos")
+levels(datos$Cabello) <- c("Negro", "Castaño", "Pelirrojo", "Rubio")
+levels(datos$Ojos)    <- c("Café", "Azul", "Avellana", "Verde")
+
+head(datos)
+dim(datos)
+```
+
+Las dos últimas instrucciones traducen los nombres de las variables y de las categorías al español. La base tiene **592 filas** (estudiantes) y **2 columnas** (cabello y ojos), ambas cualitativas.
+
+La función `summary()` cuenta cuántas personas hay en cada categoría:
+
+```{r ac_summary}
+summary(datos)
+```
+
+Hay 108 personas de cabello negro, 286 castaño, 71 pelirrojo y 127 rubio. En los ojos, 220 son café, 215 azules, 93 avellana y 64 verdes. Los castaños son la categoría más grande y los pelirrojos la más pequeña, algo que se tendrá en cuenta al comparar categorías.
+
+### La tabla de contingencia
+
+La función `table()` cuenta las personas en cada combinación de cabello y ojos, y `addmargins()` agrega los totales de fila y de columna, que se llaman **marginales**.
+
+```{r ac_tabla}
+N <- table(datos$Cabello, datos$Ojos)
+names(dimnames(N)) <- c("Cabello", "Ojos")
+N
+addmargins(N)
+```
+
+Cada celda es un conteo: por ejemplo, 68 personas tienen cabello negro y ojos café, y solo 7 tienen cabello rubio y ojos café. Los marginales indican el tamaño de cada categoría: 108, 286, 71 y 127 por filas y 220, 215, 93 y 64 por columnas, con **592** en total. A simple vista ya se ve algo (los rubios casi nunca tienen ojos café, los de cabello negro casi siempre), pero con 16 números es difícil juzgar el patrón completo. Para eso se usan los perfiles.
+
+## Exploración
+
+### Perfiles fila
+
+Como las filas tienen tamaños muy distintos (71 pelirrojos frente a 286 castaños), los conteos no se pueden comparar directamente. Se calculan los **perfiles fila**: la proporción de cada fila que cae en cada columna. La función `prop.table(N, 1)` divide cada fila entre su total (el `1` indica que se opera por filas).
+
+```{r ac_perfil_fila}
+round(prop.table(N, 1), 3)
+```
+
+Cada fila suma 1. Por ejemplo, entre las personas de cabello negro, el 63 % tiene ojos café y solo el 4.6 % ojos verdes; entre las rubias y los rubios, el 74 % tiene ojos azules y solo el 5.5 % ojos café. Los perfiles de los castaños y los pelirrojos son más repartidos. Esto se aprecia mejor en un gráfico de barras apiladas, donde se agrega la fila del **perfil medio** (cómo se reparten los ojos en toda la muestra):
+
+```{r ac_graf_perfiles, fig.width=7, fig.height=4.5}
+perfil <- rbind(prop.table(N, 1), "Perfil medio" = colSums(N) / sum(N))
+colores <- c("#6B4423", "#4A90C2", "#B8873B", "#4C9A4C")
+par(mar = c(4, 8, 3, 1))
+barplot(t(perfil[nrow(perfil):1, ]), horiz = TRUE, las = 1, col = colores,
+        border = "white", xlab = "Proporción dentro de cada fila")
+legend("top", inset = c(0, -0.15), legend = colnames(N), fill = colores,
+       horiz = TRUE, bty = "n", xpd = TRUE)
+```
+
+La barra inferior es el perfil medio: 37 % café, 36 % azul, 16 % avellana y 11 % verde. Los **rubios** se alejan mucho de ese perfil (muchísimo más azul y casi nada de café), los de cabello **negro** también (mucho café y poco azul), mientras que los **castaños** son los más parecidos al promedio. Cuanto más se aparta el perfil de una fila del perfil medio, más aporta esa fila a la asociación.
+
+### Perfiles columna
+
+Se puede mirar la tabla también desde las columnas con `prop.table(N, 2)`, que reparte cada color de ojos entre los colores de cabello:
+
+```{r ac_perfil_col}
+round(prop.table(N, 2), 3)
+```
+
+Entre las personas de ojos azules, el 43.7 % es rubia, mientras que entre las de ojos café solo el 3.2 % lo es. Entre las de ojos verdes el 25 % es rubia y el 21.9 % pelirroja, más que en el resto de columnas. El AC trabaja con los dos tipos de perfiles a la vez, y por eso en el mapa final se pueden dibujar juntas las filas y las columnas.
+
+### Gráfico de mosaico
+
+La función `mosaicplot()` dibuja la tabla como un mosaico: el área de cada rectángulo es proporcional al conteo de la celda, y con `shade = TRUE` el color indica los residuos de Pearson (se explican en la siguiente sección).
+
+```{r ac_mosaico, fig.width=7, fig.height=5}
+mosaicplot(N, shade = TRUE, main = "Cabello y color de ojos", las = 1)
+```
+
+Los rectángulos **azules** son combinaciones con más personas de las esperadas si no hubiera relación (rubio con ojos azules, negro con ojos café) y los **rojos** son combinaciones con menos de las esperadas (rubio con ojos café, negro con ojos azules). Los rectángulos sin color están cerca de lo que se esperaría por azar.
+
+## ¿Hay asociación?
+
+Antes de hacer el mapa conviene verificar que existe una relación entre las variables. Si fueran independientes, el mapa no tendría nada que mostrar.
+
+### Prueba chi-cuadrado de independencia
+
+La función `chisq.test()` contrasta la hipótesis nula de que las dos variables son independientes. Compara los conteos observados con los que se esperarían bajo independencia.
+
+```{r ac_chi}
+ch <- chisq.test(N)
+ch
+```
+
+El estadístico es $\chi^2 = 138.29$ con **9 grados de libertad** (filas menos 1 por columnas menos 1: $3 \times 3$) y un valor $p$ prácticamente cero. Se **rechaza la independencia**: el color de cabello y el de ojos están asociados.
+
+### Frecuencias esperadas
+
+El objeto `ch` guarda más información. `ch$expected` contiene los conteos que habría si no hubiera relación: total de la fila por total de la columna, dividido entre 592.
+
+```{r ac_esperados}
+round(ch$expected, 1)
+```
+
+Por ejemplo, con independencia se esperarían 40.1 personas con cabello negro y ojos café, pero se observaron 68. En cambio, para rubios con ojos café se esperarían 47.2 y se observaron solo 7. La diferencia entre lo observado y lo esperado es lo que genera la asociación.
+
+### Residuos de Pearson
+
+`ch$residuals` contiene los **residuos de Pearson**, $(O-E)/\sqrt{E}$, que miden en una escala comparable qué tanto se aparta cada celda de la independencia. Como regla práctica, valores mayores que 2 en valor absoluto indican celdas que se apartan claramente.
+
+```{r ac_residuos}
+round(ch$residuals, 2)
+```
+
+Los residuos más grandes son **rubio con ojos azules** (+7.05), **rubio con ojos café** (−5.85) y **negro con ojos café** (+4.40). También sobresalen negro con ojos azules (−3.07) y pelirrojo con ojos verdes (+2.28). Se dibujan con `corrplot()`, donde `is.corr = FALSE` indica que los valores no son correlaciones:
+
+```{r ac_graf_residuos, fig.width=6, fig.height=5}
+corrplot(ch$residuals, is.corr = FALSE, method = "color", tl.col = "black",
+         addCoef.col = "black", col = colorRampPalette(c("#B2182B", "white", "#2166AC"))(200),
+         cl.pos = "n")
+```
+
+Azul significa más personas de las esperadas y rojo, menos. El gráfico confirma el patrón del mosaico y resume la asociación: **claro con ojos azules, oscuro con ojos café**.
+
+### Contribución de cada celda al chi-cuadrado
+
+Elevando los residuos al cuadrado y dividiendo entre el estadístico se obtiene el porcentaje del $\chi^2$ que aporta cada celda:
+
+```{r ac_contrib_celdas}
+round(100 * ch$residuals^2 / ch$statistic, 1)
+```
+
+Tres celdas concentran casi el 75 % de la asociación: rubio con azul (35.9 %), rubio con café (24.8 %) y negro con café (14.0 %). Por eso se espera que el mapa final se organice alrededor del contraste entre el cabello rubio con ojos azules y el cabello negro con ojos café.
+
+### Inercia total
+
+La **inercia total** del AC es el estadístico chi-cuadrado dividido entre el tamaño de muestra. Mide la cantidad de asociación en una escala que no depende de $n$:
+
+```{r ac_inercia}
+ch$statistic / sum(N)
+```
+
+La inercia total es **0.2336**. Este número es lo que el AC va a repartir entre las dimensiones del mapa.
+
+## Análisis de correspondencias
+
+### Ajuste con `CA()`
+
+La función `CA()` recibe la tabla de contingencia y devuelve todos los resultados. Con `graph = FALSE` no dibuja el mapa automáticamente, porque se hará más adelante con `factoextra`.
+
+```{r ac_ca}
+res <- CA(N, graph = FALSE)
+res
+```
+
+La salida confirma el chi-cuadrado y el valor $p$, y lista los objetos disponibles: `res$eig` (valores propios), `res$row` y `res$col` (resultados de filas y columnas, cada uno con coordenadas, contribuciones y cos²) y `res$call$marge.row` y `res$call$marge.col` (las masas).
+
+### Masas
+
+Las **masas** son el peso de cada categoría, es decir, su total entre 592. Las categorías grandes pesan más al determinar los ejes.
+
+```{r ac_masas}
+round(res$call$marge.row, 3)
+round(res$call$marge.col, 3)
+```
+
+Los castaños pesan 48.3 % de las filas y los pelirrojos solo 12 %; en las columnas, los ojos café y azules pesan cerca de 37 % cada uno y los verdes 10.8 %.
+
+### Valores propios e inercia por dimensión
+
+`res$eig` muestra cuánta inercia recoge cada dimensión. Como la tabla es de 4 × 4, hay a lo sumo $\min(4,4)-1 = 3$ dimensiones.
+
+```{r ac_eig}
+round(res$eig, 4)
+sum(res$eig[, 1])
+```
+
+Las columnas son el **valor propio** (la inercia de la dimensión), el **porcentaje de la inercia** total y el **porcentaje acumulado**. La dimensión 1 recoge el **89.4 %** de la inercia, la dimensión 2 el **9.5 %** y la dimensión 3 solo el 1.1 %. Los tres valores propios suman 0.2336, que es la inercia total calculada antes (el chi-cuadrado entre $n$). Con dos dimensiones se explica el **98.9 %** de la asociación, así que un mapa de dos dimensiones basta.
+
+### Gráfico de sedimentación
+
+La función `fviz_screeplot()` dibuja el porcentaje de inercia de cada dimensión. `addlabels = TRUE` escribe el valor sobre cada barra.
+
+```{r ac_scree, fig.width=5.5, fig.height=4}
+fviz_screeplot(res, addlabels = TRUE, ylim = c(0, 100),
+               barfill = azul, barcolor = azul,
+               main = "Inercia explicada por dimensión", xlab = "Dimensión",
+               ylab = "% de la inercia")
+```
+
+La dimensión 1 domina y la dimensión 2 aporta un complemento claro; la tercera es despreciable. Se retienen **dos dimensiones**.
+
+### Coordenadas de filas y columnas
+
+Las coordenadas indican dónde se ubica cada categoría en cada dimensión:
+
+```{r ac_coord}
+round(res$row$coord, 3)
+round(res$col$coord, 3)
+```
+
+En la **dimensión 1**, rubio (−0.835) queda en un extremo y negro (+0.505) en el otro; entre los ojos, azul (−0.547) y café (+0.492) también quedan en extremos opuestos. Castaño (+0.148) queda cerca de cero. En la **dimensión 2**, pelirrojo (+0.320) y verde (+0.339) quedan arriba, y negro (−0.215) abajo. El signo de una dimensión es arbitrario: lo que importa es que las categorías con signos opuestos están en extremos contrarios, no cuál es el positivo.
+
+### Contribuciones
+
+La **contribución** de una categoría a una dimensión indica qué porcentaje de la inercia de ese eje aporta. Las categorías con contribución alta son las que definen la dimensión. Si todas aportaran por igual, cada una contribuiría 25 % (4 categorías).
+
+```{r ac_contrib}
+round(res$row$contrib, 1)
+round(res$col$contrib, 1)
+```
+
+La **dimensión 1** la definen **rubio** (71.7 %) y **negro** (22.2 %) entre los cabellos, y **azul** (52.1 %) y **café** (43.1 %) entre los ojos. La **dimensión 2** la definen **pelirrojo** (55.1 %) y **negro** (37.9 %) entre los cabellos, y **verde** (55.9 %) y **avellana** (19.8 %) entre los ojos. Se ven mejor en gráficos de barras con `fviz_contrib()`; la línea roja marca el promedio (25 %):
+
+```{r ac_graf_contrib, fig.width=7, fig.height=4}
+fviz_contrib(res, choice = "row", axes = 1, fill = azul, color = azul,
+             title = "Contribución de las filas a la dimensión 1")
+fviz_contrib(res, choice = "col", axes = 1, fill = naranja, color = naranja,
+             title = "Contribución de las columnas a la dimensión 1")
+fviz_contrib(res, choice = "row", axes = 2, fill = azul, color = azul,
+             title = "Contribución de las filas a la dimensión 2")
+fviz_contrib(res, choice = "col", axes = 2, fill = naranja, color = naranja,
+             title = "Contribución de las columnas a la dimensión 2")
+```
+
+### Calidad de la representación (cos²)
+
+El **cos²** de una categoría en una dimensión es la fracción de su inercia que esa dimensión recoge. Sumando las dimensiones del mapa, indica qué tan bien está dibujada esa categoría (cercano a 1 es muy bien, cercano a 0 es mal).
+
+```{r ac_cos2}
+round(res$row$cos2, 3)
+round(res$col$cos2, 3)
+```
+
+Sumando las dos primeras columnas, todas las categorías quedan muy bien representadas en el mapa de dos dimensiones: rubio (1.00), negro (0.99), pelirrojo (0.95), castaño (0.91), azul (1.00), café (1.00), verde (0.95) y avellana (0.88). Además se ve en qué dimensión se representa cada una: rubio, negro, castaño, café y azul se explican sobre todo por la dimensión 1, mientras que **pelirrojo (0.81) y verde (0.77) se explican sobre todo por la dimensión 2**. Se dibuja con `corrplot()`:
+
+```{r ac_graf_cos2, fig.width=4.5, fig.height=4}
+corrplot(res$row$cos2[, 1:2], is.corr = FALSE, method = "color", tl.col = "black",
+         col = colorRampPalette(c("white", azul))(100), col.lim = c(0, 1),
+         addCoef.col = "black", cl.pos = "n", title = "cos2 de las filas", mar = c(0, 0, 2, 0))
+corrplot(res$col$cos2[, 1:2], is.corr = FALSE, method = "color", tl.col = "black",
+         col = colorRampPalette(c("white", naranja))(100), col.lim = c(0, 1),
+         addCoef.col = "black", cl.pos = "n", title = "cos2 de las columnas", mar = c(0, 0, 2, 0))
+```
+
+### Inercia de cada categoría
+
+Cada categoría también tiene una inercia propia: qué tan lejos está del perfil medio, ponderada por su masa. Aparece en `res$row$inertia` y `res$col$inertia`:
+
+```{r ac_inercia_cat}
+round(res$row$inertia, 4)
+round(res$col$inertia, 4)
+```
+
+Entre las filas, **rubio** concentra la mayor parte de la inercia (0.1508 de 0.2336, un 65 %), seguido por negro (0.0554, 24 %); castaño (0.0123) y pelirrojo (0.0151) aportan poco. Entre las columnas, **azul** (0.1113, 48 %) y **café** (0.0931, 40 %) concentran casi toda. Son las categorías que más se alejan del promedio y por eso definen la dimensión 1.
+
+### Resumen con `summary()`
+
+La función `summary()` junta valores propios, inercia, coordenadas, contribuciones y cos² en una sola salida. `ncp = 2` limita el resumen a las dos primeras dimensiones.
+
+```{r ac_summary_res}
+summary(res, nb.dec = 3, ncp = 2)
+```
+
+Cada fila de las tablas `Rows` y `Columns` tiene la inercia de la categoría (`Iner*1000`), y para cada dimensión su coordenada, su contribución (`ctr`) y su `cos2`, que son los mismos valores revisados arriba.
+
+## Mapas
+
+### Mapa simétrico
+
+La función `fviz_ca_biplot()` dibuja filas y columnas juntas. En el **mapa simétrico** (el que usa `CA()` por defecto) las filas y las columnas se dibujan en coordenadas principales. Con `repel = TRUE` se evita que las etiquetas se monten.
+
+```{r ac_mapa, fig.width=7, fig.height=5.5}
+fviz_ca_biplot(res, repel = TRUE, col.row = azul, col.col = naranja,
+               title = "Mapa simétrico: cabello (azul) y ojos (naranja)")
+```
+
+Los ejes muestran el porcentaje de inercia: 89.4 % en el horizontal y 9.5 % en el vertical. Cómo se lee:
+
+- **Filas entre sí:** categorías de cabello cercanas tienen perfiles de ojos parecidos. Castaño queda cerca del origen (perfil promedio) y rubio queda muy lejos, en el extremo izquierdo.
+- **Columnas entre sí:** azul queda a la izquierda, junto a rubio, y café a la derecha, junto a negro. Avellana queda cerca del origen y verde queda arriba, separado de los demás.
+- **Filas con columnas:** no se debe medir la distancia entre una fila y una columna, pero sí ver si están en la misma **dirección** desde el origen. Rubio y azul están del mismo lado (se asocian), igual que negro y café; pelirrojo y verde están arriba (asociados).
+- **Dimensión 1 (horizontal):** gradiente **claro–oscuro**, con rubio y ojos azules a la izquierda y cabello negro y ojos café a la derecha.
+- **Dimensión 2 (vertical):** separa a los **pelirrojos con ojos verdes** (arriba) de los de cabello negro (abajo).
+
+### Mapa con la calidad de representación
+
+Se puede colorear cada punto según su cos², para identificar categorías mal representadas. El argumento `col.row = "cos2"` y `col.col = "cos2"` aplican la escala de color, y `gradient.cols` define los colores.
+
+```{r ac_mapa_cos2, fig.width=7, fig.height=5.5}
+fviz_ca_biplot(res, repel = TRUE, col.row = "cos2", col.col = "cos2",
+               gradient.cols = c("#BBBBBB", "#C85A14", azul),
+               title = "Mapa según la calidad de representación (cos2)")
+```
+
+La escala de color va solo de 0.88 a 1.00, es decir, **todas las categorías están bien representadas** en el mapa de dos dimensiones. Las más oscuras (rubio, azul, café y negro) son las mejor dibujadas; las más claras son avellana (0.88) y castaño (0.91), que aun así quedan aceptablemente representadas.
+
+### Mapa con las contribuciones
+
+También se puede colorear según la contribución al plano, con `col.row = "contrib"`:
+
+```{r ac_mapa_contrib, fig.width=7, fig.height=5.5}
+fviz_ca_biplot(res, repel = TRUE, col.row = "contrib", col.col = "contrib",
+               gradient.cols = c("#BBBBBB", "#C85A14", azul),
+               title = "Mapa según la contribución a las dos dimensiones")
+```
+
+Los puntos más oscuros (rubio, azul, negro y café) son los que más contribuyen a definir el plano, porque dominan la dimensión 1, que concentra casi toda la inercia. Pelirrojo y verde aparecen en gris: definen la dimensión 2, pero como esa dimensión recoge solo el 9.5 % de la inercia, su contribución al plano completo es pequeña. Castaño y avellana también contribuyen poco, porque están cerca del origen.
+
+### Mapa asimétrico
+
+En el **mapa asimétrico** las filas se dibujan en coordenadas principales y las columnas en coordenadas estándar (flechas desde el origen). Con `map = "rowprincipal"` y `arrow = c(FALSE, TRUE)` las columnas aparecen como flechas:
+
+```{r ac_mapa_asim, fig.width=7, fig.height=5.5}
+fviz_ca_biplot(res, map = "rowprincipal", arrow = c(FALSE, TRUE), repel = TRUE,
+               col.row = azul, col.col = naranja,
+               title = "Mapa asimétrico: filas en coordenadas principales")
+```
+
+Aquí sí se puede interpretar la posición de una fila respecto de la dirección de cada columna: cada color de cabello queda más cerca de las flechas de los ojos con los que más se asocia (rubio hacia azul, negro hacia café, pelirrojo hacia verde). Las flechas son más largas porque las columnas se dibujan en una escala mayor, y por eso este mapa se usa solo para ver el vínculo entre filas y columnas, no para comparar categorías de una misma variable.
+
+### Solo filas y solo columnas
+
+Si interesa mirar una variable a la vez, `fviz_ca_row()` y `fviz_ca_col()` dibujan cada una por separado:
+
+```{r ac_mapa_filas_cols, fig.width=5, fig.height=4.5}
+fviz_ca_row(res, repel = TRUE, col.row = azul, title = "Categorías de cabello")
+fviz_ca_col(res, repel = TRUE, col.col = naranja, title = "Categorías de ojos")
+```
+
+Los puntos conservan las mismas posiciones que en el mapa simétrico. Se ve que entre los colores de cabello la mayor diferencia es entre rubio y negro, con castaño y pelirrojo en una posición intermedia, y que entre los ojos la mayor diferencia es entre azul y café.
+
+## Conclusiones
+
+El color de cabello y el color de ojos **están asociados** ($\chi^2 = 138.29$, 9 gl, $p < 0.001$) y la inercia total de la tabla es 0.2336. El análisis de correspondencias resume esa asociación en **dos dimensiones** que recogen el 98.9 % de la inercia:
+
+- **Dimensión 1 (89.4 %):** un gradiente **claro–oscuro**. En un extremo están el cabello rubio y los ojos azules; en el otro, el cabello negro y los ojos café. Estas cuatro categorías son las que más contribuyen a la dimensión.
+- **Dimensión 2 (9.5 %):** distingue a los **pelirrojos con ojos verdes** del resto, y en particular del cabello negro.
+- El cabello **castaño** y los ojos **avellana** quedan cerca del centro: se parecen al perfil promedio y no definen ninguna dirección.
+- Todas las categorías quedan bien representadas en el mapa (cos² mayor que 0.87).
+
+### Funciones usadas
+
+| Función | Para qué sirve |
+|:--|:--|
+| `table()`, `addmargins()` | tabla de contingencia y marginales |
+| `prop.table(N, 1)`, `prop.table(N, 2)` | perfiles fila y perfiles columna |
+| `chisq.test()` | prueba de independencia; `$expected` y `$residuals` |
+| `CA()` | ajusta el análisis de correspondencias |
+| `res$eig` | valores propios y porcentaje de inercia |
+| `res$row$coord`, `res$col$coord` | coordenadas |
+| `res$row$contrib`, `res$col$contrib` | contribuciones (%) |
+| `res$row$cos2`, `res$col$cos2` | calidad de la representación |
+| `fviz_screeplot()` | gráfico de sedimentación |
+| `fviz_ca_biplot()` | mapa simétrico o asimétrico |
+| `fviz_contrib()` | barras de contribuciones |

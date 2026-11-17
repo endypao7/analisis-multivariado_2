@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Lección 8 Análisis de Correspondencias Simple | Análisis de Correspondencias en R</title>
+  <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Lección 8 Análisis de Correspondencias Simple | Análisis de Correspondencias en R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lección 8 Análisis de Correspondencias Simple | Análisis de Correspondencias en R" />
+  
+  <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  
+
+<meta name="author" content="Endy Paola Salon" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-factorial-exploratorio.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Multivariado</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Conoce Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instalación-y-configuración-de-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalación y Configuración de R-STUDIO</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#rstudio-en-tu-equipo-escritorio"><i class="fa fa-check"></i><b>1.1.1</b> Rstudio en tu equipo (escritorio)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#primeros-pasos"><i class="fa fa-check"></i><b>1.2</b> Primeros pasos</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#creación-de-reportes-en-r-con-r-markdown"><i class="fa fa-check"></i><b>1.2.1</b> Creación de reportes en R con R Markdown:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#conceptos-básicos-de-programación-en-r"><i class="fa fa-check"></i><b>1.3</b> Conceptos básicos de programación en R:</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#tipos-de-variables-en-r"><i class="fa fa-check"></i><b>1.3.1</b> Tipos de variables en R:</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#estructuras-de-datos-en-r"><i class="fa fa-check"></i><b>1.3.2</b> Estructuras de Datos en R:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html"><i class="fa fa-check"></i><b>2</b> Bases de datos en R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#dataframes-bases-de-datos"><i class="fa fa-check"></i><b>2.1</b> Dataframes (bases de datos)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#creación-de-dataframes"><i class="fa fa-check"></i><b>2.1.1</b> Creación de Dataframes</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#importar-un-dataframe-desde-un-archivo-csv"><i class="fa fa-check"></i><b>2.1.2</b> Importar un Dataframe desde un archivo CSV</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#pre-procesamiento-de-una-base-de-datos-preinstalada-en-r"><i class="fa fa-check"></i><b>2.2</b> Pre procesamiento de una Base de Datos Preinstalada en R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html"><i class="fa fa-check"></i><b>3</b> Álgebra: Repaso</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#vectores"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-vectores"><i class="fa fa-check"></i><b>3.1.1</b> Crear vectores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-y-resta"><i class="fa fa-check"></i><b>3.1.2</b> Suma y resta</a></li>
+<li class="chapter" data-level="3.1.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-por-un-escalar"><i class="fa fa-check"></i><b>3.1.3</b> Multiplicar por un escalar</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#combinaciones-lineales"><i class="fa fa-check"></i><b>3.2</b> Combinaciones lineales</a></li>
+<li class="chapter" data-level="3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices"><i class="fa fa-check"></i><b>3.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-una-matriz"><i class="fa fa-check"></i><b>3.3.1</b> Crear una matriz</a></li>
+<li class="chapter" data-level="3.3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-resta-y-escalar"><i class="fa fa-check"></i><b>3.3.2</b> Suma, resta y escalar</a></li>
+<li class="chapter" data-level="3.3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#transpuesta"><i class="fa fa-check"></i><b>3.3.3</b> Transpuesta</a></li>
+<li class="chapter" data-level="3.3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Multiplicar matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matriz-por-vector"><i class="fa fa-check"></i><b>3.3.5</b> Matriz por vector</a></li>
+<li class="chapter" data-level="3.3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#la-matriz-identidad"><i class="fa fa-check"></i><b>3.3.6</b> La matriz identidad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#determinante"><i class="fa fa-check"></i><b>3.4</b> Determinante</a></li>
+<li class="chapter" data-level="3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#inversa"><i class="fa fa-check"></i><b>3.5</b> Inversa</a></li>
+<li class="chapter" data-level="3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto-y-norma"><i class="fa fa-check"></i><b>3.6</b> Producto punto y norma</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto"><i class="fa fa-check"></i><b>3.6.1</b> Producto punto</a></li>
+<li class="chapter" data-level="3.6.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#norma-largo-de-un-vector"><i class="fa fa-check"></i><b>3.6.2</b> Norma (largo de un vector)</a></li>
+<li class="chapter" data-level="3.6.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#distancia-entre-dos-puntos"><i class="fa fa-check"></i><b>3.6.3</b> Distancia entre dos puntos</a></li>
+<li class="chapter" data-level="3.6.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ángulo-entre-dos-vectores"><i class="fa fa-check"></i><b>3.6.4</b> Ángulo entre dos vectores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ortogonalidad"><i class="fa fa-check"></i><b>3.7</b> Ortogonalidad</a></li>
+<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.8.1</b> Comprobar la definición</a></li>
+<li class="chapter" data-level="3.8.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.8.2</b> Dos atajos útiles</a></li>
+<li class="chapter" data-level="3.8.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.8.3</b> Matrices simétricas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.9</b> Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html"><i class="fa fa-check"></i><b>4</b> Conceptos básicos: Estadística</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#los-datos-consumo-de-combustible-de-automóviles"><i class="fa fa-check"></i><b>4.1</b> Los datos: consumo de combustible de automóviles</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#traer-la-base-desde-internet"><i class="fa fa-check"></i><b>4.1.1</b> Traer la base desde internet</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#estructura-de-la-base-de-datos"><i class="fa fa-check"></i><b>4.2</b> Estructura de la base de datos</a></li>
+<li class="chapter" data-level="4.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#tipos-de-variables"><i class="fa fa-check"></i><b>4.3</b> Tipos de variables</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cualitativas"><i class="fa fa-check"></i><b>4.3.1</b> Variables cualitativas</a></li>
+<li class="chapter" data-level="4.3.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cuantitativas"><i class="fa fa-check"></i><b>4.3.2</b> Variables cuantitativas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#datos-faltantes"><i class="fa fa-check"></i><b>4.4</b> Datos faltantes</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#qué-pasa-si-ignoramos-los-na"><i class="fa fa-check"></i><b>4.4.1</b> Qué pasa si ignoramos los <code>NA</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#eliminar-los-individuos-con-faltantes"><i class="fa fa-check"></i><b>4.4.2</b> Eliminar los individuos con faltantes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#valores-atípicos-outliers"><i class="fa fa-check"></i><b>4.5</b> Valores atípicos (outliers)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuánto-afectan-al-resumen"><i class="fa fa-check"></i><b>4.5.1</b> Cuánto afectan al resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-univariado-una-variable"><i class="fa fa-check"></i><b>4.6</b> Análisis univariado: una variable</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#media"><i class="fa fa-check"></i><b>4.6.1</b> Media</a></li>
+<li class="chapter" data-level="4.6.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mediana"><i class="fa fa-check"></i><b>4.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="4.6.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#varianza"><i class="fa fa-check"></i><b>4.6.3</b> Varianza</a></li>
+<li class="chapter" data-level="4.6.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#desviación-estándar"><i class="fa fa-check"></i><b>4.6.4</b> Desviación estándar</a></li>
+<li class="chapter" data-level="4.6.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#coeficiente-de-variación"><i class="fa fa-check"></i><b>4.6.5</b> Coeficiente de variación</a></li>
+<li class="chapter" data-level="4.6.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#todas-las-variables-numéricas-a-la-vez"><i class="fa fa-check"></i><b>4.6.6</b> Todas las variables numéricas a la vez</a></li>
+<li class="chapter" data-level="4.6.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#gráficos-de-una-variable"><i class="fa fa-check"></i><b>4.6.7</b> Gráficos de una variable</a></li>
+<li class="chapter" data-level="4.6.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#comparar-por-grupos"><i class="fa fa-check"></i><b>4.6.8</b> Comparar por grupos</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-bivariado-dos-variables-juntas"><i class="fa fa-check"></i><b>4.7</b> Análisis bivariado: dos variables juntas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#diagrama-de-dispersión"><i class="fa fa-check"></i><b>4.7.1</b> Diagrama de dispersión</a></li>
+<li class="chapter" data-level="4.7.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#covarianza"><i class="fa fa-check"></i><b>4.7.2</b> Covarianza</a></li>
+<li class="chapter" data-level="4.7.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#correlación"><i class="fa fa-check"></i><b>4.7.3</b> Correlación</a></li>
+<li class="chapter" data-level="4.7.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ejemplos-para-revisar-la-correlación"><i class="fa fa-check"></i><b>4.7.4</b> Ejemplos para revisar la correlación</a></li>
+<li class="chapter" data-level="4.7.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-correlación-no-es-causalidad"><i class="fa fa-check"></i><b>4.7.5</b> Cuidado: correlación no es causalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#matriz-de-correlación"><i class="fa fa-check"></i><b>4.8</b> Matriz de correlación</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mapa-de-calor-de-la-matriz-de-correlación"><i class="fa fa-check"></i><b>4.8.1</b> Mapa de calor de la matriz de correlación</a></li>
+<li class="chapter" data-level="4.8.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ver-todas-las-relaciones-a-la-vez"><i class="fa fa-check"></i><b>4.8.2</b> Ver todas las relaciones a la vez</a></li>
+<li class="chapter" data-level="4.8.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#la-matriz-de-covarianzas"><i class="fa fa-check"></i><b>4.8.3</b> La matriz de covarianzas</a></li>
+<li class="chapter" data-level="4.8.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-con-los-grupos-mezclados"><i class="fa fa-check"></i><b>4.8.4</b> Cuidado con los grupos mezclados</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#resumen-de-funciones"><i class="fa fa-check"></i><b>4.9</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html"><i class="fa fa-check"></i><b>5</b> Distribuciones de probabilidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#variable-aleatoria-y-distribución-binomial"><i class="fa fa-check"></i><b>5.1</b> Variable aleatoria y distribución binomial</a></li>
+<li class="chapter" data-level="5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal"><i class="fa fa-check"></i><b>5.2</b> Distribución normal</a></li>
+<li class="chapter" data-level="5.3" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#dos-variables-conjunta-marginales-y-covarianza"><i class="fa fa-check"></i><b>5.3</b> Dos variables: conjunta, marginales y covarianza</a></li>
+<li class="chapter" data-level="5.4" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#vector-aleatorio-y-matriz-de-covarianzas"><i class="fa fa-check"></i><b>5.4</b> Vector aleatorio y matriz de covarianzas</a></li>
+<li class="chapter" data-level="5.5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal-multivariada"><i class="fa fa-check"></i><b>5.5</b> Distribución normal multivariada</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#la-densidad-y-el-efecto-de-la-correlación"><i class="fa fa-check"></i><b>5.5.1</b> La densidad y el efecto de la correlación</a></li>
+<li class="chapter" data-level="5.5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#propiedades"><i class="fa fa-check"></i><b>5.5.2</b> Propiedades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distancia-de-mahalanobis-y-normalidad-multivariada"><i class="fa fa-check"></i><b>5.6</b> Distancia de Mahalanobis y normalidad multivariada</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#con-datos-reales"><i class="fa fa-check"></i><b>5.6.1</b> Con datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#resumen-de-funciones-1"><i class="fa fa-check"></i><b>5.7</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>6</b> Análisis de componentes principales</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#notación"><i class="fa fa-check"></i><b>6.0.1</b> Notación</a></li>
+<li class="chapter" data-level="6.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-a.-ejemplo-manual"><i class="fa fa-check"></i><b>6.1</b> Parte A. Ejemplo manual</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos"><i class="fa fa-check"></i><b>6.1.1</b> Datos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-1.-centrado-y-estandarización"><i class="fa fa-check"></i><b>6.1.2</b> Paso 1. Centrado y estandarización</a></li>
+<li class="chapter" data-level="6.1.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-2.-matrices-de-covarianzas-y-de-correlaciones"><i class="fa fa-check"></i><b>6.1.3</b> Paso 2. Matrices de covarianzas y de correlaciones</a></li>
+<li class="chapter" data-level="6.1.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-3.-eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>6.1.4</b> Paso 3. Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="6.1.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-4.-varianza-explicada"><i class="fa fa-check"></i><b>6.1.5</b> Paso 4. Varianza explicada</a></li>
+<li class="chapter" data-level="6.1.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-5.-scores"><i class="fa fa-check"></i><b>6.1.6</b> Paso 5. Scores</a></li>
+<li class="chapter" data-level="6.1.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#loadings-y-correlación-con-las-variables"><i class="fa fa-check"></i><b>6.1.7</b> Loadings y correlación con las variables</a></li>
+<li class="chapter" data-level="6.1.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#comprobación-con-prcomp"><i class="fa fa-check"></i><b>6.1.8</b> Comprobación con <code>prcomp()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-b.-aplicación-con-datos-reales"><i class="fa fa-check"></i><b>6.2</b> Parte B. Aplicación con datos reales</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos-1"><i class="fa fa-check"></i><b>6.2.1</b> Datos</a></li>
+<li class="chapter" data-level="6.2.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-univariada"><i class="fa fa-check"></i><b>6.2.2</b> Exploración univariada</a></li>
+<li class="chapter" data-level="6.2.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-bivariada"><i class="fa fa-check"></i><b>6.2.3</b> Exploración bivariada</a></li>
+<li class="chapter" data-level="6.2.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#verificación-de-supuestos"><i class="fa fa-check"></i><b>6.2.4</b> Verificación de supuestos</a></li>
+<li class="chapter" data-level="6.2.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#cálculo-de-componentes"><i class="fa fa-check"></i><b>6.2.5</b> Cálculo de componentes</a></li>
+<li class="chapter" data-level="6.2.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#selección-del-número-de-componentes"><i class="fa fa-check"></i><b>6.2.6</b> Selección del número de componentes</a></li>
+<li class="chapter" data-level="6.2.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#interpretación-de-loadings"><i class="fa fa-check"></i><b>6.2.7</b> Interpretación de loadings</a></li>
+<li class="chapter" data-level="6.2.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#scores-y-gráficos-de-observaciones"><i class="fa fa-check"></i><b>6.2.8</b> Scores y gráficos de observaciones</a></li>
+<li class="chapter" data-level="6.2.9" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#atípicos-en-el-espacio-de-componentes"><i class="fa fa-check"></i><b>6.2.9</b> Atípicos en el espacio de componentes</a></li>
+<li class="chapter" data-level="6.2.10" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#uso-posterior-de-los-componentes"><i class="fa fa-check"></i><b>6.2.10</b> Uso posterior de los componentes</a></li>
+<li class="chapter" data-level="6.2.11" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#resumen-del-análisis"><i class="fa fa-check"></i><b>6.2.11</b> Resumen del análisis</a></li>
+<li class="chapter" data-level="6.2.12" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#lista-de-verificación"><i class="fa fa-check"></i><b>6.2.12</b> Lista de verificación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html"><i class="fa fa-check"></i><b>7</b> Análisis Factorial Exploratorio</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#introducción"><i class="fa fa-check"></i><b>7.1</b> Introducción</a></li>
+<li class="chapter" data-level="7.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#los-datos"><i class="fa fa-check"></i><b>7.2</b> Los datos</a></li>
+<li class="chapter" data-level="7.3" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#exploración"><i class="fa fa-check"></i><b>7.3</b> Exploración</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#resumen-numérico"><i class="fa fa-check"></i><b>7.3.1</b> Resumen numérico</a></li>
+<li class="chapter" data-level="7.3.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#estandarización"><i class="fa fa-check"></i><b>7.3.2</b> Estandarización</a></li>
+<li class="chapter" data-level="7.3.3" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#matriz-de-correlaciones"><i class="fa fa-check"></i><b>7.3.3</b> Matriz de correlaciones</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#supuestos"><i class="fa fa-check"></i><b>7.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#prueba-de-esfericidad-de-bartlett"><i class="fa fa-check"></i><b>7.4.1</b> Prueba de esfericidad de Bartlett</a></li>
+<li class="chapter" data-level="7.4.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#índice-kmo"><i class="fa fa-check"></i><b>7.4.2</b> Índice KMO</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#número-de-factores"><i class="fa fa-check"></i><b>7.5</b> Número de factores</a></li>
+<li class="chapter" data-level="7.6" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#extracción-por-ejes-principales-paf"><i class="fa fa-check"></i><b>7.6</b> Extracción por Ejes Principales (PAF)</a></li>
+<li class="chapter" data-level="7.7" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#extracción-por-minres"><i class="fa fa-check"></i><b>7.7</b> Extracción por MINRES</a></li>
+<li class="chapter" data-level="7.8" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#rotaciones"><i class="fa fa-check"></i><b>7.8</b> Rotaciones</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#varimax"><i class="fa fa-check"></i><b>7.8.1</b> Varimax</a></li>
+<li class="chapter" data-level="7.8.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#oblimin"><i class="fa fa-check"></i><b>7.8.2</b> Oblimin</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#conclusiones"><i class="fa fa-check"></i><b>7.9</b> Conclusiones</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html"><i class="fa fa-check"></i><b>8</b> Análisis de Correspondencias Simple</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#introducción-1"><i class="fa fa-check"></i><b>8.1</b> Introducción</a></li>
+<li class="chapter" data-level="8.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#los-datos-1"><i class="fa fa-check"></i><b>8.2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#de-datos-individuales-a-una-tabla"><i class="fa fa-check"></i><b>8.2.1</b> De datos individuales a una tabla</a></li>
+<li class="chapter" data-level="8.2.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#la-tabla-de-contingencia"><i class="fa fa-check"></i><b>8.2.2</b> La tabla de contingencia</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#exploración-1"><i class="fa fa-check"></i><b>8.3</b> Exploración</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#perfiles-fila"><i class="fa fa-check"></i><b>8.3.1</b> Perfiles fila</a></li>
+<li class="chapter" data-level="8.3.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#perfiles-columna"><i class="fa fa-check"></i><b>8.3.2</b> Perfiles columna</a></li>
+<li class="chapter" data-level="8.3.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#gráfico-de-mosaico"><i class="fa fa-check"></i><b>8.3.3</b> Gráfico de mosaico</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#hay-asociación"><i class="fa fa-check"></i><b>8.4</b> ¿Hay asociación?</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#prueba-chi-cuadrado-de-independencia"><i class="fa fa-check"></i><b>8.4.1</b> Prueba chi-cuadrado de independencia</a></li>
+<li class="chapter" data-level="8.4.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#frecuencias-esperadas"><i class="fa fa-check"></i><b>8.4.2</b> Frecuencias esperadas</a></li>
+<li class="chapter" data-level="8.4.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#residuos-de-pearson"><i class="fa fa-check"></i><b>8.4.3</b> Residuos de Pearson</a></li>
+<li class="chapter" data-level="8.4.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#contribución-de-cada-celda-al-chi-cuadrado"><i class="fa fa-check"></i><b>8.4.4</b> Contribución de cada celda al chi-cuadrado</a></li>
+<li class="chapter" data-level="8.4.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#inercia-total"><i class="fa fa-check"></i><b>8.4.5</b> Inercia total</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#análisis-de-correspondencias"><i class="fa fa-check"></i><b>8.5</b> Análisis de correspondencias</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#ajuste-con-ca"><i class="fa fa-check"></i><b>8.5.1</b> Ajuste con <code>CA()</code></a></li>
+<li class="chapter" data-level="8.5.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#masas"><i class="fa fa-check"></i><b>8.5.2</b> Masas</a></li>
+<li class="chapter" data-level="8.5.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#valores-propios-e-inercia-por-dimensión"><i class="fa fa-check"></i><b>8.5.3</b> Valores propios e inercia por dimensión</a></li>
+<li class="chapter" data-level="8.5.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#gráfico-de-sedimentación"><i class="fa fa-check"></i><b>8.5.4</b> Gráfico de sedimentación</a></li>
+<li class="chapter" data-level="8.5.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#coordenadas-de-filas-y-columnas"><i class="fa fa-check"></i><b>8.5.5</b> Coordenadas de filas y columnas</a></li>
+<li class="chapter" data-level="8.5.6" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#contribuciones"><i class="fa fa-check"></i><b>8.5.6</b> Contribuciones</a></li>
+<li class="chapter" data-level="8.5.7" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#calidad-de-la-representación-cos²"><i class="fa fa-check"></i><b>8.5.7</b> Calidad de la representación (cos²)</a></li>
+<li class="chapter" data-level="8.5.8" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#inercia-de-cada-categoría"><i class="fa fa-check"></i><b>8.5.8</b> Inercia de cada categoría</a></li>
+<li class="chapter" data-level="8.5.9" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#resumen-con-summary"><i class="fa fa-check"></i><b>8.5.9</b> Resumen con <code>summary()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapas"><i class="fa fa-check"></i><b>8.6</b> Mapas</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-simétrico"><i class="fa fa-check"></i><b>8.6.1</b> Mapa simétrico</a></li>
+<li class="chapter" data-level="8.6.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-con-la-calidad-de-representación"><i class="fa fa-check"></i><b>8.6.2</b> Mapa con la calidad de representación</a></li>
+<li class="chapter" data-level="8.6.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-con-las-contribuciones"><i class="fa fa-check"></i><b>8.6.3</b> Mapa con las contribuciones</a></li>
+<li class="chapter" data-level="8.6.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-asimétrico"><i class="fa fa-check"></i><b>8.6.4</b> Mapa asimétrico</a></li>
+<li class="chapter" data-level="8.6.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#solo-filas-y-solo-columnas"><i class="fa fa-check"></i><b>8.6.5</b> Solo filas y solo columnas</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#conclusiones-1"><i class="fa fa-check"></i><b>8.7</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#funciones-usadas"><i class="fa fa-check"></i><b>8.7.1</b> Funciones usadas</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">
+  Published with bookdown
+</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Distribuciones de probabilidad en RStudio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-de-correspondencias-simple" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Lección 8</span> Análisis de Correspondencias Simple<a href="análisis-de-correspondencias-simple.html#análisis-de-correspondencias-simple" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introducción-1" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Introducción<a href="análisis-de-correspondencias-simple.html#introducción-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El <strong>análisis de correspondencias simple (AC)</strong> estudia la relación entre <strong>dos variables cualitativas</strong> a partir de su <strong>tabla de contingencia</strong> (la tabla de conteos de cada combinación de categorías). Resume esa tabla en un <strong>mapa</strong> de pocas dimensiones donde las categorías de las filas y de las columnas se dibujan juntas: las que se parecen quedan cerca y las que se asocian quedan en la misma dirección.</p>
+<p>Este informe aplica la técnica al <strong>color de cabello</strong> y al <strong>color de ojos</strong> de 592 estudiantes. La pregunta que guía el análisis es: ¿existe una relación entre los dos colores y, si existe, cómo es?</p>
+<p>Los pasos son: construir la tabla de contingencia, explorarla con perfiles, verificar con la prueba chi-cuadrado que hay asociación, ajustar el AC, decidir cuántas dimensiones se retienen, interpretar coordenadas, contribuciones y calidad de representación, y leer los mapas.</p>
+<p>Se usan dos paquetes:</p>
+<ul>
+<li><code>FactoMineR</code>: la función <code>CA()</code> ajusta el análisis y devuelve todos los resultados numéricos.</li>
+<li><code>factoextra</code>: funciones <code>fviz_*()</code> que dibujan los resultados con <code>ggplot2</code>.</li>
+</ul>
+</div>
+<div id="los-datos-1" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Los datos<a href="análisis-de-correspondencias-simple.html#los-datos-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="de-datos-individuales-a-una-tabla" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> De datos individuales a una tabla<a href="análisis-de-correspondencias-simple.html#de-datos-individuales-a-una-tabla" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En la práctica, la información suele llegar como una base con <strong>una fila por persona</strong> y una columna por variable. La base <code>HairEyeColor</code> que trae R ya viene resumida en una tabla, así que primero se convierte en una base individual para reproducir el caso habitual. La función <code>as.data.frame()</code> convierte la tabla en una lista de combinaciones con su frecuencia (<code>Freq</code>), y la indexación con <code>rep()</code> repite cada combinación tantas veces como indique su frecuencia.</p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="análisis-de-correspondencias-simple.html#cb576-1" tabindex="-1"></a>tab0  <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(HairEyeColor)</span>
+<span id="cb576-2"><a href="análisis-de-correspondencias-simple.html#cb576-2" tabindex="-1"></a>datos <span class="ot">&lt;-</span> tab0[<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tab0), tab0<span class="sc">$</span>Freq), <span class="fu">c</span>(<span class="st">&quot;Hair&quot;</span>, <span class="st">&quot;Eye&quot;</span>)]</span>
+<span id="cb576-3"><a href="análisis-de-correspondencias-simple.html#cb576-3" tabindex="-1"></a><span class="fu">rownames</span>(datos) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb576-4"><a href="análisis-de-correspondencias-simple.html#cb576-4" tabindex="-1"></a></span>
+<span id="cb576-5"><a href="análisis-de-correspondencias-simple.html#cb576-5" tabindex="-1"></a><span class="fu">names</span>(datos)  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Cabello&quot;</span>, <span class="st">&quot;Ojos&quot;</span>)</span>
+<span id="cb576-6"><a href="análisis-de-correspondencias-simple.html#cb576-6" tabindex="-1"></a><span class="fu">levels</span>(datos<span class="sc">$</span>Cabello) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Negro&quot;</span>, <span class="st">&quot;Castaño&quot;</span>, <span class="st">&quot;Pelirrojo&quot;</span>, <span class="st">&quot;Rubio&quot;</span>)</span>
+<span id="cb576-7"><a href="análisis-de-correspondencias-simple.html#cb576-7" tabindex="-1"></a><span class="fu">levels</span>(datos<span class="sc">$</span>Ojos)    <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Café&quot;</span>, <span class="st">&quot;Azul&quot;</span>, <span class="st">&quot;Avellana&quot;</span>, <span class="st">&quot;Verde&quot;</span>)</span>
+<span id="cb576-8"><a href="análisis-de-correspondencias-simple.html#cb576-8" tabindex="-1"></a></span>
+<span id="cb576-9"><a href="análisis-de-correspondencias-simple.html#cb576-9" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code></pre></div>
+<pre><code>##   Cabello Ojos
+## 1   Negro Café
+## 2   Negro Café
+## 3   Negro Café
+## 4   Negro Café
+## 5   Negro Café
+## 6   Negro Café</code></pre>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="análisis-de-correspondencias-simple.html#cb578-1" tabindex="-1"></a><span class="fu">dim</span>(datos)</span></code></pre></div>
+<pre><code>## [1] 592   2</code></pre>
+<p>Las dos últimas instrucciones traducen los nombres de las variables y de las categorías al español. La base tiene <strong>592 filas</strong> (estudiantes) y <strong>2 columnas</strong> (cabello y ojos), ambas cualitativas.</p>
+<p>La función <code>summary()</code> cuenta cuántas personas hay en cada categoría:</p>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="análisis-de-correspondencias-simple.html#cb580-1" tabindex="-1"></a><span class="fu">summary</span>(datos)</span></code></pre></div>
+<pre><code>##       Cabello          Ojos    
+##  Negro    :108   Café    :220  
+##  Castaño  :286   Azul    :215  
+##  Pelirrojo: 71   Avellana: 93  
+##  Rubio    :127   Verde   : 64</code></pre>
+<p>Hay 108 personas de cabello negro, 286 castaño, 71 pelirrojo y 127 rubio. En los ojos, 220 son café, 215 azules, 93 avellana y 64 verdes. Los castaños son la categoría más grande y los pelirrojos la más pequeña, algo que se tendrá en cuenta al comparar categorías.</p>
+</div>
+<div id="la-tabla-de-contingencia" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> La tabla de contingencia<a href="análisis-de-correspondencias-simple.html#la-tabla-de-contingencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>table()</code> cuenta las personas en cada combinación de cabello y ojos, y <code>addmargins()</code> agrega los totales de fila y de columna, que se llaman <strong>marginales</strong>.</p>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="análisis-de-correspondencias-simple.html#cb582-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">table</span>(datos<span class="sc">$</span>Cabello, datos<span class="sc">$</span>Ojos)</span>
+<span id="cb582-2"><a href="análisis-de-correspondencias-simple.html#cb582-2" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">dimnames</span>(N)) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Cabello&quot;</span>, <span class="st">&quot;Ojos&quot;</span>)</span>
+<span id="cb582-3"><a href="análisis-de-correspondencias-simple.html#cb582-3" tabindex="-1"></a>N</span></code></pre></div>
+<pre><code>##            Ojos
+## Cabello     Café Azul Avellana Verde
+##   Negro       68   20       15     5
+##   Castaño    119   84       54    29
+##   Pelirrojo   26   17       14    14
+##   Rubio        7   94       10    16</code></pre>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="análisis-de-correspondencias-simple.html#cb584-1" tabindex="-1"></a><span class="fu">addmargins</span>(N)</span></code></pre></div>
+<pre><code>##            Ojos
+## Cabello     Café Azul Avellana Verde Sum
+##   Negro       68   20       15     5 108
+##   Castaño    119   84       54    29 286
+##   Pelirrojo   26   17       14    14  71
+##   Rubio        7   94       10    16 127
+##   Sum        220  215       93    64 592</code></pre>
+<p>Cada celda es un conteo: por ejemplo, 68 personas tienen cabello negro y ojos café, y solo 7 tienen cabello rubio y ojos café. Los marginales indican el tamaño de cada categoría: 108, 286, 71 y 127 por filas y 220, 215, 93 y 64 por columnas, con <strong>592</strong> en total. A simple vista ya se ve algo (los rubios casi nunca tienen ojos café, los de cabello negro casi siempre), pero con 16 números es difícil juzgar el patrón completo. Para eso se usan los perfiles.</p>
+</div>
+</div>
+<div id="exploración-1" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Exploración<a href="análisis-de-correspondencias-simple.html#exploración-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="perfiles-fila" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Perfiles fila<a href="análisis-de-correspondencias-simple.html#perfiles-fila" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Como las filas tienen tamaños muy distintos (71 pelirrojos frente a 286 castaños), los conteos no se pueden comparar directamente. Se calculan los <strong>perfiles fila</strong>: la proporción de cada fila que cae en cada columna. La función <code>prop.table(N, 1)</code> divide cada fila entre su total (el <code>1</code> indica que se opera por filas).</p>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="análisis-de-correspondencias-simple.html#cb586-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(N, <span class="dv">1</span>), <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##            Ojos
+## Cabello      Café  Azul Avellana Verde
+##   Negro     0.630 0.185    0.139 0.046
+##   Castaño   0.416 0.294    0.189 0.101
+##   Pelirrojo 0.366 0.239    0.197 0.197
+##   Rubio     0.055 0.740    0.079 0.126</code></pre>
+<p>Cada fila suma 1. Por ejemplo, entre las personas de cabello negro, el 63 % tiene ojos café y solo el 4.6 % ojos verdes; entre las rubias y los rubios, el 74 % tiene ojos azules y solo el 5.5 % ojos café. Los perfiles de los castaños y los pelirrojos son más repartidos. Esto se aprecia mejor en un gráfico de barras apiladas, donde se agrega la fila del <strong>perfil medio</strong> (cómo se reparten los ojos en toda la muestra):</p>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="análisis-de-correspondencias-simple.html#cb588-1" tabindex="-1"></a>perfil <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">prop.table</span>(N, <span class="dv">1</span>), <span class="st">&quot;Perfil medio&quot;</span> <span class="ot">=</span> <span class="fu">colSums</span>(N) <span class="sc">/</span> <span class="fu">sum</span>(N))</span>
+<span id="cb588-2"><a href="análisis-de-correspondencias-simple.html#cb588-2" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;#6B4423&quot;</span>, <span class="st">&quot;#4A90C2&quot;</span>, <span class="st">&quot;#B8873B&quot;</span>, <span class="st">&quot;#4C9A4C&quot;</span>)</span>
+<span id="cb588-3"><a href="análisis-de-correspondencias-simple.html#cb588-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb588-4"><a href="análisis-de-correspondencias-simple.html#cb588-4" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(perfil[<span class="fu">nrow</span>(perfil)<span class="sc">:</span><span class="dv">1</span>, ]), <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">col =</span> colores,</span>
+<span id="cb588-5"><a href="análisis-de-correspondencias-simple.html#cb588-5" tabindex="-1"></a>        <span class="at">border =</span> <span class="st">&quot;white&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Proporción dentro de cada fila&quot;</span>)</span>
+<span id="cb588-6"><a href="análisis-de-correspondencias-simple.html#cb588-6" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="at">inset =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.15</span>), <span class="at">legend =</span> <span class="fu">colnames</span>(N), <span class="at">fill =</span> colores,</span>
+<span id="cb588-7"><a href="análisis-de-correspondencias-simple.html#cb588-7" tabindex="-1"></a>       <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_perfiles-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>La barra inferior es el perfil medio: 37 % café, 36 % azul, 16 % avellana y 11 % verde. Los <strong>rubios</strong> se alejan mucho de ese perfil (muchísimo más azul y casi nada de café), los de cabello <strong>negro</strong> también (mucho café y poco azul), mientras que los <strong>castaños</strong> son los más parecidos al promedio. Cuanto más se aparta el perfil de una fila del perfil medio, más aporta esa fila a la asociación.</p>
+</div>
+<div id="perfiles-columna" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Perfiles columna<a href="análisis-de-correspondencias-simple.html#perfiles-columna" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se puede mirar la tabla también desde las columnas con <code>prop.table(N, 2)</code>, que reparte cada color de ojos entre los colores de cabello:</p>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="análisis-de-correspondencias-simple.html#cb589-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(N, <span class="dv">2</span>), <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##            Ojos
+## Cabello      Café  Azul Avellana Verde
+##   Negro     0.309 0.093    0.161 0.078
+##   Castaño   0.541 0.391    0.581 0.453
+##   Pelirrojo 0.118 0.079    0.151 0.219
+##   Rubio     0.032 0.437    0.108 0.250</code></pre>
+<p>Entre las personas de ojos azules, el 43.7 % es rubia, mientras que entre las de ojos café solo el 3.2 % lo es. Entre las de ojos verdes el 25 % es rubia y el 21.9 % pelirroja, más que en el resto de columnas. El AC trabaja con los dos tipos de perfiles a la vez, y por eso en el mapa final se pueden dibujar juntas las filas y las columnas.</p>
+</div>
+<div id="gráfico-de-mosaico" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Gráfico de mosaico<a href="análisis-de-correspondencias-simple.html#gráfico-de-mosaico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>mosaicplot()</code> dibuja la tabla como un mosaico: el área de cada rectángulo es proporcional al conteo de la celda, y con <code>shade = TRUE</code> el color indica los residuos de Pearson (se explican en la siguiente sección).</p>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="análisis-de-correspondencias-simple.html#cb591-1" tabindex="-1"></a><span class="fu">mosaicplot</span>(N, <span class="at">shade =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">&quot;Cabello y color de ojos&quot;</span>, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_mosaico-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Los rectángulos <strong>azules</strong> son combinaciones con más personas de las esperadas si no hubiera relación (rubio con ojos azules, negro con ojos café) y los <strong>rojos</strong> son combinaciones con menos de las esperadas (rubio con ojos café, negro con ojos azules). Los rectángulos sin color están cerca de lo que se esperaría por azar.</p>
+</div>
+</div>
+<div id="hay-asociación" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> ¿Hay asociación?<a href="análisis-de-correspondencias-simple.html#hay-asociación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de hacer el mapa conviene verificar que existe una relación entre las variables. Si fueran independientes, el mapa no tendría nada que mostrar.</p>
+<div id="prueba-chi-cuadrado-de-independencia" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Prueba chi-cuadrado de independencia<a href="análisis-de-correspondencias-simple.html#prueba-chi-cuadrado-de-independencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>chisq.test()</code> contrasta la hipótesis nula de que las dos variables son independientes. Compara los conteos observados con los que se esperarían bajo independencia.</p>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="análisis-de-correspondencias-simple.html#cb592-1" tabindex="-1"></a>ch <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(N)</span>
+<span id="cb592-2"><a href="análisis-de-correspondencias-simple.html#cb592-2" tabindex="-1"></a>ch</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  N
+## X-squared = 138.29, df = 9, p-value &lt; 2.2e-16</code></pre>
+<p>El estadístico es <span class="math inline">\(\chi^2 = 138.29\)</span> con <strong>9 grados de libertad</strong> (filas menos 1 por columnas menos 1: <span class="math inline">\(3 \times 3\)</span>) y un valor <span class="math inline">\(p\)</span> prácticamente cero. Se <strong>rechaza la independencia</strong>: el color de cabello y el de ojos están asociados.</p>
+</div>
+<div id="frecuencias-esperadas" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Frecuencias esperadas<a href="análisis-de-correspondencias-simple.html#frecuencias-esperadas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El objeto <code>ch</code> guarda más información. <code>ch$expected</code> contiene los conteos que habría si no hubiera relación: total de la fila por total de la columna, dividido entre 592.</p>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="análisis-de-correspondencias-simple.html#cb594-1" tabindex="-1"></a><span class="fu">round</span>(ch<span class="sc">$</span>expected, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##            Ojos
+## Cabello      Café  Azul Avellana Verde
+##   Negro      40.1  39.2     17.0  11.7
+##   Castaño   106.3 103.9     44.9  30.9
+##   Pelirrojo  26.4  25.8     11.2   7.7
+##   Rubio      47.2  46.1     20.0  13.7</code></pre>
+<p>Por ejemplo, con independencia se esperarían 40.1 personas con cabello negro y ojos café, pero se observaron 68. En cambio, para rubios con ojos café se esperarían 47.2 y se observaron solo 7. La diferencia entre lo observado y lo esperado es lo que genera la asociación.</p>
+</div>
+<div id="residuos-de-pearson" class="section level3 hasAnchor" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Residuos de Pearson<a href="análisis-de-correspondencias-simple.html#residuos-de-pearson" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>ch$residuals</code> contiene los <strong>residuos de Pearson</strong>, <span class="math inline">\((O-E)/\sqrt{E}\)</span>, que miden en una escala comparable qué tanto se aparta cada celda de la independencia. Como regla práctica, valores mayores que 2 en valor absoluto indican celdas que se apartan claramente.</p>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="análisis-de-correspondencias-simple.html#cb596-1" tabindex="-1"></a><span class="fu">round</span>(ch<span class="sc">$</span>residuals, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##            Ojos
+## Cabello      Café  Azul Avellana Verde
+##   Negro      4.40 -3.07    -0.48 -1.95
+##   Castaño    1.23 -1.95     1.35 -0.35
+##   Pelirrojo -0.07 -1.73     0.85  2.28
+##   Rubio     -5.85  7.05    -2.23  0.61</code></pre>
+<p>Los residuos más grandes son <strong>rubio con ojos azules</strong> (+7.05), <strong>rubio con ojos café</strong> (−5.85) y <strong>negro con ojos café</strong> (+4.40). También sobresalen negro con ojos azules (−3.07) y pelirrojo con ojos verdes (+2.28). Se dibujan con <code>corrplot()</code>, donde <code>is.corr = FALSE</code> indica que los valores no son correlaciones:</p>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="análisis-de-correspondencias-simple.html#cb598-1" tabindex="-1"></a><span class="fu">corrplot</span>(ch<span class="sc">$</span>residuals, <span class="at">is.corr =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb598-2"><a href="análisis-de-correspondencias-simple.html#cb598-2" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;#B2182B&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;#2166AC&quot;</span>))(<span class="dv">200</span>),</span>
+<span id="cb598-3"><a href="análisis-de-correspondencias-simple.html#cb598-3" tabindex="-1"></a>         <span class="at">cl.pos =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_residuos-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<p>Azul significa más personas de las esperadas y rojo, menos. El gráfico confirma el patrón del mosaico y resume la asociación: <strong>claro con ojos azules, oscuro con ojos café</strong>.</p>
+</div>
+<div id="contribución-de-cada-celda-al-chi-cuadrado" class="section level3 hasAnchor" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Contribución de cada celda al chi-cuadrado<a href="análisis-de-correspondencias-simple.html#contribución-de-cada-celda-al-chi-cuadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Elevando los residuos al cuadrado y dividiendo entre el estadístico se obtiene el porcentaje del <span class="math inline">\(\chi^2\)</span> que aporta cada celda:</p>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="análisis-de-correspondencias-simple.html#cb599-1" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> ch<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> ch<span class="sc">$</span>statistic, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##            Ojos
+## Cabello     Café Azul Avellana Verde
+##   Negro     14.0  6.8      0.2   2.8
+##   Castaño    1.1  2.7      1.3   0.1
+##   Pelirrojo  0.0  2.2      0.5   3.8
+##   Rubio     24.8 35.9      3.6   0.3</code></pre>
+<p>Tres celdas concentran casi el 75 % de la asociación: rubio con azul (35.9 %), rubio con café (24.8 %) y negro con café (14.0 %). Por eso se espera que el mapa final se organice alrededor del contraste entre el cabello rubio con ojos azules y el cabello negro con ojos café.</p>
+</div>
+<div id="inercia-total" class="section level3 hasAnchor" number="8.4.5">
+<h3><span class="header-section-number">8.4.5</span> Inercia total<a href="análisis-de-correspondencias-simple.html#inercia-total" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>inercia total</strong> del AC es el estadístico chi-cuadrado dividido entre el tamaño de muestra. Mide la cantidad de asociación en una escala que no depende de <span class="math inline">\(n\)</span>:</p>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="análisis-de-correspondencias-simple.html#cb601-1" tabindex="-1"></a>ch<span class="sc">$</span>statistic <span class="sc">/</span> <span class="fu">sum</span>(N)</span></code></pre></div>
+<pre><code>## X-squared 
+## 0.2335977</code></pre>
+<p>La inercia total es <strong>0.2336</strong>. Este número es lo que el AC va a repartir entre las dimensiones del mapa.</p>
+</div>
+</div>
+<div id="análisis-de-correspondencias" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Análisis de correspondencias<a href="análisis-de-correspondencias-simple.html#análisis-de-correspondencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ajuste-con-ca" class="section level3 hasAnchor" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Ajuste con <code>CA()</code><a href="análisis-de-correspondencias-simple.html#ajuste-con-ca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>CA()</code> recibe la tabla de contingencia y devuelve todos los resultados. Con <code>graph = FALSE</code> no dibuja el mapa automáticamente, porque se hará más adelante con <code>factoextra</code>.</p>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="análisis-de-correspondencias-simple.html#cb603-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">CA</span>(N, <span class="at">graph =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb603-2"><a href="análisis-de-correspondencias-simple.html#cb603-2" tabindex="-1"></a>res</span></code></pre></div>
+<pre><code>## **Results of the Correspondence Analysis (CA)**
+## The row variable has  4  categories; the column variable has 4 categories
+## The chi square of independence between the two variables is equal to 138.2898 (p-value =  2.325287e-25 ).
+## *The results are available in the following objects:
+## 
+##    name              description                   
+## 1  &quot;$eig&quot;            &quot;eigenvalues&quot;                 
+## 2  &quot;$col&quot;            &quot;results for the columns&quot;     
+## 3  &quot;$col$coord&quot;      &quot;coord. for the columns&quot;      
+## 4  &quot;$col$cos2&quot;       &quot;cos2 for the columns&quot;        
+## 5  &quot;$col$contrib&quot;    &quot;contributions of the columns&quot;
+## 6  &quot;$row&quot;            &quot;results for the rows&quot;        
+## 7  &quot;$row$coord&quot;      &quot;coord. for the rows&quot;         
+## 8  &quot;$row$cos2&quot;       &quot;cos2 for the rows&quot;           
+## 9  &quot;$row$contrib&quot;    &quot;contributions of the rows&quot;   
+## 10 &quot;$call&quot;           &quot;summary called parameters&quot;   
+## 11 &quot;$call$marge.col&quot; &quot;weights of the columns&quot;      
+## 12 &quot;$call$marge.row&quot; &quot;weights of the rows&quot;</code></pre>
+<p>La salida confirma el chi-cuadrado y el valor <span class="math inline">\(p\)</span>, y lista los objetos disponibles: <code>res$eig</code> (valores propios), <code>res$row</code> y <code>res$col</code> (resultados de filas y columnas, cada uno con coordenadas, contribuciones y cos²) y <code>res$call$marge.row</code> y <code>res$call$marge.col</code> (las masas).</p>
+</div>
+<div id="masas" class="section level3 hasAnchor" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Masas<a href="análisis-de-correspondencias-simple.html#masas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las <strong>masas</strong> son el peso de cada categoría, es decir, su total entre 592. Las categorías grandes pesan más al determinar los ejes.</p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="análisis-de-correspondencias-simple.html#cb605-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>call<span class="sc">$</span>marge.row, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##     Negro   Castaño Pelirrojo     Rubio 
+##     0.182     0.483     0.120     0.215</code></pre>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="análisis-de-correspondencias-simple.html#cb607-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>call<span class="sc">$</span>marge.col, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##     Café     Azul Avellana    Verde 
+##    0.372    0.363    0.157    0.108</code></pre>
+<p>Los castaños pesan 48.3 % de las filas y los pelirrojos solo 12 %; en las columnas, los ojos café y azules pesan cerca de 37 % cada uno y los verdes 10.8 %.</p>
+</div>
+<div id="valores-propios-e-inercia-por-dimensión" class="section level3 hasAnchor" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> Valores propios e inercia por dimensión<a href="análisis-de-correspondencias-simple.html#valores-propios-e-inercia-por-dimensión" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>res$eig</code> muestra cuánta inercia recoge cada dimensión. Como la tabla es de 4 × 4, hay a lo sumo <span class="math inline">\(\min(4,4)-1 = 3\)</span> dimensiones.</p>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="análisis-de-correspondencias-simple.html#cb609-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>eig, <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##       eigenvalue percentage of variance cumulative percentage of variance
+## dim 1     0.2088                89.3727                           89.3727
+## dim 2     0.0222                 9.5149                           98.8876
+## dim 3     0.0026                 1.1124                          100.0000</code></pre>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="análisis-de-correspondencias-simple.html#cb611-1" tabindex="-1"></a><span class="fu">sum</span>(res<span class="sc">$</span>eig[, <span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## [1] 0.2335977</code></pre>
+<p>Las columnas son el <strong>valor propio</strong> (la inercia de la dimensión), el <strong>porcentaje de la inercia</strong> total y el <strong>porcentaje acumulado</strong>. La dimensión 1 recoge el <strong>89.4 %</strong> de la inercia, la dimensión 2 el <strong>9.5 %</strong> y la dimensión 3 solo el 1.1 %. Los tres valores propios suman 0.2336, que es la inercia total calculada antes (el chi-cuadrado entre <span class="math inline">\(n\)</span>). Con dos dimensiones se explica el <strong>98.9 %</strong> de la asociación, así que un mapa de dos dimensiones basta.</p>
+</div>
+<div id="gráfico-de-sedimentación" class="section level3 hasAnchor" number="8.5.4">
+<h3><span class="header-section-number">8.5.4</span> Gráfico de sedimentación<a href="análisis-de-correspondencias-simple.html#gráfico-de-sedimentación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>fviz_screeplot()</code> dibuja el porcentaje de inercia de cada dimensión. <code>addlabels = TRUE</code> escribe el valor sobre cada barra.</p>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="análisis-de-correspondencias-simple.html#cb613-1" tabindex="-1"></a><span class="fu">fviz_screeplot</span>(res, <span class="at">addlabels =</span> <span class="cn">TRUE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
+<span id="cb613-2"><a href="análisis-de-correspondencias-simple.html#cb613-2" tabindex="-1"></a>               <span class="at">barfill =</span> azul, <span class="at">barcolor =</span> azul,</span>
+<span id="cb613-3"><a href="análisis-de-correspondencias-simple.html#cb613-3" tabindex="-1"></a>               <span class="at">main =</span> <span class="st">&quot;Inercia explicada por dimensión&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Dimensión&quot;</span>,</span>
+<span id="cb613-4"><a href="análisis-de-correspondencias-simple.html#cb613-4" tabindex="-1"></a>               <span class="at">ylab =</span> <span class="st">&quot;% de la inercia&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_scree-1.png" alt="" width="528" style="display: block; margin: auto;" /></p>
+<p>La dimensión 1 domina y la dimensión 2 aporta un complemento claro; la tercera es despreciable. Se retienen <strong>dos dimensiones</strong>.</p>
+</div>
+<div id="coordenadas-de-filas-y-columnas" class="section level3 hasAnchor" number="8.5.5">
+<h3><span class="header-section-number">8.5.5</span> Coordenadas de filas y columnas<a href="análisis-de-correspondencias-simple.html#coordenadas-de-filas-y-columnas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las coordenadas indican dónde se ubica cada categoría en cada dimensión:</p>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="análisis-de-correspondencias-simple.html#cb614-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>row<span class="sc">$</span>coord, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##            Dim 1  Dim 2  Dim 3
+## Negro      0.505 -0.215 -0.056
+## Castaño    0.148  0.033  0.049
+## Pelirrojo  0.130  0.320 -0.083
+## Rubio     -0.835 -0.070 -0.016</code></pre>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="análisis-de-correspondencias-simple.html#cb616-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>col<span class="sc">$</span>coord, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##           Dim 1  Dim 2  Dim 3
+## Café      0.492 -0.088 -0.022
+## Azul     -0.547 -0.083  0.005
+## Avellana  0.213  0.167  0.101
+## Verde    -0.162  0.339 -0.088</code></pre>
+<p>En la <strong>dimensión 1</strong>, rubio (−0.835) queda en un extremo y negro (+0.505) en el otro; entre los ojos, azul (−0.547) y café (+0.492) también quedan en extremos opuestos. Castaño (+0.148) queda cerca de cero. En la <strong>dimensión 2</strong>, pelirrojo (+0.320) y verde (+0.339) quedan arriba, y negro (−0.215) abajo. El signo de una dimensión es arbitrario: lo que importa es que las categorías con signos opuestos están en extremos contrarios, no cuál es el positivo.</p>
+</div>
+<div id="contribuciones" class="section level3 hasAnchor" number="8.5.6">
+<h3><span class="header-section-number">8.5.6</span> Contribuciones<a href="análisis-de-correspondencias-simple.html#contribuciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>contribución</strong> de una categoría a una dimensión indica qué porcentaje de la inercia de ese eje aporta. Las categorías con contribución alta son las que definen la dimensión. Si todas aportaran por igual, cada una contribuiría 25 % (4 categorías).</p>
+<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="análisis-de-correspondencias-simple.html#cb618-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>row<span class="sc">$</span>contrib, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##           Dim 1 Dim 2 Dim 3
+## Negro      22.2  37.9  21.6
+## Castaño     5.1   2.3  44.3
+## Pelirrojo   1.0  55.1  31.9
+## Rubio      71.7   4.7   2.2</code></pre>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="análisis-de-correspondencias-simple.html#cb620-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>col<span class="sc">$</span>contrib, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##          Dim 1 Dim 2 Dim 3
+## Café      43.1  13.0   6.7
+## Azul      52.1  11.2   0.3
+## Avellana   3.4  19.8  61.1
+## Verde      1.4  55.9  31.9</code></pre>
+<p>La <strong>dimensión 1</strong> la definen <strong>rubio</strong> (71.7 %) y <strong>negro</strong> (22.2 %) entre los cabellos, y <strong>azul</strong> (52.1 %) y <strong>café</strong> (43.1 %) entre los ojos. La <strong>dimensión 2</strong> la definen <strong>pelirrojo</strong> (55.1 %) y <strong>negro</strong> (37.9 %) entre los cabellos, y <strong>verde</strong> (55.9 %) y <strong>avellana</strong> (19.8 %) entre los ojos. Se ven mejor en gráficos de barras con <code>fviz_contrib()</code>; la línea roja marca el promedio (25 %):</p>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="análisis-de-correspondencias-simple.html#cb622-1" tabindex="-1"></a><span class="fu">fviz_contrib</span>(res, <span class="at">choice =</span> <span class="st">&quot;row&quot;</span>, <span class="at">axes =</span> <span class="dv">1</span>, <span class="at">fill =</span> azul, <span class="at">color =</span> azul,</span>
+<span id="cb622-2"><a href="análisis-de-correspondencias-simple.html#cb622-2" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">&quot;Contribución de las filas a la dimensión 1&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_contrib-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="análisis-de-correspondencias-simple.html#cb623-1" tabindex="-1"></a><span class="fu">fviz_contrib</span>(res, <span class="at">choice =</span> <span class="st">&quot;col&quot;</span>, <span class="at">axes =</span> <span class="dv">1</span>, <span class="at">fill =</span> naranja, <span class="at">color =</span> naranja,</span>
+<span id="cb623-2"><a href="análisis-de-correspondencias-simple.html#cb623-2" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">&quot;Contribución de las columnas a la dimensión 1&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_contrib-2.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="análisis-de-correspondencias-simple.html#cb624-1" tabindex="-1"></a><span class="fu">fviz_contrib</span>(res, <span class="at">choice =</span> <span class="st">&quot;row&quot;</span>, <span class="at">axes =</span> <span class="dv">2</span>, <span class="at">fill =</span> azul, <span class="at">color =</span> azul,</span>
+<span id="cb624-2"><a href="análisis-de-correspondencias-simple.html#cb624-2" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">&quot;Contribución de las filas a la dimensión 2&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_contrib-3.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="análisis-de-correspondencias-simple.html#cb625-1" tabindex="-1"></a><span class="fu">fviz_contrib</span>(res, <span class="at">choice =</span> <span class="st">&quot;col&quot;</span>, <span class="at">axes =</span> <span class="dv">2</span>, <span class="at">fill =</span> naranja, <span class="at">color =</span> naranja,</span>
+<span id="cb625-2"><a href="análisis-de-correspondencias-simple.html#cb625-2" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">&quot;Contribución de las columnas a la dimensión 2&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_contrib-4.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="calidad-de-la-representación-cos²" class="section level3 hasAnchor" number="8.5.7">
+<h3><span class="header-section-number">8.5.7</span> Calidad de la representación (cos²)<a href="análisis-de-correspondencias-simple.html#calidad-de-la-representación-cos²" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El <strong>cos²</strong> de una categoría en una dimensión es la fracción de su inercia que esa dimensión recoge. Sumando las dimensiones del mapa, indica qué tan bien está dibujada esa categoría (cercano a 1 es muy bien, cercano a 0 es mal).</p>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="análisis-de-correspondencias-simple.html#cb626-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>row<span class="sc">$</span>cos2, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##           Dim 1 Dim 2 Dim 3
+## Negro     0.838 0.152 0.010
+## Castaño   0.864 0.042 0.094
+## Pelirrojo 0.133 0.812 0.055
+## Rubio     0.993 0.007 0.000</code></pre>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="análisis-de-correspondencias-simple.html#cb628-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>col<span class="sc">$</span>cos2, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##          Dim 1 Dim 2 Dim 3
+## Café     0.967 0.031 0.002
+## Azul     0.977 0.022 0.000
+## Avellana 0.542 0.336 0.121
+## Verde    0.176 0.773 0.052</code></pre>
+<p>Sumando las dos primeras columnas, todas las categorías quedan muy bien representadas en el mapa de dos dimensiones: rubio (1.00), negro (0.99), pelirrojo (0.95), castaño (0.91), azul (1.00), café (1.00), verde (0.95) y avellana (0.88). Además se ve en qué dimensión se representa cada una: rubio, negro, castaño, café y azul se explican sobre todo por la dimensión 1, mientras que <strong>pelirrojo (0.81) y verde (0.77) se explican sobre todo por la dimensión 2</strong>. Se dibuja con <code>corrplot()</code>:</p>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="análisis-de-correspondencias-simple.html#cb630-1" tabindex="-1"></a><span class="fu">corrplot</span>(res<span class="sc">$</span>row<span class="sc">$</span>cos2[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">is.corr =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb630-2"><a href="análisis-de-correspondencias-simple.html#cb630-2" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;white&quot;</span>, azul))(<span class="dv">100</span>), <span class="at">col.lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb630-3"><a href="análisis-de-correspondencias-simple.html#cb630-3" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cl.pos =</span> <span class="st">&quot;n&quot;</span>, <span class="at">title =</span> <span class="st">&quot;cos2 de las filas&quot;</span>, <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_cos2-1.png" alt="" width="432" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="análisis-de-correspondencias-simple.html#cb631-1" tabindex="-1"></a><span class="fu">corrplot</span>(res<span class="sc">$</span>col<span class="sc">$</span>cos2[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">is.corr =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb631-2"><a href="análisis-de-correspondencias-simple.html#cb631-2" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;white&quot;</span>, naranja))(<span class="dv">100</span>), <span class="at">col.lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb631-3"><a href="análisis-de-correspondencias-simple.html#cb631-3" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cl.pos =</span> <span class="st">&quot;n&quot;</span>, <span class="at">title =</span> <span class="st">&quot;cos2 de las columnas&quot;</span>, <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_graf_cos2-2.png" alt="" width="432" style="display: block; margin: auto;" /></p>
+</div>
+<div id="inercia-de-cada-categoría" class="section level3 hasAnchor" number="8.5.8">
+<h3><span class="header-section-number">8.5.8</span> Inercia de cada categoría<a href="análisis-de-correspondencias-simple.html#inercia-de-cada-categoría" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cada categoría también tiene una inercia propia: qué tan lejos está del perfil medio, ponderada por su masa. Aparece en <code>res$row$inertia</code> y <code>res$col$inertia</code>:</p>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="análisis-de-correspondencias-simple.html#cb632-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>row<span class="sc">$</span>inertia, <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.0554 0.0123 0.0151 0.1508</code></pre>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="análisis-de-correspondencias-simple.html#cb634-1" tabindex="-1"></a><span class="fu">round</span>(res<span class="sc">$</span>col<span class="sc">$</span>inertia, <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.0931 0.1113 0.0131 0.0161</code></pre>
+<p>Entre las filas, <strong>rubio</strong> concentra la mayor parte de la inercia (0.1508 de 0.2336, un 65 %), seguido por negro (0.0554, 24 %); castaño (0.0123) y pelirrojo (0.0151) aportan poco. Entre las columnas, <strong>azul</strong> (0.1113, 48 %) y <strong>café</strong> (0.0931, 40 %) concentran casi toda. Son las categorías que más se alejan del promedio y por eso definen la dimensión 1.</p>
+</div>
+<div id="resumen-con-summary" class="section level3 hasAnchor" number="8.5.9">
+<h3><span class="header-section-number">8.5.9</span> Resumen con <code>summary()</code><a href="análisis-de-correspondencias-simple.html#resumen-con-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>summary()</code> junta valores propios, inercia, coordenadas, contribuciones y cos² en una sola salida. <code>ncp = 2</code> limita el resumen a las dos primeras dimensiones.</p>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="análisis-de-correspondencias-simple.html#cb636-1" tabindex="-1"></a><span class="fu">summary</span>(res, <span class="at">nb.dec =</span> <span class="dv">3</span>, <span class="at">ncp =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## CA(X = N, graph = FALSE) 
+## 
+## The chi square of independence between the two variables is equal to 138.2898 (p-value =  2.325287e-25 ).
+## 
+## Eigenvalues
+##                        Dim.1   Dim.2   Dim.3
+## Variance               0.209   0.022   0.003
+## % of var.             89.373   9.515   1.112
+## Cumulative % of var.  89.373  98.888 100.000
+## 
+## Rows
+##             Iner*1000     Dim.1     ctr    cos2     Dim.2     ctr    cos2  
+## Negro     |    55.425 |   0.505  22.246   0.838 |  -0.215  37.877   0.152 |
+## Castaño   |    12.284 |   0.148   5.086   0.864 |   0.033   2.319   0.042 |
+## Pelirrojo |    15.095 |   0.130   0.964   0.133 |   0.320  55.131   0.812 |
+## Rubio     |   150.793 |  -0.835  71.704   0.993 |  -0.070   4.673   0.007 |
+## 
+## Columns
+##             Iner*1000     Dim.1     ctr    cos2     Dim.2     ctr    cos2  
+## Café      |    93.086 |   0.492  43.116   0.967 |  -0.088  13.042   0.031 |
+## Azul      |   111.337 |  -0.547  52.128   0.977 |  -0.083  11.244   0.022 |
+## Avellana  |    13.089 |   0.213   3.401   0.542 |   0.167  19.804   0.336 |
+## Verde     |    16.085 |  -0.162   1.355   0.176 |   0.339  55.910   0.773 |</code></pre>
+<p>Cada fila de las tablas <code>Rows</code> y <code>Columns</code> tiene la inercia de la categoría (<code>Iner*1000</code>), y para cada dimensión su coordenada, su contribución (<code>ctr</code>) y su <code>cos2</code>, que son los mismos valores revisados arriba.</p>
+</div>
+</div>
+<div id="mapas" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Mapas<a href="análisis-de-correspondencias-simple.html#mapas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mapa-simétrico" class="section level3 hasAnchor" number="8.6.1">
+<h3><span class="header-section-number">8.6.1</span> Mapa simétrico<a href="análisis-de-correspondencias-simple.html#mapa-simétrico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La función <code>fviz_ca_biplot()</code> dibuja filas y columnas juntas. En el <strong>mapa simétrico</strong> (el que usa <code>CA()</code> por defecto) las filas y las columnas se dibujan en coordenadas principales. Con <code>repel = TRUE</code> se evita que las etiquetas se monten.</p>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="análisis-de-correspondencias-simple.html#cb638-1" tabindex="-1"></a><span class="fu">fviz_ca_biplot</span>(res, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">col.row =</span> azul, <span class="at">col.col =</span> naranja,</span>
+<span id="cb638-2"><a href="análisis-de-correspondencias-simple.html#cb638-2" tabindex="-1"></a>               <span class="at">title =</span> <span class="st">&quot;Mapa simétrico: cabello (azul) y ojos (naranja)&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_mapa-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Los ejes muestran el porcentaje de inercia: 89.4 % en el horizontal y 9.5 % en el vertical. Cómo se lee:</p>
+<ul>
+<li><strong>Filas entre sí:</strong> categorías de cabello cercanas tienen perfiles de ojos parecidos. Castaño queda cerca del origen (perfil promedio) y rubio queda muy lejos, en el extremo izquierdo.</li>
+<li><strong>Columnas entre sí:</strong> azul queda a la izquierda, junto a rubio, y café a la derecha, junto a negro. Avellana queda cerca del origen y verde queda arriba, separado de los demás.</li>
+<li><strong>Filas con columnas:</strong> no se debe medir la distancia entre una fila y una columna, pero sí ver si están en la misma <strong>dirección</strong> desde el origen. Rubio y azul están del mismo lado (se asocian), igual que negro y café; pelirrojo y verde están arriba (asociados).</li>
+<li><strong>Dimensión 1 (horizontal):</strong> gradiente <strong>claro–oscuro</strong>, con rubio y ojos azules a la izquierda y cabello negro y ojos café a la derecha.</li>
+<li><strong>Dimensión 2 (vertical):</strong> separa a los <strong>pelirrojos con ojos verdes</strong> (arriba) de los de cabello negro (abajo).</li>
+</ul>
+</div>
+<div id="mapa-con-la-calidad-de-representación" class="section level3 hasAnchor" number="8.6.2">
+<h3><span class="header-section-number">8.6.2</span> Mapa con la calidad de representación<a href="análisis-de-correspondencias-simple.html#mapa-con-la-calidad-de-representación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se puede colorear cada punto según su cos², para identificar categorías mal representadas. El argumento <code>col.row = "cos2"</code> y <code>col.col = "cos2"</code> aplican la escala de color, y <code>gradient.cols</code> define los colores.</p>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="análisis-de-correspondencias-simple.html#cb639-1" tabindex="-1"></a><span class="fu">fviz_ca_biplot</span>(res, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">col.row =</span> <span class="st">&quot;cos2&quot;</span>, <span class="at">col.col =</span> <span class="st">&quot;cos2&quot;</span>,</span>
+<span id="cb639-2"><a href="análisis-de-correspondencias-simple.html#cb639-2" tabindex="-1"></a>               <span class="at">gradient.cols =</span> <span class="fu">c</span>(<span class="st">&quot;#BBBBBB&quot;</span>, <span class="st">&quot;#C85A14&quot;</span>, azul),</span>
+<span id="cb639-3"><a href="análisis-de-correspondencias-simple.html#cb639-3" tabindex="-1"></a>               <span class="at">title =</span> <span class="st">&quot;Mapa según la calidad de representación (cos2)&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_mapa_cos2-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>La escala de color va solo de 0.88 a 1.00, es decir, <strong>todas las categorías están bien representadas</strong> en el mapa de dos dimensiones. Las más oscuras (rubio, azul, café y negro) son las mejor dibujadas; las más claras son avellana (0.88) y castaño (0.91), que aun así quedan aceptablemente representadas.</p>
+</div>
+<div id="mapa-con-las-contribuciones" class="section level3 hasAnchor" number="8.6.3">
+<h3><span class="header-section-number">8.6.3</span> Mapa con las contribuciones<a href="análisis-de-correspondencias-simple.html#mapa-con-las-contribuciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>También se puede colorear según la contribución al plano, con <code>col.row = "contrib"</code>:</p>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="análisis-de-correspondencias-simple.html#cb640-1" tabindex="-1"></a><span class="fu">fviz_ca_biplot</span>(res, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">col.row =</span> <span class="st">&quot;contrib&quot;</span>, <span class="at">col.col =</span> <span class="st">&quot;contrib&quot;</span>,</span>
+<span id="cb640-2"><a href="análisis-de-correspondencias-simple.html#cb640-2" tabindex="-1"></a>               <span class="at">gradient.cols =</span> <span class="fu">c</span>(<span class="st">&quot;#BBBBBB&quot;</span>, <span class="st">&quot;#C85A14&quot;</span>, azul),</span>
+<span id="cb640-3"><a href="análisis-de-correspondencias-simple.html#cb640-3" tabindex="-1"></a>               <span class="at">title =</span> <span class="st">&quot;Mapa según la contribución a las dos dimensiones&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_mapa_contrib-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Los puntos más oscuros (rubio, azul, negro y café) son los que más contribuyen a definir el plano, porque dominan la dimensión 1, que concentra casi toda la inercia. Pelirrojo y verde aparecen en gris: definen la dimensión 2, pero como esa dimensión recoge solo el 9.5 % de la inercia, su contribución al plano completo es pequeña. Castaño y avellana también contribuyen poco, porque están cerca del origen.</p>
+</div>
+<div id="mapa-asimétrico" class="section level3 hasAnchor" number="8.6.4">
+<h3><span class="header-section-number">8.6.4</span> Mapa asimétrico<a href="análisis-de-correspondencias-simple.html#mapa-asimétrico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En el <strong>mapa asimétrico</strong> las filas se dibujan en coordenadas principales y las columnas en coordenadas estándar (flechas desde el origen). Con <code>map = "rowprincipal"</code> y <code>arrow = c(FALSE, TRUE)</code> las columnas aparecen como flechas:</p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="análisis-de-correspondencias-simple.html#cb641-1" tabindex="-1"></a><span class="fu">fviz_ca_biplot</span>(res, <span class="at">map =</span> <span class="st">&quot;rowprincipal&quot;</span>, <span class="at">arrow =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb641-2"><a href="análisis-de-correspondencias-simple.html#cb641-2" tabindex="-1"></a>               <span class="at">col.row =</span> azul, <span class="at">col.col =</span> naranja,</span>
+<span id="cb641-3"><a href="análisis-de-correspondencias-simple.html#cb641-3" tabindex="-1"></a>               <span class="at">title =</span> <span class="st">&quot;Mapa asimétrico: filas en coordenadas principales&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_mapa_asim-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Aquí sí se puede interpretar la posición de una fila respecto de la dirección de cada columna: cada color de cabello queda más cerca de las flechas de los ojos con los que más se asocia (rubio hacia azul, negro hacia café, pelirrojo hacia verde). Las flechas son más largas porque las columnas se dibujan en una escala mayor, y por eso este mapa se usa solo para ver el vínculo entre filas y columnas, no para comparar categorías de una misma variable.</p>
+</div>
+<div id="solo-filas-y-solo-columnas" class="section level3 hasAnchor" number="8.6.5">
+<h3><span class="header-section-number">8.6.5</span> Solo filas y solo columnas<a href="análisis-de-correspondencias-simple.html#solo-filas-y-solo-columnas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Si interesa mirar una variable a la vez, <code>fviz_ca_row()</code> y <code>fviz_ca_col()</code> dibujan cada una por separado:</p>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="análisis-de-correspondencias-simple.html#cb642-1" tabindex="-1"></a><span class="fu">fviz_ca_row</span>(res, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">col.row =</span> azul, <span class="at">title =</span> <span class="st">&quot;Categorías de cabello&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_mapa_filas_cols-1.png" alt="" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="análisis-de-correspondencias-simple.html#cb643-1" tabindex="-1"></a><span class="fu">fviz_ca_col</span>(res, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">col.col =</span> naranja, <span class="at">title =</span> <span class="st">&quot;Categorías de ojos&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/ac_mapa_filas_cols-2.png" alt="" width="480" style="display: block; margin: auto;" /></p>
+<p>Los puntos conservan las mismas posiciones que en el mapa simétrico. Se ve que entre los colores de cabello la mayor diferencia es entre rubio y negro, con castaño y pelirrojo en una posición intermedia, y que entre los ojos la mayor diferencia es entre azul y café.</p>
+</div>
+</div>
+<div id="conclusiones-1" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Conclusiones<a href="análisis-de-correspondencias-simple.html#conclusiones-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El color de cabello y el color de ojos <strong>están asociados</strong> (<span class="math inline">\(\chi^2 = 138.29\)</span>, 9 gl, <span class="math inline">\(p &lt; 0.001\)</span>) y la inercia total de la tabla es 0.2336. El análisis de correspondencias resume esa asociación en <strong>dos dimensiones</strong> que recogen el 98.9 % de la inercia:</p>
+<ul>
+<li><strong>Dimensión 1 (89.4 %):</strong> un gradiente <strong>claro–oscuro</strong>. En un extremo están el cabello rubio y los ojos azules; en el otro, el cabello negro y los ojos café. Estas cuatro categorías son las que más contribuyen a la dimensión.</li>
+<li><strong>Dimensión 2 (9.5 %):</strong> distingue a los <strong>pelirrojos con ojos verdes</strong> del resto, y en particular del cabello negro.</li>
+<li>El cabello <strong>castaño</strong> y los ojos <strong>avellana</strong> quedan cerca del centro: se parecen al perfil promedio y no definen ninguna dirección.</li>
+<li>Todas las categorías quedan bien representadas en el mapa (cos² mayor que 0.87).</li>
+</ul>
+<div id="funciones-usadas" class="section level3 hasAnchor" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Funciones usadas<a href="análisis-de-correspondencias-simple.html#funciones-usadas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Función</th>
+<th align="left">Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>table()</code>, <code>addmargins()</code></td>
+<td align="left">tabla de contingencia y marginales</td>
+</tr>
+<tr class="even">
+<td align="left"><code>prop.table(N, 1)</code>, <code>prop.table(N, 2)</code></td>
+<td align="left">perfiles fila y perfiles columna</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>chisq.test()</code></td>
+<td align="left">prueba de independencia; <code>$expected</code> y <code>$residuals</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>CA()</code></td>
+<td align="left">ajusta el análisis de correspondencias</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>res$eig</code></td>
+<td align="left">valores propios y porcentaje de inercia</td>
+</tr>
+<tr class="even">
+<td align="left"><code>res$row$coord</code>, <code>res$col$coord</code></td>
+<td align="left">coordenadas</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>res$row$contrib</code>, <code>res$col$contrib</code></td>
+<td align="left">contribuciones (%)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>res$row$cos2</code>, <code>res$col$cos2</code></td>
+<td align="left">calidad de la representación</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>fviz_screeplot()</code></td>
+<td align="left">gráfico de sedimentación</td>
+</tr>
+<tr class="even">
+<td align="left"><code>fviz_ca_biplot()</code></td>
+<td align="left">mapa simétrico o asimétrico</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>fviz_contrib()</code></td>
+<td align="left">barras de contribuciones</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-factorial-exploratorio.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Análisis Multivariado en Rstudio.pdf", "Análisis Multivariado en Rstudio.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
