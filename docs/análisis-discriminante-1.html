@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Lección 10 Análisis Discriminante | Análisis Discriminante en R</title>
+  <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Lección 10 Análisis Discriminante | Análisis Discriminante en R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lección 10 Análisis Discriminante | Análisis Discriminante en R" />
+  
+  <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  
+
+<meta name="author" content="Endy Paola Salon" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-discriminante.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Multivariado</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instalación-y-configuración-de-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalación y Configuración de R-STUDIO</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#rstudio-en-tu-equipo-escritorio"><i class="fa fa-check"></i><b>1.1.1</b> Rstudio en tu equipo (escritorio)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#primeros-pasos"><i class="fa fa-check"></i><b>1.2</b> Primeros pasos</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#creación-de-reportes-en-r-con-r-markdown"><i class="fa fa-check"></i><b>1.2.1</b> Creación de reportes en R con R Markdown:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#conceptos-básicos-de-programación-en-r"><i class="fa fa-check"></i><b>1.3</b> Conceptos básicos de programación en R:</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#tipos-de-variables-en-r"><i class="fa fa-check"></i><b>1.3.1</b> Tipos de variables en R:</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#estructuras-de-datos-en-r"><i class="fa fa-check"></i><b>1.3.2</b> Estructuras de Datos en R:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html"><i class="fa fa-check"></i><b>2</b> Bases de datos en R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#dataframes-bases-de-datos"><i class="fa fa-check"></i><b>2.1</b> Dataframes (bases de datos)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#creación-de-dataframes"><i class="fa fa-check"></i><b>2.1.1</b> Creación de Dataframes</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#importar-un-dataframe-desde-un-archivo-csv"><i class="fa fa-check"></i><b>2.1.2</b> Importar un Dataframe desde un archivo CSV</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#pre-procesamiento-de-una-base-de-datos-preinstalada-en-r"><i class="fa fa-check"></i><b>2.2</b> Pre procesamiento de una Base de Datos Preinstalada en R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html"><i class="fa fa-check"></i><b>3</b> Álgebra: Repaso</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#vectores"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-vectores"><i class="fa fa-check"></i><b>3.1.1</b> Crear vectores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-y-resta"><i class="fa fa-check"></i><b>3.1.2</b> Suma y resta</a></li>
+<li class="chapter" data-level="3.1.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-por-un-escalar"><i class="fa fa-check"></i><b>3.1.3</b> Multiplicar por un escalar</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#combinaciones-lineales"><i class="fa fa-check"></i><b>3.2</b> Combinaciones lineales</a></li>
+<li class="chapter" data-level="3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices"><i class="fa fa-check"></i><b>3.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-una-matriz"><i class="fa fa-check"></i><b>3.3.1</b> Crear una matriz</a></li>
+<li class="chapter" data-level="3.3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-resta-y-escalar"><i class="fa fa-check"></i><b>3.3.2</b> Suma, resta y escalar</a></li>
+<li class="chapter" data-level="3.3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#transpuesta"><i class="fa fa-check"></i><b>3.3.3</b> Transpuesta</a></li>
+<li class="chapter" data-level="3.3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Multiplicar matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matriz-por-vector"><i class="fa fa-check"></i><b>3.3.5</b> Matriz por vector</a></li>
+<li class="chapter" data-level="3.3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#la-matriz-identidad"><i class="fa fa-check"></i><b>3.3.6</b> La matriz identidad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#determinante"><i class="fa fa-check"></i><b>3.4</b> Determinante</a></li>
+<li class="chapter" data-level="3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#inversa"><i class="fa fa-check"></i><b>3.5</b> Inversa</a></li>
+<li class="chapter" data-level="3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto-y-norma"><i class="fa fa-check"></i><b>3.6</b> Producto punto y norma</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto"><i class="fa fa-check"></i><b>3.6.1</b> Producto punto</a></li>
+<li class="chapter" data-level="3.6.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#norma-largo-de-un-vector"><i class="fa fa-check"></i><b>3.6.2</b> Norma (largo de un vector)</a></li>
+<li class="chapter" data-level="3.6.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#distancia-entre-dos-puntos"><i class="fa fa-check"></i><b>3.6.3</b> Distancia entre dos puntos</a></li>
+<li class="chapter" data-level="3.6.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ángulo-entre-dos-vectores"><i class="fa fa-check"></i><b>3.6.4</b> Ángulo entre dos vectores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ortogonalidad"><i class="fa fa-check"></i><b>3.7</b> Ortogonalidad</a></li>
+<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a></li>
+<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#valores-y-vectores-propios"><i class="fa fa-check"></i><b>3.9</b> Valores y vectores propios</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.9.1</b> Comprobar la definición</a></li>
+<li class="chapter" data-level="3.9.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.9.2</b> Dos atajos útiles</a></li>
+<li class="chapter" data-level="3.9.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.9.3</b> Matrices simétricas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.10</b> Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html"><i class="fa fa-check"></i><b>4</b> Conceptos básicos: Estadística</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#los-datos-consumo-de-combustible-de-automóviles"><i class="fa fa-check"></i><b>4.1</b> Los datos: consumo de combustible de automóviles</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#traer-la-base-desde-internet"><i class="fa fa-check"></i><b>4.1.1</b> Traer la base desde internet</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#estructura-de-la-base-de-datos"><i class="fa fa-check"></i><b>4.2</b> Estructura de la base de datos</a></li>
+<li class="chapter" data-level="4.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#tipos-de-variables"><i class="fa fa-check"></i><b>4.3</b> Tipos de variables</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cualitativas"><i class="fa fa-check"></i><b>4.3.1</b> Variables cualitativas</a></li>
+<li class="chapter" data-level="4.3.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cuantitativas"><i class="fa fa-check"></i><b>4.3.2</b> Variables cuantitativas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#datos-faltantes"><i class="fa fa-check"></i><b>4.4</b> Datos faltantes</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#qué-pasa-si-ignoramos-los-na"><i class="fa fa-check"></i><b>4.4.1</b> Qué pasa si ignoramos los <code>NA</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#eliminar-los-individuos-con-faltantes"><i class="fa fa-check"></i><b>4.4.2</b> Eliminar los individuos con faltantes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#valores-atípicos-outliers"><i class="fa fa-check"></i><b>4.5</b> Valores atípicos (outliers)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuánto-afectan-al-resumen"><i class="fa fa-check"></i><b>4.5.1</b> Cuánto afectan al resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-univariado-una-variable"><i class="fa fa-check"></i><b>4.6</b> Análisis univariado: una variable</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#media"><i class="fa fa-check"></i><b>4.6.1</b> Media</a></li>
+<li class="chapter" data-level="4.6.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mediana"><i class="fa fa-check"></i><b>4.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="4.6.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#varianza"><i class="fa fa-check"></i><b>4.6.3</b> Varianza</a></li>
+<li class="chapter" data-level="4.6.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#desviación-estándar"><i class="fa fa-check"></i><b>4.6.4</b> Desviación estándar</a></li>
+<li class="chapter" data-level="4.6.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#coeficiente-de-variación"><i class="fa fa-check"></i><b>4.6.5</b> Coeficiente de variación</a></li>
+<li class="chapter" data-level="4.6.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#todas-las-variables-numéricas-a-la-vez"><i class="fa fa-check"></i><b>4.6.6</b> Todas las variables numéricas a la vez</a></li>
+<li class="chapter" data-level="4.6.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#gráficos-de-una-variable"><i class="fa fa-check"></i><b>4.6.7</b> Gráficos de una variable</a></li>
+<li class="chapter" data-level="4.6.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#comparar-por-grupos"><i class="fa fa-check"></i><b>4.6.8</b> Comparar por grupos</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-bivariado-dos-variables-juntas"><i class="fa fa-check"></i><b>4.7</b> Análisis bivariado: dos variables juntas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#diagrama-de-dispersión"><i class="fa fa-check"></i><b>4.7.1</b> Diagrama de dispersión</a></li>
+<li class="chapter" data-level="4.7.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#covarianza"><i class="fa fa-check"></i><b>4.7.2</b> Covarianza</a></li>
+<li class="chapter" data-level="4.7.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#correlación"><i class="fa fa-check"></i><b>4.7.3</b> Correlación</a></li>
+<li class="chapter" data-level="4.7.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ejemplos-para-revisar-la-correlación"><i class="fa fa-check"></i><b>4.7.4</b> Ejemplos para revisar la correlación</a></li>
+<li class="chapter" data-level="4.7.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-correlación-no-es-causalidad"><i class="fa fa-check"></i><b>4.7.5</b> Cuidado: correlación no es causalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#matriz-de-correlación"><i class="fa fa-check"></i><b>4.8</b> Matriz de correlación</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mapa-de-calor-de-la-matriz-de-correlación"><i class="fa fa-check"></i><b>4.8.1</b> Mapa de calor de la matriz de correlación</a></li>
+<li class="chapter" data-level="4.8.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ver-todas-las-relaciones-a-la-vez"><i class="fa fa-check"></i><b>4.8.2</b> Ver todas las relaciones a la vez</a></li>
+<li class="chapter" data-level="4.8.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#la-matriz-de-covarianzas"><i class="fa fa-check"></i><b>4.8.3</b> La matriz de covarianzas</a></li>
+<li class="chapter" data-level="4.8.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-con-los-grupos-mezclados"><i class="fa fa-check"></i><b>4.8.4</b> Cuidado con los grupos mezclados</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#resumen-de-funciones"><i class="fa fa-check"></i><b>4.9</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html"><i class="fa fa-check"></i><b>5</b> Distribuciones de probabilidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#variable-aleatoria-y-distribución-binomial"><i class="fa fa-check"></i><b>5.1</b> Variable aleatoria y distribución binomial</a></li>
+<li class="chapter" data-level="5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal"><i class="fa fa-check"></i><b>5.2</b> Distribución normal</a></li>
+<li class="chapter" data-level="5.3" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#dos-variables-conjunta-marginales-y-covarianza"><i class="fa fa-check"></i><b>5.3</b> Dos variables: conjunta, marginales y covarianza</a></li>
+<li class="chapter" data-level="5.4" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#vector-aleatorio-y-matriz-de-covarianzas"><i class="fa fa-check"></i><b>5.4</b> Vector aleatorio y matriz de covarianzas</a></li>
+<li class="chapter" data-level="5.5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal-multivariada"><i class="fa fa-check"></i><b>5.5</b> Distribución normal multivariada</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#la-densidad-y-el-efecto-de-la-correlación"><i class="fa fa-check"></i><b>5.5.1</b> La densidad y el efecto de la correlación</a></li>
+<li class="chapter" data-level="5.5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#propiedades"><i class="fa fa-check"></i><b>5.5.2</b> Propiedades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distancia-de-mahalanobis-y-normalidad-multivariada"><i class="fa fa-check"></i><b>5.6</b> Distancia de Mahalanobis y normalidad multivariada</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#con-datos-reales"><i class="fa fa-check"></i><b>5.6.1</b> Con datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#resumen-de-funciones-1"><i class="fa fa-check"></i><b>5.7</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>6</b> Análisis de componentes principales</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#notación"><i class="fa fa-check"></i><b>6.0.1</b> Notación</a></li>
+<li class="chapter" data-level="6.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-a.-ejemplo-manual"><i class="fa fa-check"></i><b>6.1</b> Parte A. Ejemplo manual</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos"><i class="fa fa-check"></i><b>6.1.1</b> Datos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-1.-centrado-y-estandarización"><i class="fa fa-check"></i><b>6.1.2</b> Paso 1. Centrado y estandarización</a></li>
+<li class="chapter" data-level="6.1.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-2.-matrices-de-covarianzas-y-de-correlaciones"><i class="fa fa-check"></i><b>6.1.3</b> Paso 2. Matrices de covarianzas y de correlaciones</a></li>
+<li class="chapter" data-level="6.1.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-3.-eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>6.1.4</b> Paso 3. Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="6.1.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-4.-varianza-explicada"><i class="fa fa-check"></i><b>6.1.5</b> Paso 4. Varianza explicada</a></li>
+<li class="chapter" data-level="6.1.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-5.-scores"><i class="fa fa-check"></i><b>6.1.6</b> Paso 5. Scores</a></li>
+<li class="chapter" data-level="6.1.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#loadings-y-correlación-con-las-variables"><i class="fa fa-check"></i><b>6.1.7</b> Loadings y correlación con las variables</a></li>
+<li class="chapter" data-level="6.1.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#comprobación-con-prcomp"><i class="fa fa-check"></i><b>6.1.8</b> Comprobación con <code>prcomp()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-b.-aplicación-con-datos-reales"><i class="fa fa-check"></i><b>6.2</b> Parte B. Aplicación con datos reales</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos-1"><i class="fa fa-check"></i><b>6.2.1</b> Datos</a></li>
+<li class="chapter" data-level="6.2.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-univariada"><i class="fa fa-check"></i><b>6.2.2</b> Exploración univariada</a></li>
+<li class="chapter" data-level="6.2.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-bivariada"><i class="fa fa-check"></i><b>6.2.3</b> Exploración bivariada</a></li>
+<li class="chapter" data-level="6.2.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#verificación-de-supuestos"><i class="fa fa-check"></i><b>6.2.4</b> Verificación de supuestos</a></li>
+<li class="chapter" data-level="6.2.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#cálculo-de-componentes"><i class="fa fa-check"></i><b>6.2.5</b> Cálculo de componentes</a></li>
+<li class="chapter" data-level="6.2.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#selección-del-número-de-componentes"><i class="fa fa-check"></i><b>6.2.6</b> Selección del número de componentes</a></li>
+<li class="chapter" data-level="6.2.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#interpretación-de-loadings"><i class="fa fa-check"></i><b>6.2.7</b> Interpretación de loadings</a></li>
+<li class="chapter" data-level="6.2.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#scores-y-gráficos-de-observaciones"><i class="fa fa-check"></i><b>6.2.8</b> Scores y gráficos de observaciones</a></li>
+<li class="chapter" data-level="6.2.9" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#atípicos-en-el-espacio-de-componentes"><i class="fa fa-check"></i><b>6.2.9</b> Atípicos en el espacio de componentes</a></li>
+<li class="chapter" data-level="6.2.10" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#uso-posterior-de-los-componentes"><i class="fa fa-check"></i><b>6.2.10</b> Uso posterior de los componentes</a></li>
+<li class="chapter" data-level="6.2.11" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#resumen-del-análisis"><i class="fa fa-check"></i><b>6.2.11</b> Resumen del análisis</a></li>
+<li class="chapter" data-level="6.2.12" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#lista-de-verificación"><i class="fa fa-check"></i><b>6.2.12</b> Lista de verificación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html"><i class="fa fa-check"></i><b>7</b> Análisis Factorial Exploratorio</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#introducción"><i class="fa fa-check"></i><b>7.1</b> Introducción</a></li>
+<li class="chapter" data-level="7.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#los-datos"><i class="fa fa-check"></i><b>7.2</b> Los datos</a></li>
+<li class="chapter" data-level="7.3" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#exploración"><i class="fa fa-check"></i><b>7.3</b> Exploración</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#resumen-numérico"><i class="fa fa-check"></i><b>7.3.1</b> Resumen numérico</a></li>
+<li class="chapter" data-level="7.3.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#estandarización"><i class="fa fa-check"></i><b>7.3.2</b> Estandarización</a></li>
+<li class="chapter" data-level="7.3.3" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#matriz-de-correlaciones"><i class="fa fa-check"></i><b>7.3.3</b> Matriz de correlaciones</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#supuestos"><i class="fa fa-check"></i><b>7.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#prueba-de-esfericidad-de-bartlett"><i class="fa fa-check"></i><b>7.4.1</b> Prueba de esfericidad de Bartlett</a></li>
+<li class="chapter" data-level="7.4.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#índice-kmo"><i class="fa fa-check"></i><b>7.4.2</b> Índice KMO</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#número-de-factores"><i class="fa fa-check"></i><b>7.5</b> Número de factores</a></li>
+<li class="chapter" data-level="7.6" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#extracción-por-ejes-principales-paf"><i class="fa fa-check"></i><b>7.6</b> Extracción por Ejes Principales (PAF)</a></li>
+<li class="chapter" data-level="7.7" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#extracción-por-minres"><i class="fa fa-check"></i><b>7.7</b> Extracción por MINRES</a></li>
+<li class="chapter" data-level="7.8" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#rotaciones"><i class="fa fa-check"></i><b>7.8</b> Rotaciones</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#varimax"><i class="fa fa-check"></i><b>7.8.1</b> Varimax</a></li>
+<li class="chapter" data-level="7.8.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#oblimin"><i class="fa fa-check"></i><b>7.8.2</b> Oblimin</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#conclusiones"><i class="fa fa-check"></i><b>7.9</b> Conclusiones</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html"><i class="fa fa-check"></i><b>8</b> Análisis de Correspondencias Simple</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#introducción-1"><i class="fa fa-check"></i><b>8.1</b> Introducción</a></li>
+<li class="chapter" data-level="8.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#los-datos-1"><i class="fa fa-check"></i><b>8.2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#de-datos-individuales-a-una-tabla"><i class="fa fa-check"></i><b>8.2.1</b> De datos individuales a una tabla</a></li>
+<li class="chapter" data-level="8.2.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#la-tabla-de-contingencia"><i class="fa fa-check"></i><b>8.2.2</b> La tabla de contingencia</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#exploración-1"><i class="fa fa-check"></i><b>8.3</b> Exploración</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#perfiles-fila"><i class="fa fa-check"></i><b>8.3.1</b> Perfiles fila</a></li>
+<li class="chapter" data-level="8.3.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#perfiles-columna"><i class="fa fa-check"></i><b>8.3.2</b> Perfiles columna</a></li>
+<li class="chapter" data-level="8.3.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#gráfico-de-mosaico"><i class="fa fa-check"></i><b>8.3.3</b> Gráfico de mosaico</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#hay-asociación"><i class="fa fa-check"></i><b>8.4</b> ¿Hay asociación?</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#prueba-chi-cuadrado-de-independencia"><i class="fa fa-check"></i><b>8.4.1</b> Prueba chi-cuadrado de independencia</a></li>
+<li class="chapter" data-level="8.4.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#frecuencias-esperadas"><i class="fa fa-check"></i><b>8.4.2</b> Frecuencias esperadas</a></li>
+<li class="chapter" data-level="8.4.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#residuos-de-pearson"><i class="fa fa-check"></i><b>8.4.3</b> Residuos de Pearson</a></li>
+<li class="chapter" data-level="8.4.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#contribución-de-cada-celda-al-chi-cuadrado"><i class="fa fa-check"></i><b>8.4.4</b> Contribución de cada celda al chi-cuadrado</a></li>
+<li class="chapter" data-level="8.4.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#inercia-total"><i class="fa fa-check"></i><b>8.4.5</b> Inercia total</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#análisis-de-correspondencias"><i class="fa fa-check"></i><b>8.5</b> Análisis de correspondencias</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#ajuste-con-ca"><i class="fa fa-check"></i><b>8.5.1</b> Ajuste con <code>CA()</code></a></li>
+<li class="chapter" data-level="8.5.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#masas"><i class="fa fa-check"></i><b>8.5.2</b> Masas</a></li>
+<li class="chapter" data-level="8.5.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#valores-propios-e-inercia-por-dimensión"><i class="fa fa-check"></i><b>8.5.3</b> Valores propios e inercia por dimensión</a></li>
+<li class="chapter" data-level="8.5.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#gráfico-de-sedimentación"><i class="fa fa-check"></i><b>8.5.4</b> Gráfico de sedimentación</a></li>
+<li class="chapter" data-level="8.5.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#coordenadas-de-filas-y-columnas"><i class="fa fa-check"></i><b>8.5.5</b> Coordenadas de filas y columnas</a></li>
+<li class="chapter" data-level="8.5.6" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#contribuciones"><i class="fa fa-check"></i><b>8.5.6</b> Contribuciones</a></li>
+<li class="chapter" data-level="8.5.7" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#calidad-de-la-representación-cos²"><i class="fa fa-check"></i><b>8.5.7</b> Calidad de la representación (cos²)</a></li>
+<li class="chapter" data-level="8.5.8" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#inercia-de-cada-categoría"><i class="fa fa-check"></i><b>8.5.8</b> Inercia de cada categoría</a></li>
+<li class="chapter" data-level="8.5.9" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#resumen-con-summary"><i class="fa fa-check"></i><b>8.5.9</b> Resumen con <code>summary()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapas"><i class="fa fa-check"></i><b>8.6</b> Mapas</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-simétrico"><i class="fa fa-check"></i><b>8.6.1</b> Mapa simétrico</a></li>
+<li class="chapter" data-level="8.6.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-con-la-calidad-de-representación"><i class="fa fa-check"></i><b>8.6.2</b> Mapa con la calidad de representación</a></li>
+<li class="chapter" data-level="8.6.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-con-las-contribuciones"><i class="fa fa-check"></i><b>8.6.3</b> Mapa con las contribuciones</a></li>
+<li class="chapter" data-level="8.6.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-asimétrico"><i class="fa fa-check"></i><b>8.6.4</b> Mapa asimétrico</a></li>
+<li class="chapter" data-level="8.6.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#solo-filas-y-solo-columnas"><i class="fa fa-check"></i><b>8.6.5</b> Solo filas y solo columnas</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#conclusiones-1"><i class="fa fa-check"></i><b>8.7</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#funciones-usadas"><i class="fa fa-check"></i><b>8.7.1</b> Funciones usadas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html"><i class="fa fa-check"></i><b>9</b> Análisis Discriminante</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#introducción-2"><i class="fa fa-check"></i><b>9.1</b> Introducción</a></li>
+<li class="chapter" data-level="9.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#los-datos-2"><i class="fa fa-check"></i><b>9.2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#gráfico-de-dispersión"><i class="fa fa-check"></i><b>9.2.1</b> Gráfico de dispersión</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#el-método-de-fisher"><i class="fa fa-check"></i><b>9.3</b> El método de Fisher</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-1-preparar-los-datos"><i class="fa fa-check"></i><b>9.3.1</b> Paso 1: preparar los datos</a></li>
+<li class="chapter" data-level="9.3.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-2-variación-entre-y-dentro-de-los-grupos"><i class="fa fa-check"></i><b>9.3.2</b> Paso 2: variación entre y dentro de los grupos</a></li>
+<li class="chapter" data-level="9.3.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-3-la-mejor-dirección"><i class="fa fa-check"></i><b>9.3.3</b> Paso 3: la mejor dirección</a></li>
+<li class="chapter" data-level="9.3.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-4-puntajes-y-resultado"><i class="fa fa-check"></i><b>9.3.4</b> Paso 4: puntajes y resultado</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#supuestos-1"><i class="fa fa-check"></i><b>9.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#normalidad"><i class="fa fa-check"></i><b>9.4.1</b> Normalidad</a></li>
+<li class="chapter" data-level="9.4.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#igualdad-de-covarianzas"><i class="fa fa-check"></i><b>9.4.2</b> Igualdad de covarianzas</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#lda-clasificar-con-probabilidades"><i class="fa fa-check"></i><b>9.5</b> LDA: clasificar con probabilidades</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#de-fisher-a-lda"><i class="fa fa-check"></i><b>9.5.1</b> De Fisher a LDA</a></li>
+<li class="chapter" data-level="9.5.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-1-separar-entrenamiento-y-prueba"><i class="fa fa-check"></i><b>9.5.2</b> Paso 1: separar entrenamiento y prueba</a></li>
+<li class="chapter" data-level="9.5.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-2-ajustar-el-modelo-con-el-entrenamiento"><i class="fa fa-check"></i><b>9.5.3</b> Paso 2: ajustar el modelo con el entrenamiento</a></li>
+<li class="chapter" data-level="9.5.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-3-clasificar-la-prueba"><i class="fa fa-check"></i><b>9.5.4</b> Paso 3: clasificar la prueba</a></li>
+<li class="chapter" data-level="9.5.5" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-4-matriz-de-confusión-y-porcentaje-de-aciertos"><i class="fa fa-check"></i><b>9.5.5</b> Paso 4: matriz de confusión y porcentaje de aciertos</a></li>
+<li class="chapter" data-level="9.5.6" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-5-una-flor-nueva"><i class="fa fa-check"></i><b>9.5.6</b> Paso 5: una flor nueva</a></li>
+<li class="chapter" data-level="9.5.7" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-6-probabilidades-previas"><i class="fa fa-check"></i><b>9.5.7</b> Paso 6: probabilidades previas</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#comparar-lda-con-qda"><i class="fa fa-check"></i><b>9.6</b> Comparar LDA con QDA</a></li>
+<li class="chapter" data-level="9.7" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#con-las-cuatro-variables"><i class="fa fa-check"></i><b>9.7</b> Con las cuatro variables</a></li>
+<li class="chapter" data-level="9.8" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#conclusiones-2"><i class="fa fa-check"></i><b>9.8</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#funciones-usadas-1"><i class="fa fa-check"></i><b>9.8.1</b> Funciones usadas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html"><i class="fa fa-check"></i><b>10</b> Análisis Discriminante</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#introducción-3"><i class="fa fa-check"></i><b>10.1</b> Introducción</a></li>
+<li class="chapter" data-level="10.2" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#los-datos-3"><i class="fa fa-check"></i><b>10.2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#gráfico-de-dispersión-1"><i class="fa fa-check"></i><b>10.2.1</b> Gráfico de dispersión</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#el-método-de-fisher-1"><i class="fa fa-check"></i><b>10.3</b> El método de Fisher</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-1-preparar-los-datos-1"><i class="fa fa-check"></i><b>10.3.1</b> Paso 1: preparar los datos</a></li>
+<li class="chapter" data-level="10.3.2" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-2-variación-entre-y-dentro-de-los-grupos-1"><i class="fa fa-check"></i><b>10.3.2</b> Paso 2: variación entre y dentro de los grupos</a></li>
+<li class="chapter" data-level="10.3.3" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-3-la-mejor-dirección-1"><i class="fa fa-check"></i><b>10.3.3</b> Paso 3: la mejor dirección</a></li>
+<li class="chapter" data-level="10.3.4" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-4-puntajes-y-resultado-1"><i class="fa fa-check"></i><b>10.3.4</b> Paso 4: puntajes y resultado</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#supuestos-2"><i class="fa fa-check"></i><b>10.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#normalidad-1"><i class="fa fa-check"></i><b>10.4.1</b> Normalidad</a></li>
+<li class="chapter" data-level="10.4.2" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#normalidad-multivariada-extra"><i class="fa fa-check"></i><b>10.4.2</b> Normalidad multivariada (extra)</a></li>
+<li class="chapter" data-level="10.4.3" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#igualdad-de-covarianzas-1"><i class="fa fa-check"></i><b>10.4.3</b> Igualdad de covarianzas</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#lda-clasificar-con-probabilidades-1"><i class="fa fa-check"></i><b>10.5</b> LDA: clasificar con probabilidades</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#de-fisher-a-lda-1"><i class="fa fa-check"></i><b>10.5.1</b> De Fisher a LDA</a></li>
+<li class="chapter" data-level="10.5.2" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-1-separar-entrenamiento-y-prueba-1"><i class="fa fa-check"></i><b>10.5.2</b> Paso 1: separar entrenamiento y prueba</a></li>
+<li class="chapter" data-level="10.5.3" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-2-ajustar-el-modelo-con-el-entrenamiento-1"><i class="fa fa-check"></i><b>10.5.3</b> Paso 2: ajustar el modelo con el entrenamiento</a></li>
+<li class="chapter" data-level="10.5.4" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-3-clasificar-la-prueba-1"><i class="fa fa-check"></i><b>10.5.4</b> Paso 3: clasificar la prueba</a></li>
+<li class="chapter" data-level="10.5.5" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-4-matriz-de-confusión-y-porcentaje-de-aciertos-1"><i class="fa fa-check"></i><b>10.5.5</b> Paso 4: matriz de confusión y porcentaje de aciertos</a></li>
+<li class="chapter" data-level="10.5.6" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-5-una-flor-nueva-1"><i class="fa fa-check"></i><b>10.5.6</b> Paso 5: una flor nueva</a></li>
+<li class="chapter" data-level="10.5.7" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#paso-6-probabilidades-previas-1"><i class="fa fa-check"></i><b>10.5.7</b> Paso 6: probabilidades previas</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#comparar-lda-con-qda-1"><i class="fa fa-check"></i><b>10.6</b> Comparar LDA con QDA</a></li>
+<li class="chapter" data-level="10.7" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#con-las-cuatro-variables-1"><i class="fa fa-check"></i><b>10.7</b> Con las cuatro variables</a></li>
+<li class="chapter" data-level="10.8" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#conclusiones-3"><i class="fa fa-check"></i><b>10.8</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="10.8.1" data-path="análisis-discriminante-1.html"><a href="análisis-discriminante-1.html#funciones-usadas-2"><i class="fa fa-check"></i><b>10.8.1</b> Funciones usadas</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">
+  Published with bookdown
+</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Multivariado en Rstudio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-discriminante-1" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Lección 10</span> Análisis Discriminante<a href="análisis-discriminante-1.html#análisis-discriminante-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introducción-3" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Introducción<a href="análisis-discriminante-1.html#introducción-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El <strong>análisis discriminante</strong> es una técnica supervisada: se dispone de observaciones cuyo <strong>grupo ya se conoce</strong> y de varias variables medidas en cada una. Sirve para dos cosas: <strong>discriminar</strong>, es decir, encontrar qué combinación de las variables separa mejor los grupos, y <strong>clasificar</strong>, es decir, asignar una observación nueva a uno de los grupos.</p>
+<p>Este informe usa la base <strong>iris</strong>, con la que Fisher presentó el método en 1936: 150 flores de tres especies (Setosa, Versicolor y Virginica). Para seguir el mismo ejemplo de las diapositivas se trabaja con <strong>dos variables</strong>, el largo y el ancho del pétalo, y al final se repite con las cuatro.</p>
+<p>El recorrido es el siguiente:</p>
+<ol style="list-style-type: decimal">
+<li>Explorar los datos.</li>
+<li><strong>El método de Fisher</strong>, calculado paso a paso: cómo encontrar la combinación de variables que mejor separa los grupos.</li>
+<li><strong>Supuestos</strong> del análisis discriminante.</li>
+<li><strong>LDA</strong>: de la dirección de Fisher a un modelo que clasifica con probabilidades. Se separa la base en entrenamiento y prueba, se ajusta el modelo, se clasifica y se mide el porcentaje de aciertos.</li>
+<li>Comparar LDA con QDA.</li>
+<li>Repetir con las cuatro variables.</li>
+</ol>
+<p>Paquetes usados: <code>MASS</code>, que trae <code>lda()</code> y <code>qda()</code>, y <code>ggplot2</code>, para los gráficos. Se cargan una sola vez, al inicio, con <code>library()</code>. Si alguno no está instalado, se instala con <code>install.packages("nombre")</code>.</p>
+</div>
+<div id="los-datos-3" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Los datos<a href="análisis-discriminante-1.html#los-datos-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La base <code>iris</code> ya viene incluida en R. Se copia a un objeto nuevo, para no modificar la original, y se traducen los nombres al español.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="análisis-discriminante-1.html#cb1-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> iris</span>
+<span id="cb1-2"><a href="análisis-discriminante-1.html#cb1-2" tabindex="-1"></a><span class="fu">names</span>(datos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Sepalo_largo&quot;</span>, <span class="st">&quot;Sepalo_ancho&quot;</span>, <span class="st">&quot;Petalo_largo&quot;</span>, <span class="st">&quot;Petalo_ancho&quot;</span>, <span class="st">&quot;Especie&quot;</span>)</span>
+<span id="cb1-3"><a href="análisis-discriminante-1.html#cb1-3" tabindex="-1"></a><span class="fu">levels</span>(datos<span class="sc">$</span>Especie) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Setosa&quot;</span>, <span class="st">&quot;Versicolor&quot;</span>, <span class="st">&quot;Virginica&quot;</span>)</span>
+<span id="cb1-4"><a href="análisis-discriminante-1.html#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="análisis-discriminante-1.html#cb1-5" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepalo_largo: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepalo_ancho: num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petalo_largo: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petalo_ancho: num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Especie     : Factor w/ 3 levels &quot;Setosa&quot;,&quot;Versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="análisis-discriminante-1.html#cb3-1" tabindex="-1"></a><span class="fu">table</span>(datos<span class="sc">$</span>Especie)</span></code></pre></div>
+<pre><code>## 
+##     Setosa Versicolor  Virginica 
+##         50         50         50</code></pre>
+<p>Qué hace cada línea:</p>
+<ul>
+<li><code>datos &lt;- iris</code>: guarda una copia de la base en <code>datos</code>. La flecha <code>&lt;-</code> significa «guardar en».</li>
+<li><code>names(datos) &lt;- c(...)</code>: cambia los nombres de las columnas, en el mismo orden en que aparecen.</li>
+<li><code>levels(datos$Especie) &lt;- c(...)</code>: cambia los nombres de las especies. El signo <code>$</code> selecciona una columna dentro de la base.</li>
+<li><code>str(datos)</code>: muestra cuántas filas y columnas hay y de qué tipo es cada una.</li>
+<li><code>table(datos$Especie)</code>: cuenta cuántas flores hay de cada especie.</li>
+</ul>
+<p>Hay <strong>150 flores</strong>, 50 por especie, y cinco columnas: cuatro medidas en centímetros y la variable <code>Especie</code>, un <strong>factor</strong>. Ese factor es el <strong>grupo</strong> que se quiere predecir.</p>
+<div id="gráfico-de-dispersión-1" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Gráfico de dispersión<a href="análisis-discriminante-1.html#gráfico-de-dispersión-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cada flor es un punto en el plano del largo y el ancho del pétalo, con un color por especie.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="análisis-discriminante-1.html#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos, <span class="fu">aes</span>(Petalo_largo, Petalo_ancho, <span class="at">color =</span> Especie)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="análisis-discriminante-1.html#cb5-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/da_disp-1.png" alt="" width="624" style="display: block; margin: auto;" /></p>
+<ul>
+<li><code>ggplot(datos, aes(...))</code>: indica la base y qué variable va en cada eje (<code>aes</code> significa «estética»). <code>color = Especie</code> pinta cada especie de un color.</li>
+<li><code>+ geom_point(size = 2)</code>: dibuja los puntos. En <code>ggplot2</code> el gráfico se arma sumando capas con <code>+</code>.</li>
+</ul>
+<p><strong>Setosa</strong> queda aislada en la esquina inferior izquierda: es fácil de separar. <strong>Versicolor y Virginica</strong> forman dos nubes que se <strong>tocan</strong> en la zona central, y ahí está la dificultad del problema.</p>
+</div>
+</div>
+<div id="el-método-de-fisher-1" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> El método de Fisher<a href="análisis-discriminante-1.html#el-método-de-fisher-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La idea de Fisher es buscar una <strong>forma de mirar los datos</strong> (una combinación de las variables) en la que los grupos queden <strong>lo más lejos posible entre sí y lo más compactos posible por dentro</strong>.</p>
+<p>Una imagen sirve para recordarla: cada especie es una <strong>nube de puntos</strong> y una linterna proyecta su sombra sobre una pared. Según desde dónde se alumbre, las sombras de dos nubes se encimarán o quedarán separadas. Fisher busca el ángulo que da sombras <strong>separadas y compactas</strong>. Cada flor pasa de dos números (largo y ancho) a <strong>uno solo</strong>: su posición en esa sombra, un <strong>puntaje</strong> que mezcla las variables con unos pesos:</p>
+<p><span class="math display">\[D = a_1 \cdot \text{Petalo\_largo} + a_2 \cdot \text{Petalo\_ancho}\]</span></p>
+<p>La pregunta es: <strong>¿qué pesos <span class="math inline">\(a_1\)</span> y <span class="math inline">\(a_2\)</span> separan mejor las especies?</strong> Se responde en cuatro pasos:</p>
+<ol style="list-style-type: decimal">
+<li>Preparar los datos.</li>
+<li>Medir la variación <strong>entre</strong> y <strong>dentro</strong> de los grupos.</li>
+<li>Encontrar la mejor dirección.</li>
+<li>Calcular los puntajes y mirar el resultado.</li>
+</ol>
+<div id="paso-1-preparar-los-datos-1" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> Paso 1: preparar los datos<a href="análisis-discriminante-1.html#paso-1-preparar-los-datos-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="análisis-discriminante-1.html#cb6-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(datos[, <span class="fu">c</span>(<span class="st">&quot;Petalo_largo&quot;</span>, <span class="st">&quot;Petalo_ancho&quot;</span>)])</span>
+<span id="cb6-2"><a href="análisis-discriminante-1.html#cb6-2" tabindex="-1"></a>g <span class="ot">&lt;-</span> datos<span class="sc">$</span>Especie</span>
+<span id="cb6-3"><a href="análisis-discriminante-1.html#cb6-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb6-4"><a href="análisis-discriminante-1.html#cb6-4" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">nlevels</span>(g)</span>
+<span id="cb6-5"><a href="análisis-discriminante-1.html#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="análisis-discriminante-1.html#cb6-6" tabindex="-1"></a>media_global <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(X)</span>
+<span id="cb6-7"><a href="análisis-discriminante-1.html#cb6-7" tabindex="-1"></a>medias <span class="ot">&lt;-</span> <span class="fu">rowsum</span>(X, g) <span class="sc">/</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(g))</span>
+<span id="cb6-8"><a href="análisis-discriminante-1.html#cb6-8" tabindex="-1"></a><span class="fu">round</span>(medias, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##            Petalo_largo Petalo_ancho
+## Setosa            1.462        0.246
+## Versicolor        4.260        1.326
+## Virginica         5.552        2.026</code></pre>
+<ul>
+<li><code>X</code>: las dos variables del pétalo como una <strong>matriz</strong> de 150 filas y 2 columnas. Las operaciones de álgebra necesitan matrices.</li>
+<li><code>g</code>: el grupo de cada flor. <code>n</code> es el número de flores (150) y <code>k</code> el de especies (3).</li>
+<li><code>colMeans(X)</code>: la media de cada columna, es decir, el <strong>centro de todas las flores</strong>.</li>
+<li><code>rowsum(X, g)</code>: suma las flores de cada especie; al dividir entre cuántas hay en cada una (<code>table(g)</code>) queda la <strong>media de cada especie</strong>.</li>
+</ul>
+<p>Setosa tiene pétalo pequeño (1.462 y 0.246 cm), Versicolor intermedio (4.260 y 1.326) y Virginica grande (5.552 y 2.026).</p>
+</div>
+<div id="paso-2-variación-entre-y-dentro-de-los-grupos-1" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Paso 2: variación entre y dentro de los grupos<a href="análisis-discriminante-1.html#paso-2-variación-entre-y-dentro-de-los-grupos-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Hay dos tipos de variación. La que hay <strong>dentro</strong> de cada especie (qué tanto se dispersan sus flores alrededor de su propio centro) y la que hay <strong>entre</strong> las especies (qué tan lejos están sus centros del centro de todas). Con varias variables, cada una se resume en una <strong>matriz</strong>: <span class="math inline">\(S_W\)</span> (dentro) y <span class="math inline">\(S_B\)</span> (entre).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="análisis-discriminante-1.html#cb8-1" tabindex="-1"></a>SW <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb8-2"><a href="análisis-discriminante-1.html#cb8-2" tabindex="-1"></a>SB <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb8-3"><a href="análisis-discriminante-1.html#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="análisis-discriminante-1.html#cb8-4" tabindex="-1"></a><span class="cf">for</span> (especie <span class="cf">in</span> <span class="fu">levels</span>(g)) {</span>
+<span id="cb8-5"><a href="análisis-discriminante-1.html#cb8-5" tabindex="-1"></a>  Xk <span class="ot">&lt;-</span> X[g <span class="sc">==</span> especie, ]                          <span class="co"># las flores de esa especie</span></span>
+<span id="cb8-6"><a href="análisis-discriminante-1.html#cb8-6" tabindex="-1"></a>  SW <span class="ot">&lt;-</span> SW <span class="sc">+</span> <span class="fu">crossprod</span>(<span class="fu">scale</span>(Xk, <span class="at">scale =</span> <span class="cn">FALSE</span>))   <span class="co"># dispersión alrededor de su media</span></span>
+<span id="cb8-7"><a href="análisis-discriminante-1.html#cb8-7" tabindex="-1"></a>  d  <span class="ot">&lt;-</span> medias[especie, ] <span class="sc">-</span> media_global           <span class="co"># distancia de su media al centro</span></span>
+<span id="cb8-8"><a href="análisis-discriminante-1.html#cb8-8" tabindex="-1"></a>  SB <span class="ot">&lt;-</span> SB <span class="sc">+</span> <span class="fu">nrow</span>(Xk) <span class="sc">*</span> (d <span class="sc">%*%</span> <span class="fu">t</span>(d))               <span class="co"># dispersión entre medias</span></span>
+<span id="cb8-9"><a href="análisis-discriminante-1.html#cb8-9" tabindex="-1"></a>}</span>
+<span id="cb8-10"><a href="análisis-discriminante-1.html#cb8-10" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="análisis-discriminante-1.html#cb8-11" tabindex="-1"></a><span class="fu">round</span>(SW, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##              Petalo_largo Petalo_ancho
+## Petalo_largo        27.22         6.27
+## Petalo_ancho         6.27         6.16</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="análisis-discriminante-1.html#cb10-1" tabindex="-1"></a><span class="fu">round</span>(SB, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##      Petalo_largo Petalo_ancho
+## [1,]       437.10       186.77
+## [2,]       186.77        80.41</code></pre>
+<ul>
+<li><code>matrix(0, 2, 2)</code>: dos matrices vacías de 2 por 2, para ir sumando.</li>
+<li><code>for (especie in levels(g)) {...}</code>: repite lo de las llaves una vez por cada especie.</li>
+<li><code>X[g == especie, ]</code>: se queda con las flores de esa especie.</li>
+<li><code>scale(Xk, scale = FALSE)</code>: resta a cada flor la media de <strong>su</strong> especie. <code>crossprod()</code> multiplica esas diferencias por sí mismas y suma. Así <code>SW</code> acumula la dispersión <strong>dentro</strong> de las tres especies.</li>
+<li><code>d</code>: qué tan lejos queda la media de la especie del centro de todas. <code>d %*% t(d)</code> es el producto de matrices que la convierte en una matriz, y se multiplica por el número de flores de la especie. Así <code>SB</code> acumula la separación <strong>entre</strong> especies.</li>
+</ul>
+<p>En la diagonal de cada matriz están las sumas de cuadrados de cada variable, y fuera de la diagonal cómo varían juntas. La variación entre los grupos (437.10 en el largo) es mucho mayor que la de dentro (27.22): las especies están bien separadas respecto de su propia dispersión.</p>
+</div>
+<div id="paso-3-la-mejor-dirección-1" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> Paso 3: la mejor dirección<a href="análisis-discriminante-1.html#paso-3-la-mejor-dirección-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Fisher busca los pesos que <strong>maximizan</strong> el cociente entre la variación entre y la variación dentro de los puntajes:</p>
+<p><span class="math display">\[\frac{\text{variación entre}}{\text{variación dentro}}\]</span></p>
+<p>Ese máximo tiene una solución exacta, que se obtiene con los <strong>valores y vectores propios</strong> de la matriz <span class="math inline">\(S_W^{-1} S_B\)</span>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="análisis-discriminante-1.html#cb12-1" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">solve</span>(SW) <span class="sc">%*%</span> SB)</span>
+<span id="cb12-2"><a href="análisis-discriminante-1.html#cb12-2" tabindex="-1"></a>e<span class="sc">$</span>values</span></code></pre></div>
+<pre><code>## [1] 19.6773042  0.1047462</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="análisis-discriminante-1.html#cb14-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">Re</span>(e<span class="sc">$</span>vectors)</span>
+<span id="cb14-2"><a href="análisis-discriminante-1.html#cb14-2" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">sweep</span>(A, <span class="dv">2</span>, <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">t</span>(A) <span class="sc">%*%</span> SW <span class="sc">%*%</span> A) <span class="sc">/</span> (n <span class="sc">-</span> k)), <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb14-3"><a href="análisis-discriminante-1.html#cb14-3" tabindex="-1"></a><span class="cf">if</span> (A[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="dv">0</span>) A[, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span>A[, <span class="dv">1</span>]</span>
+<span id="cb14-4"><a href="análisis-discriminante-1.html#cb14-4" tabindex="-1"></a><span class="fu">colnames</span>(A) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;LD1&quot;</span>, <span class="st">&quot;LD2&quot;</span>)</span>
+<span id="cb14-5"><a href="análisis-discriminante-1.html#cb14-5" tabindex="-1"></a><span class="fu">round</span>(A, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##        LD1    LD2
+## [1,] 1.544 -2.161
+## [2,] 2.402  5.043</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="análisis-discriminante-1.html#cb16-1" tabindex="-1"></a><span class="fu">round</span>(e<span class="sc">$</span>values <span class="sc">/</span> <span class="fu">sum</span>(e<span class="sc">$</span>values), <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.9947 0.0053</code></pre>
+<ul>
+<li><code>solve(SW)</code> es la inversa de <span class="math inline">\(S_W\)</span>, y <code>eigen()</code> calcula los valores y vectores propios. Los <strong>valores propios</strong> (<code>e$values</code>) son 19.68 y 0.10: miden cuánto separa cada dirección. El mayor corresponde a la mejor.</li>
+<li><code>A &lt;- Re(e$vectors)</code>: los vectores propios son las <strong>direcciones</strong>, es decir, los pesos. <code>Re()</code> se queda con la parte real.</li>
+<li>La línea con <code>sweep()</code> solo fija la <strong>escala</strong> de los pesos (que los puntajes tengan varianza 1 dentro de los grupos), que es la convención de las diapositivas y de los programas. La línea con <code>if</code> fija el signo, que es arbitrario.</li>
+<li><code>round(A, 3)</code>: los pesos. <code>LD1</code> pesa <strong>1.544</strong> al largo y <strong>2.402</strong> al ancho: ambos positivos y parecidos, así que es básicamente el <strong>tamaño del pétalo</strong>.</li>
+<li>La última línea es la <strong>proporción de traza</strong>: cada valor propio dividido entre la suma. Es el equivalente del porcentaje de varianza en PCA. <code>LD1</code> recoge el <strong>99.47 %</strong> de la separación y <code>LD2</code> solo el 0.53 %.</li>
+</ul>
+</div>
+<div id="paso-4-puntajes-y-resultado-1" class="section level3 hasAnchor" number="10.3.4">
+<h3><span class="header-section-number">10.3.4</span> Paso 4: puntajes y resultado<a href="análisis-discriminante-1.html#paso-4-puntajes-y-resultado-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cada flor pasa de dos medidas a dos puntajes: se le resta la media global y se multiplica por los pesos de <code>A</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="análisis-discriminante-1.html#cb18-1" tabindex="-1"></a>puntajes <span class="ot">&lt;-</span> <span class="fu">scale</span>(X, <span class="at">scale =</span> <span class="cn">FALSE</span>) <span class="sc">%*%</span> A</span>
+<span id="cb18-2"><a href="análisis-discriminante-1.html#cb18-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">round</span>(puntajes, <span class="dv">3</span>))</span></code></pre></div>
+<pre><code>##         LD1    LD2
+## [1,] -6.042  0.057
+## [2,] -6.042  0.057
+## [3,] -6.197  0.273
+## [4,] -5.888 -0.159
+## [5,] -6.042  0.057
+## [6,] -5.099  0.417</code></pre>
+<ul>
+<li><code>scale(X, scale = FALSE)</code>: resta la media global a cada variable (centra los datos).</li>
+<li><code>%*% A</code>: multiplica por los pesos. Cada fila resultante es el <code>LD1</code> y el <code>LD2</code> de una flor.</li>
+</ul>
+<p>Para ver el resultado se dibujan todas las flores en el plano de los dos puntajes:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="análisis-discriminante-1.html#cb20-1" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(puntajes, <span class="at">Especie =</span> g)</span>
+<span id="cb20-2"><a href="análisis-discriminante-1.html#cb20-2" tabindex="-1"></a><span class="fu">ggplot</span>(pts, <span class="fu">aes</span>(LD1, LD2, <span class="at">color =</span> Especie)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="análisis-discriminante-1.html#cb20-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/da_ld-1.png" alt="" width="624" style="display: block; margin: auto;" /></p>
+<p>Se arma una tabla con los puntajes y la especie de cada flor y se grafica igual que antes. El eje horizontal (<code>LD1</code>) recoge casi toda la separación: Setosa a la izquierda, Versicolor en el centro y Virginica a la derecha. El eje vertical casi no aporta. Dos medidas se resumieron en un puntaje que casi por sí solo separa las tres especies, y sigue habiendo algo de traslape entre Versicolor y Virginica porque esas dos especies realmente se parecen.</p>
+<p><strong>Lo que Fisher no hace.</strong> Fisher entrega <strong>direcciones</strong>: dice cómo mirar los datos para separar los grupos. No entrega por sí solo una regla de clasificación con probabilidades. Para eso hace falta un modelo, y eso es LDA.</p>
+</div>
+</div>
+<div id="supuestos-2" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Supuestos<a href="análisis-discriminante-1.html#supuestos-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de pasar a LDA conviene saber qué supone. LDA asume que dentro de cada grupo las variables son <strong>normales</strong>, que todos los grupos tienen la <strong>misma matriz de covarianza</strong>, y que las observaciones son independientes. Se revisan los dos primeros con los datos.</p>
+<div id="normalidad-1" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> Normalidad<a href="análisis-discriminante-1.html#normalidad-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="análisis-discriminante-1.html#cb21-1" tabindex="-1"></a><span class="fu">tapply</span>(datos<span class="sc">$</span>Petalo_largo, datos<span class="sc">$</span>Especie, <span class="cf">function</span>(x) <span class="fu">shapiro.test</span>(x)<span class="sc">$</span>p.value)</span></code></pre></div>
+<pre><code>##     Setosa Versicolor  Virginica 
+## 0.05481147 0.15847784 0.10977537</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="análisis-discriminante-1.html#cb23-1" tabindex="-1"></a><span class="fu">tapply</span>(datos<span class="sc">$</span>Petalo_ancho, datos<span class="sc">$</span>Especie, <span class="cf">function</span>(x) <span class="fu">shapiro.test</span>(x)<span class="sc">$</span>p.value)</span></code></pre></div>
+<pre><code>##       Setosa   Versicolor    Virginica 
+## 8.658573e-07 2.727780e-02 8.695419e-02</code></pre>
+<ul>
+<li><code>shapiro.test(x)$p.value</code>: la prueba de normalidad de Shapiro-Wilk. Su hipótesis nula es que los datos son normales, así que un valor <span class="math inline">\(p\)</span> pequeño (menos de 0.05) lleva a rechazarla.</li>
+<li><code>tapply(variable, grupo, función)</code>: aplica la función a la variable por separado dentro de cada especie. Cada línea de código revisa una variable y entrega tres valores <span class="math inline">\(p\)</span>, uno por especie.</li>
+</ul>
+<p>Con un nivel de 5 %, la normalidad no se rechaza para el largo del pétalo en ninguna especie. Para el <strong>ancho</strong> se rechaza en Setosa y en Versicolor. En Setosa se explica porque sus anchos toman pocos valores distintos (medidos con un solo decimal). LDA es razonablemente robusta a desviaciones moderadas, aunque las probabilidades pierden algo de confiabilidad.</p>
+<p><strong>Una aclaración.</strong> LDA supone normalidad <strong>multivariada</strong> dentro de cada grupo (las variables juntas), y <code>shapiro.test()</code> revisa cada variable por separado. Es una revisión útil pero parcial: si una variable sola no es normal, la conjunta tampoco; que cada una lo sea no garantiza que la conjunta lo sea. Existen pruebas multivariadas, como la de <strong>Mardia</strong> (asimetría y curtosis) o la de Henze-Zirkler, en paquetes como <code>MVN</code> o <code>mvnormtest</code>, que se aplican también por grupo. Aquí se usa Shapiro como primer filtro, y a continuación se agrega la versión multivariada.</p>
+</div>
+<div id="normalidad-multivariada-extra" class="section level3 hasAnchor" number="10.4.2">
+<h3><span class="header-section-number">10.4.2</span> Normalidad multivariada (extra)<a href="análisis-discriminante-1.html#normalidad-multivariada-extra" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La prueba de <strong>Shapiro-Wilk multivariada</strong> revisa las dos variables <strong>juntas</strong> dentro de cada especie. Está en el paquete <code>mvnormtest</code>, con la función <code>mshapiro.test()</code>:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="análisis-discriminante-1.html#cb25-1" tabindex="-1"></a><span class="co"># install.packages(&quot;mvnormtest&quot;)</span></span>
+<span id="cb25-2"><a href="análisis-discriminante-1.html#cb25-2" tabindex="-1"></a><span class="fu">library</span>(mvnormtest)</span>
+<span id="cb25-3"><a href="análisis-discriminante-1.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="análisis-discriminante-1.html#cb25-4" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">split</span>(datos[, <span class="fu">c</span>(<span class="st">&quot;Petalo_largo&quot;</span>, <span class="st">&quot;Petalo_ancho&quot;</span>)], datos<span class="sc">$</span>Especie),</span>
+<span id="cb25-5"><a href="análisis-discriminante-1.html#cb25-5" tabindex="-1"></a>       <span class="cf">function</span>(x) <span class="fu">mshapiro.test</span>(<span class="fu">t</span>(x))<span class="sc">$</span>p.value)</span></code></pre></div>
+<pre><code>##       Setosa   Versicolor    Virginica 
+## 2.108365e-05 3.206217e-01 3.154249e-01</code></pre>
+<ul>
+<li><code>split(datos[, ...], datos$Especie)</code>: separa las flores por especie, para revisar cada grupo.</li>
+<li><code>function(x) ...</code>: aplica la prueba a los datos de un grupo y se queda con el valor <span class="math inline">\(p\)</span> (<code>$p.value</code>).</li>
+<li><code>mshapiro.test(t(x))</code>: <code>mshapiro.test()</code> espera las variables en <strong>filas</strong> y las flores en columnas, por eso se traspone con <code>t()</code>.</li>
+</ul>
+<p>Igual que en Shapiro, la hipótesis nula es que los datos son normales: un valor <span class="math inline">\(p\)</span> menor que 0.05 lleva a rechazarla, ahora para las dos variables en conjunto. El resultado son tres valores <span class="math inline">\(p\)</span>, uno por especie.</p>
+</div>
+<div id="igualdad-de-covarianzas-1" class="section level3 hasAnchor" number="10.4.3">
+<h3><span class="header-section-number">10.4.3</span> Igualdad de covarianzas<a href="análisis-discriminante-1.html#igualdad-de-covarianzas-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="análisis-discriminante-1.html#cb27-1" tabindex="-1"></a><span class="fu">by</span>(datos[, <span class="fu">c</span>(<span class="st">&quot;Petalo_largo&quot;</span>, <span class="st">&quot;Petalo_ancho&quot;</span>)], datos<span class="sc">$</span>Especie, cov)</span></code></pre></div>
+<pre><code>## datos$Especie: Setosa
+##              Petalo_largo Petalo_ancho
+## Petalo_largo  0.030159184  0.006069388
+## Petalo_ancho  0.006069388  0.011106122
+## ------------------------------------------------------------ 
+## datos$Especie: Versicolor
+##              Petalo_largo Petalo_ancho
+## Petalo_largo   0.22081633   0.07310204
+## Petalo_ancho   0.07310204   0.03910612
+## ------------------------------------------------------------ 
+## datos$Especie: Virginica
+##              Petalo_largo Petalo_ancho
+## Petalo_largo   0.30458776   0.04882449
+## Petalo_ancho   0.04882449   0.07543265</code></pre>
+<p><code>by()</code> aplica una función a cada grupo, aquí <code>cov()</code>, que calcula la matriz de covarianza de las variables. Las matrices son claramente diferentes: las varianzas de Setosa (0.030 y 0.011) son entre 3 y 10 veces menores que las de Versicolor y Virginica. La prueba formal es la <strong>M de Box</strong>, que está en el paquete <code>heplots</code>:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="análisis-discriminante-1.html#cb29-1" tabindex="-1"></a><span class="co"># install.packages(&quot;heplots&quot;)</span></span>
+<span id="cb29-2"><a href="análisis-discriminante-1.html#cb29-2" tabindex="-1"></a>heplots<span class="sc">::</span><span class="fu">boxM</span>(datos[, <span class="fu">c</span>(<span class="st">&quot;Petalo_largo&quot;</span>, <span class="st">&quot;Petalo_ancho&quot;</span>)], datos<span class="sc">$</span>Especie)</span></code></pre></div>
+<pre><code>## 
+##  Box&#39;s M-test for Homogeneity of Covariance Matrices 
+## 
+## data:  datos[, c(&quot;Petalo_largo&quot;, &quot;Petalo_ancho&quot;)] by datos$Especie 
+## Chi-Sq (approx.) = 112.2624, df = 6, p-value = &lt; 2.2e-16</code></pre>
+<p>La notación <code>paquete::función</code> permite usar una función sin cargar todo el paquete. El resultado de la prueba es <strong>M = 114.5</strong>, <span class="math inline">\(\chi^2\)</span> = 112.3 con 6 grados de libertad y <strong><span class="math inline">\(p &lt; 0.001\)</span></strong>: se rechaza que las tres matrices de covarianza sean iguales. La prueba de Box es muy sensible, pero aquí la diferencia es grande y se ve a simple vista: la igualdad de covarianzas <strong>no se sostiene</strong>. Eso no impide usar LDA, que a menudo funciona bien aunque este supuesto falle, pero sugiere probar también el discriminante cuadrático (QDA), que permite una covarianza por grupo.</p>
+</div>
+</div>
+<div id="lda-clasificar-con-probabilidades-1" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> LDA: clasificar con probabilidades<a href="análisis-discriminante-1.html#lda-clasificar-con-probabilidades-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="de-fisher-a-lda-1" class="section level3 hasAnchor" number="10.5.1">
+<h3><span class="header-section-number">10.5.1</span> De Fisher a LDA<a href="análisis-discriminante-1.html#de-fisher-a-lda-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>LDA parte de las mismas direcciones de Fisher y agrega un <strong>modelo de probabilidad</strong>. Con los supuestos de la sección anterior, calcula para cada flor <strong>la probabilidad de venir de cada especie</strong>. Esa probabilidad combina dos cosas: qué tan cerca está la flor del centro de cada nube y cuánto pesa cada grupo de entrada (la <strong>probabilidad previa</strong>). La flor se asigna a la especie más probable.</p>
+<p>La función <code>lda()</code> de <code>MASS</code> hace todo el trabajo, y se puede comprobar que sus direcciones son las que se acaban de calcular a mano:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="análisis-discriminante-1.html#cb31-1" tabindex="-1"></a>fit_all <span class="ot">&lt;-</span> <span class="fu">lda</span>(Especie <span class="sc">~</span> Petalo_largo <span class="sc">+</span> Petalo_ancho, <span class="at">data =</span> datos)</span>
+<span id="cb31-2"><a href="análisis-discriminante-1.html#cb31-2" tabindex="-1"></a><span class="fu">round</span>(fit_all<span class="sc">$</span>scaling, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##                LD1    LD2
+## Petalo_largo 1.544 -2.161
+## Petalo_ancho 2.402  5.043</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="análisis-discriminante-1.html#cb33-1" tabindex="-1"></a><span class="fu">round</span>(A, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##        LD1    LD2
+## [1,] 1.544 -2.161
+## [2,] 2.402  5.043</code></pre>
+<ul>
+<li><code>lda(Especie ~ Petalo_largo + Petalo_ancho, data = datos)</code>: la fórmula se lee «la especie explicada por el largo y el ancho del pétalo».</li>
+<li><code>fit_all$scaling</code> son los pesos que calcula <code>lda()</code>. Coinciden con la matriz <code>A</code> del método de Fisher.</li>
+</ul>
+<p><code>fit_all</code> es el modelo ajustado con <strong>todos los datos</strong>, y es el que se usará más adelante como modelo final. A partir de aquí el objetivo es <strong>clasificar y medir qué tan bien se hace</strong>.</p>
+</div>
+<div id="paso-1-separar-entrenamiento-y-prueba-1" class="section level3 hasAnchor" number="10.5.2">
+<h3><span class="header-section-number">10.5.2</span> Paso 1: separar entrenamiento y prueba<a href="análisis-discriminante-1.html#paso-1-separar-entrenamiento-y-prueba-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Si el modelo se evalúa con las mismas flores con que se construyó, el resultado es demasiado optimista, como un estudiante que se evalúa con las mismas preguntas que ya estudió. Lo honesto es <strong>construir la regla con una parte de los datos y probarla con otra</strong> que el modelo nunca vio.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="análisis-discriminante-1.html#cb35-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb35-2"><a href="análisis-discriminante-1.html#cb35-2" tabindex="-1"></a>filas <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(datos), <span class="at">size =</span> <span class="dv">105</span>)</span>
+<span id="cb35-3"><a href="análisis-discriminante-1.html#cb35-3" tabindex="-1"></a>entren <span class="ot">&lt;-</span> datos[filas, ]</span>
+<span id="cb35-4"><a href="análisis-discriminante-1.html#cb35-4" tabindex="-1"></a>prueba <span class="ot">&lt;-</span> datos[<span class="sc">-</span>filas, ]</span></code></pre></div>
+<ul>
+<li><code>set.seed(2026)</code>: fija la semilla del azar, para que la separación se pueda repetir.</li>
+<li><code>sample(nrow(datos), size = 105)</code>: elige al azar 105 números de fila entre las 150 (el 70 %).</li>
+<li><code>datos[filas, ]</code>: las filas elegidas, con todas las columnas. Es el conjunto de <strong>entrenamiento</strong>.</li>
+<li><code>datos[-filas, ]</code>: el signo menos significa «todas excepto estas». Son las 45 flores de <strong>prueba</strong>.</li>
+</ul>
+</div>
+<div id="paso-2-ajustar-el-modelo-con-el-entrenamiento-1" class="section level3 hasAnchor" number="10.5.3">
+<h3><span class="header-section-number">10.5.3</span> Paso 2: ajustar el modelo con el entrenamiento<a href="análisis-discriminante-1.html#paso-2-ajustar-el-modelo-con-el-entrenamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="análisis-discriminante-1.html#cb36-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lda</span>(Especie <span class="sc">~</span> Petalo_largo <span class="sc">+</span> Petalo_ancho, <span class="at">data =</span> entren)</span>
+<span id="cb36-2"><a href="análisis-discriminante-1.html#cb36-2" tabindex="-1"></a>fit</span></code></pre></div>
+<pre><code>## Call:
+## lda(Especie ~ Petalo_largo + Petalo_ancho, data = entren)
+## 
+## Prior probabilities of groups:
+##     Setosa Versicolor  Virginica 
+##  0.3047619  0.2857143  0.4095238 
+## 
+## Group means:
+##            Petalo_largo Petalo_ancho
+## Setosa         1.487500     0.237500
+## Versicolor     4.150000     1.270000
+## Virginica      5.576744     2.044186
+## 
+## Coefficients of linear discriminants:
+##                   LD1       LD2
+## Petalo_largo 1.282915 -2.051246
+## Petalo_ancho 2.613098  4.660075
+## 
+## Proportion of trace:
+##    LD1    LD2 
+## 0.9948 0.0052</code></pre>
+<p>Es la misma función de antes, ahora con <code>data = entren</code>: el modelo se construye solo con las flores de entrenamiento. La salida tiene cuatro partes:</p>
+<ul>
+<li><strong><code>Prior probabilities of groups</code></strong>: las probabilidades previas, es decir, cuánto pesa cada grupo antes de medir nada. Por defecto son las proporciones del entrenamiento (como la separación es al azar, no son exactamente un tercio cada una).</li>
+<li><strong><code>Group means</code></strong>: las medias de cada variable por especie.</li>
+<li><strong><code>Coefficients of linear discriminants</code></strong>: los pesos que forman <code>LD1</code> y <code>LD2</code>, como la matriz <code>A</code> de Fisher, ahora calculados solo con el entrenamiento (por eso difieren un poco).</li>
+<li><strong><code>Proportion of trace</code></strong>: qué parte de la separación recoge cada función. <code>LD1</code> recoge casi toda (99.5 %).</li>
+</ul>
+</div>
+<div id="paso-3-clasificar-la-prueba-1" class="section level3 hasAnchor" number="10.5.4">
+<h3><span class="header-section-number">10.5.4</span> Paso 3: clasificar la prueba<a href="análisis-discriminante-1.html#paso-3-clasificar-la-prueba-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="análisis-discriminante-1.html#cb38-1" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, prueba)</span>
+<span id="cb38-2"><a href="análisis-discriminante-1.html#cb38-2" tabindex="-1"></a><span class="fu">head</span>(pr<span class="sc">$</span>class)</span></code></pre></div>
+<pre><code>## [1] Setosa Setosa Setosa Setosa Setosa Setosa
+## Levels: Setosa Versicolor Virginica</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="análisis-discriminante-1.html#cb40-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">round</span>(pr<span class="sc">$</span>posterior, <span class="dv">3</span>))</span></code></pre></div>
+<pre><code>##    Setosa Versicolor Virginica
+## 2       1          0         0
+## 6       1          0         0
+## 7       1          0         0
+## 10      1          0         0
+## 11      1          0         0
+## 13      1          0         0</code></pre>
+<p><code>predict(fit, prueba)</code> aplica el modelo a las flores de prueba, que el modelo no vio al ajustarse. Devuelve una lista con elementos a los que se accede con <code>$</code>:</p>
+<ul>
+<li><code>pr$class</code>: la <strong>clase asignada</strong> a cada flor.</li>
+<li><code>pr$posterior</code>: la <strong>probabilidad</strong> de cada clase para cada flor. Cada fila suma 1, y la clase asignada es la de mayor probabilidad.</li>
+</ul>
+<p><code>head()</code> muestra solo las primeras seis filas, y <code>round(..., 3)</code> redondea a tres decimales. Las primeras flores son Setosa con probabilidad 1.</p>
+</div>
+<div id="paso-4-matriz-de-confusión-y-porcentaje-de-aciertos-1" class="section level3 hasAnchor" number="10.5.5">
+<h3><span class="header-section-number">10.5.5</span> Paso 4: matriz de confusión y porcentaje de aciertos<a href="análisis-discriminante-1.html#paso-4-matriz-de-confusión-y-porcentaje-de-aciertos-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="análisis-discriminante-1.html#cb42-1" tabindex="-1"></a><span class="fu">table</span>(<span class="at">Predicho =</span> pr<span class="sc">$</span>class, <span class="at">Real =</span> prueba<span class="sc">$</span>Especie)</span></code></pre></div>
+<pre><code>##             Real
+## Predicho     Setosa Versicolor Virginica
+##   Setosa         18          0         0
+##   Versicolor      0         18         1
+##   Virginica       0          2         6</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="análisis-discriminante-1.html#cb44-1" tabindex="-1"></a><span class="fu">mean</span>(pr<span class="sc">$</span>class <span class="sc">==</span> prueba<span class="sc">$</span>Especie)</span></code></pre></div>
+<pre><code>## [1] 0.9333333</code></pre>
+<ul>
+<li><code>table(Predicho, Real)</code>: cruza la clase que dijo el modelo (filas) con la clase verdadera (columnas). Es la <strong>matriz de confusión</strong>; la diagonal son los aciertos.</li>
+<li><code>pr$class == prueba$Especie</code>: compara, flor por flor, la clase asignada con la real (da verdadero o falso). <code>mean()</code> promedia esos resultados, y eso es la <strong>exactitud</strong> (<em>accuracy</em>): la proporción de aciertos.</li>
+</ul>
+<p>Se clasifican bien <strong>42 de 45 flores</strong>, una exactitud de <strong>0.933</strong>. Los 3 errores ocurren entre Versicolor y Virginica: 2 Versicolor clasificadas como Virginica y 1 Virginica clasificada como Versicolor. Setosa no se confunde nunca. Con solo 45 flores de prueba, cada error mueve el porcentaje más de dos puntos, así que más adelante se usa una evaluación más estable.</p>
+</div>
+<div id="paso-5-una-flor-nueva-1" class="section level3 hasAnchor" number="10.5.6">
+<h3><span class="header-section-number">10.5.6</span> Paso 5: una flor nueva<a href="análisis-discriminante-1.html#paso-5-una-flor-nueva-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Una vez evaluado el modelo, el que se usa en la práctica es el ajustado con <strong>todos los datos</strong>: <code>fit_all</code>.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="análisis-discriminante-1.html#cb46-1" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Petalo_largo =</span> <span class="fl">4.9</span>, <span class="at">Petalo_ancho =</span> <span class="fl">1.7</span>)</span>
+<span id="cb46-2"><a href="análisis-discriminante-1.html#cb46-2" tabindex="-1"></a><span class="fu">predict</span>(fit_all, x0)<span class="sc">$</span>posterior</span></code></pre></div>
+<pre><code>##         Setosa Versicolor Virginica
+## 1 4.312334e-17  0.4312495 0.5687505</code></pre>
+<ul>
+<li><code>x0 &lt;- data.frame(...)</code>: una base de una sola fila con las medidas de la flor nueva (pétalo de 4.9 cm de largo y 1.7 cm de ancho). <strong>Los nombres de las columnas deben ser iguales</strong> a los del modelo.</li>
+<li><code>predict(fit_all, x0)$posterior</code>: la probabilidad de cada especie para esa flor.</li>
+</ul>
+<p>La flor se asigna a <strong>Virginica</strong>, pero con una probabilidad de solo <strong>0.569</strong>, frente a 0.431 de Versicolor. La etiqueta sola esconde que la decisión es casi un empate; la probabilidad lo muestra.</p>
+</div>
+<div id="paso-6-probabilidades-previas-1" class="section level3 hasAnchor" number="10.5.7">
+<h3><span class="header-section-number">10.5.7</span> Paso 6: probabilidades previas<a href="análisis-discriminante-1.html#paso-6-probabilidades-previas-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>lda()</code> usa por defecto las proporciones de la muestra. Si se conoce otra distribución, se indica con el argumento <code>prior</code>, un vector con una probabilidad por especie, en el orden de los niveles. Suponiendo que en cierto jardín el 60 % de las flores son Versicolor:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="análisis-discriminante-1.html#cb48-1" tabindex="-1"></a>fit_prior <span class="ot">&lt;-</span> <span class="fu">lda</span>(Especie <span class="sc">~</span> Petalo_largo <span class="sc">+</span> Petalo_ancho, <span class="at">data =</span> datos, <span class="at">prior =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">0.2</span>))</span>
+<span id="cb48-2"><a href="análisis-discriminante-1.html#cb48-2" tabindex="-1"></a><span class="fu">predict</span>(fit_prior, x0)<span class="sc">$</span>posterior</span></code></pre></div>
+<pre><code>##         Setosa Versicolor Virginica
+## 1 2.315348e-17  0.6946305 0.3053695</code></pre>
+<p>Con previas iguales la flor es Virginica (0.569); con la previa que favorece a Versicolor pasa a ser <strong>Versicolor (0.695)</strong>. Cuando la evidencia es ambigua, la previa <strong>decide</strong>. Por eso deben estar justificadas (provenir de datos confiables, no de la composición de la muestra) y declararse al presentar los resultados.</p>
+</div>
+</div>
+<div id="comparar-lda-con-qda-1" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> Comparar LDA con QDA<a href="análisis-discriminante-1.html#comparar-lda-con-qda-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una sola separación en entrenamiento y prueba es poco estable. Una alternativa simple es la <strong>validación dejando uno fuera</strong>: con <code>CV = TRUE</code>, cada flor se clasifica con un modelo ajustado con todas las demás, y se mide el porcentaje de aciertos.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="análisis-discriminante-1.html#cb50-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> Especie <span class="sc">~</span> Petalo_largo <span class="sc">+</span> Petalo_ancho</span>
+<span id="cb50-2"><a href="análisis-discriminante-1.html#cb50-2" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="análisis-discriminante-1.html#cb50-3" tabindex="-1"></a>cv_lda <span class="ot">&lt;-</span> <span class="fu">lda</span>(f, <span class="at">data =</span> datos, <span class="at">CV =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-4"><a href="análisis-discriminante-1.html#cb50-4" tabindex="-1"></a>cv_qda <span class="ot">&lt;-</span> <span class="fu">qda</span>(f, <span class="at">data =</span> datos, <span class="at">CV =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-5"><a href="análisis-discriminante-1.html#cb50-5" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="análisis-discriminante-1.html#cb50-6" tabindex="-1"></a><span class="fu">mean</span>(cv_lda<span class="sc">$</span>class <span class="sc">==</span> datos<span class="sc">$</span>Especie)</span></code></pre></div>
+<pre><code>## [1] 0.96</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="análisis-discriminante-1.html#cb52-1" tabindex="-1"></a><span class="fu">mean</span>(cv_qda<span class="sc">$</span>class <span class="sc">==</span> datos<span class="sc">$</span>Especie)</span></code></pre></div>
+<pre><code>## [1] 0.9666667</code></pre>
+<ul>
+<li><code>f</code>: guarda la fórmula para usarla en los dos modelos.</li>
+<li><code>qda()</code> se usa exactamente igual que <code>lda()</code>: es el discriminante cuadrático, que permite una covarianza distinta por grupo.</li>
+<li><code>CV = TRUE</code>: en lugar de un modelo, devuelve la clasificación de cada flor hecha sin usarla para ajustar. <code>$class</code> es esa clasificación y la comparación con la especie real se promedia, como antes.</li>
+</ul>
+<p><strong>LDA</strong> acierta el <strong>96.0 %</strong> y <strong>QDA</strong> el <strong>96.7 %</strong>: casi lo mismo, coherente con que las covarianzas sean distintas pero no demasiado. Con 150 flores y solo dos variables, los dos métodos hacen prácticamente lo mismo, y la elección se apoya más en los supuestos y en la interpretación que en la exactitud.</p>
+</div>
+<div id="con-las-cuatro-variables-1" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> Con las cuatro variables<a href="análisis-discriminante-1.html#con-las-cuatro-variables-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="análisis-discriminante-1.html#cb54-1" tabindex="-1"></a>cv4 <span class="ot">&lt;-</span> <span class="fu">lda</span>(Especie <span class="sc">~</span> ., <span class="at">data =</span> datos, <span class="at">CV =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-2"><a href="análisis-discriminante-1.html#cb54-2" tabindex="-1"></a><span class="fu">mean</span>(cv4<span class="sc">$</span>class <span class="sc">==</span> datos<span class="sc">$</span>Especie)</span></code></pre></div>
+<pre><code>## [1] 0.98</code></pre>
+<p>En la fórmula, <code>Especie ~ .</code> significa «la especie explicada por <strong>todas</strong> las demás columnas». Con cuatro variables la exactitud sube a <strong>0.980</strong> (frente a 0.960 con dos): las variables del sépalo, que por sí solas separan poco, aportan información complementaria para distinguir Versicolor de Virginica.</p>
+</div>
+<div id="conclusiones-3" class="section level2 hasAnchor" number="10.8">
+<h2><span class="header-section-number">10.8</span> Conclusiones<a href="análisis-discriminante-1.html#conclusiones-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las tres especies de iris <strong>se pueden distinguir</strong> con las dos medidas del pétalo. El método de Fisher encuentra una función discriminante, el <strong>tamaño del pétalo</strong>, que recoge casi toda la separación entre grupos.</p>
+<ul>
+<li><strong>Clasificación:</strong> con entrenamiento y prueba, LDA acierta 42 de 45 flores (0.933). Setosa nunca se confunde; todos los errores ocurren entre <strong>Versicolor y Virginica</strong>, que se solapan.</li>
+<li><strong>Probabilidades:</strong> la etiqueta oculta la incertidumbre. La flor nueva (4.9 cm × 1.7 cm) se asigna a Virginica con solo 57 %; con una previa que favorece a Versicolor, la decisión cambia.</li>
+<li><strong>Supuestos:</strong> las covarianzas son claramente distintas y el ancho del pétalo no es normal en dos especies. LDA tolera estas desviaciones, y QDA es una alternativa.</li>
+<li><strong>Comparación:</strong> LDA (0.960) y QDA (0.967) rinden casi igual en este problema.</li>
+<li><strong>Cuatro variables:</strong> la exactitud sube a 0.980 al sumar las variables del sépalo.</li>
+</ul>
+<div id="funciones-usadas-2" class="section level3 hasAnchor" number="10.8.1">
+<h3><span class="header-section-number">10.8.1</span> Funciones usadas<a href="análisis-discriminante-1.html#funciones-usadas-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Función</th>
+<th align="left">Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>colMeans()</code>, <code>rowsum()</code></td>
+<td align="left">medias globales y por grupo (Fisher)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>scale()</code>, <code>crossprod()</code></td>
+<td align="left">matrices de dispersión <span class="math inline">\(S_W\)</span> y <span class="math inline">\(S_B\)</span> (Fisher)</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>solve()</code>, <code>eigen()</code></td>
+<td align="left">inversa y valores y vectores propios: la mejor dirección (Fisher)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>shapiro.test()</code></td>
+<td align="left">prueba de normalidad de una variable</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mvnormtest::mshapiro.test()</code></td>
+<td align="left">prueba de normalidad multivariada (Shapiro-Wilk)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>by()</code>, <code>cov()</code></td>
+<td align="left">matriz de covarianza por grupo</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>heplots::boxM()</code></td>
+<td align="left">prueba M de Box de igualdad de covarianzas</td>
+</tr>
+<tr class="even">
+<td align="left"><code>sample()</code></td>
+<td align="left">elegir filas al azar para separar entrenamiento y prueba</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>lda()</code></td>
+<td align="left">discriminante lineal; <code>prior =</code> para las previas; <code>CV = TRUE</code> para validar</td>
+</tr>
+<tr class="even">
+<td align="left"><code>qda()</code></td>
+<td align="left">discriminante cuadrático</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>predict()</code></td>
+<td align="left">clase (<code>$class</code>) y probabilidades (<code>$posterior</code>)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>table()</code></td>
+<td align="left">matriz de confusión</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-discriminante.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Análisis Multivariado en Rstudio.pdf", "Análisis Multivariado en Rstudio.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

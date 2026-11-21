@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lección 8 Análisis de Correspondencias Simple | Análisis de Correspondencias en R</title>
+  <title>Lección 8 Análisis de Correspondencias Simple | Análisis Discriminante en R</title>
   <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lección 8 Análisis de Correspondencias Simple | Análisis de Correspondencias en R" />
+  <meta property="og:title" content="Lección 8 Análisis de Correspondencias Simple | Análisis Discriminante en R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lección 8 Análisis de Correspondencias Simple | Análisis de Correspondencias en R" />
+  <meta name="twitter:title" content="Lección 8 Análisis de Correspondencias Simple | Análisis Discriminante en R" />
   
   <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
   
@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="análisis-factorial-exploratorio.html"/>
-
+<link rel="next" href="análisis-discriminante.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -366,6 +366,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.7" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#conclusiones-1"><i class="fa fa-check"></i><b>8.7</b> Conclusiones</a>
 <ul>
 <li class="chapter" data-level="8.7.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#funciones-usadas"><i class="fa fa-check"></i><b>8.7.1</b> Funciones usadas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html"><i class="fa fa-check"></i><b>9</b> Análisis Discriminante</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#introducción-2"><i class="fa fa-check"></i><b>9.1</b> Introducción</a></li>
+<li class="chapter" data-level="9.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#los-datos-2"><i class="fa fa-check"></i><b>9.2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#gráfico-de-dispersión"><i class="fa fa-check"></i><b>9.2.1</b> Gráfico de dispersión</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#el-método-de-fisher"><i class="fa fa-check"></i><b>9.3</b> El método de Fisher</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-1-preparar-los-datos"><i class="fa fa-check"></i><b>9.3.1</b> Paso 1: preparar los datos</a></li>
+<li class="chapter" data-level="9.3.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-2-variación-entre-y-dentro-de-los-grupos"><i class="fa fa-check"></i><b>9.3.2</b> Paso 2: variación entre y dentro de los grupos</a></li>
+<li class="chapter" data-level="9.3.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-3-la-mejor-dirección"><i class="fa fa-check"></i><b>9.3.3</b> Paso 3: la mejor dirección</a></li>
+<li class="chapter" data-level="9.3.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-4-puntajes-y-resultado"><i class="fa fa-check"></i><b>9.3.4</b> Paso 4: puntajes y resultado</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#supuestos-1"><i class="fa fa-check"></i><b>9.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#normalidad"><i class="fa fa-check"></i><b>9.4.1</b> Normalidad</a></li>
+<li class="chapter" data-level="9.4.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#normalidad-multivariada-extra"><i class="fa fa-check"></i><b>9.4.2</b> Normalidad multivariada (extra)</a></li>
+<li class="chapter" data-level="9.4.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#igualdad-de-covarianzas"><i class="fa fa-check"></i><b>9.4.3</b> Igualdad de covarianzas</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#lda-clasificar-con-probabilidades"><i class="fa fa-check"></i><b>9.5</b> LDA: clasificar con probabilidades</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#de-fisher-a-lda"><i class="fa fa-check"></i><b>9.5.1</b> De Fisher a LDA</a></li>
+<li class="chapter" data-level="9.5.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-1-separar-entrenamiento-y-prueba"><i class="fa fa-check"></i><b>9.5.2</b> Paso 1: separar entrenamiento y prueba</a></li>
+<li class="chapter" data-level="9.5.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-2-ajustar-el-modelo-con-el-entrenamiento"><i class="fa fa-check"></i><b>9.5.3</b> Paso 2: ajustar el modelo con el entrenamiento</a></li>
+<li class="chapter" data-level="9.5.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-3-clasificar-la-prueba"><i class="fa fa-check"></i><b>9.5.4</b> Paso 3: clasificar la prueba</a></li>
+<li class="chapter" data-level="9.5.5" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-4-matriz-de-confusión-y-porcentaje-de-aciertos"><i class="fa fa-check"></i><b>9.5.5</b> Paso 4: matriz de confusión y porcentaje de aciertos</a></li>
+<li class="chapter" data-level="9.5.6" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-5-una-flor-nueva"><i class="fa fa-check"></i><b>9.5.6</b> Paso 5: una flor nueva</a></li>
+<li class="chapter" data-level="9.5.7" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-6-probabilidades-previas"><i class="fa fa-check"></i><b>9.5.7</b> Paso 6: probabilidades previas</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#comparar-lda-con-qda"><i class="fa fa-check"></i><b>9.6</b> Comparar LDA con QDA</a></li>
+<li class="chapter" data-level="9.7" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#con-las-cuatro-variables"><i class="fa fa-check"></i><b>9.7</b> Con las cuatro variables</a></li>
+<li class="chapter" data-level="9.8" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#conclusiones-2"><i class="fa fa-check"></i><b>9.8</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#funciones-usadas-1"><i class="fa fa-check"></i><b>9.8.1</b> Funciones usadas</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -871,8 +908,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="análisis-factorial-exploratorio.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="análisis-factorial-exploratorio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-discriminante.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,393 @@
+---
+pagetitle: "Análisis Discriminante en R"
+author: "Endy Paola Salon"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: false
+---
+
+```{r da_setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.align = "center", fig.width = 6.5, fig.height = 5)
+library(MASS); library(ggplot2)
+theme_set(theme_minimal(base_size = 12))
+```
+
+# Análisis Discriminante
+
+## Introducción
+
+El **análisis discriminante** es una técnica supervisada: se dispone de observaciones cuyo **grupo ya se conoce** y de varias variables medidas en cada una. Sirve para dos cosas: **discriminar**, es decir, encontrar qué combinación de las variables separa mejor los grupos, y **clasificar**, es decir, asignar una observación nueva a uno de los grupos.
+
+Este informe usa la base **iris**, con la que Fisher presentó el método en 1936: 150 flores de tres especies (Setosa, Versicolor y Virginica). Para seguir el mismo ejemplo de las diapositivas se trabaja con **dos variables**, el largo y el ancho del pétalo, y al final se repite con las cuatro.
+
+El recorrido es el siguiente:
+
+1. Explorar los datos.
+2. **El método de Fisher**, calculado paso a paso: cómo encontrar la combinación de variables que mejor separa los grupos.
+3. **Supuestos** del análisis discriminante.
+4. **LDA**: de la dirección de Fisher a un modelo que clasifica con probabilidades. Se separa la base en entrenamiento y prueba, se ajusta el modelo, se clasifica y se mide el porcentaje de aciertos.
+5. Comparar LDA con QDA.
+6. Repetir con las cuatro variables.
+
+Paquetes usados: `MASS`, que trae `lda()` y `qda()`, y `ggplot2`, para los gráficos. Se cargan una sola vez, al inicio, con `library()`. Si alguno no está instalado, se instala con `install.packages("nombre")`.
+
+## Los datos
+
+La base `iris` ya viene incluida en R. Se copia a un objeto nuevo, para no modificar la original, y se traducen los nombres al español.
+
+```{r da_datos}
+datos <- iris
+names(datos) <- c("Sepalo_largo", "Sepalo_ancho", "Petalo_largo", "Petalo_ancho", "Especie")
+levels(datos$Especie) <- c("Setosa", "Versicolor", "Virginica")
+
+str(datos)
+table(datos$Especie)
+```
+
+Qué hace cada línea:
+
+- `datos <- iris`: guarda una copia de la base en `datos`. La flecha `<-` significa «guardar en».
+- `names(datos) <- c(...)`: cambia los nombres de las columnas, en el mismo orden en que aparecen.
+- `levels(datos$Especie) <- c(...)`: cambia los nombres de las especies. El signo `$` selecciona una columna dentro de la base.
+- `str(datos)`: muestra cuántas filas y columnas hay y de qué tipo es cada una.
+- `table(datos$Especie)`: cuenta cuántas flores hay de cada especie.
+
+Hay **150 flores**, 50 por especie, y cinco columnas: cuatro medidas en centímetros y la variable `Especie`, un **factor**. Ese factor es el **grupo** que se quiere predecir.
+
+### Gráfico de dispersión
+
+Cada flor es un punto en el plano del largo y el ancho del pétalo, con un color por especie.
+
+```{r da_disp}
+ggplot(datos, aes(Petalo_largo, Petalo_ancho, color = Especie)) +
+  geom_point(size = 2)
+```
+
+- `ggplot(datos, aes(...))`: indica la base y qué variable va en cada eje (`aes` significa «estética»). `color = Especie` pinta cada especie de un color.
+- `+ geom_point(size = 2)`: dibuja los puntos. En `ggplot2` el gráfico se arma sumando capas con `+`.
+
+**Setosa** queda aislada en la esquina inferior izquierda: es fácil de separar. **Versicolor y Virginica** forman dos nubes que se **tocan** en la zona central, y ahí está la dificultad del problema.
+
+## El método de Fisher
+
+La idea de Fisher es buscar una **forma de mirar los datos** (una combinación de las variables) en la que los grupos queden **lo más lejos posible entre sí y lo más compactos posible por dentro**.
+
+Una imagen sirve para recordarla: cada especie es una **nube de puntos** y una linterna proyecta su sombra sobre una pared. Según desde dónde se alumbre, las sombras de dos nubes se encimarán o quedarán separadas. Fisher busca el ángulo que da sombras **separadas y compactas**. Cada flor pasa de dos números (largo y ancho) a **uno solo**: su posición en esa sombra, un **puntaje** que mezcla las variables con unos pesos:
+
+$$D = a_1 \cdot \text{Petalo\_largo} + a_2 \cdot \text{Petalo\_ancho}$$
+
+La pregunta es: **¿qué pesos $a_1$ y $a_2$ separan mejor las especies?** Se responde en cuatro pasos:
+
+1. Preparar los datos.
+2. Medir la variación **entre** y **dentro** de los grupos.
+3. Encontrar la mejor dirección.
+4. Calcular los puntajes y mirar el resultado.
+
+### Paso 1: preparar los datos
+
+```{r da_prep}
+X <- as.matrix(datos[, c("Petalo_largo", "Petalo_ancho")])
+g <- datos$Especie
+n <- nrow(X)
+k <- nlevels(g)
+
+media_global <- colMeans(X)
+medias <- rowsum(X, g) / as.numeric(table(g))
+round(medias, 3)
+```
+
+- `X`: las dos variables del pétalo como una **matriz** de 150 filas y 2 columnas. Las operaciones de álgebra necesitan matrices.
+- `g`: el grupo de cada flor. `n` es el número de flores (150) y `k` el de especies (3).
+- `colMeans(X)`: la media de cada columna, es decir, el **centro de todas las flores**.
+- `rowsum(X, g)`: suma las flores de cada especie; al dividir entre cuántas hay en cada una (`table(g)`) queda la **media de cada especie**.
+
+Setosa tiene pétalo pequeño (1.462 y 0.246 cm), Versicolor intermedio (4.260 y 1.326) y Virginica grande (5.552 y 2.026).
+
+### Paso 2: variación entre y dentro de los grupos
+
+Hay dos tipos de variación. La que hay **dentro** de cada especie (qué tanto se dispersan sus flores alrededor de su propio centro) y la que hay **entre** las especies (qué tan lejos están sus centros del centro de todas). Con varias variables, cada una se resume en una **matriz**: $S_W$ (dentro) y $S_B$ (entre).
+
+```{r da_dispersion}
+SW <- matrix(0, 2, 2)
+SB <- matrix(0, 2, 2)
+
+for (especie in levels(g)) {
+  Xk <- X[g == especie, ]                          # las flores de esa especie
+  SW <- SW + crossprod(scale(Xk, scale = FALSE))   # dispersión alrededor de su media
+  d  <- medias[especie, ] - media_global           # distancia de su media al centro
+  SB <- SB + nrow(Xk) * (d %*% t(d))               # dispersión entre medias
+}
+
+round(SW, 2)
+round(SB, 2)
+```
+
+- `matrix(0, 2, 2)`: dos matrices vacías de 2 por 2, para ir sumando.
+- `for (especie in levels(g)) {...}`: repite lo de las llaves una vez por cada especie.
+- `X[g == especie, ]`: se queda con las flores de esa especie.
+- `scale(Xk, scale = FALSE)`: resta a cada flor la media de **su** especie. `crossprod()` multiplica esas diferencias por sí mismas y suma. Así `SW` acumula la dispersión **dentro** de las tres especies.
+- `d`: qué tan lejos queda la media de la especie del centro de todas. `d %*% t(d)` es el producto de matrices que la convierte en una matriz, y se multiplica por el número de flores de la especie. Así `SB` acumula la separación **entre** especies.
+
+En la diagonal de cada matriz están las sumas de cuadrados de cada variable, y fuera de la diagonal cómo varían juntas. La variación entre los grupos (437.10 en el largo) es mucho mayor que la de dentro (27.22): las especies están bien separadas respecto de su propia dispersión.
+
+### Paso 3: la mejor dirección
+
+Fisher busca los pesos que **maximizan** el cociente entre la variación entre y la variación dentro de los puntajes:
+
+$$\frac{\text{variación entre}}{\text{variación dentro}}$$
+
+Ese máximo tiene una solución exacta, que se obtiene con los **valores y vectores propios** de la matriz $S_W^{-1} S_B$:
+
+```{r da_eigen}
+e <- eigen(solve(SW) %*% SB)
+e$values
+
+A <- Re(e$vectors)
+A <- sweep(A, 2, sqrt(diag(t(A) %*% SW %*% A) / (n - k)), "/")
+if (A[1, 1] < 0) A[, 1] <- -A[, 1]
+colnames(A) <- c("LD1", "LD2")
+round(A, 3)
+
+round(e$values / sum(e$values), 4)
+```
+
+- `solve(SW)` es la inversa de $S_W$, y `eigen()` calcula los valores y vectores propios. Los **valores propios** (`e$values`) son 19.68 y 0.10: miden cuánto separa cada dirección. El mayor corresponde a la mejor.
+- `A <- Re(e$vectors)`: los vectores propios son las **direcciones**, es decir, los pesos. `Re()` se queda con la parte real.
+- La línea con `sweep()` solo fija la **escala** de los pesos (que los puntajes tengan varianza 1 dentro de los grupos), que es la convención de las diapositivas y de los programas. La línea con `if` fija el signo, que es arbitrario.
+- `round(A, 3)`: los pesos. `LD1` pesa **1.544** al largo y **2.402** al ancho: ambos positivos y parecidos, así que es básicamente el **tamaño del pétalo**.
+- La última línea es la **proporción de traza**: cada valor propio dividido entre la suma. Es el equivalente del porcentaje de varianza en PCA. `LD1` recoge el **99.47 %** de la separación y `LD2` solo el 0.53 %.
+
+### Paso 4: puntajes y resultado
+
+Cada flor pasa de dos medidas a dos puntajes: se le resta la media global y se multiplica por los pesos de `A`.
+
+```{r da_puntajes}
+puntajes <- scale(X, scale = FALSE) %*% A
+head(round(puntajes, 3))
+```
+
+- `scale(X, scale = FALSE)`: resta la media global a cada variable (centra los datos).
+- `%*% A`: multiplica por los pesos. Cada fila resultante es el `LD1` y el `LD2` de una flor.
+
+Para ver el resultado se dibujan todas las flores en el plano de los dos puntajes:
+
+```{r da_ld}
+pts <- data.frame(puntajes, Especie = g)
+ggplot(pts, aes(LD1, LD2, color = Especie)) +
+  geom_point(size = 2)
+```
+
+Se arma una tabla con los puntajes y la especie de cada flor y se grafica igual que antes. El eje horizontal (`LD1`) recoge casi toda la separación: Setosa a la izquierda, Versicolor en el centro y Virginica a la derecha. El eje vertical casi no aporta. Dos medidas se resumieron en un puntaje que casi por sí solo separa las tres especies, y sigue habiendo algo de traslape entre Versicolor y Virginica porque esas dos especies realmente se parecen.
+
+**Lo que Fisher no hace.** Fisher entrega **direcciones**: dice cómo mirar los datos para separar los grupos. No entrega por sí solo una regla de clasificación con probabilidades. Para eso hace falta un modelo, y eso es LDA.
+
+## Supuestos
+
+Antes de pasar a LDA conviene saber qué supone. LDA asume que dentro de cada grupo las variables son **normales**, que todos los grupos tienen la **misma matriz de covarianza**, y que las observaciones son independientes. Se revisan los dos primeros con los datos.
+
+### Normalidad
+
+```{r da_normalidad}
+tapply(datos$Petalo_largo, datos$Especie, function(x) shapiro.test(x)$p.value)
+tapply(datos$Petalo_ancho, datos$Especie, function(x) shapiro.test(x)$p.value)
+```
+
+- `shapiro.test(x)$p.value`: la prueba de normalidad de Shapiro-Wilk. Su hipótesis nula es que los datos son normales, así que un valor $p$ pequeño (menos de 0.05) lleva a rechazarla.
+- `tapply(variable, grupo, función)`: aplica la función a la variable por separado dentro de cada especie. Cada línea de código revisa una variable y entrega tres valores $p$, uno por especie.
+
+Con un nivel de 5 %, la normalidad no se rechaza para el largo del pétalo en ninguna especie. Para el **ancho** se rechaza en Setosa y en Versicolor. En Setosa se explica porque sus anchos toman pocos valores distintos (medidos con un solo decimal). LDA es razonablemente robusta a desviaciones moderadas, aunque las probabilidades pierden algo de confiabilidad.
+
+**Una aclaración.** LDA supone normalidad **multivariada** dentro de cada grupo (las variables juntas), y `shapiro.test()` revisa cada variable por separado. Es una revisión útil pero parcial: si una variable sola no es normal, la conjunta tampoco; que cada una lo sea no garantiza que la conjunta lo sea. Existen pruebas multivariadas, como la de **Mardia** (asimetría y curtosis) o la de Henze-Zirkler, en paquetes como `MVN` o `mvnormtest`, que se aplican también por grupo. Aquí se usa Shapiro como primer filtro, y a continuación se agrega la versión multivariada.
+
+### Normalidad multivariada (extra)
+
+La prueba de **Shapiro-Wilk multivariada** revisa las dos variables **juntas** dentro de cada especie. Está en el paquete `mvnormtest`, con la función `mshapiro.test()`:
+
+```{r da_mshapiro}
+# install.packages("mvnormtest")
+library(mvnormtest)
+
+sapply(split(datos[, c("Petalo_largo", "Petalo_ancho")], datos$Especie),
+       function(x) mshapiro.test(t(x))$p.value)
+```
+
+- `split(datos[, ...], datos$Especie)`: separa las flores por especie, para revisar cada grupo.
+- `function(x) ...`: aplica la prueba a los datos de un grupo y se queda con el valor $p$ (`$p.value`).
+- `mshapiro.test(t(x))`: `mshapiro.test()` espera las variables en **filas** y las flores en columnas, por eso se traspone con `t()`.
+
+Igual que en Shapiro, la hipótesis nula es que los datos son normales: un valor $p$ menor que 0.05 lleva a rechazarla, ahora para las dos variables en conjunto. El resultado son tres valores $p$, uno por especie.
+
+### Igualdad de covarianzas
+
+```{r da_cov}
+by(datos[, c("Petalo_largo", "Petalo_ancho")], datos$Especie, cov)
+```
+
+`by()` aplica una función a cada grupo, aquí `cov()`, que calcula la matriz de covarianza de las variables. Las matrices son claramente diferentes: las varianzas de Setosa (0.030 y 0.011) son entre 3 y 10 veces menores que las de Versicolor y Virginica. La prueba formal es la **M de Box**, que está en el paquete `heplots`:
+
+```{r da_boxm}
+# install.packages("heplots")
+heplots::boxM(datos[, c("Petalo_largo", "Petalo_ancho")], datos$Especie)
+```
+
+La notación `paquete::función` permite usar una función sin cargar todo el paquete. El resultado de la prueba es **M = 114.5**, $\chi^2$ = 112.3 con 6 grados de libertad y **$p < 0.001$**: se rechaza que las tres matrices de covarianza sean iguales. La prueba de Box es muy sensible, pero aquí la diferencia es grande y se ve a simple vista: la igualdad de covarianzas **no se sostiene**. Eso no impide usar LDA, que a menudo funciona bien aunque este supuesto falle, pero sugiere probar también el discriminante cuadrático (QDA), que permite una covarianza por grupo.
+
+## LDA: clasificar con probabilidades
+
+### De Fisher a LDA
+
+LDA parte de las mismas direcciones de Fisher y agrega un **modelo de probabilidad**. Con los supuestos de la sección anterior, calcula para cada flor **la probabilidad de venir de cada especie**. Esa probabilidad combina dos cosas: qué tan cerca está la flor del centro de cada nube y cuánto pesa cada grupo de entrada (la **probabilidad previa**). La flor se asigna a la especie más probable.
+
+La función `lda()` de `MASS` hace todo el trabajo, y se puede comprobar que sus direcciones son las que se acaban de calcular a mano:
+
+```{r da_comparar}
+fit_all <- lda(Especie ~ Petalo_largo + Petalo_ancho, data = datos)
+round(fit_all$scaling, 3)
+round(A, 3)
+```
+
+- `lda(Especie ~ Petalo_largo + Petalo_ancho, data = datos)`: la fórmula se lee «la especie explicada por el largo y el ancho del pétalo».
+- `fit_all$scaling` son los pesos que calcula `lda()`. Coinciden con la matriz `A` del método de Fisher.
+
+`fit_all` es el modelo ajustado con **todos los datos**, y es el que se usará más adelante como modelo final. A partir de aquí el objetivo es **clasificar y medir qué tan bien se hace**.
+
+### Paso 1: separar entrenamiento y prueba
+
+Si el modelo se evalúa con las mismas flores con que se construyó, el resultado es demasiado optimista, como un estudiante que se evalúa con las mismas preguntas que ya estudió. Lo honesto es **construir la regla con una parte de los datos y probarla con otra** que el modelo nunca vio.
+
+```{r da_split}
+set.seed(2026)
+filas <- sample(nrow(datos), size = 105)
+entren <- datos[filas, ]
+prueba <- datos[-filas, ]
+```
+
+- `set.seed(2026)`: fija la semilla del azar, para que la separación se pueda repetir.
+- `sample(nrow(datos), size = 105)`: elige al azar 105 números de fila entre las 150 (el 70 %).
+- `datos[filas, ]`: las filas elegidas, con todas las columnas. Es el conjunto de **entrenamiento**.
+- `datos[-filas, ]`: el signo menos significa «todas excepto estas». Son las 45 flores de **prueba**.
+
+### Paso 2: ajustar el modelo con el entrenamiento
+
+```{r da_lda}
+fit <- lda(Especie ~ Petalo_largo + Petalo_ancho, data = entren)
+fit
+```
+
+Es la misma función de antes, ahora con `data = entren`: el modelo se construye solo con las flores de entrenamiento. La salida tiene cuatro partes:
+
+- **`Prior probabilities of groups`**: las probabilidades previas, es decir, cuánto pesa cada grupo antes de medir nada. Por defecto son las proporciones del entrenamiento (como la separación es al azar, no son exactamente un tercio cada una).
+- **`Group means`**: las medias de cada variable por especie.
+- **`Coefficients of linear discriminants`**: los pesos que forman `LD1` y `LD2`, como la matriz `A` de Fisher, ahora calculados solo con el entrenamiento (por eso difieren un poco).
+- **`Proportion of trace`**: qué parte de la separación recoge cada función. `LD1` recoge casi toda (99.5 %).
+
+### Paso 3: clasificar la prueba
+
+```{r da_predict}
+pr <- predict(fit, prueba)
+head(pr$class)
+head(round(pr$posterior, 3))
+```
+
+`predict(fit, prueba)` aplica el modelo a las flores de prueba, que el modelo no vio al ajustarse. Devuelve una lista con elementos a los que se accede con `$`:
+
+- `pr$class`: la **clase asignada** a cada flor.
+- `pr$posterior`: la **probabilidad** de cada clase para cada flor. Cada fila suma 1, y la clase asignada es la de mayor probabilidad.
+
+`head()` muestra solo las primeras seis filas, y `round(..., 3)` redondea a tres decimales. Las primeras flores son Setosa con probabilidad 1.
+
+### Paso 4: matriz de confusión y porcentaje de aciertos
+
+```{r da_conf}
+table(Predicho = pr$class, Real = prueba$Especie)
+mean(pr$class == prueba$Especie)
+```
+
+- `table(Predicho, Real)`: cruza la clase que dijo el modelo (filas) con la clase verdadera (columnas). Es la **matriz de confusión**; la diagonal son los aciertos.
+- `pr$class == prueba$Especie`: compara, flor por flor, la clase asignada con la real (da verdadero o falso). `mean()` promedia esos resultados, y eso es la **exactitud** (*accuracy*): la proporción de aciertos.
+
+Se clasifican bien **42 de 45 flores**, una exactitud de **0.933**. Los 3 errores ocurren entre Versicolor y Virginica: 2 Versicolor clasificadas como Virginica y 1 Virginica clasificada como Versicolor. Setosa no se confunde nunca. Con solo 45 flores de prueba, cada error mueve el porcentaje más de dos puntos, así que más adelante se usa una evaluación más estable.
+
+### Paso 5: una flor nueva
+
+Una vez evaluado el modelo, el que se usa en la práctica es el ajustado con **todos los datos**: `fit_all`.
+
+```{r da_nueva}
+x0 <- data.frame(Petalo_largo = 4.9, Petalo_ancho = 1.7)
+predict(fit_all, x0)$posterior
+```
+
+- `x0 <- data.frame(...)`: una base de una sola fila con las medidas de la flor nueva (pétalo de 4.9 cm de largo y 1.7 cm de ancho). **Los nombres de las columnas deben ser iguales** a los del modelo.
+- `predict(fit_all, x0)$posterior`: la probabilidad de cada especie para esa flor.
+
+La flor se asigna a **Virginica**, pero con una probabilidad de solo **0.569**, frente a 0.431 de Versicolor. La etiqueta sola esconde que la decisión es casi un empate; la probabilidad lo muestra.
+
+### Paso 6: probabilidades previas
+
+`lda()` usa por defecto las proporciones de la muestra. Si se conoce otra distribución, se indica con el argumento `prior`, un vector con una probabilidad por especie, en el orden de los niveles. Suponiendo que en cierto jardín el 60 % de las flores son Versicolor:
+
+```{r da_prior}
+fit_prior <- lda(Especie ~ Petalo_largo + Petalo_ancho, data = datos, prior = c(0.2, 0.6, 0.2))
+predict(fit_prior, x0)$posterior
+```
+
+Con previas iguales la flor es Virginica (0.569); con la previa que favorece a Versicolor pasa a ser **Versicolor (0.695)**. Cuando la evidencia es ambigua, la previa **decide**. Por eso deben estar justificadas (provenir de datos confiables, no de la composición de la muestra) y declararse al presentar los resultados.
+
+## Comparar LDA con QDA
+
+Una sola separación en entrenamiento y prueba es poco estable. Una alternativa simple es la **validación dejando uno fuera**: con `CV = TRUE`, cada flor se clasifica con un modelo ajustado con todas las demás, y se mide el porcentaje de aciertos.
+
+```{r da_cv}
+f <- Especie ~ Petalo_largo + Petalo_ancho
+
+cv_lda <- lda(f, data = datos, CV = TRUE)
+cv_qda <- qda(f, data = datos, CV = TRUE)
+
+mean(cv_lda$class == datos$Especie)
+mean(cv_qda$class == datos$Especie)
+```
+
+- `f`: guarda la fórmula para usarla en los dos modelos.
+- `qda()` se usa exactamente igual que `lda()`: es el discriminante cuadrático, que permite una covarianza distinta por grupo.
+- `CV = TRUE`: en lugar de un modelo, devuelve la clasificación de cada flor hecha sin usarla para ajustar. `$class` es esa clasificación y la comparación con la especie real se promedia, como antes.
+
+**LDA** acierta el **96.0 %** y **QDA** el **96.7 %**: casi lo mismo, coherente con que las covarianzas sean distintas pero no demasiado. Con 150 flores y solo dos variables, los dos métodos hacen prácticamente lo mismo, y la elección se apoya más en los supuestos y en la interpretación que en la exactitud.
+
+## Con las cuatro variables
+
+```{r da_cuatro}
+cv4 <- lda(Especie ~ ., data = datos, CV = TRUE)
+mean(cv4$class == datos$Especie)
+```
+
+En la fórmula, `Especie ~ .` significa «la especie explicada por **todas** las demás columnas». Con cuatro variables la exactitud sube a **0.980** (frente a 0.960 con dos): las variables del sépalo, que por sí solas separan poco, aportan información complementaria para distinguir Versicolor de Virginica.
+
+## Conclusiones
+
+Las tres especies de iris **se pueden distinguir** con las dos medidas del pétalo. El método de Fisher encuentra una función discriminante, el **tamaño del pétalo**, que recoge casi toda la separación entre grupos.
+
+- **Clasificación:** con entrenamiento y prueba, LDA acierta 42 de 45 flores (0.933). Setosa nunca se confunde; todos los errores ocurren entre **Versicolor y Virginica**, que se solapan.
+- **Probabilidades:** la etiqueta oculta la incertidumbre. La flor nueva (4.9 cm × 1.7 cm) se asigna a Virginica con solo 57 %; con una previa que favorece a Versicolor, la decisión cambia.
+- **Supuestos:** las covarianzas son claramente distintas y el ancho del pétalo no es normal en dos especies. LDA tolera estas desviaciones, y QDA es una alternativa.
+- **Comparación:** LDA (0.960) y QDA (0.967) rinden casi igual en este problema.
+- **Cuatro variables:** la exactitud sube a 0.980 al sumar las variables del sépalo.
+
+### Funciones usadas
+
+| Función | Para qué sirve |
+|:--|:--|
+| `colMeans()`, `rowsum()` | medias globales y por grupo (Fisher) |
+| `scale()`, `crossprod()` | matrices de dispersión $S_W$ y $S_B$ (Fisher) |
+| `solve()`, `eigen()` | inversa y valores y vectores propios: la mejor dirección (Fisher) |
+| `shapiro.test()` | prueba de normalidad de una variable |
+| `mvnormtest::mshapiro.test()` | prueba de normalidad multivariada (Shapiro-Wilk) |
+| `by()`, `cov()` | matriz de covarianza por grupo |
+| `heplots::boxM()` | prueba M de Box de igualdad de covarianzas |
+| `sample()` | elegir filas al azar para separar entrenamiento y prueba |
+| `lda()` | discriminante lineal; `prior =` para las previas; `CV = TRUE` para validar |
+| `qda()` | discriminante cuadrático |
+| `predict()` | clase (`$class`) y probabilidades (`$posterior`) |
+| `table()` | matriz de confusión |
