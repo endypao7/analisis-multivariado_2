@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lección 4 Conceptos básicos: Estadística | Análisis Discriminante en R</title>
+  <title>Lección 4 Conceptos básicos: Estadística | Análisis de Clusters</title>
   <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lección 4 Conceptos básicos: Estadística | Análisis Discriminante en R" />
+  <meta property="og:title" content="Lección 4 Conceptos básicos: Estadística | Análisis de Clusters" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lección 4 Conceptos básicos: Estadística | Análisis Discriminante en R" />
+  <meta name="twitter:title" content="Lección 4 Conceptos básicos: Estadística | Análisis de Clusters" />
   
   <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
   
@@ -51,6 +51,28 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/rglWebGL-binding-1.3.36/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass-1.3.36/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-1.3.36/rglClass.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/utils.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/buffer.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/subscenes.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/shaders.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/shadersrc.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/textures.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/projection.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/mouse.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/init.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/pieces.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/draw.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/controls.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/selection.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/rglTimer.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/pretty.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/axes.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/animation.src.js"></script>
+<script src="libs/CanvasMatrix4-1.3.36/CanvasMatrix.src.js"></script>
 
 
 <style type="text/css">
@@ -404,6 +426,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.8.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#funciones-usadas-1"><i class="fa fa-check"></i><b>9.8.1</b> Funciones usadas</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html"><i class="fa fa-check"></i><b>10</b> Análisis de Clusters</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#introducción-3"><i class="fa fa-check"></i><b>10.1</b> Introducción</a></li>
+<li class="chapter" data-level="10.2" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#los-datos-3"><i class="fa fa-check"></i><b>10.2</b> Los datos</a></li>
+<li class="chapter" data-level="10.3" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#estandarizar-y-calcular-distancias"><i class="fa fa-check"></i><b>10.3</b> Estandarizar y calcular distancias</a></li>
+<li class="chapter" data-level="10.4" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#clustering-jerárquico"><i class="fa fa-check"></i><b>10.4</b> Clustering jerárquico</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#cuántos-grupos"><i class="fa fa-check"></i><b>10.4.1</b> ¿Cuántos grupos?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#k-means"><i class="fa fa-check"></i><b>10.5</b> k-means</a></li>
+<li class="chapter" data-level="10.6" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#elegir-el-número-de-grupos-codo-y-silueta"><i class="fa fa-check"></i><b>10.6</b> Elegir el número de grupos: codo y silueta</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#gráfico-del-codo"><i class="fa fa-check"></i><b>10.6.1</b> Gráfico del codo</a></li>
+<li class="chapter" data-level="10.6.2" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#gráfico-de-la-silueta"><i class="fa fa-check"></i><b>10.6.2</b> Gráfico de la silueta</a></li>
+<li class="chapter" data-level="10.6.3" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#decisión"><i class="fa fa-check"></i><b>10.6.3</b> Decisión</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#validar-los-grupos"><i class="fa fa-check"></i><b>10.7</b> Validar los grupos</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#silueta"><i class="fa fa-check"></i><b>10.7.1</b> Silueta</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#visualizar-los-grupos-en-componentes-principales"><i class="fa fa-check"></i><b>10.8</b> Visualizar los grupos en componentes principales</a>
+<ul>
+<li class="chapter" data-level="10.8.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#dos-componentes"><i class="fa fa-check"></i><b>10.8.1</b> Dos componentes</a></li>
+<li class="chapter" data-level="10.8.2" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#tres-componentes"><i class="fa fa-check"></i><b>10.8.2</b> Tres componentes</a></li>
+</ul></li>
+<li class="chapter" data-level="10.9" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#conclusiones-3"><i class="fa fa-check"></i><b>10.9</b> Conclusiones</a></li>
+<li class="chapter" data-level="10.10" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#funciones-usadas-2"><i class="fa fa-check"></i><b>10.10</b> Funciones usadas</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">

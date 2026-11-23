@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Lección 10 Análisis de Clusters | Análisis de Clusters</title>
+  <meta name="description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Lección 10 Análisis de Clusters | Análisis de Clusters" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lección 10 Análisis de Clusters | Análisis de Clusters" />
+  
+  <meta name="twitter:description" content="Esta es una guía completa, complementaria al curso de Estadística Inferencial ¡Bienvenid@!." />
+  
+
+<meta name="author" content="Endy Paola Salon" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-discriminante.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/rglWebGL-binding-1.3.36/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass-1.3.36/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-1.3.36/rglClass.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/utils.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/buffer.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/subscenes.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/shaders.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/shadersrc.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/textures.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/projection.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/mouse.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/init.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/pieces.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/draw.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/controls.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/selection.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/rglTimer.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/pretty.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/axes.src.js"></script>
+<script src="libs/rglwidgetClass-1.3.36/animation.src.js"></script>
+<script src="libs/CanvasMatrix4-1.3.36/CanvasMatrix.src.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Multivariado</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Conoce Rstudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#instalación-y-configuración-de-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalación y Configuración de R-STUDIO</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#rstudio-en-tu-equipo-escritorio"><i class="fa fa-check"></i><b>1.1.1</b> Rstudio en tu equipo (escritorio)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#primeros-pasos"><i class="fa fa-check"></i><b>1.2</b> Primeros pasos</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#creación-de-reportes-en-r-con-r-markdown"><i class="fa fa-check"></i><b>1.2.1</b> Creación de reportes en R con R Markdown:</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#conceptos-básicos-de-programación-en-r"><i class="fa fa-check"></i><b>1.3</b> Conceptos básicos de programación en R:</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#tipos-de-variables-en-r"><i class="fa fa-check"></i><b>1.3.1</b> Tipos de variables en R:</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#estructuras-de-datos-en-r"><i class="fa fa-check"></i><b>1.3.2</b> Estructuras de Datos en R:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html"><i class="fa fa-check"></i><b>2</b> Bases de datos en R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#dataframes-bases-de-datos"><i class="fa fa-check"></i><b>2.1</b> Dataframes (bases de datos)</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#creación-de-dataframes"><i class="fa fa-check"></i><b>2.1.1</b> Creación de Dataframes</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#importar-un-dataframe-desde-un-archivo-csv"><i class="fa fa-check"></i><b>2.1.2</b> Importar un Dataframe desde un archivo CSV</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bases-de-datos-en-r.html"><a href="bases-de-datos-en-r.html#pre-procesamiento-de-una-base-de-datos-preinstalada-en-r"><i class="fa fa-check"></i><b>2.2</b> Pre procesamiento de una Base de Datos Preinstalada en R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html"><i class="fa fa-check"></i><b>3</b> Álgebra: Repaso</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#vectores"><i class="fa fa-check"></i><b>3.1</b> Vectores</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-vectores"><i class="fa fa-check"></i><b>3.1.1</b> Crear vectores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-y-resta"><i class="fa fa-check"></i><b>3.1.2</b> Suma y resta</a></li>
+<li class="chapter" data-level="3.1.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-por-un-escalar"><i class="fa fa-check"></i><b>3.1.3</b> Multiplicar por un escalar</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#combinaciones-lineales"><i class="fa fa-check"></i><b>3.2</b> Combinaciones lineales</a></li>
+<li class="chapter" data-level="3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices"><i class="fa fa-check"></i><b>3.3</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#crear-una-matriz"><i class="fa fa-check"></i><b>3.3.1</b> Crear una matriz</a></li>
+<li class="chapter" data-level="3.3.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#suma-resta-y-escalar"><i class="fa fa-check"></i><b>3.3.2</b> Suma, resta y escalar</a></li>
+<li class="chapter" data-level="3.3.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#transpuesta"><i class="fa fa-check"></i><b>3.3.3</b> Transpuesta</a></li>
+<li class="chapter" data-level="3.3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#multiplicar-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Multiplicar matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matriz-por-vector"><i class="fa fa-check"></i><b>3.3.5</b> Matriz por vector</a></li>
+<li class="chapter" data-level="3.3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#la-matriz-identidad"><i class="fa fa-check"></i><b>3.3.6</b> La matriz identidad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#determinante"><i class="fa fa-check"></i><b>3.4</b> Determinante</a></li>
+<li class="chapter" data-level="3.5" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#inversa"><i class="fa fa-check"></i><b>3.5</b> Inversa</a></li>
+<li class="chapter" data-level="3.6" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto-y-norma"><i class="fa fa-check"></i><b>3.6</b> Producto punto y norma</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#producto-punto"><i class="fa fa-check"></i><b>3.6.1</b> Producto punto</a></li>
+<li class="chapter" data-level="3.6.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#norma-largo-de-un-vector"><i class="fa fa-check"></i><b>3.6.2</b> Norma (largo de un vector)</a></li>
+<li class="chapter" data-level="3.6.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#distancia-entre-dos-puntos"><i class="fa fa-check"></i><b>3.6.3</b> Distancia entre dos puntos</a></li>
+<li class="chapter" data-level="3.6.4" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ángulo-entre-dos-vectores"><i class="fa fa-check"></i><b>3.6.4</b> Ángulo entre dos vectores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#ortogonalidad"><i class="fa fa-check"></i><b>3.7</b> Ortogonalidad</a></li>
+<li class="chapter" data-level="3.8" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#proyección"><i class="fa fa-check"></i><b>3.8</b> Proyección</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#comprobar-la-definición"><i class="fa fa-check"></i><b>3.8.1</b> Comprobar la definición</a></li>
+<li class="chapter" data-level="3.8.2" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#dos-atajos-útiles"><i class="fa fa-check"></i><b>3.8.2</b> Dos atajos útiles</a></li>
+<li class="chapter" data-level="3.8.3" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#matrices-simétricas"><i class="fa fa-check"></i><b>3.8.3</b> Matrices simétricas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="álgebra-repaso.html"><a href="álgebra-repaso.html#resumen"><i class="fa fa-check"></i><b>3.9</b> Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html"><i class="fa fa-check"></i><b>4</b> Conceptos básicos: Estadística</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#los-datos-consumo-de-combustible-de-automóviles"><i class="fa fa-check"></i><b>4.1</b> Los datos: consumo de combustible de automóviles</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#traer-la-base-desde-internet"><i class="fa fa-check"></i><b>4.1.1</b> Traer la base desde internet</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#estructura-de-la-base-de-datos"><i class="fa fa-check"></i><b>4.2</b> Estructura de la base de datos</a></li>
+<li class="chapter" data-level="4.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#tipos-de-variables"><i class="fa fa-check"></i><b>4.3</b> Tipos de variables</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cualitativas"><i class="fa fa-check"></i><b>4.3.1</b> Variables cualitativas</a></li>
+<li class="chapter" data-level="4.3.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#variables-cuantitativas"><i class="fa fa-check"></i><b>4.3.2</b> Variables cuantitativas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#datos-faltantes"><i class="fa fa-check"></i><b>4.4</b> Datos faltantes</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#qué-pasa-si-ignoramos-los-na"><i class="fa fa-check"></i><b>4.4.1</b> Qué pasa si ignoramos los <code>NA</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#eliminar-los-individuos-con-faltantes"><i class="fa fa-check"></i><b>4.4.2</b> Eliminar los individuos con faltantes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#valores-atípicos-outliers"><i class="fa fa-check"></i><b>4.5</b> Valores atípicos (outliers)</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuánto-afectan-al-resumen"><i class="fa fa-check"></i><b>4.5.1</b> Cuánto afectan al resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-univariado-una-variable"><i class="fa fa-check"></i><b>4.6</b> Análisis univariado: una variable</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#media"><i class="fa fa-check"></i><b>4.6.1</b> Media</a></li>
+<li class="chapter" data-level="4.6.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mediana"><i class="fa fa-check"></i><b>4.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="4.6.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#varianza"><i class="fa fa-check"></i><b>4.6.3</b> Varianza</a></li>
+<li class="chapter" data-level="4.6.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#desviación-estándar"><i class="fa fa-check"></i><b>4.6.4</b> Desviación estándar</a></li>
+<li class="chapter" data-level="4.6.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#coeficiente-de-variación"><i class="fa fa-check"></i><b>4.6.5</b> Coeficiente de variación</a></li>
+<li class="chapter" data-level="4.6.6" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#todas-las-variables-numéricas-a-la-vez"><i class="fa fa-check"></i><b>4.6.6</b> Todas las variables numéricas a la vez</a></li>
+<li class="chapter" data-level="4.6.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#gráficos-de-una-variable"><i class="fa fa-check"></i><b>4.6.7</b> Gráficos de una variable</a></li>
+<li class="chapter" data-level="4.6.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#comparar-por-grupos"><i class="fa fa-check"></i><b>4.6.8</b> Comparar por grupos</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#análisis-bivariado-dos-variables-juntas"><i class="fa fa-check"></i><b>4.7</b> Análisis bivariado: dos variables juntas</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#diagrama-de-dispersión"><i class="fa fa-check"></i><b>4.7.1</b> Diagrama de dispersión</a></li>
+<li class="chapter" data-level="4.7.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#covarianza"><i class="fa fa-check"></i><b>4.7.2</b> Covarianza</a></li>
+<li class="chapter" data-level="4.7.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#correlación"><i class="fa fa-check"></i><b>4.7.3</b> Correlación</a></li>
+<li class="chapter" data-level="4.7.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ejemplos-para-revisar-la-correlación"><i class="fa fa-check"></i><b>4.7.4</b> Ejemplos para revisar la correlación</a></li>
+<li class="chapter" data-level="4.7.5" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-correlación-no-es-causalidad"><i class="fa fa-check"></i><b>4.7.5</b> Cuidado: correlación no es causalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#matriz-de-correlación"><i class="fa fa-check"></i><b>4.8</b> Matriz de correlación</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#mapa-de-calor-de-la-matriz-de-correlación"><i class="fa fa-check"></i><b>4.8.1</b> Mapa de calor de la matriz de correlación</a></li>
+<li class="chapter" data-level="4.8.2" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#ver-todas-las-relaciones-a-la-vez"><i class="fa fa-check"></i><b>4.8.2</b> Ver todas las relaciones a la vez</a></li>
+<li class="chapter" data-level="4.8.3" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#la-matriz-de-covarianzas"><i class="fa fa-check"></i><b>4.8.3</b> La matriz de covarianzas</a></li>
+<li class="chapter" data-level="4.8.4" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#cuidado-con-los-grupos-mezclados"><i class="fa fa-check"></i><b>4.8.4</b> Cuidado con los grupos mezclados</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="conceptos-básicos-estadística.html"><a href="conceptos-básicos-estadística.html#resumen-de-funciones"><i class="fa fa-check"></i><b>4.9</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html"><i class="fa fa-check"></i><b>5</b> Distribuciones de probabilidad</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#variable-aleatoria-y-distribución-binomial"><i class="fa fa-check"></i><b>5.1</b> Variable aleatoria y distribución binomial</a></li>
+<li class="chapter" data-level="5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal"><i class="fa fa-check"></i><b>5.2</b> Distribución normal</a></li>
+<li class="chapter" data-level="5.3" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#dos-variables-conjunta-marginales-y-covarianza"><i class="fa fa-check"></i><b>5.3</b> Dos variables: conjunta, marginales y covarianza</a></li>
+<li class="chapter" data-level="5.4" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#vector-aleatorio-y-matriz-de-covarianzas"><i class="fa fa-check"></i><b>5.4</b> Vector aleatorio y matriz de covarianzas</a></li>
+<li class="chapter" data-level="5.5" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distribución-normal-multivariada"><i class="fa fa-check"></i><b>5.5</b> Distribución normal multivariada</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#la-densidad-y-el-efecto-de-la-correlación"><i class="fa fa-check"></i><b>5.5.1</b> La densidad y el efecto de la correlación</a></li>
+<li class="chapter" data-level="5.5.2" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#propiedades"><i class="fa fa-check"></i><b>5.5.2</b> Propiedades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#distancia-de-mahalanobis-y-normalidad-multivariada"><i class="fa fa-check"></i><b>5.6</b> Distancia de Mahalanobis y normalidad multivariada</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#con-datos-reales"><i class="fa fa-check"></i><b>5.6.1</b> Con datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="distribuciones-de-probabilidad.html"><a href="distribuciones-de-probabilidad.html#resumen-de-funciones-1"><i class="fa fa-check"></i><b>5.7</b> Resumen de funciones</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html"><i class="fa fa-check"></i><b>6</b> Análisis de componentes principales</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#notación"><i class="fa fa-check"></i><b>6.0.1</b> Notación</a></li>
+<li class="chapter" data-level="6.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-a.-ejemplo-manual"><i class="fa fa-check"></i><b>6.1</b> Parte A. Ejemplo manual</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos"><i class="fa fa-check"></i><b>6.1.1</b> Datos</a></li>
+<li class="chapter" data-level="6.1.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-1.-centrado-y-estandarización"><i class="fa fa-check"></i><b>6.1.2</b> Paso 1. Centrado y estandarización</a></li>
+<li class="chapter" data-level="6.1.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-2.-matrices-de-covarianzas-y-de-correlaciones"><i class="fa fa-check"></i><b>6.1.3</b> Paso 2. Matrices de covarianzas y de correlaciones</a></li>
+<li class="chapter" data-level="6.1.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-3.-eigenvalores-y-eigenvectores"><i class="fa fa-check"></i><b>6.1.4</b> Paso 3. Eigenvalores y eigenvectores</a></li>
+<li class="chapter" data-level="6.1.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-4.-varianza-explicada"><i class="fa fa-check"></i><b>6.1.5</b> Paso 4. Varianza explicada</a></li>
+<li class="chapter" data-level="6.1.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#paso-5.-scores"><i class="fa fa-check"></i><b>6.1.6</b> Paso 5. Scores</a></li>
+<li class="chapter" data-level="6.1.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#loadings-y-correlación-con-las-variables"><i class="fa fa-check"></i><b>6.1.7</b> Loadings y correlación con las variables</a></li>
+<li class="chapter" data-level="6.1.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#comprobación-con-prcomp"><i class="fa fa-check"></i><b>6.1.8</b> Comprobación con <code>prcomp()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#parte-b.-aplicación-con-datos-reales"><i class="fa fa-check"></i><b>6.2</b> Parte B. Aplicación con datos reales</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#datos-1"><i class="fa fa-check"></i><b>6.2.1</b> Datos</a></li>
+<li class="chapter" data-level="6.2.2" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-univariada"><i class="fa fa-check"></i><b>6.2.2</b> Exploración univariada</a></li>
+<li class="chapter" data-level="6.2.3" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#exploración-bivariada"><i class="fa fa-check"></i><b>6.2.3</b> Exploración bivariada</a></li>
+<li class="chapter" data-level="6.2.4" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#verificación-de-supuestos"><i class="fa fa-check"></i><b>6.2.4</b> Verificación de supuestos</a></li>
+<li class="chapter" data-level="6.2.5" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#cálculo-de-componentes"><i class="fa fa-check"></i><b>6.2.5</b> Cálculo de componentes</a></li>
+<li class="chapter" data-level="6.2.6" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#selección-del-número-de-componentes"><i class="fa fa-check"></i><b>6.2.6</b> Selección del número de componentes</a></li>
+<li class="chapter" data-level="6.2.7" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#interpretación-de-loadings"><i class="fa fa-check"></i><b>6.2.7</b> Interpretación de loadings</a></li>
+<li class="chapter" data-level="6.2.8" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#scores-y-gráficos-de-observaciones"><i class="fa fa-check"></i><b>6.2.8</b> Scores y gráficos de observaciones</a></li>
+<li class="chapter" data-level="6.2.9" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#atípicos-en-el-espacio-de-componentes"><i class="fa fa-check"></i><b>6.2.9</b> Atípicos en el espacio de componentes</a></li>
+<li class="chapter" data-level="6.2.10" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#uso-posterior-de-los-componentes"><i class="fa fa-check"></i><b>6.2.10</b> Uso posterior de los componentes</a></li>
+<li class="chapter" data-level="6.2.11" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#resumen-del-análisis"><i class="fa fa-check"></i><b>6.2.11</b> Resumen del análisis</a></li>
+<li class="chapter" data-level="6.2.12" data-path="análisis-de-componentes-principales.html"><a href="análisis-de-componentes-principales.html#lista-de-verificación"><i class="fa fa-check"></i><b>6.2.12</b> Lista de verificación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html"><i class="fa fa-check"></i><b>7</b> Análisis Factorial Exploratorio</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#introducción"><i class="fa fa-check"></i><b>7.1</b> Introducción</a></li>
+<li class="chapter" data-level="7.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#los-datos"><i class="fa fa-check"></i><b>7.2</b> Los datos</a></li>
+<li class="chapter" data-level="7.3" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#exploración"><i class="fa fa-check"></i><b>7.3</b> Exploración</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#resumen-numérico"><i class="fa fa-check"></i><b>7.3.1</b> Resumen numérico</a></li>
+<li class="chapter" data-level="7.3.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#estandarización"><i class="fa fa-check"></i><b>7.3.2</b> Estandarización</a></li>
+<li class="chapter" data-level="7.3.3" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#matriz-de-correlaciones"><i class="fa fa-check"></i><b>7.3.3</b> Matriz de correlaciones</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#supuestos"><i class="fa fa-check"></i><b>7.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#prueba-de-esfericidad-de-bartlett"><i class="fa fa-check"></i><b>7.4.1</b> Prueba de esfericidad de Bartlett</a></li>
+<li class="chapter" data-level="7.4.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#índice-kmo"><i class="fa fa-check"></i><b>7.4.2</b> Índice KMO</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#número-de-factores"><i class="fa fa-check"></i><b>7.5</b> Número de factores</a></li>
+<li class="chapter" data-level="7.6" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#extracción-por-ejes-principales-paf"><i class="fa fa-check"></i><b>7.6</b> Extracción por Ejes Principales (PAF)</a></li>
+<li class="chapter" data-level="7.7" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#extracción-por-minres"><i class="fa fa-check"></i><b>7.7</b> Extracción por MINRES</a></li>
+<li class="chapter" data-level="7.8" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#rotaciones"><i class="fa fa-check"></i><b>7.8</b> Rotaciones</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#varimax"><i class="fa fa-check"></i><b>7.8.1</b> Varimax</a></li>
+<li class="chapter" data-level="7.8.2" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#oblimin"><i class="fa fa-check"></i><b>7.8.2</b> Oblimin</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="análisis-factorial-exploratorio.html"><a href="análisis-factorial-exploratorio.html#conclusiones"><i class="fa fa-check"></i><b>7.9</b> Conclusiones</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html"><i class="fa fa-check"></i><b>8</b> Análisis de Correspondencias Simple</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#introducción-1"><i class="fa fa-check"></i><b>8.1</b> Introducción</a></li>
+<li class="chapter" data-level="8.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#los-datos-1"><i class="fa fa-check"></i><b>8.2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#de-datos-individuales-a-una-tabla"><i class="fa fa-check"></i><b>8.2.1</b> De datos individuales a una tabla</a></li>
+<li class="chapter" data-level="8.2.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#la-tabla-de-contingencia"><i class="fa fa-check"></i><b>8.2.2</b> La tabla de contingencia</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#exploración-1"><i class="fa fa-check"></i><b>8.3</b> Exploración</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#perfiles-fila"><i class="fa fa-check"></i><b>8.3.1</b> Perfiles fila</a></li>
+<li class="chapter" data-level="8.3.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#perfiles-columna"><i class="fa fa-check"></i><b>8.3.2</b> Perfiles columna</a></li>
+<li class="chapter" data-level="8.3.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#gráfico-de-mosaico"><i class="fa fa-check"></i><b>8.3.3</b> Gráfico de mosaico</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#hay-asociación"><i class="fa fa-check"></i><b>8.4</b> ¿Hay asociación?</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#prueba-chi-cuadrado-de-independencia"><i class="fa fa-check"></i><b>8.4.1</b> Prueba chi-cuadrado de independencia</a></li>
+<li class="chapter" data-level="8.4.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#frecuencias-esperadas"><i class="fa fa-check"></i><b>8.4.2</b> Frecuencias esperadas</a></li>
+<li class="chapter" data-level="8.4.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#residuos-de-pearson"><i class="fa fa-check"></i><b>8.4.3</b> Residuos de Pearson</a></li>
+<li class="chapter" data-level="8.4.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#contribución-de-cada-celda-al-chi-cuadrado"><i class="fa fa-check"></i><b>8.4.4</b> Contribución de cada celda al chi-cuadrado</a></li>
+<li class="chapter" data-level="8.4.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#inercia-total"><i class="fa fa-check"></i><b>8.4.5</b> Inercia total</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#análisis-de-correspondencias"><i class="fa fa-check"></i><b>8.5</b> Análisis de correspondencias</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#ajuste-con-ca"><i class="fa fa-check"></i><b>8.5.1</b> Ajuste con <code>CA()</code></a></li>
+<li class="chapter" data-level="8.5.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#masas"><i class="fa fa-check"></i><b>8.5.2</b> Masas</a></li>
+<li class="chapter" data-level="8.5.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#valores-propios-e-inercia-por-dimensión"><i class="fa fa-check"></i><b>8.5.3</b> Valores propios e inercia por dimensión</a></li>
+<li class="chapter" data-level="8.5.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#gráfico-de-sedimentación"><i class="fa fa-check"></i><b>8.5.4</b> Gráfico de sedimentación</a></li>
+<li class="chapter" data-level="8.5.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#coordenadas-de-filas-y-columnas"><i class="fa fa-check"></i><b>8.5.5</b> Coordenadas de filas y columnas</a></li>
+<li class="chapter" data-level="8.5.6" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#contribuciones"><i class="fa fa-check"></i><b>8.5.6</b> Contribuciones</a></li>
+<li class="chapter" data-level="8.5.7" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#calidad-de-la-representación-cos²"><i class="fa fa-check"></i><b>8.5.7</b> Calidad de la representación (cos²)</a></li>
+<li class="chapter" data-level="8.5.8" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#inercia-de-cada-categoría"><i class="fa fa-check"></i><b>8.5.8</b> Inercia de cada categoría</a></li>
+<li class="chapter" data-level="8.5.9" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#resumen-con-summary"><i class="fa fa-check"></i><b>8.5.9</b> Resumen con <code>summary()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapas"><i class="fa fa-check"></i><b>8.6</b> Mapas</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-simétrico"><i class="fa fa-check"></i><b>8.6.1</b> Mapa simétrico</a></li>
+<li class="chapter" data-level="8.6.2" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-con-la-calidad-de-representación"><i class="fa fa-check"></i><b>8.6.2</b> Mapa con la calidad de representación</a></li>
+<li class="chapter" data-level="8.6.3" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-con-las-contribuciones"><i class="fa fa-check"></i><b>8.6.3</b> Mapa con las contribuciones</a></li>
+<li class="chapter" data-level="8.6.4" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#mapa-asimétrico"><i class="fa fa-check"></i><b>8.6.4</b> Mapa asimétrico</a></li>
+<li class="chapter" data-level="8.6.5" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#solo-filas-y-solo-columnas"><i class="fa fa-check"></i><b>8.6.5</b> Solo filas y solo columnas</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#conclusiones-1"><i class="fa fa-check"></i><b>8.7</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="análisis-de-correspondencias-simple.html"><a href="análisis-de-correspondencias-simple.html#funciones-usadas"><i class="fa fa-check"></i><b>8.7.1</b> Funciones usadas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html"><i class="fa fa-check"></i><b>9</b> Análisis Discriminante</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#introducción-2"><i class="fa fa-check"></i><b>9.1</b> Introducción</a></li>
+<li class="chapter" data-level="9.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#los-datos-2"><i class="fa fa-check"></i><b>9.2</b> Los datos</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#gráfico-de-dispersión"><i class="fa fa-check"></i><b>9.2.1</b> Gráfico de dispersión</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#el-método-de-fisher"><i class="fa fa-check"></i><b>9.3</b> El método de Fisher</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-1-preparar-los-datos"><i class="fa fa-check"></i><b>9.3.1</b> Paso 1: preparar los datos</a></li>
+<li class="chapter" data-level="9.3.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-2-variación-entre-y-dentro-de-los-grupos"><i class="fa fa-check"></i><b>9.3.2</b> Paso 2: variación entre y dentro de los grupos</a></li>
+<li class="chapter" data-level="9.3.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-3-la-mejor-dirección"><i class="fa fa-check"></i><b>9.3.3</b> Paso 3: la mejor dirección</a></li>
+<li class="chapter" data-level="9.3.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-4-puntajes-y-resultado"><i class="fa fa-check"></i><b>9.3.4</b> Paso 4: puntajes y resultado</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#supuestos-1"><i class="fa fa-check"></i><b>9.4</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#normalidad"><i class="fa fa-check"></i><b>9.4.1</b> Normalidad</a></li>
+<li class="chapter" data-level="9.4.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#normalidad-multivariada-extra"><i class="fa fa-check"></i><b>9.4.2</b> Normalidad multivariada (extra)</a></li>
+<li class="chapter" data-level="9.4.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#igualdad-de-covarianzas"><i class="fa fa-check"></i><b>9.4.3</b> Igualdad de covarianzas</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#lda-clasificar-con-probabilidades"><i class="fa fa-check"></i><b>9.5</b> LDA: clasificar con probabilidades</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#de-fisher-a-lda"><i class="fa fa-check"></i><b>9.5.1</b> De Fisher a LDA</a></li>
+<li class="chapter" data-level="9.5.2" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-1-separar-entrenamiento-y-prueba"><i class="fa fa-check"></i><b>9.5.2</b> Paso 1: separar entrenamiento y prueba</a></li>
+<li class="chapter" data-level="9.5.3" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-2-ajustar-el-modelo-con-el-entrenamiento"><i class="fa fa-check"></i><b>9.5.3</b> Paso 2: ajustar el modelo con el entrenamiento</a></li>
+<li class="chapter" data-level="9.5.4" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-3-clasificar-la-prueba"><i class="fa fa-check"></i><b>9.5.4</b> Paso 3: clasificar la prueba</a></li>
+<li class="chapter" data-level="9.5.5" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-4-matriz-de-confusión-y-porcentaje-de-aciertos"><i class="fa fa-check"></i><b>9.5.5</b> Paso 4: matriz de confusión y porcentaje de aciertos</a></li>
+<li class="chapter" data-level="9.5.6" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-5-una-flor-nueva"><i class="fa fa-check"></i><b>9.5.6</b> Paso 5: una flor nueva</a></li>
+<li class="chapter" data-level="9.5.7" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#paso-6-probabilidades-previas"><i class="fa fa-check"></i><b>9.5.7</b> Paso 6: probabilidades previas</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#comparar-lda-con-qda"><i class="fa fa-check"></i><b>9.6</b> Comparar LDA con QDA</a></li>
+<li class="chapter" data-level="9.7" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#con-las-cuatro-variables"><i class="fa fa-check"></i><b>9.7</b> Con las cuatro variables</a></li>
+<li class="chapter" data-level="9.8" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#conclusiones-2"><i class="fa fa-check"></i><b>9.8</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="análisis-discriminante.html"><a href="análisis-discriminante.html#funciones-usadas-1"><i class="fa fa-check"></i><b>9.8.1</b> Funciones usadas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html"><i class="fa fa-check"></i><b>10</b> Análisis de Clusters</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#introducción-3"><i class="fa fa-check"></i><b>10.1</b> Introducción</a></li>
+<li class="chapter" data-level="10.2" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#los-datos-3"><i class="fa fa-check"></i><b>10.2</b> Los datos</a></li>
+<li class="chapter" data-level="10.3" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#estandarizar-y-calcular-distancias"><i class="fa fa-check"></i><b>10.3</b> Estandarizar y calcular distancias</a></li>
+<li class="chapter" data-level="10.4" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#clustering-jerárquico"><i class="fa fa-check"></i><b>10.4</b> Clustering jerárquico</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#cuántos-grupos"><i class="fa fa-check"></i><b>10.4.1</b> ¿Cuántos grupos?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#k-means"><i class="fa fa-check"></i><b>10.5</b> k-means</a></li>
+<li class="chapter" data-level="10.6" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#elegir-el-número-de-grupos-codo-y-silueta"><i class="fa fa-check"></i><b>10.6</b> Elegir el número de grupos: codo y silueta</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#gráfico-del-codo"><i class="fa fa-check"></i><b>10.6.1</b> Gráfico del codo</a></li>
+<li class="chapter" data-level="10.6.2" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#gráfico-de-la-silueta"><i class="fa fa-check"></i><b>10.6.2</b> Gráfico de la silueta</a></li>
+<li class="chapter" data-level="10.6.3" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#decisión"><i class="fa fa-check"></i><b>10.6.3</b> Decisión</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#validar-los-grupos"><i class="fa fa-check"></i><b>10.7</b> Validar los grupos</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#silueta"><i class="fa fa-check"></i><b>10.7.1</b> Silueta</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#visualizar-los-grupos-en-componentes-principales"><i class="fa fa-check"></i><b>10.8</b> Visualizar los grupos en componentes principales</a>
+<ul>
+<li class="chapter" data-level="10.8.1" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#dos-componentes"><i class="fa fa-check"></i><b>10.8.1</b> Dos componentes</a></li>
+<li class="chapter" data-level="10.8.2" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#tres-componentes"><i class="fa fa-check"></i><b>10.8.2</b> Tres componentes</a></li>
+</ul></li>
+<li class="chapter" data-level="10.9" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#conclusiones-3"><i class="fa fa-check"></i><b>10.9</b> Conclusiones</a></li>
+<li class="chapter" data-level="10.10" data-path="análisis-de-clusters.html"><a href="análisis-de-clusters.html#funciones-usadas-2"><i class="fa fa-check"></i><b>10.10</b> Funciones usadas</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">
+  Published with bookdown
+</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Distribuciones de probabilidad en RStudio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-de-clusters" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Lección 10</span> Análisis de Clusters<a href="análisis-de-clusters.html#análisis-de-clusters" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introducción-3" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Introducción<a href="análisis-de-clusters.html#introducción-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El <strong>análisis de clusters</strong> es una técnica no supervisada: no hay una variable que indique el grupo, y el objetivo es <strong>descubrir</strong> si las observaciones se agrupan según su parecido. Todo el análisis parte de una <strong>distancia</strong> entre observaciones.</p>
+<p>Este informe usa <strong>193 países</strong> descritos por cinco indicadores de las Naciones Unidas (base <code>UN</code> del paquete <code>carData</code>). El recorrido es el siguiente:</p>
+<ol style="list-style-type: decimal">
+<li>Explorar los datos.</li>
+<li><strong>Estandarizar</strong> las variables y calcular las distancias.</li>
+<li><strong>Clustering jerárquico</strong>: dendrograma y corte en grupos.</li>
+<li><strong>k-means</strong>.</li>
+<li>Elegir el número de grupos con el codo y la silueta.</li>
+<li>Validar y describir los grupos.</li>
+</ol>
+<p>Paquetes usados: <code>cluster</code>, que trae <code>silhouette()</code>, y <code>ggplot2</code>, para los gráficos. Si alguno no está instalado, se instala con <code>install.packages("nombre")</code>.</p>
+</div>
+<div id="los-datos-3" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Los datos<a href="análisis-de-clusters.html#los-datos-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La base está en el archivo <code>paises_un.csv</code>, que debe estar en la misma carpeta que este documento. (También puede leerse directamente de la web con <code>read.csv("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/carData/UN.csv", row.names = 1)</code>.)</p>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="análisis-de-clusters.html#cb699-1" tabindex="-1"></a>paises <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;paises_un.csv&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb699-2"><a href="análisis-de-clusters.html#cb699-2" tabindex="-1"></a><span class="fu">head</span>(paises)</span></code></pre></div>
+<pre><code>##                 region  group fertility  ppgdp lifeExpF pctUrban
+## Afghanistan       Asia  other     5.968  499.0    49.49       23
+## Albania         Europe  other     1.525 3677.2    80.40       53
+## Algeria         Africa africa     2.142 4473.0    75.00       67
+## Angola          Africa africa     5.135 4321.9    53.17       59
+## Argentina   Latin Amer  other     2.172 9162.1    79.89       93
+## Armenia           Asia  other     1.735 3030.7    77.33       64
+##             infantMortality
+## Afghanistan         124.535
+## Albania              16.561
+## Algeria              21.458
+## Angola               96.191
+## Argentina            12.337
+## Armenia              24.272</code></pre>
+<p>Las variables son:</p>
+<ul>
+<li><code>fertility</code>: hijos por mujer.</li>
+<li><code>ppgdp</code>: PIB per cápita en dólares.</li>
+<li><code>lifeExpF</code>: esperanza de vida femenina.</li>
+<li><code>pctUrban</code>: porcentaje de población urbana.</li>
+<li><code>infantMortality</code>: muertes de menores de un año por cada 1 000 nacimientos.</li>
+</ul>
+<p>Las columnas <code>region</code> y <code>group</code> no se usan para agrupar. Se separan las cinco variables numéricas:</p>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="análisis-de-clusters.html#cb701-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> paises[, <span class="fu">c</span>(<span class="st">&quot;fertility&quot;</span>, <span class="st">&quot;ppgdp&quot;</span>, <span class="st">&quot;lifeExpF&quot;</span>, <span class="st">&quot;pctUrban&quot;</span>, <span class="st">&quot;infantMortality&quot;</span>)]</span>
+<span id="cb701-2"><a href="análisis-de-clusters.html#cb701-2" tabindex="-1"></a><span class="fu">summary</span>(X)</span></code></pre></div>
+<pre><code>##    fertility         ppgdp             lifeExpF        pctUrban    
+##  Min.   :1.134   Min.   :   114.8   Min.   :48.11   Min.   : 11.0  
+##  1st Qu.:1.750   1st Qu.:  1239.8   1st Qu.:65.10   1st Qu.: 39.0  
+##  Median :2.264   Median :  4495.8   Median :75.57   Median : 59.0  
+##  Mean   :2.780   Mean   : 12291.1   Mean   :72.08   Mean   : 57.1  
+##  3rd Qu.:3.700   3rd Qu.: 14497.3   3rd Qu.:79.07   3rd Qu.: 75.0  
+##  Max.   :6.925   Max.   :105095.4   Max.   :87.12   Max.   :100.0  
+##  infantMortality  
+##  Min.   :  1.916  
+##  1st Qu.:  7.243  
+##  Median : 19.637  
+##  Mean   : 30.739  
+##  3rd Qu.: 45.892  
+##  Max.   :124.535</code></pre>
+<p>El PIB per cápita tiene una distribución muy asimétrica: va de 115 a 105 095 dólares. Por eso se usa su <strong>logaritmo</strong>, que convierte las diferencias en cambios proporcionales.</p>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="análisis-de-clusters.html#cb703-1" tabindex="-1"></a>X<span class="sc">$</span>ppgdp <span class="ot">&lt;-</span> <span class="fu">log</span>(X<span class="sc">$</span>ppgdp)</span></code></pre></div>
+</div>
+<div id="estandarizar-y-calcular-distancias" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Estandarizar y calcular distancias<a href="análisis-de-clusters.html#estandarizar-y-calcular-distancias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las variables están en escalas muy distintas. Si se calcula la distancia con los datos originales, la variable de mayor varianza domina. Se comparan Colombia y Qatar con los datos originales y con los datos estandarizados:</p>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="análisis-de-clusters.html#cb704-1" tabindex="-1"></a>originales <span class="ot">&lt;-</span> paises[, <span class="fu">c</span>(<span class="st">&quot;fertility&quot;</span>, <span class="st">&quot;ppgdp&quot;</span>, <span class="st">&quot;lifeExpF&quot;</span>, <span class="st">&quot;pctUrban&quot;</span>, <span class="st">&quot;infantMortality&quot;</span>)]</span>
+<span id="cb704-2"><a href="análisis-de-clusters.html#cb704-2" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((originales[<span class="st">&quot;Colombia&quot;</span>, ] <span class="sc">-</span> originales[<span class="st">&quot;Qatar&quot;</span>, ])<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 66175.1</code></pre>
+<p>Con los datos originales, la distancia es casi igual a la diferencia de PIB. Se estandariza cada variable (media 0 y desviación estándar 1) con <code>scale()</code>:</p>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="análisis-de-clusters.html#cb706-1" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">scale</span>(X)</span>
+<span id="cb706-2"><a href="análisis-de-clusters.html#cb706-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">apply</span>(Z, <span class="dv">2</span>, sd), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##       fertility           ppgdp        lifeExpF        pctUrban infantMortality 
+##               1               1               1               1               1</code></pre>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="análisis-de-clusters.html#cb708-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((Z[<span class="st">&quot;Colombia&quot;</span>, ] <span class="sc">-</span> Z[<span class="st">&quot;Qatar&quot;</span>, ])<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 1.853973</code></pre>
+<p>Con los datos estandarizados todas las variables aportan. La matriz de distancias euclidianas entre los 193 países se calcula con <code>dist()</code>:</p>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="análisis-de-clusters.html#cb710-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(Z)</span>
+<span id="cb710-2"><a href="análisis-de-clusters.html#cb710-2" tabindex="-1"></a><span class="fu">as.matrix</span>(d)[<span class="fu">c</span>(<span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Peru&quot;</span>, <span class="st">&quot;Chile&quot;</span>, <span class="st">&quot;Qatar&quot;</span>, <span class="st">&quot;Niger&quot;</span>),</span>
+<span id="cb710-3"><a href="análisis-de-clusters.html#cb710-3" tabindex="-1"></a>             <span class="fu">c</span>(<span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Peru&quot;</span>, <span class="st">&quot;Chile&quot;</span>, <span class="st">&quot;Qatar&quot;</span>, <span class="st">&quot;Niger&quot;</span>)] <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##          Colombia Peru Chile Qatar Niger
+## Colombia     0.00 0.18  0.99  1.85  5.63
+## Peru         0.18 0.00  1.07  1.91  5.53
+## Chile        0.99 1.07  0.00  1.30  6.57
+## Qatar        1.85 1.91  1.30  0.00  6.90
+## Niger        5.63 5.53  6.57  6.90  0.00</code></pre>
+</div>
+<div id="clustering-jerárquico" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Clustering jerárquico<a href="análisis-de-clusters.html#clustering-jerárquico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El método aglomerativo empieza con cada país como un grupo y fusiona en cada paso los dos grupos más cercanos. <code>hclust()</code> recibe la matriz de distancias y el tipo de <strong>enlace</strong>. Se usa el método de Ward:</p>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="análisis-de-clusters.html#cb712-1" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d, <span class="at">method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span></code></pre></div>
+<p>El <strong>dendrograma</strong> muestra las fusiones. Se lee así:</p>
+<ul>
+<li>Las <strong>hojas</strong> (abajo) son los países.</li>
+<li>Cada unión es una <strong>fusión</strong> de dos grupos. Su <strong>altura</strong> es la distancia entre esos dos grupos, medida con el enlace elegido (en Ward, cuánto aumenta la suma de cuadrados dentro de los grupos).</li>
+<li>Una altura baja significa que se unen grupos muy parecidos; una altura alta, que se unen grupos muy distintos.</li>
+<li>La cercanía horizontal entre dos hojas no significa nada: solo cuenta la altura a la que se unen.</li>
+</ul>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="análisis-de-clusters.html#cb713-1" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">labels =</span> <span class="cn">FALSE</span>, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;Dendrograma de Ward&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">sub =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/dendrograma-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+<div id="cuántos-grupos" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> ¿Cuántos grupos?<a href="análisis-de-clusters.html#cuántos-grupos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cortar el dendrograma con una línea horizontal a una altura <span class="math inline">\(h\)</span> deja tantos grupos como <strong>ramas verticales</strong> cruce la línea. Elegir k es elegir dónde cortar. La pista es mirar las alturas de las últimas fusiones, que son las que unen los grupos grandes:</p>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="análisis-de-clusters.html#cb714-1" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">tail</span>(hc<span class="sc">$</span>height, <span class="dv">9</span>))</span>
+<span id="cb714-2"><a href="análisis-de-clusters.html#cb714-2" tabindex="-1"></a><span class="fu">names</span>(altura) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>, <span class="st">&quot;a&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb714-3"><a href="análisis-de-clusters.html#cb714-3" tabindex="-1"></a><span class="fu">round</span>(altura, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##  2 a 1  3 a 2  4 a 3  5 a 4  6 a 5  7 a 6  8 a 7  9 a 8 10 a 9 
+##   33.2   12.7   12.5    7.9    6.7    6.6    5.9    5.4    4.2</code></pre>
+<p>Cada valor es la altura de la fusión que baja de k a k − 1 grupos (por ejemplo, la columna <code>4 a 3</code> es la fusión que pasa de 4 grupos a 3). Se grafican:</p>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="análisis-de-clusters.html#cb716-1" tabindex="-1"></a><span class="fu">barplot</span>(altura, <span class="at">names.arg =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;orange&quot;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;lightblue&quot;</span>, <span class="dv">6</span>)),</span>
+<span id="cb716-2"><a href="análisis-de-clusters.html#cb716-2" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Número de grupos antes de la fusión (k a k − 1)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Altura de la fusión&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/grafico_alturas-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<p>La línea de corte solo cambia el número de grupos cuando pasa por una fusión. Por eso, para cada k existe un <strong>tramo de alturas</strong> en el que la línea deja exactamente k grupos: desde la altura de la fusión que baja de k + 1 a k, hasta la altura de la fusión que baja de k a k − 1. Un tramo <strong>largo</strong> significa que esa partición es estable: se puede mover la línea bastante sin que cambien los grupos. Un tramo <strong>corto</strong> significa que esa partición es casi arbitraria. Se calcula el largo del tramo de cada k:</p>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="análisis-de-clusters.html#cb717-1" tabindex="-1"></a>tramo <span class="ot">&lt;-</span> altura[<span class="sc">-</span><span class="fu">length</span>(altura)] <span class="sc">-</span> altura[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb717-2"><a href="análisis-de-clusters.html#cb717-2" tabindex="-1"></a><span class="fu">names</span>(tramo) <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span></span>
+<span id="cb717-3"><a href="análisis-de-clusters.html#cb717-3" tabindex="-1"></a><span class="fu">round</span>(tramo, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##     2     3     4     5     6     7     8     9 
+## 20.58  0.15  4.57  1.24  0.06  0.71  0.50  1.18</code></pre>
+<p>La lectura es la siguiente:</p>
+<ul>
+<li><strong>k = 2</strong>: tramo de 20.6 (de 12.65 a 33.23). Es el más largo: los países se separan claramente en dos grandes bloques.</li>
+<li><strong>k = 3</strong>: tramo de <strong>0.15</strong> (de 12.50 a 12.65). Es casi nulo. Las fusiones de 3 a 2 grupos y de 4 a 3 grupos ocurren casi a la misma altura: para tener 3 grupos la línea tendría que quedar en una franja mínima. Si el árbol admite separar un grupo, admite también el siguiente, así que 3 grupos no es una partición natural.</li>
+<li><strong>k = 4</strong>: tramo de <strong>4.6</strong> (de 7.93 a 12.50). Es el más largo después de k = 2: la línea puede moverse bastante y siguen siendo los mismos cuatro grupos.</li>
+<li><strong>k = 5</strong>: tramo de 1.2. Es corto: el quinto grupo se separa de otro a una altura cercana a la de las fusiones siguientes.</li>
+</ul>
+<p>Por eso 4 es la opción natural dentro de los valores mayores que 2. Un corte entre 7.93 y 12.50 (por ejemplo, en 10) deja esos 4 grupos.</p>
+<p>Se corta en <strong>cuatro</strong> grupos. La línea punteada es el corte en h = 10:</p>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="análisis-de-clusters.html#cb719-1" tabindex="-1"></a>grupo_h <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc, <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb719-2"><a href="análisis-de-clusters.html#cb719-2" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">labels =</span> <span class="cn">FALSE</span>, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;Corte en 4 grupos&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">sub =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb719-3"><a href="análisis-de-clusters.html#cb719-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">10</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb719-4"><a href="análisis-de-clusters.html#cb719-4" tabindex="-1"></a><span class="fu">rect.hclust</span>(hc, <span class="at">k =</span> <span class="dv">4</span>, <span class="at">border =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/corte-1.png" alt="" width="864" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="análisis-de-clusters.html#cb720-1" tabindex="-1"></a><span class="fu">table</span>(grupo_h)</span></code></pre></div>
+<pre><code>## grupo_h
+##  1  2  3  4 
+## 19 55 53 66</code></pre>
+<p>La altura del árbol orienta, pero no decide sola. Más adelante se contrasta con el codo y la silueta.</p>
+</div>
+</div>
+<div id="k-means" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> k-means<a href="análisis-de-clusters.html#k-means" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>kmeans()</code> busca k centros que minimicen la <strong>suma de cuadrados dentro de los grupos</strong>: cada país se asigna al centro más cercano, los centros se recalculan como el promedio de sus países, y se repite hasta que nada cambia.</p>
+<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="análisis-de-clusters.html#cb722-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb722-2"><a href="análisis-de-clusters.html#cb722-2" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(Z, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb722-3"><a href="análisis-de-clusters.html#cb722-3" tabindex="-1"></a>km<span class="sc">$</span>size</span></code></pre></div>
+<pre><code>## [1] 35 42 54 62</code></pre>
+<p>Qué significa cada parte de la instrucción:</p>
+<ul>
+<li><code>Z</code>: los datos <strong>estandarizados</strong> (193 países × 5 variables).</li>
+<li><code>centers = 4</code>: el número de grupos, <strong>k = 4</strong>. Se decide antes de ejecutar. Aquí se usa k = 4, el número que sugirió el dendrograma; en la sección siguiente se revisa si es una buena elección. También podría darse una matriz con los centros iniciales.</li>
+<li><code>nstart = 25</code>: el número de <strong>inicios aleatorios</strong>. k-means empieza escogiendo 4 países al azar como centros iniciales, y según cuáles sean, el algoritmo puede quedarse en una solución que no es la mejor (un óptimo local). Con <code>nstart = 25</code> el algoritmo se ejecuta 25 veces, cada vez con centros iniciales distintos, y devuelve la partición con la <strong>menor suma de cuadrados dentro de los grupos</strong>. El 25 no tiene nada especial: es un valor habitual (20 o 50 también se usan); más inicios dan más seguridad y tardan un poco más.</li>
+<li><code>set.seed(123)</code>: fija el generador de números aleatorios, para que los 25 inicios sean los mismos cada vez que se ejecuta y el resultado sea <strong>reproducible</strong>. El 123 es arbitrario; cualquier número sirve.</li>
+</ul>
+<p>El efecto de los inicios se ve ejecutando k-means con <strong>un solo inicio</strong> y distintas semillas:</p>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="análisis-de-clusters.html#cb724-1" tabindex="-1"></a><span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(s) {</span>
+<span id="cb724-2"><a href="análisis-de-clusters.html#cb724-2" tabindex="-1"></a>  <span class="fu">set.seed</span>(s)</span>
+<span id="cb724-3"><a href="análisis-de-clusters.html#cb724-3" tabindex="-1"></a>  <span class="fu">kmeans</span>(Z, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">1</span>)<span class="sc">$</span>tot.withinss</span>
+<span id="cb724-4"><a href="análisis-de-clusters.html#cb724-4" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##  [1] 221.3 224.1 221.3 221.3 221.3 221.0 223.5 221.6 221.3 221.6</code></pre>
+<p>Con un solo inicio, la suma de cuadrados dentro de los grupos cambia según la semilla (de 221.0 a 224.1). Con <code>nstart = 25</code> se obtiene siempre la mejor, 221.0:</p>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="análisis-de-clusters.html#cb726-1" tabindex="-1"></a>km<span class="sc">$</span>tot.withinss</span></code></pre></div>
+<pre><code>## [1] 221.02</code></pre>
+<p>El objeto <code>km</code> guarda, además del tamaño, <code>km$cluster</code> (el grupo de cada país), <code>km$centers</code> (el centro de cada grupo, en unidades estandarizadas) y <code>km$tot.withinss</code> (la suma de cuadrados dentro de los grupos que se minimiza).</p>
+<p>Los números de los grupos son arbitrarios y cambian con la semilla. Para que sean estables, se <strong>numeran</strong> de mayor a menor PIB promedio (el grupo 1 es el de PIB más alto):</p>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="análisis-de-clusters.html#cb728-1" tabindex="-1"></a>orden <span class="ot">&lt;-</span> <span class="fu">order</span>(<span class="fu">tapply</span>(X<span class="sc">$</span>ppgdp, km<span class="sc">$</span>cluster, mean), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb728-2"><a href="análisis-de-clusters.html#cb728-2" tabindex="-1"></a>grupo <span class="ot">&lt;-</span> <span class="fu">factor</span>(km<span class="sc">$</span>cluster, <span class="at">levels =</span> orden,</span>
+<span id="cb728-3"><a href="análisis-de-clusters.html#cb728-3" tabindex="-1"></a>                <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">&quot;Grupo&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb728-4"><a href="análisis-de-clusters.html#cb728-4" tabindex="-1"></a><span class="fu">table</span>(grupo)</span></code></pre></div>
+<pre><code>## grupo
+## Grupo 1 Grupo 2 Grupo 3 Grupo 4 
+##      54      62      42      35</code></pre>
+<p>El perfil de cada grupo se obtiene con el promedio de las variables originales (con el PIB en logaritmo):</p>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="análisis-de-clusters.html#cb730-1" tabindex="-1"></a><span class="fu">aggregate</span>(X, <span class="at">by =</span> <span class="fu">list</span>(<span class="at">grupo =</span> grupo), <span class="at">FUN =</span> mean) <span class="sc">|&gt;</span></span>
+<span id="cb730-2"><a href="análisis-de-clusters.html#cb730-2" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">fertility =</span> <span class="fu">round</span>(fertility, <span class="dv">1</span>), <span class="at">ppgdp =</span> <span class="fu">round</span>(ppgdp, <span class="dv">1</span>),</span>
+<span id="cb730-3"><a href="análisis-de-clusters.html#cb730-3" tabindex="-1"></a>            <span class="at">lifeExpF =</span> <span class="fu">round</span>(lifeExpF, <span class="dv">1</span>), <span class="at">pctUrban =</span> <span class="fu">round</span>(pctUrban, <span class="dv">1</span>),</span>
+<span id="cb730-4"><a href="análisis-de-clusters.html#cb730-4" tabindex="-1"></a>            <span class="at">infantMortality =</span> <span class="fu">round</span>(infantMortality, <span class="dv">1</span>))</span></code></pre></div>
+<pre><code>##     grupo fertility ppgdp lifeExpF pctUrban infantMortality
+## 1 Grupo 1       1.9  10.2     81.2     82.6             6.7
+## 2 Grupo 2       2.0   8.6     76.8     57.4            16.4
+## 3 Grupo 3       3.3   7.4     67.4     42.5            39.8
+## 4 Grupo 4       5.0   6.5     55.2     34.8            82.3</code></pre>
+<p>A partir de estos promedios, ¿cómo se describiría cada grupo? Colombia queda en el grupo:</p>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="análisis-de-clusters.html#cb732-1" tabindex="-1"></a>grupo[<span class="st">&quot;Colombia&quot;</span>]</span></code></pre></div>
+<pre><code>## Colombia 
+##  Grupo 2 
+## Levels: Grupo 1 Grupo 2 Grupo 3 Grupo 4</code></pre>
+</div>
+<div id="elegir-el-número-de-grupos-codo-y-silueta" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> Elegir el número de grupos: codo y silueta<a href="análisis-de-clusters.html#elegir-el-número-de-grupos-codo-y-silueta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El dendrograma sugirió k = 4. Los dos gráficos siguientes permiten contrastar esa elección con otro criterio. La idea de ambos es la misma: <strong>ejecutar k-means varias veces, una por cada valor posible de k, y registrar una medida de qué tan buenos son los grupos</strong>. Por eso se construyen después de haber visto cómo funciona <code>kmeans()</code>: cada punto de cada gráfico es una ejecución completa de k-means.</p>
+<div id="gráfico-del-codo" class="section level3 hasAnchor" number="10.6.1">
+<h3><span class="header-section-number">10.6.1</span> Gráfico del codo<a href="análisis-de-clusters.html#gráfico-del-codo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La medida es la <strong>suma de cuadrados dentro de los grupos</strong> (<code>tot.withinss</code>): la suma, sobre todos los países, de la distancia al cuadrado entre cada país y el centro de su grupo. Un valor pequeño significa grupos compactos. Se calcula para k = 1, 2, …, 8 con un ciclo:</p>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="análisis-de-clusters.html#cb734-1" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">8</span>)                 <span class="co"># espacio para guardar 8 valores</span></span>
+<span id="cb734-2"><a href="análisis-de-clusters.html#cb734-2" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>) {</span>
+<span id="cb734-3"><a href="análisis-de-clusters.html#cb734-3" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb734-4"><a href="análisis-de-clusters.html#cb734-4" tabindex="-1"></a>  km_k <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(Z, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)   <span class="co"># k-means con k grupos</span></span>
+<span id="cb734-5"><a href="análisis-de-clusters.html#cb734-5" tabindex="-1"></a>  wss[k] <span class="ot">&lt;-</span> km_k<span class="sc">$</span>tot.withinss                   <span class="co"># se guarda la suma de cuadrados</span></span>
+<span id="cb734-6"><a href="análisis-de-clusters.html#cb734-6" tabindex="-1"></a>}</span>
+<span id="cb734-7"><a href="análisis-de-clusters.html#cb734-7" tabindex="-1"></a><span class="fu">round</span>(wss, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 960.0 396.4 267.2 221.0 192.0 168.6 152.8 140.7</code></pre>
+<p>Con k = 1 todos los países están en un solo grupo y la suma de cuadrados es la variación total (192 × 5 = 960, porque cada una de las 5 variables estandarizadas tiene varianza 1 y hay 193 países). Al aumentar k la suma <strong>siempre disminuye</strong>, porque con más grupos cada país queda más cerca de su centro; con 193 grupos sería cero. Por eso no se busca el k con el valor más bajo, sino el punto donde <strong>dejar de agregar grupos ya no compensa</strong>. Se grafica:</p>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="análisis-de-clusters.html#cb736-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, wss, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Número de grupos k&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Suma de cuadrados dentro de los grupos&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/codo_grafico-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<p>Se mira cuánto baja la suma al pasar de un k al siguiente:</p>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="análisis-de-clusters.html#cb737-1" tabindex="-1"></a><span class="fu">round</span>(<span class="sc">-</span><span class="fu">diff</span>(wss), <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 563.6 129.2  46.1  29.0  23.4  15.8  12.1</code></pre>
+<p>Las caídas son 563.6 (de 1 a 2), 129.2 (de 2 a 3), 46.1 (de 3 a 4), 29.0 (de 4 a 5), y siguen disminuyendo. La curva se dobla como un codo y luego se aplana: las primeras caídas son grandes y las siguientes pequeñas. Aquí el codo está entre k = 3 y k = 4; no es una esquina nítida, y eso es frecuente.</p>
+</div>
+<div id="gráfico-de-la-silueta" class="section level3 hasAnchor" number="10.6.2">
+<h3><span class="header-section-number">10.6.2</span> Gráfico de la silueta<a href="análisis-de-clusters.html#gráfico-de-la-silueta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>silueta</strong> de un país compara su distancia promedio a los países de su propio grupo (a) con su distancia promedio a los países del grupo más cercano (b): vale (b − a) / máx(a, b), y va de −1 a 1. Cerca de 1, el país está bien ubicado; cerca de 0, está en la frontera entre dos grupos; negativo, probablemente está en el grupo equivocado. La <strong>silueta promedio</strong> de todos los países resume la partición. Se calcula para k = 2, …, 8 (con un solo grupo no está definida):</p>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="análisis-de-clusters.html#cb739-1" tabindex="-1"></a>sil <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">8</span>)</span>
+<span id="cb739-2"><a href="análisis-de-clusters.html#cb739-2" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>) {</span>
+<span id="cb739-3"><a href="análisis-de-clusters.html#cb739-3" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb739-4"><a href="análisis-de-clusters.html#cb739-4" tabindex="-1"></a>  km_k <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(Z, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb739-5"><a href="análisis-de-clusters.html#cb739-5" tabindex="-1"></a>  s_k <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(km_k<span class="sc">$</span>cluster, d)    <span class="co"># silueta de cada país</span></span>
+<span id="cb739-6"><a href="análisis-de-clusters.html#cb739-6" tabindex="-1"></a>  sil[k] <span class="ot">&lt;-</span> <span class="fu">mean</span>(s_k[, <span class="dv">3</span>])              <span class="co"># la columna 3 es el valor de la silueta</span></span>
+<span id="cb739-7"><a href="análisis-de-clusters.html#cb739-7" tabindex="-1"></a>}</span>
+<span id="cb739-8"><a href="análisis-de-clusters.html#cb739-8" tabindex="-1"></a><span class="fu">round</span>(sil[<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>], <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 0.50 0.38 0.32 0.32 0.30 0.27 0.27</code></pre>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="análisis-de-clusters.html#cb741-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>, sil[<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Número de grupos k&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Silueta promedio&quot;</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/silueta_grafico-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+<p>Aquí se busca el k con la silueta <strong>más alta</strong>.</p>
+</div>
+<div id="decisión" class="section level3 hasAnchor" number="10.6.3">
+<h3><span class="header-section-number">10.6.3</span> Decisión<a href="análisis-de-clusters.html#decisión" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La silueta es máxima en k = 2 (0.50), pero ese valor solo separa dos bloques grandes de países; con k = 3 vale 0.38 y con k = 4, 0.32. El codo se suaviza desde k = 3 o 4, y el dendrograma admite entre 2 y 4 grupos. Los criterios no coinciden, y eso es normal: ninguno decide solo. Se adopta <strong>k = 4</strong>, que distingue dos grupos intermedios, a costa de una silueta algo menor que la de k = 3, y se documenta la decisión.</p>
+</div>
+</div>
+<div id="validar-los-grupos" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> Validar los grupos<a href="análisis-de-clusters.html#validar-los-grupos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="silueta" class="section level3 hasAnchor" number="10.7.1">
+<h3><span class="header-section-number">10.7.1</span> Silueta<a href="análisis-de-clusters.html#silueta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>silueta</strong> de cada país compara su distancia promedio a su propio grupo con la distancia promedio al grupo más cercano. Va de −1 a 1: valores altos indican que el país está bien ubicado y valores negativos, que probablemente está mal asignado.</p>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="análisis-de-clusters.html#cb742-1" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(km<span class="sc">$</span>cluster, d)</span>
+<span id="cb742-2"><a href="análisis-de-clusters.html#cb742-2" tabindex="-1"></a><span class="fu">mean</span>(s[, <span class="dv">3</span>])</span></code></pre></div>
+<pre><code>## [1] 0.317016</code></pre>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="análisis-de-clusters.html#cb744-1" tabindex="-1"></a><span class="fu">tapply</span>(s[, <span class="dv">3</span>], grupo, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Grupo 1 Grupo 2 Grupo 3 Grupo 4 
+##    0.44    0.29    0.16    0.36</code></pre>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="análisis-de-clusters.html#cb746-1" tabindex="-1"></a><span class="fu">rownames</span>(Z)[s[, <span class="dv">3</span>] <span class="sc">&lt;</span> <span class="dv">0</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Guyana&quot;                &quot;North Korea&quot;           &quot;Palestinian Territory&quot;
+## [4] &quot;Philippines&quot;           &quot;Senegal&quot;               &quot;Turkmenistan&quot;</code></pre>
+<p>La silueta promedio es 0.32: estructura <strong>moderada</strong>. Los indicadores de desarrollo forman más bien un continuo que grupos claramente separados. Hay seis países con silueta negativa.</p>
+</div>
+</div>
+<div id="visualizar-los-grupos-en-componentes-principales" class="section level2 hasAnchor" number="10.8">
+<h2><span class="header-section-number">10.8</span> Visualizar los grupos en componentes principales<a href="análisis-de-clusters.html#visualizar-los-grupos-en-componentes-principales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Con cinco variables no se puede hacer un diagrama de dispersión directo. Se proyectan los países en las <strong>componentes principales</strong> (<code>prcomp()</code>), que son combinaciones de las variables que resumen la variabilidad. Como <code>Z</code> ya está estandarizada, no hace falta volver a escalar. Estos gráficos <strong>no se usaron para formar los grupos</strong>; solo sirven para verlos.</p>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="análisis-de-clusters.html#cb748-1" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(Z)</span>
+<span id="cb748-2"><a href="análisis-de-clusters.html#cb748-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(pc)<span class="sc">$</span>importance[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##                         PC1  PC2  PC3
+## Proportion of Variance 0.79 0.12 0.04
+## Cumulative Proportion  0.79 0.91 0.95</code></pre>
+<p>La primera fila es la proporción de varianza de cada componente y la segunda, la acumulada: PC1 recoge el 79 %, PC1 y PC2 juntas el 91 % y las tres primeras el 95 %. Los gráficos con dos o tres componentes representan, por tanto, casi toda la información.</p>
+<div id="dos-componentes" class="section level3 hasAnchor" number="10.8.1">
+<h3><span class="header-section-number">10.8.1</span> Dos componentes<a href="análisis-de-clusters.html#dos-componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="análisis-de-clusters.html#cb750-1" tabindex="-1"></a>graf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(pc<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">grupo =</span> grupo)</span>
+<span id="cb750-2"><a href="análisis-de-clusters.html#cb750-2" tabindex="-1"></a>nombres <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Niger&quot;</span>, <span class="st">&quot;Qatar&quot;</span>, <span class="st">&quot;Chile&quot;</span>, <span class="st">&quot;China&quot;</span>, <span class="st">&quot;India&quot;</span>, <span class="st">&quot;Haiti&quot;</span>, <span class="st">&quot;Norway&quot;</span>)</span>
+<span id="cb750-3"><a href="análisis-de-clusters.html#cb750-3" tabindex="-1"></a>graf<span class="sc">$</span>pais <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">rownames</span>(graf) <span class="sc">%in%</span> nombres, <span class="fu">rownames</span>(graf), <span class="st">&quot;&quot;</span>)</span>
+<span id="cb750-4"><a href="análisis-de-clusters.html#cb750-4" tabindex="-1"></a></span>
+<span id="cb750-5"><a href="análisis-de-clusters.html#cb750-5" tabindex="-1"></a><span class="fu">ggplot</span>(graf, <span class="fu">aes</span>(PC1, PC2, <span class="at">color =</span> grupo)) <span class="sc">+</span></span>
+<span id="cb750-6"><a href="análisis-de-clusters.html#cb750-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb750-7"><a href="análisis-de-clusters.html#cb750-7" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> pais), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.8</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb750-8"><a href="análisis-de-clusters.html#cb750-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;PC1 (79 %)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;PC2 (12 %)&quot;</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="An%C3%A1lisis-Multivariado-en-Rstudio_files/figure-html/pca2d-1.png" alt="" width="720" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Cada punto es un país y el color indica su grupo.</li>
+<li>Se rotulan algunos países como referencia, entre ellos Colombia.</li>
+<li>El eje PC1 ordena los países: de derecha a izquierda, los grupos se suceden del 1 al 4. Los grupos intermedios se solapan, lo que concuerda con la silueta moderada.</li>
+</ul>
+</div>
+<div id="tres-componentes" class="section level3 hasAnchor" number="10.8.2">
+<h3><span class="header-section-number">10.8.2</span> Tres componentes<a href="análisis-de-clusters.html#tres-componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El gráfico tridimensional es interactivo: se puede <strong>girar con el ratón</strong> y acercar con la rueda. Usa el paquete <code>rgl</code> (se instala con <code>install.packages("rgl")</code>).</p>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="análisis-de-clusters.html#cb751-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rgl.useNULL =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb751-2"><a href="análisis-de-clusters.html#cb751-2" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
+<span id="cb751-3"><a href="análisis-de-clusters.html#cb751-3" tabindex="-1"></a></span>
+<span id="cb751-4"><a href="análisis-de-clusters.html#cb751-4" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Grupo 1&quot;</span> <span class="ot">=</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="st">&quot;Grupo 2&quot;</span> <span class="ot">=</span> <span class="st">&quot;#2ca02c&quot;</span>,</span>
+<span id="cb751-5"><a href="análisis-de-clusters.html#cb751-5" tabindex="-1"></a>             <span class="st">&quot;Grupo 3&quot;</span> <span class="ot">=</span> <span class="st">&quot;#ff7f0e&quot;</span>, <span class="st">&quot;Grupo 4&quot;</span> <span class="ot">=</span> <span class="st">&quot;#d62728&quot;</span>)</span>
+<span id="cb751-6"><a href="análisis-de-clusters.html#cb751-6" tabindex="-1"></a></span>
+<span id="cb751-7"><a href="análisis-de-clusters.html#cb751-7" tabindex="-1"></a><span class="fu">plot3d</span>(graf<span class="sc">$</span>PC1, graf<span class="sc">$</span>PC2, graf<span class="sc">$</span>PC3,</span>
+<span id="cb751-8"><a href="análisis-de-clusters.html#cb751-8" tabindex="-1"></a>       <span class="at">col =</span> colores[<span class="fu">as.character</span>(graf<span class="sc">$</span>grupo)], <span class="at">size =</span> <span class="dv">6</span>,</span>
+<span id="cb751-9"><a href="análisis-de-clusters.html#cb751-9" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;PC1 (79 %)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;PC2 (12 %)&quot;</span>, <span class="at">zlab =</span> <span class="st">&quot;PC3 (4 %)&quot;</span>)</span>
+<span id="cb751-10"><a href="análisis-de-clusters.html#cb751-10" tabindex="-1"></a><span class="fu">legend3d</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">levels</span>(graf<span class="sc">$</span>grupo), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> colores, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb751-11"><a href="análisis-de-clusters.html#cb751-11" tabindex="-1"></a><span class="fu">rglwidget</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<div id="rgl1890" style="width:672px;height:576px;" class="rglWebGL html-widget" role="img" aria-labelledby="rgl1890-aria"></div>
+<script type="application/json" data-for="rgl1890">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmode":"modulate","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false,"tag":"","blend":["src_alpha","one_minus_src_alpha"]},"rootSubscene":6,"objects":{"13":{"id":13,"type":"points","material":{"lit":false,"size":6},"vertices":"0","colors":"1","centers":"2","ignoreExtent":false,"flags":34816},"15":{"id":15,"type":"text","material":{"lit":false,"margin":0,"floating":true,"edge":[0,1,1]},"vertices":"3","colors":"4","texts":[["PC1 (79 %)"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"5","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"16":{"id":16,"type":"text","material":{"lit":false,"margin":1,"floating":true,"edge":[1,1,1]},"vertices":"6","colors":"7","texts":[["PC2 (12 %)"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"8","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"17":{"id":17,"type":"text","material":{"lit":false,"margin":2,"floating":true,"edge":[1,1,1]},"vertices":"9","colors":"10","texts":[["PC3 (4 %)"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"11","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"20":{"id":20,"type":"quads","material":{"lit":false,"uri":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAAAclBMVEUAAAAAADoAAGYAOpAAZrYfd7QsoCw6AAA6ADo6AGY6OmY6OpA6kJA6kNtmAABmADpmAGZmOgBmZjpmtv+QOgCQOjqQkDqQtpCQ29uQ2/+2ZgC225C2///WJyjbkDrb////fw7/tmb/25D//7b//9v////dyD2+AAAEB0lEQVR4nO2c4VLaQBgAEQXbWq0t2lYqSIC8/ys2IQiJVrlpb7LTL7s/nDHqzWa9XDjDOCr/U0a5oE/kb8kkbgAD5BmnfwyQaRgD5BmnfwyQaRgD5BmnfwzwxvGienV7cfKn1x8f98MECDCZTI6Hi/Fjub27PvHDxWgcJ8Bk0iqwvZtVH9dXT+tPX8e/ql9z9ave3H4fnT2U5ebm+bTnZz8CzYBOgMPUXl/Odp/UAW7On+qJMb8ui/OnF98XLsBV6wwPAWbl9v5hc/tYbr48HL/cDPP/B+isAbtzvqxmfDtAfdbzWf1Z1eH4fc0wAQK0adaA6pRfBAg9AzoU9XJXNDOgPt3luLoELnYXf9Q14AXVBVAv9rszXI5Gn2+rGfDtxV0gdIDXHOb9H4cxQAYXBPcCmYYxQJ5x+udfdoP1nWK2HyZAgOl0ejycshusV8X1h2ZlDBBgOm0VSNoNFvUMmTdTIFqA1N3g4d4YLkDibvBwlQQI0FkDEneDm5vnVSJCgDZpu8H6+ngeJliApN1g6/zjBUjZDS53b4wIcxc4yeA3Q4MP8P4wBsgzTv8YINMw4QKkbIeLUaRng+VqtToeTtkO168RlvtIAQKsVq0CaQ9Hy+O2MVqA5O1w1BmQuB1eX57tXxwFCNBZA1Ifjkb6g0iH1Iejkf4k1iVlO1x/jDoD0h6OVscjrQGnGPxucPAB3h/GAHnG6R8DvHE87a2yzeuFMkaAxWJxPJz2VtnqRhgnwGLRKpC4G6y+GjRA2m5we/8z0CXQDZC0G1xeh10DknaDVaVQAdok7QabR2PNQhktQOpbZcPOgNS3ygYO8JrBb4YGH+D9YQyQZ5z+MUCmYQyQZ5z+McDQ/41OLgxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQDP4AL8BJjeX+jHLG/gAAAAASUVORK5CYII="},"vertices":"12","colors":"15","texcoords":"14","centers":"16","normals":"13","ignoreExtent":true,"flags":32774},"10":{"id":10,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"19":{"id":19,"type":"background","material":{"lit":false,"uri":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAMAAABrrFhUAAAAclBMVEUAAAAAADoAAGYAOpAAZrYfd7QsoCw6AAA6ADo6AGY6OmY6OpA6kJA6kNtmAABmADpmAGZmOgBmZjpmtv+QOgCQOjqQkDqQtpCQ29uQ2/+2ZgC225C2///WJyjbkDrb////fw7/tmb/25D//7b//9v////dyD2+AAAEB0lEQVR4nO2c4VLaQBgAEQXbWq0t2lYqSIC8/ys2IQiJVrlpb7LTL7s/nDHqzWa9XDjDOCr/U0a5oE/kb8kkbgAD5BmnfwyQaRgD5BmnfwyQaRgD5BmnfwzwxvGienV7cfKn1x8f98MECDCZTI6Hi/Fjub27PvHDxWgcJ8Bk0iqwvZtVH9dXT+tPX8e/ql9z9ave3H4fnT2U5ebm+bTnZz8CzYBOgMPUXl/Odp/UAW7On+qJMb8ui/OnF98XLsBV6wwPAWbl9v5hc/tYbr48HL/cDPP/B+isAbtzvqxmfDtAfdbzWf1Z1eH4fc0wAQK0adaA6pRfBAg9AzoU9XJXNDOgPt3luLoELnYXf9Q14AXVBVAv9rszXI5Gn2+rGfDtxV0gdIDXHOb9H4cxQAYXBPcCmYYxQJ5x+udfdoP1nWK2HyZAgOl0ejycshusV8X1h2ZlDBBgOm0VSNoNFvUMmTdTIFqA1N3g4d4YLkDibvBwlQQI0FkDEneDm5vnVSJCgDZpu8H6+ngeJliApN1g6/zjBUjZDS53b4wIcxc4yeA3Q4MP8P4wBsgzTv8YINMw4QKkbIeLUaRng+VqtToeTtkO168RlvtIAQKsVq0CaQ9Hy+O2MVqA5O1w1BmQuB1eX57tXxwFCNBZA1Ifjkb6g0iH1Iejkf4k1iVlO1x/jDoD0h6OVscjrQGnGPxucPAB3h/GAHnG6R8DvHE87a2yzeuFMkaAxWJxPJz2VtnqRhgnwGLRKpC4G6y+GjRA2m5we/8z0CXQDZC0G1xeh10DknaDVaVQAdok7QabR2PNQhktQOpbZcPOgNS3ygYO8JrBb4YGH+D9YQyQZ5z+MUCmYQyQZ5z+McDQ/41OLgxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQGMAWoDGALQAjQFoARoD0AI0BqAFaAxAC9AYgBagMQAtQDP4AL8BJjeX+jHLG/gAAAAASUVORK5CYII="},"colors":"17","ids":[[20]],"types":[["quads"]],"centers":"18","objects":[{"id":{"id":20},"type":{"type":"quads"},"material":{"color":"#FFFFFF","lit":false,"texture":"C:\\Users\\esalom.UNINORTE\\AppData\\Local\\Temp\\Rtmpa8PljT\\file3ac42d3daac.png"},"vertices":[[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]],"colors":[[1,1,1,1]],"texcoords":[[0,0],[1,0],[1,1],[0,1]],"centers":[[0,0,1]],"normals":[[0,-0,1],[0,-0,1],[0,-0,1],[0,-0,1]],"ignoreExtent":true}],"sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"14":{"id":14,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"19","colors":"20","axes":{"mode":["pretty","pretty","pretty"],"step":[2,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":true,"flags":32769},"6":{"id":6,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":6,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,22.9501781463623],"modelMatrix":[[0.6952553391456604,0,0,0.6526495814323425],[0,0.4273137450218201,1.743161201477051,-0.09647814184427261],[0,-1.174034833908081,0.6344587802886963,-23.06435394287109],[0,0,0,1]],"projMatrix":[[3.732050895690918,0,0,0],[0,3.732050895690918,0,0],[0,0,-3.86370325088501,-82.73273468017578],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.3420201433256682,0.9396926207859085,0],[0,-0.9396926207859085,0.3420201433256682,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[0.6952553391456604,1.24938178062439,1.855033397674561],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[-4.832890033721924,2.955451488494873,-2.226490259170532,2.107562065124512,-1.389588236808777,1.529435276985168],"windowRect":[0,0,256,256],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NA","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[19,14,13,15,16,17,10],"subscenes":[],"flags":36113}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":672,"height":576,"buffer":{"accessors":[{"bufferView":0,"componentType":5126,"count":193,"type":"VEC3"},{"bufferView":1,"componentType":5121,"count":193,"type":"VEC4","normalized":true},{"bufferView":2,"componentType":5126,"count":193,"type":"VEC3"},{"bufferView":3,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":4,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":5,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":6,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":7,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":8,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":9,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":10,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":11,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":12,"componentType":5120,"count":4,"type":"VEC3"},{"bufferView":13,"componentType":5121,"count":4,"type":"VEC3"},{"bufferView":14,"componentType":5121,"count":4,"type":"VEC2","normalized":true},{"bufferView":15,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":16,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":17,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":18,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":19,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":20,"componentType":5121,"count":1,"type":"VEC4"}],"bufferViews":[{"buffer":0,"byteLength":2316,"byteOffset":0},{"buffer":0,"byteLength":772,"byteOffset":2316},{"buffer":0,"byteLength":2316,"byteOffset":3088},{"buffer":0,"byteLength":12,"byteOffset":5404},{"buffer":0,"byteLength":4,"byteOffset":5416},{"buffer":0,"byteLength":12,"byteOffset":5420},{"buffer":0,"byteLength":12,"byteOffset":5432},{"buffer":0,"byteLength":4,"byteOffset":5444},{"buffer":0,"byteLength":12,"byteOffset":5448},{"buffer":0,"byteLength":12,"byteOffset":5460},{"buffer":0,"byteLength":4,"byteOffset":5472},{"buffer":0,"byteLength":12,"byteOffset":5476},{"buffer":0,"byteLength":12,"byteOffset":5488},{"buffer":0,"byteLength":12,"byteOffset":5500},{"buffer":0,"byteLength":8,"byteOffset":5512},{"buffer":0,"byteLength":4,"byteOffset":5520},{"buffer":0,"byteLength":3,"byteOffset":5524},{"buffer":0,"byteLength":4,"byteOffset":5527},{"buffer":0,"byteLength":3,"byteOffset":5531},{"buffer":0,"byteLength":180,"byteOffset":5536},{"buffer":0,"byteLength":4,"byteOffset":5716}],"buffers":[{"byteLength":5720,"bytes":"CaeawKC7VL9LrvE+4sZmPyyCYT9DH8i+fMsoP1xSTDu7Vsi+03gswHiU7L8kxRI/lEPVP75B\nTr+9w/S+5xIxP50ipD6tySa/xDWZPwRjLD+w3CA/N4kiQHLuO78BNOE+7CoTQKx7Oj5Sev8+\nvJUbPlghkT4JMam8t1fmP9eAHr84fgk7nbnQP6H3Z78FaxO8VdqKvyI9qD/oSiK/vr+bP9+O\ncD8C0OA+INixPxloRT1HHiW/wfAkQLLqdr97Ptg9dAvuPr/G7j4Zwts9EPg5wMjlGL+wJ9I9\nu8Ilv5IRaT99JTW+B5ICv+ub+b6NGee+sht+PzV5iT83Y8K+g/c+vxtsUL/58+i9jpbBP9Z3\nKL95T+m+2FL9P3t7l74PN8w+daSrP5Oi3T1FjAG/sr1dwHrYQL773Ok+6hiCwHK+Kj8JGOS+\nIwLYv1dAoz/1Ra6+S5ElwDzoor/IxKu+BsUYQB1Cwb6Sacc+RBscP2AVmD64/b2+LjJiwG5e\nHb9KUtC+F5KOwD+ncb+5Afw+z/T+Pz81AL8itL++rPAVP43XWj8A63++x0OFP7AOgb7Uv5m+\njCgmwKWUcD7gjJg+tJrjv8EKob9SmsQ9vryYPyS16r44xag9w0y1P4znvz7cFg2+X6QQwAzg\nM798jDG+BmjHPx3NFj/4SRg+vYDTP1pzUT4Gexu/OVwGQD1grj3PvXw+QzT+P8vj0Dy9ZAU6\n8b+NwLqeT7/fCru+31YZQGp8N7+tb9U+QBXMv7QntL+8TVG/ZlA1P8oxOL4He2++FTQ1wGhE\nrrzhTzU/k9NIP5lsPD1pxqW+4rXQvF8QQz+BrYW8xqYsP0wgRD5LgOW+tLAhwOVar7+JxMM/\nM48YwLIBWz/C2oe770/ZP4ea8D0emxg78hQzwBz6dD+a12q+iXwHPj/lzj5k8Iu97vkZQLTn\nCr+5MLk+YKYaQFZnDL+SJK8+ftCmP++kAT8HjDs/T2CVPa3oz79mIZY7wbAUwEeMY7/qQ+q+\nj80EP92OQz/lHRS/nHMTQBXROr3oxbg+rBGsv13+cL6CKOO9ZQD2P3Tlyj68Gtc+AWYcP4v7\nfT/P6NE+GrDGvjpEJT6gvbA+wjRYwFAA1b4ByLu99aSBwA0JH7/xkoK7xx/bvkqzlj/5aAQ+\nwyvLv7kkC76u11u/nvjEvWFp3T4SjCa+HiY9QAvJNb+toqe+5XHSP6rxaD5bsvO9+7MeQGzu\nXr+mT18+3yqZv295aj+VuEC+66SIuwrXPD+DcHK+VdlvP+aEvLzZ1Bi/Hgdtv9ToAb/srJe+\nuw74P2SLLT6R2GU/G80FQHK5eL+AEdY+b40PQKZyRz4hI80+cHHdPssL/D5jlBW8HXYbQNYm\noD4How4/nNcnP/2cFb9a0K++yNj5PvSTorxSG1Q+VFwuwNdkuT4StrY+PKzFv3ThRTvsgAC+\nxHsFQETPq7+5oEE+daFRv0iaij96Rdq+JnZ0v3VgfD8+gMC+2HXFP9IIaT7l0Dq+cGqtP32x\nMr9Vgw+/ZawowByBeT4pfqi+OQVKwFz2FL/EgRy/D0alP+yc6L7nK728iBnFP2q3hT6Hwx6+\nS+AsQCNGJ7/4XTI/5Vs7QCTUYr/epwK+VHQBwMxMKD92YDy9NACDwK+rDb5RU+s+acePP4EW\nc77IHn+8UOxIP5sMoD+tObG6CL15wGhneL+3VtM+qh8cQGCPIr8s5ea+X0+cvuUwU7/aHPY9\nWBUVwLDksr6VpIs9CtJQP1x0iD9tJB4+yXitPx94p75Imze+Y4J+v6FciD/noxM/b0mkPkyw\nhj/0tEa/ohgkPWv0+TzMvg+/YOaVPxRV9j4niYC+3K+FPs7fiz5M1OO+vhdWwF7Z+L6q+6a+\n3hyBv5fJhz+x3TS/bGJBv4azlT5yUdk+QHKZvtF+DsC2syC/n5unv2wp1j86PsW+FJz+P0VX\nX7+iTUq+zqkXQKbB+b7GRsc+JwvSP/Hqnj4NHVY/PAIMQDjoH7//Mo8+5OYbPg8QDj8RIDi/\nlbeNwFhUjb45S2A/LBlJwI/gq79WxH0+2vdyvpmxDj8H3rG/uIsfQEvJ/76C80o/PEe+P6vi\nnb7Yj4M+G5Xev2LHyT7PaXm+846RP4GnQ79dv72+BgotvoF/JL9Xqi2+rRuRP1zCjb58Ihe+\n74T3v5UlkT9Dkxc/GsLJPedppztX7Yi+ZapuP8Ptur6N+L2+YfWEvpHZ5D4bgrS9kCLOPy0R\nCT9Yk5I7gkj3P+mtCT881YI+psUcQGCGcr/KJU++I10TQLSJpL/ogOg+Ri0VQF5nTb7IYwe+\nAZaXP2PhFT8B70q+Y2ixP7onn730tqO+Dl1ywGj0ALv9DNs+Z3bxPozWvz92dvo+3wQsvzGH\noz/gWnk/qmKEv8R8+r6cNgW/LwmdP/rUTb8i9Pg9qg0GwG0Wc77aA+s9BXN6Pw9MLT/aPpq+\n9HZ8wJpnS7/R5+K+b5Y2QDATZr+kY+q98b3GP/qdLT9l+GA+Ld7bPzd9Zz/0IhU/GbHMv508\njj8tUgg/zUqRwEpFVL/OV66+GwU5v0ZWR7+nJUe+0tsWQJfC0b1Nt0M+f0ruvUziBkA9csg+\n1cEDPzfKET+g/fc8+nPpv1QlJb7+EZw+MzJKP4QAYL6O3UW+D0QdwMmWZT6l4d0+CgccQBR5\nD7/to9s+PRYhQAb+770p9Co/YNXJPj953j4o5fK9bJnBv74ehj9QL+S9cd08wJq4Dj6989A+\nOaqAPydOHz/2z/q+OtocP+qzvD93wXk9x6sYwI1EKL4rZgi/1fIiv2C+jD8SIm0/TdtNPiVt\n2D9mNYA/dnFhPyt8Aj4+eAC/LyaLP5bzG76xtLG9yZ3AvmnK8T1Z3o69Wngcvwh1Dr0qlHM+\nPUV2wNQoTj5a00A/8CxvP4lShz6gTVq/HswGQNsdH79ZfVc+M3oMQIm3v75RrLE+EsYKQAMk\nIL8lovI+L3XqP+uASr+fDMi+J7w/vyAGbj/H5bS+UQJJvy/cfD97NUU/f87JPy4Gh79h7IG+\nnw4Tvekr1z8Q3+u+Jknyv5dEaT4XZSw/6YFuwAAVi7/7IlQ/Qj8LwLZHWj5GiDe/1ico/yyg\nLP8soCz/1ico/x93tP8soCz/LKAs/x93tP8fd7T/LKAs/x93tP8fd7T//38O/yygLP8soCz/\nH3e0/yygLP/WJyj//38O//9/Dv8soCz//38O/x93tP8fd7T/LKAs/9YnKP/WJyj//38O/9Yn\nKP8fd7T/LKAs/9YnKP/WJyj/H3e0/yygLP8soCz/1ico/9YnKP8fd7T/LKAs/9YnKP8soCz/\nLKAs/x93tP8fd7T/1ico/x93tP//fw7/LKAs/9YnKP8soCz/LKAs/yygLP/WJyj//38O/x93\ntP/WJyj/LKAs/x93tP8fd7T/LKAs/yygLP/WJyj/LKAs/x93tP//fw7/H3e0/yygLP//fw7/\n1ico/9YnKP//fw7//38O/yygLP8fd7T/H3e0/x93tP//fw7/LKAs/yygLP//fw7/H3e0/x93\ntP8fd7T/LKAs/x93tP8soCz/LKAs/9YnKP//fw7/H3e0//9/Dv//fw7/LKAs/x93tP/WJyj/\n1ico/x93tP8soCz/H3e0/x93tP//fw7/1ico/yygLP8soCz/1ico/x93tP//fw7/1ico/yyg\nLP8fd7T//38O/yygLP8soCz/LKAs/yygLP/WJyj//38O//9/Dv//fw7//38O/x93tP8fd7T/\nH3e0/x93tP8soCz/1ico/9YnKP//fw7/H3e0/x93tP//fw7/H3e0//9/Dv8soCz//38O/yyg\nLP8soCz//38O/yygLP8fd7T/H3e0/x93tP8fd7T/LKAs/yygLP/WJyj/LKAs//9/Dv//fw7/\nH3e0//9/Dv8soCz/1ico/x93tP8soCz/LKAs//9/Dv/WJyj//38O/x93tP8soCz/LKAs//9/\nDv8soCz/1ico/x93tP8fd7T/LKAs//9/Dv/WJyj/LKAs/yygLP/WJyj//38O/yygLP8soCz/\nLKAs//9/Dv//fw7/1ico/yygLP8fd7T/H3e0/x93tP8fd7T//38O//9/Dv8fd7T/LKAs//9/\nDv/WJyj//38O/wmnmsCgu1S/S67xPuLGZj8sgmE/Qx/IvnzLKD9cUkw7u1bIvtN4LMB4lOy/\nJMUSP5RD1T++QU6/vcP0vucSMT+dIqQ+rckmv8Q1mT8EYyw/sNwgPzeJIkBy7ju/ATThPuwq\nE0Csezo+Unr/PryVGz5YIZE+CTGpvLdX5j/XgB6/OH4JO5250D+h92e/BWsTvFXair8iPag/\n6Eoiv76/mz/fjnA/AtDgPiDYsT8ZaEU9Rx4lv8HwJECy6na/ez7YPXQL7j6/xu4+GcLbPRD4\nOcDI5Ri/sCfSPbvCJb+SEWk/fSU1vgeSAr/rm/m+jRnnvrIbfj81eYk/N2PCvoP3Pr8bbFC/\n+fPovY6WwT/Wdyi/eU/pvthS/T97e5e+DzfMPnWkqz+Tot09RYwBv7K9XcB62EC++9zpPuoY\ngsByvio/CRjkviMC2L9XQKM/9UWuvkuRJcA86KK/yMSrvgbFGEAdQsG+kmnHPkQbHD9gFZg+\nuP29vi4yYsBuXh2/SlLQvheSjsA/p3G/uQH8Ps/0/j8/NQC/IrS/vqzwFT+N11o/AOt/vsdD\nhT+wDoG+1L+ZvowoJsCllHA+4IyYPrSa47/BCqG/UprEPb68mD8kteq+OMWoPcNMtT+M578+\n3BYNvl+kEMAM4DO/fIwxvgZoxz8dzRY/+EkYPr2A0z9ac1E+BnsbvzlcBkA9YK49z718PkM0\n/j/L49A8vWQFOvG/jcC6nk+/3wq7vt9WGUBqfDe/rW/VPkAVzL+0J7S/vE1Rv2ZQNT/KMTi+\nB3tvvhU0NcBoRK684U81P5PTSD+ZbDw9acalvuK10LxfEEM/ga2FvMamLD9MIEQ+S4DlvrSw\nIcDlWq+/icTDPzOPGMCyAVs/wtqHu+9P2T+HmvA9HpsYO/IUM8Ac+nQ/mtdqvol8Bz4/5c4+\nZPCLve75GUC05wq/uTC5PmCmGkBWZwy/kiSvPn7Qpj/vpAE/B4w7P09glT2t6M+/ZiGWO8Gw\nFMBHjGO/6kPqvo/NBD/djkM/5R0Uv5xzE0AV0Tq96MW4PqwRrL9d/nC+gijjvWUA9j905co+\nvBrXPgFmHD+L+30/z+jRPhqwxr46RCU+oL2wPsI0WMBQANW+Aci7vfWkgcANCR+/8ZKCu8cf\n275Ks5Y/+WgEPsMry7+5JAu+rtdbv574xL1had0+Eowmvh4mPUALyTW/raKnvuVx0j+q8Wg+\nW7LzvfuzHkBs7l6/pk9fPt8qmb9veWo/lbhAvuukiLsK1zw/g3ByvlXZbz/mhLy82dQYvx4H\nbb/U6AG/7KyXvrsO+D9kiy0+kdhlPxvNBUByuXi/gBHWPm+ND0Cmckc+ISPNPnBx3T7LC/w+\nY5QVvB12G0DWJqA+B6MOP5zXJz/9nBW/WtCvvsjY+T70k6K8UhtUPlRcLsDXZLk+Era2Pjys\nxb904UU77IAAvsR7BUBEz6u/uaBBPnWhUb9Imoo/ekXaviZ2dL91YHw/PoDAvth1xT/SCGk+\n5dA6vnBqrT99sTK/VYMPv2WsKMAcgXk+KX6ovjkFSsBc9hS/xIEcvw9GpT/snOi+5yu9vIgZ\nxT9qt4U+h8MevkvgLEAjRie/+F0yP+VbO0Ak1GK/3qcCvlR0AcDMTCg/dmA8vTQAg8Cvqw2+\nUVPrPmnHjz+BFnO+yB5/vFDsSD+bDKA/rTmxugi9ecBoZ3i/t1bTPqofHEBgjyK/LOXmvl9P\nnL7lMFO/2hz2PVgVFcCw5LK+laSLPQrSUD9cdIg/bSQePsl4rT8feKe+SJs3vmOCfr+hXIg/\n56MTP29JpD5MsIY/9LRGv6IYJD1r9Pk8zL4Pv2DmlT8UVfY+J4mAvtyvhT7O34s+TNTjvr4X\nVsBe2fi+qvumvt4cgb+XyYc/sd00v2xiQb+Gs5U+clHZPkBymb7Rfg7AtrMgv5+bp79sKdY/\nOj7FvhSc/j9FV1+/ok1Kvs6pF0Cmwfm+xkbHPicL0j/x6p4+DR1WPzwCDEA46B+//zKPPuTm\nGz4PEA4/ESA4v5W3jcBYVI2+OUtgPywZScCP4Ku/VsR9Ptr3cr6ZsQ4/B96xv7iLH0BLyf++\ngvNKPzxHvj+r4p2+2I+DPhuV3r9ix8k+z2l5vvOOkT+Bp0O/Xb+9vgYKLb6BfyS/V6otvq0b\nkT9cwo2+fCIXvu+E97+VJZE/Q5MXPxrCyT3naac7V+2IvmWqbj/D7bq+jfi9vmH1hL6R2eQ+\nG4K0vZAizj8tEQk/WJOSO4JI9z/prQk/PNWCPqbFHEBghnK/yiVPviNdE0C0iaS/6IDoPkYt\nFUBeZ02+yGMHvgGWlz9j4RU/Ae9KvmNosT+6J5+99Lajvg5dcsBo9AC7/QzbPmd28T6M1r8/\ndnb6Pt8ELL8xh6M/4Fp5P6pihL/EfPq+nDYFvy8JnT/61E2/IvT4PaoNBsBtFnO+2gPrPQVz\nej8PTC0/2j6avvR2fMCaZ0u/0efivm+WNkAwE2a/pGPqvfG9xj/6nS0/ZfhgPi3e2z83fWc/\n9CIVPxmxzL+dPI4/LVIIP81KkcBKRVS/zleuvhsFOb9GVke/pyVHvtLbFkCXwtG9TbdDPn9K\n7r1M4gZAPXLIPtXBAz83yhE/oP33PPpz6b9UJSW+/hGcPjMySj+EAGC+jt1Fvg9EHcDJlmU+\npeHdPgoHHEAUeQ+/7aPbPj0WIUAG/u+9KfQqP2DVyT4/ed4+KOXyvWyZwb++HoY/UC/kvXHd\nPMCauA4+vfPQPjmqgD8nTh8/9s/6vjraHD/qs7w/d8F5PcerGMCNRCi+K2YIv9XyIr9gvow/\nEiJtP03bTT4lbdg/ZjWAP3ZxYT8rfAI+PngAvy8miz+W8xu+sbSxvcmdwL5pyvE9Wd6OvVp4\nHL8IdQ69KpRzPj1FdsDUKE4+WtNAP/Asbz+JUoc+oE1avx7MBkDbHR+/WX1XPjN6DECJt7++\nUayxPhLGCkADJCC/JaLyPi916j/rgEq/nwzIvie8P78gBm4/x+W0vlECSb8v3Hw/ezVFP3/O\nyT8uBoe/YeyBvp8OE73pK9c/EN/rviZJ8r+XRGk+F2UsP+mBbsAAFYu/+yJUP0I/C8C2R1o+\nRog3vwAAwH8AAIBAAACAPwAAAAEAAMB/AACAQAAAgD8AAMB/AACAQAAAgD8AAAABAADAfwAA\ngEAAAIA/AADAfwAAgEAAAIA/AAAAAQAAwH8AAIBAAACAP///AQH/AQEBAf8BAQAAAQAAAQAA\nAQAAAQAA/wD//wD/AQEBAQAAAQEBAQEAAAAAAAAAgMAAAMB/AADAfwAAAMAAAMB/AADAfwAA\nAAAAAMB/AADAfwAAAEAAAMB/AADAfwAAwH8AAADAAADAfwAAwH8AAIC/AADAfwAAwH8AAAAA\nAADAfwAAwH8AAIA/AADAfwAAwH8AAABAAADAfwAAwH8AAMB/AACAvwAAwH8AAMB/AAAAvwAA\nwH8AAMB/AAAAAAAAwH8AAMB/AAAAPwAAwH8AAMB/AACAPwAAwH8AAMB/AADAPwAAAAE="}]},"context":{"shiny":false,"rmarkdown":null},"vertexShader":"#line 2 1\n// File 1 is the vertex shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\n\nattribute vec3 aPos;\nattribute vec4 aCol;\nuniform mat4 mvMatrix;\nuniform mat4 prMatrix;\nvarying vec4 vCol;\nvarying vec4 vPosition;\n\n#ifdef NEEDS_VNORMAL\nattribute vec3 aNorm;\nuniform mat4 normMatrix;\nvarying vec4 vNormal;\n#endif\n\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nattribute vec2 aTexcoord;\nvarying vec2 vTexcoord;\n#endif\n\n#ifdef FIXED_SIZE\nuniform vec3 textScale;\n#endif\n\n#ifdef FIXED_QUADS\nattribute vec3 aOfs;\n#endif\n\n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\nvarying float normz;\nuniform mat4 invPrMatrix;\n#else\nattribute vec3 aPos1;\nattribute vec3 aPos2;\nvarying float normz;\n#endif\n#endif // IS_TWOSIDED\n\n#ifdef FAT_LINES\nattribute vec3 aNext;\nattribute vec2 aPoint;\nvarying vec2 vPoint;\nvarying float vLength;\nuniform float uAspect;\nuniform float uLwd;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  \n#ifndef IS_BRUSH\n#if defined(NCLIPPLANES) || !defined(FIXED_QUADS) || defined(HAS_FOG) || defined(USE_ENVMAP)\n  vPosition = mvMatrix * vec4(aPos, 1.);\n#endif\n  \n#ifndef FIXED_QUADS\n  gl_Position = prMatrix * vPosition;\n#endif\n#endif // !IS_BRUSH\n  \n#ifdef IS_POINTS\n  gl_PointSize = POINTSIZE;\n#endif\n  \n  vCol = aCol;\n  \n// USE_ENVMAP implies NEEDS_VNORMAL\n\n#ifdef NEEDS_VNORMAL\n  vNormal = normMatrix * vec4(-aNorm, dot(aNorm, aPos));\n#endif\n\n#ifdef USE_ENVMAP\n  vReflection = normalize(reflect(vPosition.xyz/vPosition.w, \n                        normalize(vNormal.xyz/vNormal.w)));\n#endif\n  \n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\n  /* normz should be calculated *after* projection */\n  normz = (invPrMatrix*vNormal).z;\n#else\n  vec4 pos1 = prMatrix*(mvMatrix*vec4(aPos1, 1.));\n  pos1 = pos1/pos1.w - gl_Position/gl_Position.w;\n  vec4 pos2 = prMatrix*(mvMatrix*vec4(aPos2, 1.));\n  pos2 = pos2/pos2.w - gl_Position/gl_Position.w;\n  normz = pos1.x*pos2.y - pos1.y*pos2.x;\n#endif\n#endif // IS_TWOSIDED\n  \n#ifdef NEEDS_VNORMAL\n  vNormal = vec4(normalize(vNormal.xyz), 1);\n#endif\n  \n#if defined(HAS_TEXTURE) || defined(IS_TEXT)\n  vTexcoord = aTexcoord;\n#endif\n  \n#if defined(FIXED_SIZE) && !defined(ROTATING)\n  vec4 pos = prMatrix * mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w;\n  gl_Position = pos + vec4(aOfs*textScale, 0.);\n#endif\n  \n#if defined(IS_SPRITES) && !defined(FIXED_SIZE)\n  vec4 pos = mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w + vec4(aOfs,  0.);\n  gl_Position = prMatrix*pos;\n#endif\n  \n#ifdef FAT_LINES\n  /* This code was inspired by Matt Deslauriers' code in \n   https://mattdesl.svbtle.com/drawing-lines-is-hard */\n  vec2 aspectVec = vec2(uAspect, 1.0);\n  mat4 projViewModel = prMatrix * mvMatrix;\n  vec4 currentProjected = projViewModel * vec4(aPos, 1.0);\n  currentProjected = currentProjected/currentProjected.w;\n  vec4 nextProjected = projViewModel * vec4(aNext, 1.0);\n  vec2 currentScreen = currentProjected.xy * aspectVec;\n  vec2 nextScreen = (nextProjected.xy / nextProjected.w) * aspectVec;\n  float len = uLwd;\n  vec2 dir = vec2(1.0, 0.0);\n  vPoint = aPoint;\n  vLength = length(nextScreen - currentScreen)/2.0;\n  vLength = vLength/(vLength + len);\n  if (vLength > 0.0) {\n    dir = normalize(nextScreen - currentScreen);\n  }\n  vec2 normal = vec2(-dir.y, dir.x);\n  dir.x /= uAspect;\n  normal.x /= uAspect;\n  vec4 offset = vec4(len*(normal*aPoint.x*aPoint.y - dir), 0.0, 0.0);\n  gl_Position = currentProjected + offset;\n#endif\n  \n#ifdef IS_BRUSH\n  gl_Position = vec4(aPos, 1.);\n#endif\n}","fragmentShader":"#line 2 2\n// File 2 is the fragment shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\nvarying vec4 vCol; // carries alpha\nvarying vec4 vPosition;\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nvarying vec2 vTexcoord;\nuniform sampler2D uSampler;\n#endif\n\n#ifdef HAS_FOG\nuniform int uFogMode;\nuniform vec3 uFogColor;\nuniform vec4 uFogParms;\n#endif\n\n#if defined(IS_LIT) && !defined(FIXED_QUADS)\nvarying vec4 vNormal;\n#endif\n\n#if NCLIPPLANES > 0\nuniform vec4 vClipplane[NCLIPPLANES];\n#endif\n\n#if NLIGHTS > 0\nuniform mat4 mvMatrix;\n#endif\n\n#ifdef IS_LIT\nuniform vec3 emission;\nuniform float shininess;\n#if NLIGHTS > 0\nuniform vec3 ambient[NLIGHTS];\nuniform vec3 specular[NLIGHTS]; // light*material\nuniform vec3 diffuse[NLIGHTS];\nuniform vec3 lightDir[NLIGHTS];\nuniform bool viewpoint[NLIGHTS];\nuniform bool finite[NLIGHTS];\n#endif\n#endif // IS_LIT\n\n#ifdef IS_TWOSIDED\nuniform bool front;\nvarying float normz;\n#endif\n\n#ifdef FAT_LINES\nvarying vec2 vPoint;\nvarying float vLength;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  vec4 fragColor;\n#ifdef FAT_LINES\n  vec2 point = vPoint;\n  bool neg = point.y < 0.0;\n  point.y = neg ? (point.y + vLength)/(1.0 - vLength) :\n                 -(point.y - vLength)/(1.0 - vLength);\n#if defined(IS_TRANSPARENT) && defined(IS_LINESTRIP)\n  if (neg && length(point) <= 1.0) discard;\n#endif\n  point.y = min(point.y, 0.0);\n  if (length(point) > 1.0) discard;\n#endif // FAT_LINES\n  \n#ifdef ROUND_POINTS\n  vec2 coord = gl_PointCoord - vec2(0.5);\n  if (length(coord) > 0.5) discard;\n#endif\n  \n#if NCLIPPLANES > 0\n  for (int i = 0; i < NCLIPPLANES; i++)\n    if (dot(vPosition, vClipplane[i]) < 0.0) discard;\n#endif\n    \n#ifdef FIXED_QUADS\n    vec3 n = vec3(0., 0., 1.);\n#elif defined(IS_LIT)\n    vec3 n = normalize(vNormal.xyz);\n#endif\n    \n#ifdef IS_TWOSIDED\n    if ((normz <= 0.) != front) discard;\n#endif\n\n#ifdef IS_LIT\n    vec3 eye = normalize(-vPosition.xyz/vPosition.w);\n    vec3 lightdir;\n    vec4 colDiff;\n    vec3 halfVec;\n    vec4 lighteffect = vec4(emission, 0.);\n    vec3 col;\n    float nDotL;\n#ifdef FIXED_QUADS\n    n = -faceforward(n, n, eye);\n#endif\n    \n#if NLIGHTS > 0\n    // Simulate two-sided lighting\n    if (n.z < 0.0)\n      n = -n;\n    for (int i=0;i<NLIGHTS;i++) {\n      colDiff = vec4(vCol.rgb * diffuse[i], vCol.a);\n      lightdir = lightDir[i];\n      if (!viewpoint[i]) {\n        if (finite[i]) {\n          lightdir = (mvMatrix * vec4(lightdir, 1.)).xyz;\n        } else {\n          lightdir = (mvMatrix * vec4(lightdir, 0.)).xyz;\n        }\n      }\n      if (!finite[i]) {\n        halfVec = normalize(lightdir + eye);\n      } else {\n        lightdir = normalize(lightdir - vPosition.xyz/vPosition.w);\n        halfVec = normalize(lightdir + eye);\n      }\n      col = ambient[i];\n      nDotL = dot(n, lightdir);\n      col = col + max(nDotL, 0.) * colDiff.rgb;\n      col = col + pow(max(dot(halfVec, n), 0.), shininess) * specular[i];\n      lighteffect = lighteffect + vec4(col, colDiff.a);\n    }\n#else\n    lighteffect.a = 1.;\n#endif\n    \n#else // not IS_LIT\n    vec4 colDiff = vCol;\n    vec4 lighteffect = colDiff;\n#endif\n    \n#ifdef IS_TEXT\n    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);\n#endif\n    \n#ifdef HAS_TEXTURE\n\n// These calculations use the definitions from \n// https://docs.gl/gl3/glTexEnv\n\n#ifdef USE_ENVMAP\n    float m = 2.0 * sqrt(dot(vReflection, vReflection) + 2.0*vReflection.z + 1.0);\n    vec4 textureColor = texture2D(uSampler, vReflection.xy / m + vec2(0.5, 0.5));\n#else\n    vec4 textureColor = texture2D(uSampler, vTexcoord);\n#endif\n\n#ifdef TEXTURE_rgb\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(textureColor.rgb, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*vec4(textureColor.rgb, 1.);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb, lighteffect.a);\n#endif\n\n#endif //TEXTURE_rgb\n        \n#ifdef TEXTURE_rgba\n\n#ifdef TEXMODE_replace\n// already done\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*textureColor;\n#endif\n\n#ifdef TEXMODE_decal\n    textureColor = vec4((1. - textureColor.a)*lighteffect.rgb) +\n                     textureColor.a*textureColor.rgb, \n                     lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n    \n#endif //TEXTURE_rgba\n    \n#ifdef TEXTURE_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(lighteffect.rgb, luminance);\n#endif \n\n#if defined(TEXMODE_modulate) || defined(TEXMODE_blend) || defined(TEXMODE_add)\n    textureColor = vec4(lighteffect.rgb, lighteffect.a*luminance);\n#endif\n \n#endif // TEXTURE_alpha\n    \n// The TEXTURE_luminance values are not from that reference    \n#ifdef TEXTURE_luminance\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, lighteffect.a);\n#endif\n\n#endif // TEXTURE_luminance\n \n    \n#ifdef TEXTURE_luminance_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, textureColor.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n\n#endif\n\n#endif // TEXTURE_luminance_alpha\n    \n    fragColor = textureColor;\n\n#elif defined(IS_TEXT)\n    if (textureColor.a < 0.1)\n      discard;\n    else\n      fragColor = textureColor;\n#else\n    fragColor = lighteffect;\n#endif // HAS_TEXTURE\n    \n#ifdef HAS_FOG\n    // uFogParms elements: x = near, y = far, z = fogscale, w = (1-sin(FOV/2))/(1+sin(FOV/2))\n    // In Exp and Exp2: use density = density/far\n    // fogF will be the proportion of fog\n    // Initialize it to the linear value\n    float fogF;\n    if (uFogMode > 0) {\n      fogF = (uFogParms.y - vPosition.z/vPosition.w)/(uFogParms.y - uFogParms.x);\n      if (uFogMode > 1)\n        fogF = mix(uFogParms.w, 1.0, fogF);\n      fogF = fogF*uFogParms.z;\n      if (uFogMode == 2)\n        fogF = 1.0 - exp(-fogF);\n      // Docs are wrong: use (density*c)^2, not density*c^2\n      // https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/swrast/s_fog.c#L58\n      else if (uFogMode == 3)\n        fogF = 1.0 - exp(-fogF*fogF);\n      fogF = clamp(fogF, 0.0, 1.0);\n      gl_FragColor = vec4(mix(fragColor.rgb, uFogColor, fogF), fragColor.a);\n    } else gl_FragColor = fragColor;\n#else\n    gl_FragColor = fragColor;\n#endif // HAS_FOG\n    \n}","players":[],"webGLoptions":{"preserveDrawingBuffer":true},"fastTransparency":true},"evals":[],"jsHooks":[]}</script>
+<p id="rgl1890-aria" hidden>
+</p>
+</div>
+<ul>
+<li><code>plot3d()</code> dibuja los tres ejes y los puntos; <code>col</code> asigna el color de cada país según su grupo.</li>
+<li><code>legend3d()</code> agrega la leyenda.</li>
+<li><code>rglwidget()</code> convierte la escena en un gráfico interactivo dentro del HTML.</li>
+<li>La tercera componente separa, sobre todo, a los países de la frontera entre los grupos intermedios; añade poca información (4 %), pero permite ver que los grupos forman una <strong>nube continua</strong>, ordenada a lo largo de PC1, y no islas separadas.</li>
+</ul>
+</div>
+</div>
+<div id="conclusiones-3" class="section level2 hasAnchor" number="10.9">
+<h2><span class="header-section-number">10.9</span> Conclusiones<a href="análisis-de-clusters.html#conclusiones-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Los 193 países se agrupan en cuatro tipos según su perfil demográfico y económico, que se describen a partir de los promedios de cada grupo.</li>
+<li>Estandarizar fue indispensable: sin ello el PIB domina la distancia.</li>
+<li>La frontera entre los grupos intermedios es difusa (silueta 0.32).</li>
+<li>La elección de k = 4 combina el dendrograma, el codo y la silueta, y se documenta porque ningún criterio decide por sí solo.</li>
+</ul>
+</div>
+<div id="funciones-usadas-2" class="section level2 hasAnchor" number="10.10">
+<h2><span class="header-section-number">10.10</span> Funciones usadas<a href="análisis-de-clusters.html#funciones-usadas-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scale()</code></td>
+<td>estandarizar las variables</td>
+</tr>
+<tr class="even">
+<td><code>dist()</code></td>
+<td>matriz de distancias</td>
+</tr>
+<tr class="odd">
+<td><code>hclust()</code></td>
+<td>clustering jerárquico</td>
+</tr>
+<tr class="even">
+<td><code>cutree()</code></td>
+<td>cortar el dendrograma en k grupos</td>
+</tr>
+<tr class="odd">
+<td><code>kmeans()</code></td>
+<td>k-means</td>
+</tr>
+<tr class="even">
+<td><code>silhouette()</code></td>
+<td>silueta de cada observación</td>
+</tr>
+<tr class="odd">
+<td><code>aggregate()</code></td>
+<td>perfil (promedio) de cada grupo</td>
+</tr>
+<tr class="even">
+<td><code>prcomp()</code></td>
+<td>componentes principales para graficar</td>
+</tr>
+<tr class="odd">
+<td><code>rgl::plot3d()</code> y <code>rglwidget()</code></td>
+<td>gráfico tridimensional interactivo</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-discriminante.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Análisis Multivariado en Rstudio.pdf", "Análisis Multivariado en Rstudio.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,355 @@
+---
+pagetitle: "Análisis de Clusters"
+author: "Endy Paola Salon"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: false
+---
+
+```{r cl_setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.align = "center", fig.width = 6.5, fig.height = 5)
+library(cluster); library(ggplot2)
+theme_set(theme_minimal(base_size = 12))
+```
+
+# Análisis de Clusters
+
+## Introducción
+
+El **análisis de clusters** es una técnica no supervisada: no hay una variable que indique el grupo, y el objetivo es **descubrir** si las observaciones se agrupan según su parecido. Todo el análisis parte de una **distancia** entre observaciones.
+
+Este informe usa **193 países** descritos por cinco indicadores de las Naciones Unidas (base `UN` del paquete `carData`). El recorrido es el siguiente:
+
+1. Explorar los datos.
+2. **Estandarizar** las variables y calcular las distancias.
+3. **Clustering jerárquico**: dendrograma y corte en grupos.
+4. **k-means**.
+5. Elegir el número de grupos con el codo y la silueta.
+6. Validar y describir los grupos.
+
+Paquetes usados: `cluster`, que trae `silhouette()`, y `ggplot2`, para los gráficos. Si alguno no está instalado, se instala con `install.packages("nombre")`.
+
+## Los datos
+
+La base está en el archivo `paises_un.csv`, que debe estar en la misma carpeta que este documento. (También puede leerse directamente de la web con `read.csv("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/carData/UN.csv", row.names = 1)`.)
+
+```{r datos}
+paises <- read.csv("paises_un.csv", row.names = 1)
+head(paises)
+```
+
+Las variables son:
+
+- `fertility`: hijos por mujer.
+- `ppgdp`: PIB per cápita en dólares.
+- `lifeExpF`: esperanza de vida femenina.
+- `pctUrban`: porcentaje de población urbana.
+- `infantMortality`: muertes de menores de un año por cada 1 000 nacimientos.
+
+Las columnas `region` y `group` no se usan para agrupar. Se separan las cinco variables numéricas:
+
+```{r variables}
+X <- paises[, c("fertility", "ppgdp", "lifeExpF", "pctUrban", "infantMortality")]
+summary(X)
+```
+
+El PIB per cápita tiene una distribución muy asimétrica: va de 115 a 105 095 dólares. Por eso se usa su **logaritmo**, que convierte las diferencias en cambios proporcionales.
+
+```{r log}
+X$ppgdp <- log(X$ppgdp)
+```
+
+## Estandarizar y calcular distancias
+
+Las variables están en escalas muy distintas. Si se calcula la distancia con los datos originales, la variable de mayor varianza domina. Se comparan Colombia y Qatar con los datos originales y con los datos estandarizados:
+
+```{r escala}
+originales <- paises[, c("fertility", "ppgdp", "lifeExpF", "pctUrban", "infantMortality")]
+sqrt(sum((originales["Colombia", ] - originales["Qatar", ])^2))
+```
+
+Con los datos originales, la distancia es casi igual a la diferencia de PIB. Se estandariza cada variable (media 0 y desviación estándar 1) con `scale()`:
+
+```{r estandarizar}
+Z <- scale(X)
+round(apply(Z, 2, sd), 2)
+sqrt(sum((Z["Colombia", ] - Z["Qatar", ])^2))
+```
+
+Con los datos estandarizados todas las variables aportan. La matriz de distancias euclidianas entre los 193 países se calcula con `dist()`:
+
+```{r distancias}
+d <- dist(Z)
+as.matrix(d)[c("Colombia", "Peru", "Chile", "Qatar", "Niger"),
+             c("Colombia", "Peru", "Chile", "Qatar", "Niger")] |> round(2)
+```
+
+## Clustering jerárquico
+
+El método aglomerativo empieza con cada país como un grupo y fusiona en cada paso los dos grupos más cercanos. `hclust()` recibe la matriz de distancias y el tipo de **enlace**. Se usa el método de Ward:
+
+```{r hclust}
+hc <- hclust(d, method = "ward.D2")
+```
+
+El **dendrograma** muestra las fusiones. Se lee así:
+
+- Las **hojas** (abajo) son los países.
+- Cada unión es una **fusión** de dos grupos. Su **altura** es la distancia entre esos dos grupos, medida con el enlace elegido (en Ward, cuánto aumenta la suma de cuadrados dentro de los grupos).
+- Una altura baja significa que se unen grupos muy parecidos; una altura alta, que se unen grupos muy distintos.
+- La cercanía horizontal entre dos hojas no significa nada: solo cuenta la altura a la que se unen.
+
+```{r dendrograma, fig.width=9, fig.height=5}
+plot(hc, labels = FALSE, hang = -1, main = "Dendrograma de Ward", xlab = "", sub = "")
+```
+
+### ¿Cuántos grupos?
+
+Cortar el dendrograma con una línea horizontal a una altura $h$ deja tantos grupos como **ramas verticales** cruce la línea. Elegir k es elegir dónde cortar. La pista es mirar las alturas de las últimas fusiones, que son las que unen los grupos grandes:
+
+```{r alturas}
+altura <- rev(tail(hc$height, 9))
+names(altura) <- paste(2:10, "a", 1:9)
+round(altura, 1)
+```
+
+Cada valor es la altura de la fusión que baja de k a k − 1 grupos (por ejemplo, la columna `4 a 3` es la fusión que pasa de 4 grupos a 3). Se grafican:
+
+```{r grafico_alturas, fig.width=6, fig.height=4}
+barplot(altura, names.arg = 2:10, col = c(rep("orange", 3), rep("lightblue", 6)),
+        xlab = "Número de grupos antes de la fusión (k a k − 1)", ylab = "Altura de la fusión")
+```
+
+La línea de corte solo cambia el número de grupos cuando pasa por una fusión. Por eso, para cada k existe un **tramo de alturas** en el que la línea deja exactamente k grupos: desde la altura de la fusión que baja de k + 1 a k, hasta la altura de la fusión que baja de k a k − 1. Un tramo **largo** significa que esa partición es estable: se puede mover la línea bastante sin que cambien los grupos. Un tramo **corto** significa que esa partición es casi arbitraria. Se calcula el largo del tramo de cada k:
+
+```{r tramos}
+tramo <- altura[-length(altura)] - altura[-1]
+names(tramo) <- 2:9
+round(tramo, 2)
+```
+
+La lectura es la siguiente:
+
+- **k = 2**: tramo de 20.6 (de 12.65 a 33.23). Es el más largo: los países se separan claramente en dos grandes bloques.
+- **k = 3**: tramo de **0.15** (de 12.50 a 12.65). Es casi nulo. Las fusiones de 3 a 2 grupos y de 4 a 3 grupos ocurren casi a la misma altura: para tener 3 grupos la línea tendría que quedar en una franja mínima. Si el árbol admite separar un grupo, admite también el siguiente, así que 3 grupos no es una partición natural.
+- **k = 4**: tramo de **4.6** (de 7.93 a 12.50). Es el más largo después de k = 2: la línea puede moverse bastante y siguen siendo los mismos cuatro grupos.
+- **k = 5**: tramo de 1.2. Es corto: el quinto grupo se separa de otro a una altura cercana a la de las fusiones siguientes.
+
+Por eso 4 es la opción natural dentro de los valores mayores que 2. Un corte entre 7.93 y 12.50 (por ejemplo, en 10) deja esos 4 grupos.
+
+Se corta en **cuatro** grupos. La línea punteada es el corte en h = 10:
+
+```{r corte, fig.width=9, fig.height=5}
+grupo_h <- cutree(hc, k = 4)
+plot(hc, labels = FALSE, hang = -1, main = "Corte en 4 grupos", xlab = "", sub = "")
+abline(h = 10, lty = 2, col = "red")
+rect.hclust(hc, k = 4, border = 2:5)
+table(grupo_h)
+```
+
+La altura del árbol orienta, pero no decide sola. Más adelante se contrasta con el codo y la silueta.
+
+## k-means
+
+`kmeans()` busca k centros que minimicen la **suma de cuadrados dentro de los grupos**: cada país se asigna al centro más cercano, los centros se recalculan como el promedio de sus países, y se repite hasta que nada cambia.
+
+```{r kmeans}
+set.seed(123)
+km <- kmeans(Z, centers = 4, nstart = 25)
+km$size
+```
+
+Qué significa cada parte de la instrucción:
+
+- `Z`: los datos **estandarizados** (193 países × 5 variables).
+- `centers = 4`: el número de grupos, **k = 4**. Se decide antes de ejecutar. Aquí se usa k = 4, el número que sugirió el dendrograma; en la sección siguiente se revisa si es una buena elección. También podría darse una matriz con los centros iniciales.
+- `nstart = 25`: el número de **inicios aleatorios**. k-means empieza escogiendo 4 países al azar como centros iniciales, y según cuáles sean, el algoritmo puede quedarse en una solución que no es la mejor (un óptimo local). Con `nstart = 25` el algoritmo se ejecuta 25 veces, cada vez con centros iniciales distintos, y devuelve la partición con la **menor suma de cuadrados dentro de los grupos**. El 25 no tiene nada especial: es un valor habitual (20 o 50 también se usan); más inicios dan más seguridad y tardan un poco más.
+- `set.seed(123)`: fija el generador de números aleatorios, para que los 25 inicios sean los mismos cada vez que se ejecuta y el resultado sea **reproducible**. El 123 es arbitrario; cualquier número sirve.
+
+El efecto de los inicios se ve ejecutando k-means con **un solo inicio** y distintas semillas:
+
+```{r inicios}
+sapply(1:10, function(s) {
+  set.seed(s)
+  kmeans(Z, centers = 4, nstart = 1)$tot.withinss
+}) |> round(1)
+```
+
+Con un solo inicio, la suma de cuadrados dentro de los grupos cambia según la semilla (de 221.0 a 224.1). Con `nstart = 25` se obtiene siempre la mejor, 221.0:
+
+```{r mejor}
+km$tot.withinss
+```
+
+El objeto `km` guarda, además del tamaño, `km$cluster` (el grupo de cada país), `km$centers` (el centro de cada grupo, en unidades estandarizadas) y `km$tot.withinss` (la suma de cuadrados dentro de los grupos que se minimiza).
+
+Los números de los grupos son arbitrarios y cambian con la semilla. Para que sean estables, se **numeran** de mayor a menor PIB promedio (el grupo 1 es el de PIB más alto):
+
+```{r nombres}
+orden <- order(tapply(X$ppgdp, km$cluster, mean), decreasing = TRUE)
+grupo <- factor(km$cluster, levels = orden,
+                labels = paste("Grupo", 1:4))
+table(grupo)
+```
+
+El perfil de cada grupo se obtiene con el promedio de las variables originales (con el PIB en logaritmo):
+
+```{r perfil}
+aggregate(X, by = list(grupo = grupo), FUN = mean) |>
+  transform(fertility = round(fertility, 1), ppgdp = round(ppgdp, 1),
+            lifeExpF = round(lifeExpF, 1), pctUrban = round(pctUrban, 1),
+            infantMortality = round(infantMortality, 1))
+```
+
+A partir de estos promedios, ¿cómo se describiría cada grupo? Colombia queda en el grupo:
+
+```{r colombia}
+grupo["Colombia"]
+```
+
+## Elegir el número de grupos: codo y silueta
+
+El dendrograma sugirió k = 4. Los dos gráficos siguientes permiten contrastar esa elección con otro criterio. La idea de ambos es la misma: **ejecutar k-means varias veces, una por cada valor posible de k, y registrar una medida de qué tan buenos son los grupos**. Por eso se construyen después de haber visto cómo funciona `kmeans()`: cada punto de cada gráfico es una ejecución completa de k-means.
+
+### Gráfico del codo
+
+La medida es la **suma de cuadrados dentro de los grupos** (`tot.withinss`): la suma, sobre todos los países, de la distancia al cuadrado entre cada país y el centro de su grupo. Un valor pequeño significa grupos compactos. Se calcula para k = 1, 2, …, 8 con un ciclo:
+
+```{r codo_calculo}
+wss <- numeric(8)                 # espacio para guardar 8 valores
+for (k in 1:8) {
+  set.seed(123)
+  km_k <- kmeans(Z, centers = k, nstart = 25)   # k-means con k grupos
+  wss[k] <- km_k$tot.withinss                   # se guarda la suma de cuadrados
+}
+round(wss, 1)
+```
+
+Con k = 1 todos los países están en un solo grupo y la suma de cuadrados es la variación total (192 × 5 = 960, porque cada una de las 5 variables estandarizadas tiene varianza 1 y hay 193 países). Al aumentar k la suma **siempre disminuye**, porque con más grupos cada país queda más cerca de su centro; con 193 grupos sería cero. Por eso no se busca el k con el valor más bajo, sino el punto donde **dejar de agregar grupos ya no compensa**. Se grafica:
+
+```{r codo_grafico, fig.width=6, fig.height=4}
+plot(1:8, wss, type = "b", xlab = "Número de grupos k", ylab = "Suma de cuadrados dentro de los grupos")
+```
+
+Se mira cuánto baja la suma al pasar de un k al siguiente:
+
+```{r codo_caidas}
+round(-diff(wss), 1)
+```
+
+Las caídas son 563.6 (de 1 a 2), 129.2 (de 2 a 3), 46.1 (de 3 a 4), 29.0 (de 4 a 5), y siguen disminuyendo. La curva se dobla como un codo y luego se aplana: las primeras caídas son grandes y las siguientes pequeñas. Aquí el codo está entre k = 3 y k = 4; no es una esquina nítida, y eso es frecuente.
+
+### Gráfico de la silueta
+
+La **silueta** de un país compara su distancia promedio a los países de su propio grupo (a) con su distancia promedio a los países del grupo más cercano (b): vale (b − a) / máx(a, b), y va de −1 a 1. Cerca de 1, el país está bien ubicado; cerca de 0, está en la frontera entre dos grupos; negativo, probablemente está en el grupo equivocado. La **silueta promedio** de todos los países resume la partición. Se calcula para k = 2, …, 8 (con un solo grupo no está definida):
+
+```{r silueta_calculo}
+sil <- numeric(8)
+for (k in 2:8) {
+  set.seed(123)
+  km_k <- kmeans(Z, centers = k, nstart = 25)
+  s_k <- silhouette(km_k$cluster, d)    # silueta de cada país
+  sil[k] <- mean(s_k[, 3])              # la columna 3 es el valor de la silueta
+}
+round(sil[2:8], 2)
+```
+
+```{r silueta_grafico, fig.width=6, fig.height=4}
+plot(2:8, sil[2:8], type = "b", xlab = "Número de grupos k", ylab = "Silueta promedio")
+```
+
+Aquí se busca el k con la silueta **más alta**.
+
+### Decisión
+
+La silueta es máxima en k = 2 (0.50), pero ese valor solo separa dos bloques grandes de países; con k = 3 vale 0.38 y con k = 4, 0.32. El codo se suaviza desde k = 3 o 4, y el dendrograma admite entre 2 y 4 grupos. Los criterios no coinciden, y eso es normal: ninguno decide solo. Se adopta **k = 4**, que distingue dos grupos intermedios, a costa de una silueta algo menor que la de k = 3, y se documenta la decisión.
+
+## Validar los grupos
+
+### Silueta
+
+La **silueta** de cada país compara su distancia promedio a su propio grupo con la distancia promedio al grupo más cercano. Va de −1 a 1: valores altos indican que el país está bien ubicado y valores negativos, que probablemente está mal asignado.
+
+```{r silueta}
+s <- silhouette(km$cluster, d)
+mean(s[, 3])
+tapply(s[, 3], grupo, mean) |> round(2)
+rownames(Z)[s[, 3] < 0]
+```
+
+La silueta promedio es 0.32: estructura **moderada**. Los indicadores de desarrollo forman más bien un continuo que grupos claramente separados. Hay seis países con silueta negativa.
+
+## Visualizar los grupos en componentes principales
+
+Con cinco variables no se puede hacer un diagrama de dispersión directo. Se proyectan los países en las **componentes principales** (`prcomp()`), que son combinaciones de las variables que resumen la variabilidad. Como `Z` ya está estandarizada, no hace falta volver a escalar. Estos gráficos **no se usaron para formar los grupos**; solo sirven para verlos.
+
+```{r pca}
+pc <- prcomp(Z)
+round(summary(pc)$importance[2:3, 1:3], 2)
+```
+
+La primera fila es la proporción de varianza de cada componente y la segunda, la acumulada: PC1 recoge el 79 %, PC1 y PC2 juntas el 91 % y las tres primeras el 95 %. Los gráficos con dos o tres componentes representan, por tanto, casi toda la información.
+
+### Dos componentes
+
+```{r pca2d, fig.width=7.5, fig.height=5.5}
+graf <- data.frame(pc$x[, 1:3], grupo = grupo)
+nombres <- c("Colombia", "Niger", "Qatar", "Chile", "China", "India", "Haiti", "Norway")
+graf$pais <- ifelse(rownames(graf) %in% nombres, rownames(graf), "")
+
+ggplot(graf, aes(PC1, PC2, color = grupo)) +
+  geom_point(size = 2) +
+  geom_text(aes(label = pais), vjust = -0.8, size = 3, show.legend = FALSE) +
+  labs(x = "PC1 (79 %)", y = "PC2 (12 %)", color = NULL)
+```
+
+- Cada punto es un país y el color indica su grupo.
+- Se rotulan algunos países como referencia, entre ellos Colombia.
+- El eje PC1 ordena los países: de derecha a izquierda, los grupos se suceden del 1 al 4. Los grupos intermedios se solapan, lo que concuerda con la silueta moderada.
+
+### Tres componentes
+
+El gráfico tridimensional es interactivo: se puede **girar con el ratón** y acercar con la rueda. Usa el paquete `rgl` (se instala con `install.packages("rgl")`).
+
+```{r pca3d, fig.width=7, fig.height=6}
+options(rgl.useNULL = TRUE)
+library(rgl)
+
+colores <- c("Grupo 1" = "#1f77b4", "Grupo 2" = "#2ca02c",
+             "Grupo 3" = "#ff7f0e", "Grupo 4" = "#d62728")
+
+plot3d(graf$PC1, graf$PC2, graf$PC3,
+       col = colores[as.character(graf$grupo)], size = 6,
+       xlab = "PC1 (79 %)", ylab = "PC2 (12 %)", zlab = "PC3 (4 %)")
+legend3d("topright", legend = levels(graf$grupo), pch = 16, col = colores, cex = 1)
+rglwidget()
+```
+
+- `plot3d()` dibuja los tres ejes y los puntos; `col` asigna el color de cada país según su grupo.
+- `legend3d()` agrega la leyenda.
+- `rglwidget()` convierte la escena en un gráfico interactivo dentro del HTML.
+- La tercera componente separa, sobre todo, a los países de la frontera entre los grupos intermedios; añade poca información (4 %), pero permite ver que los grupos forman una **nube continua**, ordenada a lo largo de PC1, y no islas separadas.
+
+## Conclusiones
+
+- Los 193 países se agrupan en cuatro tipos según su perfil demográfico y económico, que se describen a partir de los promedios de cada grupo.
+- Estandarizar fue indispensable: sin ello el PIB domina la distancia.
+- La frontera entre los grupos intermedios es difusa (silueta 0.32).
+- La elección de k = 4 combina el dendrograma, el codo y la silueta, y se documenta porque ningún criterio decide por sí solo.
+
+## Funciones usadas
+
+| Función | Para qué sirve |
+|---|---|
+| `scale()` | estandarizar las variables |
+| `dist()` | matriz de distancias |
+| `hclust()` | clustering jerárquico |
+| `cutree()` | cortar el dendrograma en k grupos |
+| `kmeans()` | k-means |
+| `silhouette()` | silueta de cada observación |
+| `aggregate()` | perfil (promedio) de cada grupo |
+| `prcomp()` | componentes principales para graficar |
+| `rgl::plot3d()` y `rglwidget()` | gráfico tridimensional interactivo |
